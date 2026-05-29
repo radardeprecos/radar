@@ -49,7 +49,7 @@ async function scrapeAmazon(query, category) {
     const $ = cheerio.load(data);
 
     $('.s-result-item[data-component-type="s-search-result"]').each((i, el) => {
-      if (i >= 5) return; // Limite por query para evitar bloqueio
+      if (i >= 12) return; // Aumentado para pegar muito mais produtos
 
       const name = $(el).find('h2 span').text().trim();
       const priceWhole = $(el).find('.a-price-whole').text().replace(/[.,]/g, '').trim();
@@ -106,7 +106,7 @@ async function scrapeMercadoLivre(query, category) {
     // Busca expandida para Mercado Livre
     const items = $('.ui-search-layout__item, .ui-search-result__wrapper');
     items.each((i, el) => {
-      if (i >= 8) return; // Aumentado limite para pegar mais ofertas
+      if (i >= 15) return; // Aumentado limite para Mercado Livre
 
       const name = $(el).find('.ui-search-item__title, .ui-search-result__content-title').text().trim();
       
