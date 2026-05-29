@@ -91,19 +91,29 @@ async function scrapeMercadoLivre(query, category) {
     });
     const $ = cheerio.load(data);
 
-    $('.ui-search-layout__item').each((i, el) => {
-      if (i >= 5) return;
+    // Busca expandida para Mercado Livre
+    const items = $('.ui-search-layout__item, .ui-search-result__wrapper');
+    items.each((i, el) => {
+      if (i >= 8) return; // Aumentado limite para pegar mais ofertas
 
-      const name = $(el).find('.ui-search-item__title').text().trim();
-      const priceText = $(el).find('.andes-money-amount__fraction').first().text().replace(/\./g, '').trim();
-      const priceCents = $(el).find('.andes-money-amount__cents').first().text().trim() || '00';
+      const name = $(el).find('.ui-search-item__title, .ui-search-result__content-title').text().trim();
+      
+      // Lógica de preço mais robusta
+      const priceContainer = $(el).find('.andes-money-amount--cents, .ui-search-price__second-line').first();
+      const priceText = priceContainer.find('.andes-money-amount__fraction').text().replace(/\./g, '').trim();
+      const priceCents = priceContainer.find('.andes-money-amount__cents').text().trim() || '00';
       const price = parseFloat(`${priceText}.${priceCents}`);
 
-      const originalPriceText = $(el).find('.ui-search-price__part--metadata .andes-money-amount__fraction').text().replace(/\./g, '').trim();
+      // Preço original para cálculo de desconto
+      const originalPriceContainer = $(el).find('.andes-money-amount--previous, .ui-search-price__part--metadata');
+      const originalPriceText = originalPriceContainer.find('.andes-money-amount__fraction').text().replace(/\./g, '').trim();
       const originalPrice = originalPriceText ? parseFloat(originalPriceText) : null;
 
-      const image = $(el).find('.ui-search-result-image__element').attr('data-src') || $(el).find('.ui-search-result-image__element').attr('src');
-      const link = $(el).find('.ui-search-link').attr('href');
+      const image = $(el).find('.ui-search-result-image__element').attr('data-src') || 
+                    $(el).find('.ui-search-result-image__element').attr('src') ||
+                    $(el).find('img').attr('data-src');
+      
+      const link = $(el).find('a.ui-search-link, a.ui-search-result__content').attr('href');
 
       if (name && price) {
         products.push({
