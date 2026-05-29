@@ -119,9 +119,10 @@ function renderCard(product) {
   card.innerHTML = `
     <div class="card-image-wrap">
       <img
-        src="${product.image ? 'https://images.weserv.nl/?url=' + encodeURIComponent(product.image.replace('https://', '')) : 'assets/images/placeholder.svg'}"
+        src="${product.image || 'assets/images/placeholder.svg'}"
         alt="${product.name}"
         loading="lazy"
+        referrerpolicy="no-referrer"
         onerror="this.src='assets/images/placeholder.svg'"
       />
       ${discount > 0 ? `<span class="card-badge badge-discount">↓ ${discount}%</span>` : ''}
@@ -156,10 +157,11 @@ function renderOfferRow(product) {
   row.innerHTML = `
     <div class="offer-product">
       <img
-        src="${product.image ? 'https://images.weserv.nl/?url=' + encodeURIComponent(product.image.replace('https://', '')) : 'assets/images/placeholder.svg'}"
+        src="${product.image || 'assets/images/placeholder.svg'}"
         alt="${product.name}"
         class="offer-img"
         loading="lazy"
+        referrerpolicy="no-referrer"
         onerror="this.src='assets/images/placeholder.svg'"
       />
       <span class="offer-name">${product.name}</span>
