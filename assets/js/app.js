@@ -55,12 +55,15 @@ function buildAffiliateLink(product) {
   const url = product.url;
   if (product.store === 'amazon' || url.includes('amazon.com.br')) {
     try {
-      const u = new URL(url.includes('http') ? url : 'https://' + url);
+      // Remove 'undefined' ou lixo do final da URL antes de processar
+      const sanitizedUrl = url.replace(/undefined.*$/, '').replace(/\/$/, '');
+      const u = new URL(sanitizedUrl.includes('http') ? sanitizedUrl : 'https://' + sanitizedUrl);
       // Limpa parâmetros de rastreamento antigos da Amazon para garantir sua tag
-      const cleanPath = u.origin + u.pathname;
-      return `${cleanPath}?tag=${CONFIG.affiliateAmazon}`;
+      const cleanPath = u.origin + u.pathname.replace(/\/$/, '');
+      return `${cleanPath}/?tag=${CONFIG.affiliateAmazon}`;
     } catch (e) {
-      return url + (url.includes('?') ? '&' : '?') + 'tag=' + CONFIG.affiliateAmazon;
+      const cleanUrl = url.replace(/undefined.*$/, '').replace(/\/$/, '');
+      return cleanUrl + '/?tag=' + CONFIG.affiliateAmazon;
     }
   }
   if (product.store === 'mercadolivre' || url.includes('mercadolivre')) {
