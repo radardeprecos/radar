@@ -56,9 +56,12 @@ function buildAffiliateLink(product) {
   if (product.store === 'amazon' || url.includes('amazon.com.br')) {
     try {
       // Remove 'undefined' ou lixo do final da URL antes de processar
-      const sanitizedUrl = url.replace(/undefined.*$/, '').replace(/\/$/, '');
+      let sanitizedUrl = url.replace(/undefined.*$/, '').replace(/\/$/, '');
+      if (sanitizedUrl.includes('amazon.com.br') && !sanitizedUrl.includes('/dp/') && !sanitizedUrl.includes('/gp/')) {
+          // Se o link estiver quebrado, tenta reconstruir ou retornar o original limpo
+          return sanitizedUrl + '/?tag=' + CONFIG.affiliateAmazon;
+      }
       const u = new URL(sanitizedUrl.includes('http') ? sanitizedUrl : 'https://' + sanitizedUrl);
-      // Limpa parâmetros de rastreamento antigos da Amazon para garantir sua tag
       const cleanPath = u.origin + u.pathname.replace(/\/$/, '');
       return `${cleanPath}/?tag=${CONFIG.affiliateAmazon}`;
     } catch (e) {

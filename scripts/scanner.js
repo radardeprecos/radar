@@ -60,9 +60,10 @@ async function scrapeAmazon(query, category) {
       const originalPrice = originalPriceText ? parseFloat(originalPriceText) : null;
       
       const image = $(el).find('.s-image').attr('src');
-      const link = 'https://www.amazon.com.br' + $(el).find('h2 a').attr('href');
+      const rawLink = $(el).find('h2 a').attr('href');
       
-      if (name && price) {
+      if (name && price && rawLink) {
+        const link = rawLink.startsWith('http') ? rawLink : 'https://www.amazon.com.br' + rawLink;
         products.push({
           id: 'amz-' + slugify(name.substring(0, 20) + '-' + price),
           name,
