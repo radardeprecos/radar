@@ -54,9 +54,14 @@ function buildAffiliateLink(product) {
   if (!product || !product.url) return '#';
   const url = product.url;
   if (product.store === 'amazon' || url.includes('amazon.com.br')) {
-    const u = new URL(url.includes('http') ? url : 'https://' + url);
-    u.searchParams.set('tag', CONFIG.affiliateAmazon);
-    return u.toString();
+    try {
+      const u = new URL(url.includes('http') ? url : 'https://' + url);
+      // Limpa parâmetros de rastreamento antigos da Amazon para garantir sua tag
+      const cleanPath = u.origin + u.pathname;
+      return `${cleanPath}?tag=${CONFIG.affiliateAmazon}`;
+    } catch (e) {
+      return url + (url.includes('?') ? '&' : '?') + 'tag=' + CONFIG.affiliateAmazon;
+    }
   }
   if (product.store === 'mercadolivre' || url.includes('mercadolivre')) {
     return CONFIG.affiliateML;
