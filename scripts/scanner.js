@@ -63,11 +63,16 @@ async function scrapeAmazon(query, category) {
       const rawLink = $(el).find('h2 a').attr('href');
       
       if (name && price && rawLink && rawLink !== 'undefined') {
+        // Tenta extrair o código ASIN do link para garantir link direto
+        const asinMatch = rawLink.match(/\/(?:dp|gp\/product)\/([A-Z0-9]{10})/);
+        const asin = asinMatch ? asinMatch[1] : null;
+        
         let link = rawLink;
-        if (!link.startsWith('http')) {
+        if (asin) {
+            link = `https://www.amazon.com.br/dp/${asin}`;
+        } else if (!link.startsWith('http')) {
             link = 'https://www.amazon.com.br' + (link.startsWith('/') ? '' : '/') + link;
         }
-        // Remove parâmetros de busca do link original para evitar conflitos
         link = link.split('?')[0];
         
         products.push({
