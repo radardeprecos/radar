@@ -1,0 +1,51 @@
+name: Radar de Preços Scanner
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # Roda a cada 30 minutos
+  workflow_dispatch: # Permite rodar manualmente
+
+permissions:
+  contents: write
+
+jobs:
+  scan-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Price Scanner
+        run: node scripts/scanner.js
+        env:
+          NODE_ENV: production
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Radar Bot"
+          git config --global user.email "bot@radardeprecos.com.br"
+          git add data/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Radar: Ofertas atualizadas $(date +'%d/%m/%Y %H:%M')" && git push)
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://radardeprecos.github.io/radar-de-precos/sitemap.xml

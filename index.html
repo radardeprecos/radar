@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Radar de Preços — Monitore ofertas em tempo real da Amazon e Mercado Livre. Encontre o menor preço da história com alertas automáticos.">
+  <meta name="keywords" content="ofertas, preços, amazon, mercado livre, comparador, desconto, promoção">
+  <meta name="author" content="Radar de Preços">
+  <meta name="theme-color" content="#00c853">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Radar de Preços — O menor preço da história!">
+  <meta property="og:description" content="Monitore ofertas em tempo real da Amazon e Mercado Livre. Encontre o menor preço com alertas automáticos.">
+  <meta property="og:image" content="https://radardeprecos.github.io/radar-de-precos/assets/images/og-image.png">
+  <meta property="og:url" content="https://radardeprecos.github.io/radar-de-precos/">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Radar de Preços">
+  <meta name="twitter:description" content="Encontre o menor preço da história!">
+  <meta name="twitter:image" content="https://radardeprecos.github.io/radar-de-precos/assets/images/og-image.png">
+  
+  <!-- Canonical -->
+  <link rel="canonical" href="https://radardeprecos.github.io/radar-de-precos/">
+  
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2300c853' width='100' height='100' rx='20'/><text x='50' y='65' font-size='60' font-weight='bold' text-anchor='middle' fill='white'>📊</text></svg>">
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
+  
+  <title>Radar de Preços — O menor preço da história!</title>
+</head>
+<body>
+  <!-- Loading -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loader">
+      <div class="loader-logo">📊</div>
+      <div class="loader-text">Carregando ofertas...</div>
+      <div class="loader-bar"><div class="loader-progress"></div></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">📊</div>
+        <div class="logo-text">
+          <strong>Radar de Preços</strong>
+          <span>O menor preço</span>
+        </div>
+      </a>
+
+      <div class="search-bar">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Buscar produtos com menor preço..."
+          autocomplete="off"
+        >
+        <button id="searchBtn" class="search-btn" aria-label="Buscar">🔍</button>
+        <div id="searchResults" class="search-results"></div>
+      </div>
+
+      <nav class="header-nav">
+        <a href="#alertas" title="Receber alertas de menor preço">🔔 Alertas</a>
+        <a href="#categorias" title="Navegar por categorias">📂 Categorias</a>
+        <a href="#blog" title="Dicas e artigos">📝 Blog</a>
+        <a href="#sobre" title="Sobre o Radar">ℹ️ Sobre</a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema" title="Dark/Light">🌙</button>
+      <button id="menuToggle" class="menu-toggle" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <nav id="mobileMenu" class="mobile-menu">
+    <a href="#alertas">🔔 Alertas</a>
+    <a href="#categorias">📂 Categorias</a>
+    <a href="#blog">📝 Blog</a>
+    <a href="#sobre">ℹ️ Sobre</a>
+  </nav>
+
+  <!-- Category Navigation -->
+  <nav class="cat-nav">
+    <div class="cat-nav-inner">
+      <a href="#" data-cat="all" class="active">📱 Todos</a>
+      <a href="#" data-cat="celulares">📱 Celulares</a>
+      <a href="#" data-cat="informática">💻 Informática</a>
+      <a href="#" data-cat="eletrodomésticos">🍳 Eletrodomésticos</a>
+      <a href="#" data-cat="tv e vídeo">📺 TV e Vídeo</a>
+      <a href="#" data-cat="casa">🏠 Casa</a>
+      <a href="#" data-cat="games">🎮 Games</a>
+      <a href="#" data-cat="ferramentas">🔧 Ferramentas</a>
+      <a href="#" data-cat="beleza">💄 Beleza</a>
+    </div>
+  </nav>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="stat-icon">💎</span>
+        <div class="stat-text">
+          <strong id="statTotal">0+</strong>
+          <span>Menor preço da história</span>
+        </div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-icon">⏰</span>
+        <div class="stat-text">
+          <strong>Atualização diária</strong>
+          <span>Monitoramos 24/7</span>
+        </div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-icon">📊</span>
+        <div class="stat-text">
+          <strong>Comparativo</strong>
+          <span>Amazon + Mercado Livre</span>
+        </div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-icon">🔔</span>
+        <div class="stat-text">
+          <strong>Alertas</strong>
+          <span>de ofertas em tempo real</span>
+        </div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-icon">✨</span>
+        <div class="stat-text">
+          <strong>100% Gratuito</strong>
+          <span>e automático</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h1>Ofertas com<br><span>menor preço</span><br>da história!</h1>
+        <p>Monitoramos milhares de produtos todos os dias e mostramos quando o preço atinge o seu menor valor já registrado.</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="document.getElementById('featuredGrid').scrollIntoView({behavior:'smooth'})">
+            🔥 Ver ofertas agora
+          </button>
+          <button class="btn-outline" onclick="document.getElementById('alertForm').scrollIntoView({behavior:'smooth'})">
+            🔔 Receber alertas
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-chart-card">
+          <div class="hero-chart-title">Histórico de Preço</div>
+          <svg id="heroChartSvg" class="hero-chart-svg" viewBox="0 0 280 100" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+        <div class="hero-product-badge">
+          <img id="heroProductImg" src="assets/images/placeholder.svg" alt="Produto" class="hero-product-img">
+          <div class="hero-product-info">
+            <div class="hero-product-name" id="heroProductName">Carregando...</div>
+            <div class="hero-product-price" id="heroProductPrice">R$ --</div>
+            <div class="hero-product-tag">Menor preço 🔥</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="main-layout">
+    <main>
+      <!-- Featured Section -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">🔥 Ofertas com menor preço da história</h2>
+          <a href="#" class="section-link">Ver todas as ofertas →</a>
+        </div>
+        <div id="featuredGrid" class="products-grid"></div>
+      </section>
+
+      <!-- Categories Section -->
+      <section style="margin-top: 48px;">
+        <div class="section-header">
+          <h2 class="section-title">Navegue por categorias</h2>
+        </div>
+        <div class="categories-grid">
+          <a href="#" class="cat-card" data-cat="celulares">
+            <span class="cat-card-icon">📱</span>
+            <span class="cat-card-name">Celulares</span>
+          </a>
+          <a href="#" class="cat-card" data-cat="informática">
+            <span class="cat-card-icon">💻</span>
+            <span class="cat-card-name">Informática</span>
+          </a>
+          <a href="#" class="cat-card" data-cat="eletrodomésticos">
+            <span class="cat-card-icon">🍳</span>
+            <span class="cat-card-name">Eletrodomésticos</span>
+          </a>
+          <a href="#" class="cat-card" data-cat="tv e vídeo">
+            <span class="cat-card-icon">📺</span>
+            <span class="cat-card-name">TV e Vídeo</span>
+          </a>
+          <a href="#" class="cat-card" data-cat="casa">
+            <span class="cat-card-icon">🏠</span>
+            <span class="cat-card-name">Casa</span>
+          </a>
+          <a href="#" class="cat-card" data-cat="games">
+            <span class="cat-card-icon">🎮</span>
+            <span class="cat-card-name">Games</span>
+          </a>
+          <a href="#" class="cat-card" data-cat="ferramentas">
+            <span class="cat-card-icon">🔧</span>
+            <span class="cat-card-name">Ferramentas</span>
+          </a>
+          <a href="#" class="cat-card" data-cat="beleza">
+            <span class="cat-card-icon">💄</span>
+            <span class="cat-card-name">Beleza</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Latest Offers Table -->
+      <section style="margin-top: 48px;">
+        <div class="section-header">
+          <h2 class="section-title">📋 Últimas ofertas publicadas</h2>
+          <a href="#" class="section-link">Ver mais →</a>
+        </div>
+        <div class="offers-table">
+          <div class="offers-table-header">
+            <div>Produto</div>
+            <div>Preço atual</div>
+            <div>Menor preço</div>
+            <div>Desconto</div>
+            <div style="text-align:center">Ação</div>
+          </div>
+          <div id="offersTableBody"></div>
+          <button id="seeMoreBtn" class="see-more-btn">
+            Ver mais ofertas ↓
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Alert Card -->
+      <div class="sidebar-card alert-card" id="alertas">
+        <div class="alert-card-inner">
+          <div class="alert-icon">🔔</div>
+          <div class="alert-title">Receba alertas de menor preço!</div>
+          <div class="alert-desc">Cadastre-se e receba seu e-mail ou Telegram quando um produto atingir o menor preço da história.</div>
+          <form id="alertForm" class="alert-form">
+            <input
+              type="email"
+              placeholder="Seu melhor e-mail"
+              required
+              aria-label="E-mail para alertas"
+            >
+            <button type="submit" class="btn-alert">Cadastrar</button>
+          </form>
+          <div class="alert-note">Sem spam. Cancele quando quiser.</div>
+        </div>
+      </div>
+
+      <!-- Categories Sidebar -->
+      <div class="sidebar-card" id="categorias">
+        <div class="sidebar-card-header">📂 Categorias em destaque</div>
+        <div class="sidebar-cats">
+          <a href="#" class="sidebar-cat-item" data-cat="celulares">
+            <span class="sidebar-cat-icon">📱</span>
+            <span class="sidebar-cat-name">Celulares</span>
+          </a>
+          <a href="#" class="sidebar-cat-item" data-cat="informática">
+            <span class="sidebar-cat-icon">💻</span>
+            <span class="sidebar-cat-name">Informática</span>
+          </a>
+          <a href="#" class="sidebar-cat-item" data-cat="eletrodomésticos">
+            <span class="sidebar-cat-icon">🍳</span>
+            <span class="sidebar-cat-name">Eletrodomésticos</span>
+          </a>
+          <a href="#" class="sidebar-cat-item" data-cat="tv e vídeo">
+            <span class="sidebar-cat-icon">📺</span>
+            <span class="sidebar-cat-name">TV e Vídeo</span>
+          </a>
+          <a href="#" class="sidebar-cat-item" data-cat="games">
+            <span class="sidebar-cat-icon">🎮</span>
+            <span class="sidebar-cat-name">Games</span>
+          </a>
+          <a href="#" class="sidebar-cat-item" data-cat="casa">
+            <span class="sidebar-cat-icon">🏠</span>
+            <span class="sidebar-cat-name">Casa</span>
+          </a>
+        </div>
+        <a href="#" class="btn-all-cats">Ver todas as categorias</a>
+      </div>
+
+      <!-- Top Products -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">🏆 Top produtos</div>
+        <div class="top-products" id="topProducts"></div>
+      </div>
+
+      <!-- How it Works -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">❓ Como funciona?</div>
+        <div class="how-it-works">
+          <div class="how-step">
+            <div class="how-num">1</div>
+            <div class="how-text">
+              <strong>Encontramos ofertas</strong>
+              <span>Nosso robô busca milhares de produtos todos os dias.</span>
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-num">2</div>
+            <div class="how-text">
+              <strong>Verificamos histórico</strong>
+              <span>Analisamos o preço e identificamos o menor valor já registrado.</span>
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-num">3</div>
+            <div class="how-text">
+              <strong>Você economiza</strong>
+              <span>Mostramos a oferta com o menor preço e você aproveita!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo" style="margin-bottom: 12px;">
+          <div class="logo-icon">📊</div>
+          <div class="logo-text">
+            <strong>Radar de Preços</strong>
+            <span>O menor preço</span>
+          </div>
+        </a>
+        <p class="footer-tagline">Monitore ofertas em tempo real e encontre o menor preço da história.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Institucional</h4>
+        <ul>
+          <li><a href="#sobre">Sobre nós</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#privacidade">Política de privacidade</a></li>
+          <li><a href="#termos">Termos de uso</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Categorias</h4>
+        <ul>
+          <li><a href="#celulares">Celulares</a></li>
+          <li><a href="#informatica">Informática</a></li>
+          <li><a href="#eletrodomesticos">Eletrodomésticos</a></li>
+          <li><a href="#tv-video">TV e Vídeo</a></li>
+          <li><a href="#games">Games</a></li>
+          <li><a href="#todas">Ver todas</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Siga-nos</h4>
+        <ul>
+          <li><a href="https://t.me/radardeprecos" target="_blank" rel="noopener">📱 Telegram</a></li>
+          <li><a href="https://youtube.com/@radardeprecos" target="_blank" rel="noopener">📺 YouTube</a></li>
+          <li><a href="https://instagram.com/radardeprecos" target="_blank" rel="noopener">📷 Instagram</a></li>
+          <li><a href="mailto:contato@radardeprecos.com">📧 Contato</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2024 Radar de Preços. Todos os direitos reservados.</p>
+      <p>Desenvolvido com ❤️ para economizar seu dinheiro.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Back to Top -->
+  <button id="backToTop" class="back-to-top" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+
+  <!-- Scripts -->
+  <script src="assets/js/app.js" defer></script>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Radar de Preços",
+    "description": "Monitore ofertas em tempo real da Amazon e Mercado Livre. Encontre o menor preço da história.",
+    "url": "https://radardeprecos.github.io/radar-de-precos/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://radardeprecos.github.io/radar-de-precos/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- Google Analytics (placeholder - adicionar ID real) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,
+      'allow_google_signals': false,
+      'allow_ad_personalization_signals': false
+    });
+  </script>
+
+  <!-- AdSense (placeholder - adicionar ID real) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-xxxxxxxxxxxxxxxx"
+     crossorigin="anonymous"></script>
+</body>
+</html>
