@@ -1,16 +1,394 @@
 [
   {
-    "id": "amz-iphone-15",
-    "name": "iPhone 15 128GB",
-    "price": 4599,
-    "originalPrice": 5299,
-    "lowestPrice": 4599,
-    "discount": 13,
+    "id": "amz-wap-parafusadeira-fu-149",
+    "name": "WAP Parafusadeira Furadeira de Impacto à Bateria 3/8\" 12V WF 12K4.2 com 18 Níveis de Torque e Kit Acessórios e Maleta",
+    "price": 149,
+    "originalPrice": 449.9037,
+    "image": "https://m.media-amazon.com/images/I/71Bnm202WgL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Ferramentas",
+    "timestamp": "2026-05-29T20:56:01.610Z",
+    "lowestPrice": 149,
+    "avgPrice": 149,
     "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 149,
+        "date": "2026-05-29T20:56:01.610Z"
+      }
+    ],
+    "discount": 67,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-wap-fritadeira-eltr-1979",
+    "name": "WAP Fritadeira Elétrica Air Fryer FAMILY 4 Litros, Temperatura Ajustável, Duplo Revestimento Antiaderente, 1500W 127V",
+    "price": 197.9,
+    "originalPrice": 455.5336,
+    "image": "https://m.media-amazon.com/images/I/61wSZ93u49L._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Eletrodomésticos",
+    "timestamp": "2026-05-29T20:54:49.136Z",
+    "lowestPrice": 197.9,
+    "avgPrice": 197.9,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 197.9,
+        "date": "2026-05-29T20:54:49.136Z"
+      }
+    ],
+    "discount": 57,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-celular-samsung-gala-23731",
+    "name": "Celular Samsung Galaxy S25 FE 5G, 128GB, 8GB, Câmera Tripla - Azul Marinho",
+    "price": 2373.1,
+    "originalPrice": 4999.00263,
+    "image": "https://m.media-amazon.com/images/I/51YjiMy03iL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
     "store": "amazon",
     "category": "Celulares",
-    "image": "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
-    "url": "https://www.amazon.com.br/dp/B0CHX1N1Z2"
+    "timestamp": "2026-05-29T20:54:17.474Z",
+    "lowestPrice": 2373.1,
+    "avgPrice": 2373.1,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 2373.1,
+        "date": "2026-05-29T20:54:17.474Z"
+      }
+    ],
+    "discount": 53,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-fritadeira-eltrica-195",
+    "name": "Fritadeira Elétrica Air Fryer Facilita Fry Elgin - 3.5 Litros, 220V",
+    "price": 195,
+    "originalPrice": 412.2032,
+    "image": "https://m.media-amazon.com/images/I/41vdvIk7YvL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Eletrodomésticos",
+    "timestamp": "2026-05-29T20:54:49.137Z",
+    "lowestPrice": 195,
+    "avgPrice": 195,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 195,
+        "date": "2026-05-29T20:54:49.137Z"
+      }
+    ],
+    "discount": 53,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-wap-parafusadeira-e-1709",
+    "name": "WAP Parafusadeira e Furadeira à Bateria 12V BPF-12K3, Kit de 13 Acessórios e Maleta, Empunhadura Emborrachada, Bivolt",
+    "price": 170.9,
+    "originalPrice": 359.9034,
+    "image": "https://m.media-amazon.com/images/I/81hJD-odFeL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Ferramentas",
+    "timestamp": "2026-05-29T20:56:01.607Z",
+    "lowestPrice": 170.9,
+    "avgPrice": 170.9,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 170.9,
+        "date": "2026-05-29T20:56:01.607Z"
+      }
+    ],
+    "discount": 53,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-mondial-aparador-de-805",
+    "name": "MONDIAL Aparador de Pelos Super Groom 06, Preto/Verde, 6W, Bivolt - BG-04",
+    "price": 80.5,
+    "originalPrice": 169.9,
+    "image": "https://m.media-amazon.com/images/I/7199zo-i10L._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Beleza",
+    "timestamp": "2026-05-29T20:56:17.953Z",
+    "lowestPrice": 80.5,
+    "avgPrice": 80.5,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 80.5,
+        "date": "2026-05-29T20:56:17.953Z"
+      }
+    ],
+    "discount": 53,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-celular-samsung-gala-1599",
+    "name": "Celular Samsung Galaxy A36 256GB SM-A366E/DS - SM-A366EZKLZTO Preto Quadriband",
+    "price": 1599,
+    "originalPrice": 2999.00177,
+    "image": "https://m.media-amazon.com/images/I/61xAMFWgWFL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Celulares",
+    "timestamp": "2026-05-29T20:54:17.475Z",
+    "lowestPrice": 1599,
+    "avgPrice": 1599,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 1599,
+        "date": "2026-05-29T20:54:17.475Z"
+      }
+    ],
+    "discount": 47,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-celular-samsung-gala-1123",
+    "name": "Celular Samsung Galaxy A17, 256GB, 8GB, 50MP Tela 6.7\", IP54 - Preto",
+    "price": 1123,
+    "originalPrice": 1899.0093,
+    "image": "https://m.media-amazon.com/images/I/61SHdoG7F+L._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Celulares",
+    "timestamp": "2026-05-29T20:54:17.469Z",
+    "lowestPrice": 1123,
+    "avgPrice": 1123,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 1123,
+        "date": "2026-05-29T20:54:17.469Z"
+      }
+    ],
+    "discount": 41,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-fritadeira-air-fryer-269",
+    "name": "Fritadeira Air Fryer Britânia 5,5L 1500W BFR50 Redstone 220V",
+    "price": 269,
+    "originalPrice": 425.0044,
+    "image": "https://m.media-amazon.com/images/I/51NKkmrtVEL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Eletrodomésticos",
+    "timestamp": "2026-05-29T20:54:49.134Z",
+    "lowestPrice": 269,
+    "avgPrice": 269,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 269,
+        "date": "2026-05-29T20:54:49.134Z"
+      }
+    ],
+    "discount": 37,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-mondial-micro-ondas-429",
+    "name": "MONDIAL Micro-Ondas, Branco, 1200W, 110V - MO-01-21-W",
+    "price": 429,
+    "originalPrice": 647.7947,
+    "image": "https://m.media-amazon.com/images/I/61WJEyvwQtL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Eletrodomésticos",
+    "timestamp": "2026-05-29T20:55:04.181Z",
+    "lowestPrice": 429,
+    "avgPrice": 429,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 429,
+        "date": "2026-05-29T20:55:04.181Z"
+      }
+    ],
+    "discount": 34,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-furadeira-e-parafusa-11136",
+    "name": "Furadeira e Parafusadeira de Impacto Sem Fio com LED 2 Baterias Recarregáveis Bi-volt e Acessórios Maleta Completa para Uso Profissional e Doméstico Linha Premium",
+    "price": 111.36,
+    "originalPrice": 169.9039,
+    "image": "https://m.media-amazon.com/images/I/61FT94WfQeL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Ferramentas",
+    "timestamp": "2026-05-29T20:56:01.609Z",
+    "lowestPrice": 111.36,
+    "avgPrice": 111.36,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 111.36,
+        "date": "2026-05-29T20:56:01.609Z"
+      }
+    ],
+    "discount": 34,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-bosch-furadeira-para-2999",
+    "name": "Bosch Furadeira Parafusadeira GSR 1000 Smart, Com Acessórios, 12 Volts",
+    "price": 299.9,
+    "originalPrice": 439.9949,
+    "image": "https://m.media-amazon.com/images/I/61nXSgxFHeL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Ferramentas",
+    "timestamp": "2026-05-29T20:56:01.608Z",
+    "lowestPrice": 299.9,
+    "avgPrice": 299.9,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 299.9,
+        "date": "2026-05-29T20:56:01.608Z"
+      }
+    ],
+    "discount": 32,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-panasonic-micro-onda-4599",
+    "name": "Panasonic Micro-ondas 21L Branco 127v NN-ST25LWRU",
+    "price": 459.9,
+    "originalPrice": 669.0051,
+    "image": "https://m.media-amazon.com/images/I/515SGypJAmL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Eletrodomésticos",
+    "timestamp": "2026-05-29T20:55:04.178Z",
+    "lowestPrice": 459.9,
+    "avgPrice": 459.9,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 459.9,
+        "date": "2026-05-29T20:55:04.178Z"
+      }
+    ],
+    "discount": 31,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-air-fryer-philco-4l-2499",
+    "name": "Air Fryer Philco 4L Revestimento Redstone 1500W PAF40A 127V",
+    "price": 249.9,
+    "originalPrice": 357.0041,
+    "image": "https://m.media-amazon.com/images/I/51TMCXmRIdL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Eletrodomésticos",
+    "timestamp": "2026-05-29T20:54:49.133Z",
+    "lowestPrice": 249.9,
+    "avgPrice": 249.9,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 249.9,
+        "date": "2026-05-29T20:54:49.133Z"
+      }
+    ],
+    "discount": 30,
+    "priceDrop": 0,
+    "isFlash": true
+  },
+  {
+    "id": "amz-celular-samsung-gala-5909",
+    "name": "Celular Samsung Galaxy A07 128GB, 4GB, Câm. 50MP, Tela 6.7\"- Preto",
+    "price": 590.9,
+    "originalPrice": 799.0065,
+    "image": "https://m.media-amazon.com/images/I/51Adgl-DQtL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Celulares",
+    "timestamp": "2026-05-29T20:54:17.471Z",
+    "lowestPrice": 590.9,
+    "avgPrice": 590.9,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 590.9,
+        "date": "2026-05-29T20:54:17.471Z"
+      }
+    ],
+    "discount": 26,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-panasonic-micro-onda-519",
+    "name": "Panasonic Micro-ondas 21L Branco Espelhado 220v NN-ST27LWRU",
+    "price": 519,
+    "originalPrice": 689.0051,
+    "image": "https://m.media-amazon.com/images/I/41Ud6T7SVfL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Eletrodomésticos",
+    "timestamp": "2026-05-29T20:55:04.181Z",
+    "lowestPrice": 519,
+    "avgPrice": 519,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 519,
+        "date": "2026-05-29T20:55:04.181Z"
+      }
+    ],
+    "discount": 25,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-philips-oneblade-ra-1899",
+    "name": "Philips OneBlade: Raspa, Apara e Contorna | Barbeador Elétrico | Para todos os tipos de pele e espessura de pelo | À prova d´água | Aparador de Pelos Masculino | Máquina de Barbear | QP2724/10",
+    "price": 189.9,
+    "originalPrice": 244.7433,
+    "image": "https://m.media-amazon.com/images/I/71QS7WTTChL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Beleza",
+    "timestamp": "2026-05-29T20:56:17.951Z",
+    "lowestPrice": 189.9,
+    "avgPrice": 189.9,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 189.9,
+        "date": "2026-05-29T20:56:17.951Z"
+      }
+    ],
+    "discount": 22,
+    "priceDrop": 0,
+    "isFlash": false
   },
   {
     "id": "ml-samsung-s24",
@@ -24,5 +402,294 @@
     "category": "Celulares",
     "image": "https://http2.mlstatic.com/D_NQ_NP_2X_750371-MLU74151706243_012024-F.webp",
     "url": "https://www.mercadolivre.com.br/"
+  },
+  {
+    "id": "amz-micro-ondas-philco-2-46989",
+    "name": "Micro-ondas Philco 20l Branco Pmo23b 110v 110v",
+    "price": 469.89,
+    "originalPrice": 594.5052,
+    "image": "https://m.media-amazon.com/images/I/41XTKM4Cg4L._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Eletrodomésticos",
+    "timestamp": "2026-05-29T20:55:04.180Z",
+    "lowestPrice": 469.89,
+    "avgPrice": 469.89,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 469.89,
+        "date": "2026-05-29T20:55:04.180Z"
+      }
+    ],
+    "discount": 21,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-celular-samsung-gala-80489",
+    "name": "Celular Samsung Galaxy A17, 128GB, 4GB, 50MP Tela 6.7\", IP54 - Cinza",
+    "price": 804.89,
+    "originalPrice": 996.5689,
+    "image": "https://m.media-amazon.com/images/I/51qXtxiqYXL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Celulares",
+    "timestamp": "2026-05-29T20:54:17.472Z",
+    "lowestPrice": 804.89,
+    "avgPrice": 804.89,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 804.89,
+        "date": "2026-05-29T20:54:17.472Z"
+      }
+    ],
+    "discount": 19,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-micro-ondas-20l-prat-489",
+    "name": "Micro-ondas 20L Prata Porta Espelhada MasterCook Midea 110V",
+    "price": 489,
+    "originalPrice": 589.0054,
+    "image": "https://m.media-amazon.com/images/I/61WqzwY7Z6L._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Eletrodomésticos",
+    "timestamp": "2026-05-29T20:55:04.179Z",
+    "lowestPrice": 489,
+    "avgPrice": 489,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 489,
+        "date": "2026-05-29T20:55:04.179Z"
+      }
+    ],
+    "discount": 17,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-iphone-15",
+    "name": "iPhone 15 128GB",
+    "price": 4599,
+    "originalPrice": 5299,
+    "lowestPrice": 4599,
+    "discount": 13,
+    "isLowestPrice": true,
+    "store": "amazon",
+    "category": "Celulares",
+    "image": "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
+    "url": "https://www.amazon.com.br/dp/B0CHX1N1Z2"
+  },
+  {
+    "id": "amz-playstation5-slim-d-399808",
+    "name": "PlayStation®5 Slim Digital 825GB – Pacote ASTRO BOT e Gran Turismo 7",
+    "price": 3998.08,
+    "originalPrice": 4599.90429,
+    "image": "https://m.media-amazon.com/images/I/71WCygaQDAL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Games",
+    "timestamp": "2026-05-29T20:55:23.968Z",
+    "lowestPrice": 3998.08,
+    "avgPrice": 3998.08,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 3998.08,
+        "date": "2026-05-29T20:55:23.968Z"
+      }
+    ],
+    "discount": 13,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-playstation5-slim-d-439912",
+    "name": "PlayStation®5 Slim Disk - Pacote ASTRO BOT e Gran Turismo 7",
+    "price": 4399.12,
+    "originalPrice": 4998.97499,
+    "image": "https://m.media-amazon.com/images/I/71PeCknZMRL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Games",
+    "timestamp": "2026-05-29T20:55:23.969Z",
+    "lowestPrice": 4399.12,
+    "avgPrice": 4399.12,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 4399.12,
+        "date": "2026-05-29T20:55:23.969Z"
+      }
+    ],
+    "discount": 12,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-barbeador-eltrico-m-22877",
+    "name": "Barbeador Elétrico masculino Auto Afiável Philips S1151/00 Wet & Dry Àprova d'água - Bivolt",
+    "price": 228.77,
+    "originalPrice": 254.1942,
+    "image": "https://m.media-amazon.com/images/I/518fhZlCsFL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Beleza",
+    "timestamp": "2026-05-29T20:56:17.952Z",
+    "lowestPrice": 228.77,
+    "avgPrice": 228.77,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 228.77,
+        "date": "2026-05-29T20:56:17.952Z"
+      }
+    ],
+    "discount": 10,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-mondial-fritadeira-a-549",
+    "name": "MONDIAL Fritadeira Air Fryer Forno Oven 12L, Preto/Inox, 2000W, 110V - AFON-12L-BI",
+    "price": 549,
+    "originalPrice": 599.0054,
+    "image": "https://m.media-amazon.com/images/I/51G4AxVAJxL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Eletrodomésticos",
+    "timestamp": "2026-05-29T20:54:49.135Z",
+    "lowestPrice": 549,
+    "avgPrice": 549,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 549,
+        "date": "2026-05-29T20:54:49.135Z"
+      }
+    ],
+    "discount": 8,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-parafusadeira-furade-1101",
+    "name": "Parafusadeira Furadeira de Impacto Sem Fio 48V Com 2 Baterias Bivolt 32 Acessórios Maleta Completa Para Uso Profissional",
+    "price": 110.1,
+    "originalPrice": 115.9038,
+    "image": "https://m.media-amazon.com/images/I/61FRO-QC21L._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Ferramentas",
+    "timestamp": "2026-05-29T20:56:01.609Z",
+    "lowestPrice": 110.1,
+    "avgPrice": 110.1,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 110.1,
+        "date": "2026-05-29T20:56:01.609Z"
+      }
+    ],
+    "discount": 5,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-aparador-de-pelos-su-99",
+    "name": "Aparador de Pelos Super Groom 10, Mondial, Preto/Azul, 6W, Bivolt - BG-03",
+    "price": 99,
+    "originalPrice": null,
+    "image": "https://m.media-amazon.com/images/I/61H70XOtzkL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Beleza",
+    "timestamp": "2026-05-29T20:56:17.949Z",
+    "lowestPrice": 99,
+    "avgPrice": 99,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 99,
+        "date": "2026-05-29T20:56:17.949Z"
+      }
+    ],
+    "discount": 0,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-babeador-eltrico-ke-5897",
+    "name": "Babeador Elétrico Kemei Shaver KM-2024 Original",
+    "price": 58.97,
+    "originalPrice": 29.48,
+    "image": "https://m.media-amazon.com/images/I/51UPPlwrshL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Beleza",
+    "timestamp": "2026-05-29T20:56:17.954Z",
+    "lowestPrice": 58.97,
+    "avgPrice": 58.97,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 58.97,
+        "date": "2026-05-29T20:56:17.954Z"
+      }
+    ],
+    "discount": -100,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-playstation-5-slim-d-4349",
+    "name": "PlayStation 5 Slim Disk 1TB 1 Controle Branco Sony",
+    "price": 4349,
+    "originalPrice": 362.41,
+    "image": "https://m.media-amazon.com/images/I/41omGNTYBXL._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Games",
+    "timestamp": "2026-05-29T20:55:23.970Z",
+    "lowestPrice": 4349,
+    "avgPrice": 4349,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 4349,
+        "date": "2026-05-29T20:55:23.970Z"
+      }
+    ],
+    "discount": -1100,
+    "priceDrop": 0,
+    "isFlash": false
+  },
+  {
+    "id": "amz-console-playstation-3989",
+    "name": "Console PlayStation 5 - Digital Edition",
+    "price": 3989,
+    "originalPrice": 332.41,
+    "image": "https://m.media-amazon.com/images/I/5194E5ZdV7L._AC_UL320_.jpg",
+    "url": "https://www.amazon.com.brundefined",
+    "store": "amazon",
+    "category": "Games",
+    "timestamp": "2026-05-29T20:55:23.971Z",
+    "lowestPrice": 3989,
+    "avgPrice": 3989,
+    "isLowestPrice": true,
+    "priceHistory": [
+      {
+        "price": 3989,
+        "date": "2026-05-29T20:55:23.971Z"
+      }
+    ],
+    "discount": -1100,
+    "priceDrop": 0,
+    "isFlash": false
   }
 ]
