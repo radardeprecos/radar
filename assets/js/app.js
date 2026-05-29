@@ -54,20 +54,10 @@ function buildAffiliateLink(product) {
   if (!product || !product.url) return '#';
   const url = product.url;
   if (product.store === 'amazon' || url.includes('amazon.com.br')) {
-    try {
-      // Remove 'undefined' ou lixo do final da URL antes de processar
-      let sanitizedUrl = url.replace(/undefined.*$/, '').replace(/\/$/, '');
-      if (sanitizedUrl.includes('amazon.com.br') && !sanitizedUrl.includes('/dp/') && !sanitizedUrl.includes('/gp/')) {
-          // Se o link estiver quebrado, tenta reconstruir ou retornar o original limpo
-          return sanitizedUrl + '/?tag=' + CONFIG.affiliateAmazon;
-      }
-      const u = new URL(sanitizedUrl.includes('http') ? sanitizedUrl : 'https://' + sanitizedUrl);
-      const cleanPath = u.origin + u.pathname.replace(/\/$/, '');
-      return `${cleanPath}/?tag=${CONFIG.affiliateAmazon}`;
-    } catch (e) {
-      const cleanUrl = url.replace(/undefined.*$/, '').replace(/\/$/, '');
-      return cleanUrl + '/?tag=' + CONFIG.affiliateAmazon;
-    }
+    // Limpeza radical: remove qualquer coisa após .br e reconstrói se necessário
+    let cleanUrl = url.split('?')[0].replace('undefined', '').replace(/\/$/, '');
+    if (!cleanUrl.startsWith('http')) cleanUrl = 'https://www.amazon.com.br' + (cleanUrl.startsWith('/') ? '' : '/') + cleanUrl;
+    return `${cleanUrl}/?tag=${CONFIG.affiliateAmazon}`;
   }
   if (product.store === 'mercadolivre' || url.includes('mercadolivre')) {
     // Para Mercado Livre, usamos o redirecionador de afiliados se disponível, 

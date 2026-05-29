@@ -62,8 +62,14 @@ async function scrapeAmazon(query, category) {
       const image = $(el).find('.s-image').attr('src');
       const rawLink = $(el).find('h2 a').attr('href');
       
-      if (name && price && rawLink) {
-        const link = rawLink.startsWith('http') ? rawLink : 'https://www.amazon.com.br' + rawLink;
+      if (name && price && rawLink && rawLink !== 'undefined') {
+        let link = rawLink;
+        if (!link.startsWith('http')) {
+            link = 'https://www.amazon.com.br' + (link.startsWith('/') ? '' : '/') + link;
+        }
+        // Remove parâmetros de busca do link original para evitar conflitos
+        link = link.split('?')[0];
+        
         products.push({
           id: 'amz-' + slugify(name.substring(0, 20) + '-' + price),
           name,
