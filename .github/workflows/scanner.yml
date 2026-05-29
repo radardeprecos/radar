@@ -4,25 +4,18 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '*/30 * * * *' # Roda a cada 30 minutos
-  workflow_dispatch: # Permite rodar manualmente
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   scan-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          persist-credentials: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -38,21 +31,9 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Commit and Push Changes
-        run: |
-          git config --global user.name "Radar Bot"
-          git config --global user.email "bot@radardeprecos.com.br"
-          git add data/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Radar: Ofertas atualizadas $(date +'%d/%m/%Y %H:%M')" && git push)
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
