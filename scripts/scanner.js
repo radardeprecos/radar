@@ -220,10 +220,45 @@ async function generateSitemap(products) {
   for (const cat of categories) {
     xml += `  <url>\n    <loc>${baseUrl}/?cat=${encodeURIComponent(cat.toLowerCase())}</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
   }
+
+  // URLs de Produtos Individuais (SEO Forte)
+  for (const p of products) {
+    xml += `  <url>\n    <loc>${baseUrl}/p/${p.id}.html</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.6</priority>\n  </url>\n`;
+    await generateProductPage(p);
+  }
   
   xml += `</urlset>`;
   await fs.writeFile(path.join(__dirname, '../sitemap.xml'), xml);
-  console.log('✅ Sitemap.xml atualizado com sucesso!');
+  console.log('✅ Sitemap.xml e Páginas de Produtos atualizados!');
+}
+
+async function generateProductPage(p) {
+  const pDir = path.join(__dirname, '../p');
+  await fs.ensureDir(pDir);
+  
+  const html = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${p.name} - Menor Preço no Radar</title>
+    <meta name="description" content="Oferta de ${p.name} por apenas R$ ${p.price}. Confira o menor preço da história no Radar de Preços!">
+    <meta http-equiv="refresh" content="2;url=../index.html?id=${p.id}">
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #0f172a; color: white; text-align: center; }
+        .loader { border: 4px solid #1e293b; border-top: 4px solid #00c853; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <h1>Redirecionando para a oferta...</h1>
+    <p>Estamos te levando para o menor preço de <strong>${p.name}</strong></p>
+    <script>window.location.href = '../index.html?id=${p.id}';</script>
+</body>
+</html>`;
+
+  await fs.writeFile(path.join(pDir, `${p.id}.html`), html);
 }
 
 // ===== MAIN =====
