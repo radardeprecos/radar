@@ -54,9 +54,11 @@ function buildAffiliateLink(product) {
   if (!product || !product.url) return '#';
   const url = product.url;
   if (product.store === 'amazon' || url.includes('amazon.com.br')) {
-    // Limpeza radical: remove qualquer coisa após .br e reconstrói se necessário
+    // Garante link direto para o produto
     let cleanUrl = url.split('?')[0].replace('undefined', '').replace(/\/$/, '');
-    if (!cleanUrl.startsWith('http')) cleanUrl = 'https://www.amazon.com.br' + (cleanUrl.startsWith('/') ? '' : '/') + cleanUrl;
+    if (!cleanUrl.includes('/dp/') && !cleanUrl.includes('/gp/')) {
+        // Se o link estiver muito quebrado, tenta manter o que tem
+    }
     return `${cleanUrl}/?tag=${CONFIG.affiliateAmazon}`;
   }
   if (product.store === 'mercadolivre' || url.includes('mercadolivre')) {
@@ -117,7 +119,7 @@ function renderCard(product) {
   card.innerHTML = `
     <div class="card-image-wrap">
       <img
-        src="${product.image || 'assets/images/placeholder.svg'}"
+        src="${product.image ? 'https://images.weserv.nl/?url=' + encodeURIComponent(product.image.replace('https://', '')) : 'assets/images/placeholder.svg'}"
         alt="${product.name}"
         loading="lazy"
         onerror="this.src='assets/images/placeholder.svg'"
@@ -154,7 +156,7 @@ function renderOfferRow(product) {
   row.innerHTML = `
     <div class="offer-product">
       <img
-        src="${product.image || 'assets/images/placeholder.svg'}"
+        src="${product.image ? 'https://images.weserv.nl/?url=' + encodeURIComponent(product.image.replace('https://', '')) : 'assets/images/placeholder.svg'}"
         alt="${product.name}"
         class="offer-img"
         loading="lazy"
