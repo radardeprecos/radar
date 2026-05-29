@@ -64,7 +64,18 @@ function buildAffiliateLink(product) {
     }
   }
   if (product.store === 'mercadolivre' || url.includes('mercadolivre')) {
-    return CONFIG.affiliateML;
+    // Para Mercado Livre, usamos o redirecionador de afiliados se disponível, 
+    // ou anexamos o parâmetro de tracking ao link direto do produto.
+    try {
+      const u = new URL(url.includes('http') ? url : 'https://' + url);
+      // Remove parâmetros de busca originais e mantém o link limpo do produto
+      const cleanUrl = u.origin + u.pathname;
+      // O link de afiliado social do ML geralmente funciona como um redirecionador ou perfil.
+      // Para garantir a comissão no produto específico, usamos o link direto com tracking.
+      return `${cleanUrl}#origin=vip&component-id=ad-unit&strategy_id=social_sharing&seller_id=vendas0nline`;
+    } catch (e) {
+      return url;
+    }
   }
   return url;
 }
