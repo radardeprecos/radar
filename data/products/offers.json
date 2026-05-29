@@ -35,21 +35,21 @@
     "isLowestPrice": true,
     "store": "mercadolivre",
     "category": "Games",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_661556-MLA74332204561_022024-F.webp",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_661556-MLA74332204561_022024-O.webp",
     "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-cor-branco/p/MLB27953234"
   },
   {
-    "id": "amz-airfryer-mondial",
-    "name": "Fritadeira Elétrica Mondial, Family-IV - 4L",
-    "price": 329.00,
-    "originalPrice": 499.00,
-    "lowestPrice": 329.00,
-    "discount": 34,
+    "id": "ml-tv-samsung-55",
+    "name": "Smart TV 55 polegadas Samsung 4K UHD",
+    "price": 2399.00,
+    "originalPrice": 3299.00,
+    "lowestPrice": 2399.00,
+    "discount": 27,
     "isLowestPrice": true,
-    "store": "amazon",
-    "category": "Eletrodomésticos",
-    "image": "https://m.media-amazon.com/images/I/61H9H8H+Z6L._AC_SL1000_.jpg",
-    "url": "https://www.amazon.com.br/Fritadeira-El%C3%A9trica-Mondial-Family-IV-AF-14/dp/B07G3Z2Y8H"
+    "store": "mercadolivre",
+    "category": "TV e Vídeo",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_815344-MLA74151706243_012024-O.webp",
+    "url": "https://www.mercadolivre.com.br/smart-tv-samsung-55-crystal-uhd-4k/p/MLB21234567"
   },
   {
     "id": "ml-tv-samsung-55",
@@ -100,7 +100,7 @@
     "isLowestPrice": true,
     "store": "mercadolivre",
     "category": "Informática",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_915344-MLA74151706243_012024-F.webp",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_915344-MLA74151706243_012024-O.webp",
     "url": "https://www.mercadolivre.com.br/monitor-gamer-lg-ultragear-27-ips-144hz/p/MLB31234567"
   },
   {
