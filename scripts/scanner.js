@@ -201,7 +201,29 @@ async function processProducts(newProducts) {
 
   await fs.ensureDir(path.dirname(CONFIG.dataPath));
   await fs.writeJson(CONFIG.dataPath, finalDb, { spaces: 2 });
+  
+  // Gerar Sitemap Dinâmico
+  await generateSitemap(finalDb);
+  
   console.log(`Processados ${newProducts.length} produtos. Banco de dados atualizado com ${finalDb.length} itens.`);
+}
+
+async function generateSitemap(products) {
+  const baseUrl = 'https://radardeprecos.github.io/radar';
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+  
+  // URL Principal
+  xml += `  <url>\n    <loc>${baseUrl}/</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <changefreq>hourly</changefreq>\n    <priority>1.0</priority>\n  </url>\n`;
+  
+  // URLs de Categorias
+  const categories = [...new Set(products.map(p => p.category))];
+  for (const cat of categories) {
+    xml += `  <url>\n    <loc>${baseUrl}/?cat=${encodeURIComponent(cat.toLowerCase())}</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
+  }
+  
+  xml += `</urlset>`;
+  await fs.writeFile(path.join(__dirname, '../sitemap.xml'), xml);
+  console.log('✅ Sitemap.xml atualizado com sucesso!');
 }
 
 // ===== MAIN =====
