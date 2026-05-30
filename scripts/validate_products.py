@@ -4,9 +4,15 @@ import requests
 from concurrent.futures import ThreadPoolExecutor
 from logger import logger
 
-def check_url(url):
+def check_url(url, is_image=False):
     if not url or not url.startswith("http"):
         return False
+    
+    # Placeholder conhecido que deve ser bloqueado
+    PLACEHOLDER_IMG = "640641-MLA74488120717_022024-O.webp"
+    if is_image and PLACEHOLDER_IMG in url:
+        return False
+
     try:
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
@@ -34,13 +40,14 @@ def process(input_p: str, output_p: str):
         # Validar imagem
         if not img_url:
             return None
-        if not check_url(img_url):
-            logger.warning(f"Removendo produto {p.get('id')} por imagem quebrada.")
+        if not check_url(img_url, is_image=True):
+            logger.warning(f"Removendo produto {p.get('id')} por imagem quebrada ou placeholder.")
             return None
             
         # Validar link de afiliado
         if not aff_url:
             return None
+        # Links artificiais terminam em /p/MLB... sem slug real ou têm IDs randômicos que dão 404
         if not check_url(aff_url):
             logger.warning(f"Removendo produto {p.get('id')} por link quebrado.")
             return None
