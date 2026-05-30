@@ -1,46 +1,74 @@
 [
   {
-    "id": "ml-ps5-slim",
-    "name": "Console PlayStation 5 Slim Edição Digital",
-    "price": 3399,
-    "originalPrice": 3999,
+    "id": "MLB27953234",
+    "name": "Console PlayStation 5 Slim 1 TB Digital Edição Limitada",
+    "price": 5999.00,
+    "originalPrice": 7999.00,
+    "discount": 25,
     "store": "mercadolivre",
     "category": "Games",
-    "image": "images/produtos/ml-ps5-slim.webp",
-    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=ml-ps5-slim",
-    "discount": 15
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_661556-MLA74332204561_022024-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=MLB27953234",
+    "originalUrl": "https://www.mercadolivre.com.br/console-playstation-5-slim-cor-branco/p/MLB27953234"
   },
   {
-    "id": "ml-iphone-15",
+    "id": "MLB54963150",
+    "name": "Console Playstation 5 Slim Edição Digital 825 Gb",
+    "price": 3709.00,
+    "originalPrice": 4299.00,
+    "discount": 13,
+    "store": "mercadolivre",
+    "category": "Games",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_656548-MLU74245645341_012024-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=MLB54963150",
+    "originalUrl": "https://www.mercadolivre.com.br/console-playstation-5-slim-edico-digital-825-gb/p/MLB54963150"
+  },
+  {
+    "id": "MLB27303031",
     "name": "Apple iPhone 15 (128 GB) - Preto",
-    "price": 4699,
-    "originalPrice": 7299,
+    "price": 4699.00,
+    "originalPrice": 7299.00,
+    "discount": 35,
     "store": "mercadolivre",
     "category": "Celulares",
-    "image": "images/produtos/ml-iphone-15.webp",
-    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=ml-iphone-15",
-    "discount": 36
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_750531-MLU72002393278_092023-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=MLB27303031",
+    "originalUrl": "https://www.mercadolivre.com.br/apple-iphone-15-128-gb-preto/p/MLB27303031"
   },
   {
-    "id": "amz-airpods",
-    "name": "Apple AirPods Pro (2ª geração) com MagSafe",
-    "price": 1699,
-    "originalPrice": 2599,
-    "store": "amazon",
-    "category": "Acessórios",
-    "image": "https://m.media-amazon.com/images/I/61SUj2W5yXL._AC_SL1500_.jpg",
-    "url": "https://www.amazon.com.br/Apple-AirPods-Pro-2%C2%AA-gera%C3%A7%C3%A3o/dp/B0BDHWDR12?tag=radar041-20",
-    "discount": 35
-  },
-  {
-    "id": "ml-s24-ultra",
-    "name": "Samsung Galaxy S24 Ultra 512GB - Titânio",
-    "price": 6199,
-    "originalPrice": 9999,
+    "id": "MLB33678310",
+    "name": "Samsung Galaxy S24 Ultra 5G 512GB - Titânio",
+    "price": 6199.00,
+    "originalPrice": 9999.00,
+    "discount": 38,
     "store": "mercadolivre",
     "category": "Celulares",
-    "image": "images/produtos/ml-s24-ultra.webp",
-    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=ml-s24-ultra",
-    "discount": 38
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_656548-MLU74245645341_012024-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=MLB33678310",
+    "originalUrl": "https://www.mercadolivre.com.br/samsung-galaxy-s24-ultra-5g-512gb-titnio/p/MLB33678310"
+  },
+  {
+    "id": "TV-4K-LG-50",
+    "name": "Smart TV 50'' 4K UHD LG 50UR8750 ThinQ AI",
+    "price": 2099.00,
+    "originalPrice": 2999.00,
+    "discount": 30,
+    "store": "mercadolivre",
+    "category": "TV e Vídeo",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_841445-MLU72611743511_112023-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=TV-4K-LG-50",
+    "originalUrl": "https://lista.mercadolivre.com.br/smart-tv-4k"
+  },
+  {
+    "id": "AIR-FRYER-MONDIAL",
+    "name": "Fritadeira Elétrica Air Fryer Mondial New Pratic 3.5L",
+    "price": 299.00,
+    "originalPrice": 499.00,
+    "discount": 40,
+    "store": "mercadolivre",
+    "category": "Eletrodomésticos",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_685165-MLU71131174311_082023-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=AIR-FRYER-MONDIAL",
+    "originalUrl": "https://lista.mercadolivre.com.br/air-fryer"
   }
 ]
