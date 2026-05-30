@@ -3,6 +3,8 @@ import json
 from typing import List, Dict, Any
 from logger import logger
 
+BASE_URL = "https://radardeprecos.github.io/radar/"
+
 def slugify(text: str) -> str:
     import unicodedata
     text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('ascii')
@@ -20,6 +22,7 @@ def generate_product_page(product: Dict[str, Any], template_path: str, output_di
         
     p_id = product.get('id', '0')
     p_slug = slugify(product_name)
+    p_cat_slug = product.get('custom_category_slug', 'outros')
     
     # Formatação de preços
     try:
@@ -33,14 +36,15 @@ def generate_product_page(product: Dict[str, Any], template_path: str, output_di
     p_orig = f"R$ {orig_val:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
     
     p_img = product.get('image') or product.get('thumbnail') or ''
-    # Usa custom_affiliate_url apenas se for válido (não aponta para /social/)
+    
+    # Lógica de URL Afiliada Corrigida
     _aff = product.get('custom_affiliate_url', '')
     _is_valid_aff = _aff and '/social/' not in _aff and 'vendas0nline?' not in _aff
     p_url = _aff if _is_valid_aff else (product.get('permalink') or '')
-    p_cat_slug = product.get('custom_category_slug', 'outros')
+    
     p_discount = product.get('custom_discount_pct', 0)
     
-    # Mapeamento de nomes de categorias para exibição
+    # Mapeamento de nomes de categorias
     cat_names = {
         "celulares": "Celulares",
         "informatica": "Informática",
@@ -54,17 +58,30 @@ def generate_product_page(product: Dict[str, Any], template_path: str, output_di
     }
     p_cat_name = cat_names.get(p_cat_slug, p_cat_slug.title())
     
-    content = template.replace('{{product.name}}', product_name)
+    # SEO DINÂMICO (Fase 1)
+    seo_title = f"{product_name} com {p_discount}% de Desconto | Radar de Preços"
+    meta_desc = f"Aproveite a oferta de {product_name} por apenas {p_price} no Mercado Livre. Economize {p_discount}% hoje no Radar de Preços!"
+    canonical_url = f"{BASE_URL}ofertas/{p_cat_slug}/{p_slug}-{p_id}.html"
+    
+    # Substituições de Placeholders SEO
+    content = template.replace('{{seo.title}}', seo_title)
+    content = content.replace('{{meta.description}}', meta_desc)
+    content = content.replace('{{canonical.url}}', canonical_url)
+    
+    # Substituições de Dados do Produto
+    content = content.replace('{{product.name}}', product_name)
     content = content.replace('{{product.price}}', p_price)
+    content = content.replace('{{product.price_raw}}', str(price_val)) # Para o Schema
     content = content.replace('{{product.originalPrice}}', p_orig)
     content = content.replace('{{product.image}}', p_img)
     content = content.replace('{{product.url}}', p_url)
+    content = content.replace('{{product.id}}', p_id)
     content = content.replace('{{product.category}}', p_cat_slug)
     content = content.replace('{{product.category_name}}', p_cat_name)
     content = content.replace('{{product.discount}}', str(p_discount))
     
-    # Descrição simples caso não exista
-    desc = product.get('description', f"Confira esta oferta incrível de {product_name} no Mercado Livre!")
+    # Descrição
+    desc = product.get('description', f"Confira esta oferta incrível de {product_name} no Mercado Livre! Produto selecionado pelo Radar de Preços com o melhor desconto do dia.")
     content = content.replace('{{product.description_content}}', desc)
     
     path = os.path.join(output_dir, p_cat_slug, f'{p_slug}-{p_id}.html')
@@ -82,7 +99,7 @@ def generate_all(input_p: str, temp_p: str, out_d: str) -> None:
         logger.error(f"Erro ao ler {input_p}: {e}")
         return
         
-    logger.info(f"Gerando {len(products)} páginas de produtos...")
+    logger.info(f"Gerando {len(products)} páginas de produtos com SEO otimizado...")
     for p in products:
         generate_product_page(p, temp_p, out_d)
 

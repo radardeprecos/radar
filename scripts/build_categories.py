@@ -3,12 +3,7 @@ import json
 from typing import List, Dict, Any
 from logger import logger
 
-def slugify(text: str) -> str:
-    text = text.lower()
-    text = text.replace(" ", "-")
-    # BUGFIX: Corrigido "." para ""
-    text = "".join(c for c in text if c.isalnum() or c == "-")
-    return text
+BASE_URL = "https://radardeprecos.github.io/radar/"
 
 def build_category_page(category_slug: str, products: List[Dict[str, Any]], template_path: str, output_dir: str) -> None:
     logger.info(f"Gerando página para a categoria: {category_slug}")
@@ -22,6 +17,12 @@ def build_category_page(category_slug: str, products: List[Dict[str, Any]], temp
         
     category_name = category_slug.replace("-", " ").title()
     
+    def _safe_url(p):
+        aff = p.get('custom_affiliate_url', '')
+        if aff and '/social/' not in aff and 'vendas0nline?' not in aff:
+            return aff
+        return p.get('permalink', '')
+
     # Renderizar produtos da categoria
     category_products_html = ""
     for p in products:
@@ -31,20 +32,22 @@ def build_category_page(category_slug: str, products: List[Dict[str, Any]], temp
             <div class="card-img"><img src="{p.get("image", p.get("thumbnail", ""))}" alt="{p.get("name", "")}"></div>
             <h3>{p.get("name", "")[:50]}...</h3>
             <div class="price-tag" style="font-size: 20px;">R$ {p.get("price", 0):.2f}</div>
-            <a href="{p.get('custom_affiliate_url', '') if p.get('custom_affiliate_url', '') and '/social/' not in p.get('custom_affiliate_url', '') and 'vendas0nline?' not in p.get('custom_affiliate_url', '') else p.get('permalink', '')}" class="btn" style="width: 100%; text-align: center;" target="_blank">Ver</a>
+            <a href="{_safe_url(p)}" class="btn" style="width: 100%; text-align: center;" target="_blank">Ver</a>
         </div>
         """
         
-    # Substituições no template
-    page_content = template.replace("{{category.name}}", category_name)
-    page_content = page_content.replace("{{category.slug}}", category_slug)
-    page_content = page_content.replace("{{category.products}}", category_products_html)
-    
-    # SEO para categorias
+    # SEO para categorias (Fase 1)
     seo_title = f"Ofertas de {category_name} com Desconto no Radar de Preços"
     meta_description = f"Encontre as melhores ofertas de {category_name} no Mercado Livre. Descontos incríveis e produtos selecionados para você economizar."
-    page_content = page_content.replace("{{seo.title}}", seo_title)
+    canonical_url = f"{BASE_URL}categorias/{category_slug}/"
+
+    # Substituições no template
+    page_content = template.replace("{{seo.title}}", seo_title)
     page_content = page_content.replace("{{meta.description}}", meta_description)
+    page_content = page_content.replace("{{canonical.url}}", canonical_url)
+    page_content = page_content.replace("{{category.name}}", category_name)
+    page_content = page_content.replace("{{category.slug}}", category_slug)
+    page_content = page_content.replace("{{category.products}}", category_products_html)
     
     # Salvar página
     page_path = os.path.join(output_dir, category_slug, "index.html")
@@ -63,11 +66,8 @@ def build_all_category_pages(input_path: str, template_path: str, output_dir: st
                 products = json.load(f)
         except Exception as e:
             logger.error(f"Erro ao carregar {input_path}: {e}")
-    else:
-        logger.warning(f"Arquivo de entrada {input_path} não encontrado!")
-        
+    
     if not products:
-        logger.warning("Nenhum produto encontrado para gerar páginas de categorias.")
         return
         
     categories: Dict[str, List[Dict[str, Any]]] = {}
@@ -78,15 +78,7 @@ def build_all_category_pages(input_path: str, template_path: str, output_dir: st
         categories[category_slug].append(product)
         
     for category_slug, cat_products in categories.items():
-        try:
-            build_category_page(category_slug, cat_products, template_path, output_dir)
-        except Exception as e:
-            logger.error(f"Erro ao gerar categoria {category_slug}: {e}")
-        
-    logger.info(f"Total de {len(categories)} páginas de categorias processadas.")
+        build_category_page(category_slug, cat_products, template_path, output_dir)
 
 if __name__ == "__main__":
-    try:
-        build_all_category_pages("data/new_offers.json", "templates/category_template.html", "categorias")
-    except Exception as e:
-        logger.error(f"Erro fatal ao construir categorias: {e}")
+    build_all_category_pages("data/new_offers.json", "templates/category_template.html", "categorias")

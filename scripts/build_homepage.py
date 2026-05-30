@@ -3,6 +3,8 @@ import json
 from typing import List, Dict, Any
 from logger import logger
 
+BASE_URL = "https://radardeprecos.github.io/radar/"
+
 def build_homepage(input_path: str, template_path: str, output_path: str) -> None:
     logger.info(f"Construindo página inicial a partir de {input_path}...")
     
@@ -13,36 +15,29 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
                 products = json.load(f)
         except Exception as e:
             logger.error(f"Erro ao carregar {input_path}: {e}")
-    else:
-        logger.warning(f"Arquivo {input_path} não encontrado. Gerando homepage com placeholders.")
 
-    # ATUALIZAÇÃO: Salvar também o arquivo JSON que o JS consome
-    # Isso garante que o site dinâmico tenha os mesmos dados que o estático
+    # Atualizar JSON para JS
     json_output_path = "data/products/offers.json"
     os.makedirs(os.path.dirname(json_output_path), exist_ok=True)
     with open(json_output_path, "w", encoding="utf-8") as f:
         json.dump(products, f, ensure_ascii=False, indent=2)
-    logger.info(f"Arquivo JSON para JS atualizado: {json_output_path}")
 
     if not os.path.exists(template_path):
-        logger.error(f"Template {template_path} não encontrado!")
         return
         
     with open(template_path, "r", encoding="utf-8") as f:
         template = f.read()
         
-    # Preparar dados para o template
-    hero_product = products[0] if products else None
-    featured_products = products[1:13] if len(products) > 1 else []
-    
-    # Renderizar hero section
     def _safe_url(p):
-        """Retorna a URL de afiliado válida ou o permalink como fallback."""
         aff = p.get('custom_affiliate_url', '')
         if aff and '/social/' not in aff and 'vendas0nline?' not in aff:
             return aff
         return p.get('permalink', '')
 
+    # Renderizar hero section
+    hero_product = products[0] if products else None
+    featured_products = products[1:13] if len(products) > 1 else []
+    
     hero_html = "" 
     if hero_product:
         hero_html = f"""
@@ -56,17 +51,7 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
             </div>
         </div>
         """
-    else:
-        hero_html = """
-        <div class="hero-card">
-            <div class="hero-info" style="width: 100%; text-align: center;">
-                <h1>Radar de Preços</h1>
-                <p>Estamos buscando as melhores ofertas para você. Volte em instantes!</p>
-            </div>
-        </div>
-        """
         
-    # Renderizar featured products grid
     featured_grid_html = ""
     if featured_products:
         for p in featured_products:
@@ -82,22 +67,20 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
     else:
         featured_grid_html = "<p style='grid-column: 1/-1; text-align: center;'>Nenhuma oferta disponível no momento.</p>"
         
-    # Substituições no template principal
-    page_content = template.replace("{{hero_section}}", hero_html)
+    # SEO DINÂMICO (Fase 1)
+    seo_title = "Radar de Preços — As Melhores Ofertas do Mercado Livre Hoje"
+    meta_desc = "Economize com as melhores ofertas curadas do Mercado Livre. Monitoramos preços em tempo real para você encontrar o maior desconto."
+    canonical_url = BASE_URL
+
+    # Substituições no template
+    page_content = template.replace("{{seo.title}}", seo_title)
+    page_content = page_content.replace("{{meta.description}}", meta_desc)
+    page_content = page_content.replace("{{canonical.url}}", canonical_url)
+    page_content = page_content.replace("{{hero_section}}", hero_html)
     page_content = page_content.replace("{{featured_products_grid}}", featured_grid_html)
     
-    # Hardening: Se output_path não tiver diretório, garante que não quebre
-    dir_name = os.path.dirname(output_path)
-    if dir_name:
-        os.makedirs(dir_name, exist_ok=True)
-        
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(page_content)
-        
-    logger.info(f"Página inicial gerada: {output_path}")
 
 if __name__ == "__main__":
-    try:
-        build_homepage("data/new_offers.json", "templates/homepage.html", "index.html")
-    except Exception as e:
-        logger.error(f"Erro fatal ao construir homepage: {e}")
+    build_homepage("data/new_offers.json", "templates/homepage.html", "index.html")
