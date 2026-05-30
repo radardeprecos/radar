@@ -1,41 +1,41 @@
 [
   {
-    "id": "ml-ps5-slim-1",
+    "id": "ml-ps5-slim",
     "name": "Console PlayStation 5 Slim + 2 Jogos",
     "price": 3499,
     "originalPrice": 4499,
-    "lowestPrice": 3499,
     "discount": 22,
-    "isLowestPrice": true,
     "store": "mercadolivre",
     "category": "Games",
-    "image": "images/produtos/ps5.webp",
-    "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-cor-branco/p/MLB27953234"
+    "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-cor-branco/p/MLB27953234",
+    "image": "images/produtos/ml-ps5-slim.webp",
+    "isLowestPrice": true,
+    "lowestPrice": 3499
   },
   {
-    "id": "ml-iphone-15-1",
+    "id": "ml-iphone-15",
     "name": "Apple iPhone 15 (128 GB) - Preto",
     "price": 4699,
     "originalPrice": 7299,
-    "lowestPrice": 4699,
     "discount": 35,
-    "isLowestPrice": true,
     "store": "mercadolivre",
     "category": "Celulares",
-    "image": "images/produtos/iphone15.webp",
-    "url": "https://www.mercadolivre.com.br/apple-iphone-15-128-gb-preto/p/MLB27641215"
+    "url": "https://www.mercadolivre.com.br/apple-iphone-15-128-gb-preto/p/MLB27641215",
+    "image": "images/produtos/ml-iphone-15.webp",
+    "isLowestPrice": true,
+    "lowestPrice": 4699
   },
   {
-    "id": "ml-s24-ultra-1",
+    "id": "ml-s24-ultra",
     "name": "Samsung Galaxy S24 Ultra 512GB - Titânio",
     "price": 6499,
     "originalPrice": 9999,
-    "lowestPrice": 6499,
     "discount": 35,
-    "isLowestPrice": true,
     "store": "mercadolivre",
     "category": "Celulares",
-    "image": "images/produtos/s24.webp",
-    "url": "https://www.mercadolivre.com.br/samsung-galaxy-s24-ultra-5g-512gb-titnio/p/MLB33678310"
+    "url": "https://www.mercadolivre.com.br/samsung-galaxy-s24-ultra-5g-512gb-titnio/p/MLB33678310",
+    "image": "https://m.media-amazon.com/images/I/71Rov66uLhL._AC_SL1500_.jpg",
+    "isLowestPrice": true,
+    "lowestPrice": 6499
   }
 ]
