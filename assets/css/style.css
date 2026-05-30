@@ -271,6 +271,34 @@ body {
   font-size: 12px;
   font-weight: 800;
   z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.badge-promo-dia {
+  background: linear-gradient(45deg, #ffd700, #ff8c00) !important;
+  top: 12px;
+  left: 12px;
+  right: auto;
+}
+
+.badge-baixou {
+  background: linear-gradient(45deg, #ff416c, #ff4b2b) !important;
+  top: 12px;
+  left: 12px;
+  right: auto;
+}
+
+.badge-menor-preco {
+  background: linear-gradient(45deg, #4facfe, #00f2fe) !important;
+  top: 12px;
+  left: 12px;
+  right: auto;
+}
+
+.discount-badge {
+  background: var(--primary);
+  top: 12px;
+  right: 12px;
 }
 
 .card-img {

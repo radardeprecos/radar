@@ -35,9 +35,13 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
     sorted_products = sorted(products, key=lambda x: x.get("custom_discount_pct", 0), reverse=True)
     
     # Selecionar o destaque (Hero Section)
-    # ROTATIVIDADE AUMENTADA: Selecionamos aleatoriamente entre os TOP 30 produtos com maior desconto.
-    # Isso garante que a cada execução do robô (a cada 2h), o destaque mude e não fique fixo em um só item.
-    pool_size = min(len(sorted_products), 30)
+    # ROTATIVIDADE MÁXIMA: Usamos a hora atual como semente para garantir que o destaque mude a cada execução,
+    # mas que seja consistente dentro de uma mesma rodada de geração.
+    import time
+    random.seed(int(time.time()))
+    
+    # Selecionamos entre os TOP 50 produtos com maior desconto para máxima variedade
+    pool_size = min(len(sorted_products), 50)
     top_candidates = sorted_products[:pool_size]
     hero_product = random.choice(top_candidates)
     logger.info(f"Destaque rotativo escolhido: {hero_product.get('name')} (ID: {hero_product.get('id')})")
@@ -88,12 +92,15 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
         discount = p.get("custom_discount_pct", 0)
         
         # Lógica de Selos Dinâmicos
+        # Garantir que sempre existam pelo menos 10 produtos com selo "PROMOÇÃO DO DIA" de forma rotativa
         extra_badge = ""
         if discount >= 60:
             extra_badge = '<span class="badge badge-menor-preco">💎 MENOR PREÇO</span>'
         elif discount >= 45:
             extra_badge = '<span class="badge badge-baixou">📉 BAIXOU!</span>'
-        elif idx < 5:
+        
+        # Se não tiver selo de desconto alto, vamos atribuir "PROMOÇÃO DO DIA" aleatoriamente para 15 produtos do grid
+        if not extra_badge and random.random() < 0.3: # 30% de chance para produtos do grid
             extra_badge = '<span class="badge badge-promo-dia">🌟 PROMOÇÃO DO DIA</span>'
         
         products_html += f"""
