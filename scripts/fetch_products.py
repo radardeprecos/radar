@@ -34,6 +34,8 @@ def get_access_token() -> str:
         token_data = response.json()
         return token_data["access_token"]
     except Exception as e:
+        if hasattr(e, 'response') and e.response is not None:
+            logger.error(f"Erro detalhado da API ML: {e.response.text}")
         logger.error(f"Falha ao obter Access Token do Mercado Livre: {e}")
         raise
 
