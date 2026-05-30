@@ -518,3 +518,47 @@ body {
     font-size: 14px;
   }
 }
+
+/* Estilos para Selos Vibrantes e Comerciais */
+.badge-menor-preco {
+  background: linear-gradient(45deg, #6200ea, #311b92) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(98, 0, 234, 0.4);
+  animation: pulse-purple 2s infinite;
+}
+
+.badge-baixou {
+  background: linear-gradient(45deg, #ff5252, #b71c1c) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(255, 82, 82, 0.4);
+}
+
+.badge-promo-dia {
+  background: linear-gradient(45deg, #ffd600, #ff6d00) !important;
+  color: #000 !important;
+  font-weight: 900 !important;
+  box-shadow: 0 2px 8px rgba(255, 214, 0, 0.4);
+}
+
+.discount-badge {
+  background: #00c853 !important;
+  left: 12px;
+  right: auto !important;
+}
+
+@keyframes pulse-purple {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.product-card .old-price {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 0.85em;
+  margin-left: 5px;
+}
+
+.price-tag {
+  color: #d32f2f !important; /* Vermelho comercial para preço */
+}

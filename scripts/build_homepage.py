@@ -35,9 +35,12 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
     sorted_products = sorted(products, key=lambda x: x.get("custom_discount_pct", 0), reverse=True)
     
     # Selecionar o destaque (Hero Section)
-    # Pegamos um dos top 15 com maior desconto para garantir que seja sempre uma boa oferta
-    top_candidates = sorted_products[:15]
+    # ROTATIVIDADE AUMENTADA: Selecionamos aleatoriamente entre os TOP 30 produtos com maior desconto.
+    # Isso garante que a cada execução do robô (a cada 2h), o destaque mude e não fique fixo em um só item.
+    pool_size = min(len(sorted_products), 30)
+    top_candidates = sorted_products[:pool_size]
     hero_product = random.choice(top_candidates)
+    logger.info(f"Destaque rotativo escolhido: {hero_product.get('name')} (ID: {hero_product.get('id')})")
     
     # Remover o escolhido da lista para não repetir no grid logo abaixo
     remaining_products = [p for p in sorted_products if p['id'] != hero_product['id']]
@@ -76,19 +79,30 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
 
     # Grid de produtos (Top 50 restantes)
     products_html = ""
-    for p in remaining_products[:50]:
+    for idx, p in enumerate(remaining_products[:50]):
         p_name = p.get("name") or p.get("title") or ""
         p_id = p.get("id", "")
         p_slug = slugify(p_name)
         p_cat = p.get("custom_category_slug", "outros")
         internal_url = f"ofertas/{p_cat}/{p_slug}-{p_id}.html"
+        discount = p.get("custom_discount_pct", 0)
+        
+        # Lógica de Selos Dinâmicos
+        extra_badge = ""
+        if discount >= 60:
+            extra_badge = '<span class="badge badge-menor-preco">💎 MENOR PREÇO</span>'
+        elif discount >= 45:
+            extra_badge = '<span class="badge badge-baixou">📉 BAIXOU!</span>'
+        elif idx < 5:
+            extra_badge = '<span class="badge badge-promo-dia">🌟 PROMOÇÃO DO DIA</span>'
         
         products_html += f"""
         <div class="product-card" data-cat="{p_cat}">
-            <span class="badge">↓ {p.get("custom_discount_pct", 0)}%</span>
+            <span class="badge discount-badge">↓ {discount}% OFF</span>
+            {extra_badge}
             <div class="card-img"><img src="{p.get("image", p.get("thumbnail", ""))}" alt="{p_name}"></div>
             <h3>{p_name[:50]}...</h3>
-            <div class="price-tag">R$ {p.get("price", 0):.2f}</div>
+            <div class="price-tag">R$ {p.get("price", 0):.2f} <span class="old-price">R$ {p.get("originalPrice", 0):.2f}</span></div>
             <a href="{internal_url}" class="btn">Ver Oferta</a>
         </div>
         """

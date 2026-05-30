@@ -25,13 +25,25 @@ def build_category_page(category_slug: str, products: List[Dict[str, Any]], temp
 
     # Renderizar produtos da categoria
     category_products_html = ""
-    for p in products:
+    for idx, p in enumerate(products):
+        discount = p.get("custom_discount_pct", 0)
+        
+        # Lógica de Selos Dinâmicos
+        extra_badge = ""
+        if discount >= 60:
+            extra_badge = '<span class="badge badge-menor-preco">💎 MENOR PREÇO</span>'
+        elif discount >= 45:
+            extra_badge = '<span class="badge badge-baixou">📉 BAIXOU!</span>'
+        elif idx < 3:
+            extra_badge = '<span class="badge badge-promo-dia">🌟 PROMOÇÃO DO DIA</span>'
+
         category_products_html += f"""
         <div class="product-card">
-            <span class="badge">↓ {p.get("custom_discount_pct", 0)}%</span>
+            <span class="badge discount-badge">↓ {discount}% OFF</span>
+            {extra_badge}
             <div class="card-img"><img src="{p.get("image", p.get("thumbnail", ""))}" alt="{p.get("name", "")}"></div>
             <h3>{p.get("name", "")[:50]}...</h3>
-            <div class="price-tag" style="font-size: 20px;">R$ {p.get("price", 0):.2f}</div>
+            <div class="price-tag" style="font-size: 20px;">R$ {p.get("price", 0):.2f} <span class="old-price" style="font-size: 14px;">R$ {p.get("originalPrice", 0):.2f}</span></div>
             <a href="{_safe_url(p)}" class="btn" style="width: 100%; text-align: center;" target="_blank">Ver</a>
         </div>
         """
