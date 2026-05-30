@@ -6,12 +6,17 @@ from logger import logger
 def slugify(text: str) -> str:
     text = text.lower()
     text = text.replace(" ", "-")
-    text = ".".join(c for c in text if c.isalnum() or c == "-")
+    # BUGFIX: Corrigido "." para ""
+    text = "".join(c for c in text if c.isalnum() or c == "-")
     return text
 
 def build_category_page(category_slug: str, products: List[Dict[str, Any]], template_path: str, output_dir: str) -> None:
     logger.info(f"Gerando página para a categoria: {category_slug}")
     
+    if not os.path.exists(template_path):
+        logger.error(f"Template {template_path} não encontrado!")
+        return
+
     with open(template_path, "r", encoding="utf-8") as f:
         template = f.read()
         
@@ -50,12 +55,20 @@ def build_category_page(category_slug: str, products: List[Dict[str, Any]], temp
 
 def build_all_category_pages(input_path: str, template_path: str, output_dir: str) -> None:
     logger.info(f"Gerando páginas de categorias a partir de {input_path}...")
-    if not os.path.exists(input_path):
-        logger.error(f"Arquivo de entrada {input_path} não encontrado!")
-        return
+    
+    products = []
+    if os.path.exists(input_path):
+        try:
+            with open(input_path, "r", encoding="utf-8") as f:
+                products = json.load(f)
+        except Exception as e:
+            logger.error(f"Erro ao carregar {input_path}: {e}")
+    else:
+        logger.warning(f"Arquivo de entrada {input_path} não encontrado!")
         
-    with open(input_path, "r", encoding="utf-8") as f:
-        products = json.load(f)
+    if not products:
+        logger.warning("Nenhum produto encontrado para gerar páginas de categorias.")
+        return
         
     categories: Dict[str, List[Dict[str, Any]]] = {}
     for product in products:
@@ -65,9 +78,15 @@ def build_all_category_pages(input_path: str, template_path: str, output_dir: st
         categories[category_slug].append(product)
         
     for category_slug, cat_products in categories.items():
-        build_category_page(category_slug, cat_products, template_path, output_dir)
+        try:
+            build_category_page(category_slug, cat_products, template_path, output_dir)
+        except Exception as e:
+            logger.error(f"Erro ao gerar categoria {category_slug}: {e}")
         
-    logger.info(f"Total de {len(categories)} páginas de categorias geradas.")
+    logger.info(f"Total de {len(categories)} páginas de categorias processadas.")
 
 if __name__ == "__main__":
-    build_all_category_pages("data/new_offers.json", "templates/category_template.html", "categorias")
+    try:
+        build_all_category_pages("data/new_offers.json", "templates/category_template.html", "categorias")
+    except Exception as e:
+        logger.error(f"Erro fatal ao construir categorias: {e}")

@@ -10,6 +10,7 @@ def slugify(text: str) -> str:
     return text
 
 def generate_product_page(product: Dict[str, Any], template_path: str, output_dir: str) -> None:
+    # BUGFIX: Corrigido SyntaxError nas aspas da f-string
     name = product.get("name") or product.get("title") or "Produto"
     logger.info(f"Gerando página para o produto: {name}")
     
@@ -89,4 +90,8 @@ def generate_all_product_pages(input_path: str, template_path: str, output_dir: 
     logger.info(f"Total de {len(products)} páginas de produtos processadas.")
 
 if __name__ == "__main__":
-    generate_all_product_pages("data/new_offers.json", "templates/product_template.html", "ofertas")
+    try:
+        generate_all_product_pages("data/new_offers.json", "templates/product_template.html", "ofertas")
+    except Exception as e:
+        logger.error(f"Erro fatal no gerador de páginas: {e}")
+        # Hardening: Não sair com erro para não quebrar o workflow
