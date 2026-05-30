@@ -4,8 +4,8 @@ const path = require('path');
 const sharp = require('sharp');
 
 /**
- * RADAR DE PREÇOS v4.0 — FOCO EXCLUSIVO MERCADO LIVRE
- * Busca real via API pública com headers otimizados.
+ * RADAR DE PREÇOS v5.0 — EXCLUSIVO MERCADO LIVRE
+ * Foco em estabilidade, imagens válidas e links reais.
  */
 
 const CONFIG = {
@@ -16,22 +16,17 @@ const CONFIG = {
   robotsPath: path.join(__dirname, '../robots.txt'),
   siteUrl: 'https://radardeprecos.github.io/radar/',
   
-  affiliates: {
-    mlId: 'vendas0nline'
-  },
-
+  // Identificador do Mercado Livre Social
+  mlSocialId: 'vendas0nline',
+  
+  // API Pública do Mercado Livre (não exige token para buscas básicas)
   mlApi: 'https://api.mercadolibre.com/sites/MLB/search',
   
   minDiscount: 10,
-  timeout: 15000,
+  timeout: 10000,
   
-  // Headers que simulam um navegador real para evitar 403
   headers: {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-    'Accept': 'application/json',
-    'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
-    'Origin': 'https://www.mercadolivre.com.br',
-    'Referer': 'https://www.mercadolivre.com.br/'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
   }
 };
 
@@ -39,18 +34,15 @@ class Logger {
   constructor() {
     this.logs = [];
   }
-
   log(type, message, data = {}) {
     const entry = { timestamp: new Date().toISOString(), type, message, data };
     this.logs.push(entry);
     console.log(`[${type}] ${message}`, Object.keys(data).length ? data : '');
   }
-
   info(msg, data) { this.log('INFO', msg, data); }
   success(msg, data) { this.log('SUCCESS', msg, data); }
   warn(msg, data) { this.log('WARN', msg, data); }
   error(msg, data) { this.log('ERROR', msg, data); }
-
   async save() {
     await fs.ensureDir(CONFIG.logsDir);
     const filename = `log-${new Date().toISOString().split('T')[0]}.json`;
@@ -62,14 +54,14 @@ const logger = new Logger();
 
 async function validateUrl(url) {
   try {
-    const response = await axios.get(url, { headers: CONFIG.headers, timeout: 5000 });
+    const response = await axios.head(url, { timeout: 5000 });
     return response.status === 200;
   } catch (err) {
     return false;
   }
 }
 
-async function downloadImage(url, id) {
+async function downloadAndProcessImage(url, id) {
   try {
     const fileName = `${id}.webp`;
     const dest = path.join(CONFIG.imageDir, fileName);
@@ -78,16 +70,17 @@ async function downloadImage(url, id) {
     const response = await axios({
       url,
       responseType: 'arraybuffer',
-      headers: { 'User-Agent': CONFIG.headers['User-Agent'] },
       timeout: 10000
     });
+
+    if (!response.data || response.data.length < 500) return null;
 
     await sharp(response.data)
       .resize(500, 500, { fit: 'inside' })
       .webp({ quality: 80 })
       .toFile(dest);
 
-    return `images/produtos/${fileName}`;
+    return (await fs.pathExists(dest)) ? `images/produtos/${fileName}` : null;
   } catch (err) {
     return null;
   }
@@ -105,39 +98,37 @@ async function generateSitemap(products) {
 }
 
 async function fetchMercadoLivre() {
-  logger.info('Buscando ofertas reais no Mercado Livre...');
+  logger.info('Iniciando busca real no Mercado Livre...');
   const products = [];
-  const queries = ['iPhone', 'Samsung Galaxy', 'PlayStation 5', 'Notebook Gamer', 'Air Fryer Mondial', 'Smart TV 4K', 'Fone JBL', 'Eletrodomésticos'];
+  const queries = ['iPhone', 'PlayStation 5', 'Notebook', 'Smart TV', 'Air Fryer', 'Samsung Galaxy'];
 
   for (const q of queries) {
     try {
-      // Pequeno delay entre queries
-      await new Promise(r => setTimeout(r, 1000));
-
       const response = await axios.get(CONFIG.mlApi, {
-        params: { q, limit: 15, sort: 'relevance' },
-        headers: CONFIG.headers,
+        params: { q, limit: 10, sort: 'relevance' },
         timeout: CONFIG.timeout
       });
 
       if (response.data && response.data.results) {
         for (const item of response.data.results) {
+          logger.info(`Produto encontrado: ${item.title}`, { id: item.id });
+
           const originalPrice = item.original_price || item.price * 1.15;
           const discount = Math.round(((originalPrice - item.price) / originalPrice) * 100);
 
-          if (discount < CONFIG.minDiscount) continue;
-
-          // Link de Afiliado Social
-          const affiliateUrl = `https://www.mercadolivre.com.br/social/${CONFIG.affiliates.mlId}?item=${item.id}`;
-
-          // Imagem de alta qualidade
-          const imageUrl = item.thumbnail.replace('-I.jpg', '-O.jpg');
-          const localImage = await downloadImage(imageUrl, item.id);
-          
-          if (!localImage) {
-            logger.warn(`Produto rejeitado (sem imagem): ${item.title}`);
+          if (discount < CONFIG.minDiscount) {
+            logger.warn('Rejeitado: Desconto baixo', { id: item.id, discount });
             continue;
           }
+
+          const localImage = await downloadAndProcessImage(item.thumbnail.replace('-I.jpg', '-O.jpg'), item.id);
+          if (!localImage) {
+            logger.warn('Rejeitado: Falha na imagem', { id: item.id });
+            continue;
+          }
+
+          // Link Social do Mercado Livre
+          const affiliateUrl = `https://www.mercadolivre.com.br/social/${CONFIG.mlSocialId}?item=${item.id}`;
 
           products.push({
             id: item.id,
@@ -148,35 +139,31 @@ async function fetchMercadoLivre() {
             store: 'mercadolivre',
             category: q,
             image: localImage,
-            url: affiliateUrl, // Sempre usar o link de afiliado social
+            url: affiliateUrl,
             originalUrl: item.permalink
           });
 
-          logger.success(`Produto publicado: ${item.title} (R$ ${item.price})`);
-          
-          // Limite de 40 produtos no total para manter o site leve
-          if (products.length >= 40) break;
+          logger.success(`Publicado: ${item.title}`, { id: item.id });
         }
       }
-      if (products.length >= 40) break;
     } catch (err) {
-      logger.error(`Erro na busca ML: ${q}`, { error: err.message });
+      logger.error(`Erro na busca ML (${q}): ${err.message}`);
     }
   }
   return products;
 }
 
 async function run() {
+  logger.info('=== SCANNER v5.0 INICIADO ===');
   try {
     const products = await fetchMercadoLivre();
-    
     if (products.length > 0) {
       await fs.ensureDir(path.dirname(CONFIG.dataPath));
       await fs.writeJson(CONFIG.dataPath, products, { spaces: 2 });
       await generateSitemap(products);
       logger.success(`Scanner concluído: ${products.length} produtos publicados.`);
     } else {
-      logger.warn('Nenhum produto encontrado. Verifique os bloqueios.');
+      logger.warn('FIM: Nenhum produto novo encontrado.');
     }
   } catch (err) {
     logger.error('Erro crítico no scanner', { error: err.message });
