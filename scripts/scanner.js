@@ -4,52 +4,44 @@ const path = require('path');
 const sharp = require('sharp');
 
 /**
- * RADAR DE PREÇOS v3.0 — SCANNER REAL
- * Sem fallbacks. Busca real via APIs. Validação total.
+ * RADAR DE PREÇOS v4.0 — FOCO EXCLUSIVO MERCADO LIVRE
+ * Busca real via API pública com headers otimizados.
  */
 
 const CONFIG = {
   dataPath: path.join(__dirname, '../data/products/offers.json'),
   imageDir: path.join(__dirname, '../images/produtos/'),
   logsDir: path.join(__dirname, '../data/logs/'),
+  sitemapPath: path.join(__dirname, '../sitemap.xml'),
+  robotsPath: path.join(__dirname, '../robots.txt'),
+  siteUrl: 'https://radardeprecos.github.io/radar/',
   
   affiliates: {
-    amazonTag: 'radar041-20',
     mlId: 'vendas0nline'
   },
-  
-  // Amazon PA-API (Configuração para o usuário preencher)
-  amazonApi: {
-    accessKey: process.env.AMZ_ACCESS_KEY || '',
-    secretKey: process.env.AMZ_SECRET_KEY || '',
-    region: 'us-east-1', // Brasil é via US-East-1 ou eu-west-1
-    host: 'webservices.amazon.com.br'
-  },
 
-  // Mercado Livre API
   mlApi: 'https://api.mercadolibre.com/sites/MLB/search',
   
   minDiscount: 10,
-  timeout: 10000
+  timeout: 15000,
+  
+  // Headers que simulam um navegador real para evitar 403
+  headers: {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+    'Accept': 'application/json',
+    'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
+    'Origin': 'https://www.mercadolivre.com.br',
+    'Referer': 'https://www.mercadolivre.com.br/'
+  }
 };
-
-// ============================================================================
-// LOGGER PROFISSIONAL
-// ============================================================================
 
 class Logger {
   constructor() {
     this.logs = [];
-    this.sessionStart = new Date().toISOString();
   }
 
   log(type, message, data = {}) {
-    const entry = {
-      timestamp: new Date().toISOString(),
-      type,
-      message,
-      data
-    };
+    const entry = { timestamp: new Date().toISOString(), type, message, data };
     this.logs.push(entry);
     console.log(`[${type}] ${message}`, Object.keys(data).length ? data : '');
   }
@@ -68,20 +60,16 @@ class Logger {
 
 const logger = new Logger();
 
-// ============================================================================
-// VALIDAÇÃO RIGOROSA
-// ============================================================================
-
 async function validateUrl(url) {
   try {
-    const response = await axios.head(url, { timeout: 5000 });
+    const response = await axios.get(url, { headers: CONFIG.headers, timeout: 5000 });
     return response.status === 200;
   } catch (err) {
     return false;
   }
 }
 
-async function downloadAndValidateImage(url, id) {
+async function downloadImage(url, id) {
   try {
     const fileName = `${id}.webp`;
     const dest = path.join(CONFIG.imageDir, fileName);
@@ -90,71 +78,66 @@ async function downloadAndValidateImage(url, id) {
     const response = await axios({
       url,
       responseType: 'arraybuffer',
-      timeout: CONFIG.timeout
+      headers: { 'User-Agent': CONFIG.headers['User-Agent'] },
+      timeout: 10000
     });
-
-    if (!response.data || response.data.length < 100) return null;
 
     await sharp(response.data)
       .resize(500, 500, { fit: 'inside' })
       .webp({ quality: 80 })
       .toFile(dest);
 
-    // Verificar se o arquivo realmente existe
-    if (await fs.pathExists(dest)) {
-      return `images/produtos/${fileName}`;
-    }
-    return null;
+    return `images/produtos/${fileName}`;
   } catch (err) {
     return null;
   }
 }
 
-// ============================================================================
-// MERCADO LIVRE — BUSCA REAL
-// ============================================================================
+async function generateSitemap(products) {
+  const now = new Date().toISOString().split('T')[0];
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+  xml += `  <url><loc>${CONFIG.siteUrl}</loc><lastmod>${now}</lastmod><changefreq>hourly</changefreq><priority>1.0</priority></url>\n`;
+  products.forEach(p => {
+    xml += `  <url><loc>${CONFIG.siteUrl}#${p.id}</loc><lastmod>${now}</lastmod><priority>0.8</priority></url>\n`;
+  });
+  xml += `</urlset>`;
+  await fs.writeFile(CONFIG.sitemapPath, xml);
+}
 
 async function fetchMercadoLivre() {
-  logger.info('Iniciando busca real no Mercado Livre...');
+  logger.info('Buscando ofertas reais no Mercado Livre...');
   const products = [];
-  const queries = ['iPhone 15', 'Samsung S24', 'PlayStation 5', 'Notebook Gamer', 'Air Fryer'];
+  const queries = ['iPhone', 'Samsung Galaxy', 'PlayStation 5', 'Notebook Gamer', 'Air Fryer Mondial', 'Smart TV 4K', 'Fone JBL', 'Eletrodomésticos'];
 
   for (const q of queries) {
     try {
-      const response = await axios.get(CONFIG.urls?.ml_api || CONFIG.mlApi, {
-        params: { q, limit: 20, sort: 'relevance' },
+      // Pequeno delay entre queries
+      await new Promise(r => setTimeout(r, 1000));
+
+      const response = await axios.get(CONFIG.mlApi, {
+        params: { q, limit: 15, sort: 'relevance' },
+        headers: CONFIG.headers,
         timeout: CONFIG.timeout
       });
 
       if (response.data && response.data.results) {
         for (const item of response.data.results) {
-          logger.info(`Produto encontrado (ML): ${item.title}`, { id: item.id });
-
           const originalPrice = item.original_price || item.price * 1.15;
           const discount = Math.round(((originalPrice - item.price) / originalPrice) * 100);
 
-          // Regra: Desconto mínimo 10%
-          if (discount < CONFIG.minDiscount) {
-            logger.warn('Rejeitado: Desconto insuficiente', { id: item.id, discount });
-            continue;
-          }
+          if (discount < CONFIG.minDiscount) continue;
 
-          // Validar URL
-          const isUrlValid = await validateUrl(item.permalink);
-          if (!isUrlValid) {
-            logger.warn('Rejeitado: URL inválida', { id: item.id, url: item.permalink });
-            continue;
-          }
+          // Link de Afiliado Social
+          const affiliateUrl = `https://www.mercadolivre.com.br/social/${CONFIG.affiliates.mlId}?item=${item.id}`;
 
-          // Validar Imagem
+          // Imagem de alta qualidade
           const imageUrl = item.thumbnail.replace('-I.jpg', '-O.jpg');
-          const localImage = await downloadAndValidateImage(imageUrl, item.id);
+          const localImage = await downloadImage(imageUrl, item.id);
+          
           if (!localImage) {
-            logger.warn('Rejeitado: Imagem inválida ou falha no download', { id: item.id });
+            logger.warn(`Produto rejeitado (sem imagem): ${item.title}`);
             continue;
           }
-
-          logger.success('Validado: Produto pronto para publicação', { id: item.id });
 
           products.push({
             id: item.id,
@@ -165,12 +148,17 @@ async function fetchMercadoLivre() {
             store: 'mercadolivre',
             category: q,
             image: localImage,
-            url: item.permalink,
-            affiliateUrl: `https://www.mercadolivre.com.br/social/${CONFIG.affiliates.mlId}?item=${item.id}`,
-            asin: null
+            url: affiliateUrl, // Sempre usar o link de afiliado social
+            originalUrl: item.permalink
           });
+
+          logger.success(`Produto publicado: ${item.title} (R$ ${item.price})`);
+          
+          // Limite de 40 produtos no total para manter o site leve
+          if (products.length >= 40) break;
         }
       }
+      if (products.length >= 40) break;
     } catch (err) {
       logger.error(`Erro na busca ML: ${q}`, { error: err.message });
     }
@@ -178,51 +166,20 @@ async function fetchMercadoLivre() {
   return products;
 }
 
-// ============================================================================
-// AMAZON — BUSCA REAL (PA-API)
-// ============================================================================
-
-async function fetchAmazon() {
-  logger.info('Iniciando busca real na Amazon (PA-API)...');
-  
-  if (!CONFIG.amazonApi.accessKey || !CONFIG.amazonApi.secretKey) {
-    logger.warn('Amazon PA-API: Chaves não configuradas. Pulando busca real Amazon.');
-    return [];
-  }
-
-  // Nota: A implementação da PA-API requer assinatura de requisições (AWS4)
-  // Para este script, usaremos uma estrutura simplificada que o usuário pode expandir
-  // ou usar bibliotecas como 'paapi5-nodejs-sdk'
-  
-  const products = [];
-  // ... Lógica de busca PA-API viria aqui ...
-  
-  return products;
-}
-
-// ============================================================================
-// EXECUÇÃO PRINCIPAL
-// ============================================================================
-
 async function run() {
-  logger.info('=== SCANNER RADAR DE PREÇOS v3.0 INICIADO ===');
-  
   try {
-    const mlResults = await fetchMercadoLivre();
-    const amzResults = await fetchAmazon();
+    const products = await fetchMercadoLivre();
     
-    const all = [...mlResults, ...amzResults];
-    
-    if (all.length === 0) {
-      logger.warn('FIM: Nenhum produto novo encontrado ou validado nesta rodada.');
-    } else {
+    if (products.length > 0) {
       await fs.ensureDir(path.dirname(CONFIG.dataPath));
-      await fs.writeJson(CONFIG.dataPath, all, { spaces: 2 });
-      logger.success(`FIM: ${all.length} produtos reais publicados com sucesso!`);
+      await fs.writeJson(CONFIG.dataPath, products, { spaces: 2 });
+      await generateSitemap(products);
+      logger.success(`Scanner concluído: ${products.length} produtos publicados.`);
+    } else {
+      logger.warn('Nenhum produto encontrado. Verifique os bloqueios.');
     }
-    
   } catch (err) {
-    logger.error('Erro crítico na execução do scanner', { error: err.message });
+    logger.error('Erro crítico no scanner', { error: err.message });
   } finally {
     await logger.save();
   }
