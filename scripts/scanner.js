@@ -31,8 +31,14 @@ async function getMLProducts(query, category) {
   const products = [];
   try {
     console.log(`🔍 Buscando ML API: ${query}`);
-    const res = await axios.get(`https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(query)}&limit=10`);
-    if (res.data && res.data.results) {
+    // Usando endpoint de busca direta por site
+    const res = await axios.get(`https://api.mercadolibre.com/sites/MLB/search`, {
+        params: { q: query, limit: 10 },
+        timeout: 10000
+    });
+    
+    if (res.data && res.data.results && res.data.results.length > 0) {
+      console.log(`✅ Encontrados ${res.data.results.length} itens para ${query}`);
       for (const item of res.data.results) {
         products.push({
           id: 'ml-' + item.id,
@@ -44,8 +50,13 @@ async function getMLProducts(query, category) {
           category
         });
       }
+    } else {
+      console.log(`⚠️ Nenhum resultado para ${query}`);
     }
-  } catch (e) { console.log(`❌ Erro ML API: ${e.message}`); }
+  } catch (e) { 
+    console.log(`❌ Erro ML API (${query}): ${e.message}`); 
+    if (e.response) console.log(`Status: ${e.response.status}`);
+  }
   return products;
 }
 
@@ -59,14 +70,22 @@ async function run() {
     }
   }
   
+  console.log(`📦 Total de produtos para processar: ${all.length}`);
   const final = [];
   for (const p of all) {
     const local = await cacheImage(p.img, p.id);
-    if (local) { p.image = local; final.push(p); }
+    if (local) { 
+        p.image = local; 
+        final.push(p); 
+    } else {
+        // Fallback para imagem original se o cache falhar, mas o usuário quer cache real
+        p.image = p.img;
+        final.push(p);
+    }
   }
   
   await fs.ensureDir(path.dirname(CONFIG.dataPath));
   await fs.writeJson(CONFIG.dataPath, final, { spaces: 2 });
-  console.log(`✅ Sucesso: ${final.length} produtos.`);
+  console.log(`✅ Sucesso Final: ${final.length} produtos salvos.`);
 }
 run();
