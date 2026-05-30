@@ -2,6 +2,9 @@ import os, json, requests, time, random
 from datetime import datetime
 
 SITE_ID = "MLB"
+# SEU ID DE AFILIADO SOCIAL
+AFILIADO_ID = "vendas0nline"
+
 CATEGORIES = {
     "Celulares": ["iPhone 15", "Galaxy S24", "Xiaomi"],
     "Games": ["PS5", "Nintendo Switch", "Xbox"],
@@ -21,17 +24,23 @@ def search(query, cat):
         for item in r.json().get("results", []):
             p = item.get("price")
             op = item.get("original_price")
-            if not op or op <= p: op = round(p * 1.25, 2) # Fallback para mostrar desconto
+            item_id = item.get("id")
+            
+            if not op or op <= p: op = round(p * 1.25, 2)
             disc = int(((op - p) / op) * 100)
+            
             if disc >= 15:
+                # FORMATO DE LINK DE AFILIADO SOCIAL
+                affiliate_url = f"https://www.mercadolivre.com.br/social/{AFILIADO_ID}?item={item_id}"
+                
                 items.append({
-                    "id": item.get("id"),
+                    "id": item_id,
                     "name": item.get("title"),
                     "price": p,
                     "originalPrice": op,
                     "discount": disc,
                     "image": item.get("thumbnail").replace("-I.jpg", "-O.jpg"),
-                    "url": item.get("permalink"),
+                    "url": affiliate_url,
                     "category": cat
                 })
         return items
@@ -44,14 +53,13 @@ def main():
             all_items.extend(search(q, cat))
             time.sleep(1)
     
-    # Fallback se a API bloquear tudo
     if not all_items:
-        all_items = [{"id":"1","name":"iPhone 15","price":4999,"originalPrice":6999,"discount":28,"image":"https://http2.mlstatic.com/D_NQ_NP_2X_750531-MLU72002393278_092023-O.webp","url":"https://mercadolivre.com.br","category":"Celulares"}]
+        all_items = [{"id":"MLB27303031","name":"iPhone 15","price":4999,"originalPrice":6999,"discount":28,"image":"https://http2.mlstatic.com/D_NQ_NP_2X_750531-MLU72002393278_092023-O.webp","url":f"https://www.mercadolivre.com.br/social/{AFILIADO_ID}?item=MLB27303031","category":"Celulares"}]
     
     all_items.sort(key=lambda x: x["discount"], reverse=True)
     os.makedirs("data/products", exist_ok=True)
     with open("data/products/offers.json", "w", encoding="utf-8") as f:
         json.dump(all_items[:100], f, ensure_ascii=False, indent=2)
-    print(f"Sucesso: {len(all_items)} ofertas.")
+    print(f"Sucesso: {len(all_items)} ofertas com link de afiliado.")
 
 if __name__ == "__main__": main()
