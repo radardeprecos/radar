@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "id": "ml-ps5-slim",
+    "name": "Console PlayStation 5 Slim Edição Digital",
+    "price": 3399,
+    "originalPrice": 3999,
+    "store": "mercadolivre",
+    "category": "Games",
+    "image": "images/produtos/ml-ps5-slim.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=ml-ps5-slim",
+    "discount": 15
+  },
+  {
+    "id": "ml-iphone-15",
+    "name": "Apple iPhone 15 (128 GB) - Preto",
+    "price": 4699,
+    "originalPrice": 7299,
+    "store": "mercadolivre",
+    "category": "Celulares",
+    "image": "images/produtos/ml-iphone-15.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=ml-iphone-15",
+    "discount": 36
+  },
+  {
+    "id": "amz-airpods",
+    "name": "Apple AirPods Pro (2ª geração) com MagSafe",
+    "price": 1699,
+    "originalPrice": 2599,
+    "store": "amazon",
+    "category": "Acessórios",
+    "image": "https://m.media-amazon.com/images/I/61SUj2W5yXL._AC_SL1500_.jpg",
+    "url": "https://www.amazon.com.br/Apple-AirPods-Pro-2%C2%AA-gera%C3%A7%C3%A3o/dp/B0BDHWDR12?tag=radar041-20",
+    "discount": 35
+  },
+  {
+    "id": "ml-s24-ultra",
+    "name": "Samsung Galaxy S24 Ultra 512GB - Titânio",
+    "price": 6199,
+    "originalPrice": 9999,
+    "store": "mercadolivre",
+    "category": "Celulares",
+    "image": "images/produtos/ml-s24-ultra.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=ml-s24-ultra",
+    "discount": 38
+  }
+]
