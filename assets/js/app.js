@@ -1,4 +1,6 @@
-const DATA_URL = 'data/products/offers.json';
+// Ajustar URL base para funcionar em subdiretórios
+const isSubDir = window.location.pathname.includes('/categorias/') || window.location.pathname.includes('/ofertas/') || window.location.pathname.includes('/sobre/') || window.location.pathname.includes('/contato/') || window.location.pathname.includes('/privacidade/') || window.location.pathname.includes('/termos/') || window.location.pathname.includes('/quem-somos/');
+const DATA_URL = isSubDir ? '../../data/products/offers.json' : 'data/products/offers.json';
 let allProducts = [];
 
 async function init() {

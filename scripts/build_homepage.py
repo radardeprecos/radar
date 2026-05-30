@@ -16,6 +16,14 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
     else:
         logger.warning(f"Arquivo {input_path} não encontrado. Gerando homepage com placeholders.")
 
+    # ATUALIZAÇÃO: Salvar também o arquivo JSON que o JS consome
+    # Isso garante que o site dinâmico tenha os mesmos dados que o estático
+    json_output_path = "data/products/offers.json"
+    os.makedirs(os.path.dirname(json_output_path), exist_ok=True)
+    with open(json_output_path, "w", encoding="utf-8") as f:
+        json.dump(products, f, ensure_ascii=False, indent=2)
+    logger.info(f"Arquivo JSON para JS atualizado: {json_output_path}")
+
     if not os.path.exists(template_path):
         logger.error(f"Template {template_path} não encontrado!")
         return
