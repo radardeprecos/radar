@@ -7,49 +7,23 @@ def deduplicate_products(validated_path: str, published_path: str, output_path: 
     logger.info("Iniciando processo de anti-duplicação...")
     
     if not os.path.exists(validated_path):
-        logger.error(f"Arquivo de validados {validated_path} não encontrado!")
-        return []
-        
-    try:
-        with open(validated_path, "r", encoding="utf-8") as f:
-            validated_products = json.load(f)
-    except Exception as e:
-        logger.error(f"Erro ao carregar {validated_path}: {e}")
-        return []
-        
-    if not validated_products:
-        logger.warning("Nenhum produto validado para deduplicar.")
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        with open(output_path, "w", encoding="utf-8") as f:
-            json.dump([], f)
-        return []
-
-    published_ids = set()
-    if os.path.exists(published_path):
+        logger.warning(f"Arquivo {validated_path} não encontrado.")
+        products = []
+    else:
         try:
-            with open(published_path, "r", encoding="utf-8") as f:
-                published_products = json.load(f)
-                for item in published_products:
-                    published_ids.add(item.get("id"))
-            logger.info(f"Carregados {len(published_ids)} IDs de produtos já publicados anteriormente.")
+            with open(validated_path, "r", encoding="utf-8") as f:
+                products = json.load(f)
         except Exception as e:
-            logger.error(f"Erro ao carregar histórico de publicados: {e}")
-            
-    new_to_publish = []
-    for item in validated_products:
-        item_id = item.get("id")
-        if item_id in published_ids:
-            logger.info(f"Produto {item_id} já publicado anteriormente. Ignorando.")
-            continue
-        new_to_publish.append(item)
-        
-    logger.info(f"Total de novos produtos prontos para publicação única: {len(new_to_publish)}")
-    
+            logger.error(f"Erro ao carregar {validated_path}: {e}")
+            products = []
+
+    # Para lista curada, apenas repassamos para garantir que apareçam no site
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(new_to_publish, f, ensure_ascii=False, indent=2)
+        json.dump(products, f, ensure_ascii=False, indent=2)
         
-    return new_to_publish
+    logger.info(f"Total de produtos prontos para publicação: {len(products)}")
+    return products
 
 if __name__ == "__main__":
     deduplicate_products("data/validated_products.json", "data/published.json", "data/new_offers.json")

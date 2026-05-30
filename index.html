@@ -18,35 +18,66 @@
       <button id="themeToggle">🌙</button>
     </div>
   </header>
-
   <nav class="cat-nav">
     <div class="container cat-tabs" id="catTabs">
       <button class="cat-tab active" data-cat="todos">Todos</button>
-      <button class="cat-tab" data-cat="Celulares">Celulares</button>
-      <button class="cat-tab" data-cat="Informática">Informática</button>
-      <button class="cat-tab" data-cat="Eletrodomésticos">Eletrodomésticos</button>
-      <button class="cat-tab" data-cat="Games">Games</button>
+      <button class="cat-tab" data-cat="celulares">Celulares</button>
+      <button class="cat-tab" data-cat="informatica">Informática</button>
+      <button class="cat-tab" data-cat="eletrodomesticos">Eletrodomésticos</button>
+      <button class="cat-tab" data-cat="games">Games</button>
+      <button class="cat-tab" data-cat="tv-e-video">TV e Vídeo</button>
+      <button class="cat-tab" data-cat="ferramentas">Ferramentas</button>
+      <button class="cat-tab" data-cat="beleza">Beleza</button>
+      <button class="cat-tab" data-cat="casa">Casa</button>
     </div>
   </nav>
-
   <main class="container">
     <section class="hero" id="heroProduct">
-      <!-- Carregado via JS -->
-      <div class="loading">Carregando ofertas...</div>
+      
+        <div class="hero-card">
+            <div class="hero-img"><img src="" alt="iPhone 15 128GB - Oferta Especial"></div>
+            <div class="hero-info">
+                <span class="badge">↓ 18%</span>
+                <h1>iPhone 15 128GB - Oferta Especial</h1>
+                <div class="price-tag">R$ 4299.00 <span class="old-price">R$ 5299.00</span></div>
+                <a href="https://www.mercadolivre.com.br/apple-iphone-15-128-gb-preto/p/MLB27562145" class="btn" target="_blank">🛒 Ver oferta no Mercado Livre</a>
+            </div>
+        </div>
+        
     </section>
-
     <section class="section">
       <h2>🔥 Melhores Ofertas</h2>
-      <div class="products-grid" id="featuredGrid"></div>
+      <div class="products-grid" id="featuredGrid">
+            <div class="product-card">
+                <span class="badge">↓ 33%</span>
+                <div class="card-img"><img src="" alt="Samsung Galaxy S24 Ultra 256GB"></div>
+                <h3>Samsung Galaxy S24 Ultra 256GB...</h3>
+                <div class="price-tag" style="font-size: 20px;">R$ 5999.00</div>
+                <a href="https://www.mercadolivre.com.br/samsung-galaxy-s24-ultra-5g-256gb-12gb-ram/p/MLB23456789" class="btn" style="width: 100%; text-align: center;" target="_blank">Ver</a>
+            </div>
+            
+            <div class="product-card">
+                <span class="badge">↓ 22%</span>
+                <div class="card-img"><img src="" alt="Notebook Gamer Acer Nitro 5"></div>
+                <h3>Notebook Gamer Acer Nitro 5...</h3>
+                <div class="price-tag" style="font-size: 20px;">R$ 3899.00</div>
+                <a href="https://www.mercadolivre.com.br/notebook-gamer-acer-nitro-5-an515-57-52lc/p/MLB12345678" class="btn" style="width: 100%; text-align: center;" target="_blank">Ver</a>
+            </div>
+            </div>
     </section>
   </main>
-
   <footer class="footer">
     <div class="container">
       <p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
+      <div class="footer-links">
+        <a href="/sobre/">Sobre</a>
+        <a href="/contato/">Contato</a>
+        <a href="/privacidade/">Privacidade</a>
+        <a href="/termos/">Termos</a>
+        <a href="/quem-somos/">Quem Somos</a>
+      </div>
     </div>
   </footer>
-
   <script src="assets/js/app.js"></script>
 </body>
 </html>
