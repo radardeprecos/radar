@@ -1,125 +1,80 @@
 /**
- * RADAR DE PREÇOS — Frontend App
- * Gerenciamento de UI e renderização de ofertas.
+ * RADAR DE PREÇOS — Frontend App (Bypass Version)
  */
 
-// Usando caminho relativo para garantir funcionamento no GitHub Pages
 const API_URL = 'data/products/offers.json';
 
+// Forçar remoção do loading após 3 segundos mesmo se falhar
+setTimeout(hideLoading, 3000);
+
 async function init() {
-    console.log('Iniciando carregamento de ofertas...');
+    console.log('Iniciando Radar...');
     try {
         const response = await fetch(API_URL);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) throw new Error('Erro ao buscar dados');
         const products = await response.json();
         
-        console.log('Ofertas carregadas:', products.length);
         renderUI(products);
         hideLoading();
     } catch (err) {
-        console.error('Erro ao carregar ofertas:', err);
-        // Mesmo em erro, removemos o loading para não travar o usuário
+        console.error('Falha no carregamento:', err);
         hideLoading();
-        showErrorMessage();
+        // Fallback: mostrar mensagem de erro amigável
+        const grid = document.getElementById('featuredGrid');
+        if (grid) grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:50px;">Nenhuma oferta encontrada no momento.</div>';
     }
 }
 
 function hideLoading() {
     const overlay = document.getElementById('loadingOverlay');
     if (overlay) {
-        overlay.classList.add('fade-out');
-        setTimeout(() => {
-            overlay.style.display = 'none';
-        }, 500);
-    }
-}
-
-function showErrorMessage() {
-    const featuredGrid = document.getElementById('featuredGrid');
-    if (featuredGrid) {
-        featuredGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">⚠️ Erro ao carregar ofertas. Por favor, tente novamente mais tarde.</p>';
+        overlay.style.opacity = '0';
+        setTimeout(() => overlay.style.display = 'none', 500);
     }
 }
 
 function renderUI(products) {
-    if (!products || products.length === 0) {
-        showErrorMessage();
-        return;
-    }
+    if (!products || products.length === 0) return;
 
-    // 1. Atualizar Estatísticas
+    // Atualizar stats
     const statTotal = document.getElementById('statTotal');
     if (statTotal) statTotal.innerText = `${products.length}+`;
 
-    // 2. Atualizar Hero (primeiro produto)
-    const hero = products[0];
-    const heroImg = document.getElementById('heroProductImg');
-    const heroName = document.getElementById('heroProductName');
-    const heroPrice = document.getElementById('heroProductPrice');
-
-    if (heroImg) heroImg.src = hero.image;
-    if (heroName) heroName.innerText = hero.name;
-    if (heroPrice) heroPrice.innerText = `R$ ${hero.price.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-
-    // 3. Renderizar Grid de Destaques (Featured)
+    // Featured Grid
     const featuredGrid = document.getElementById('featuredGrid');
     if (featuredGrid) {
-        featuredGrid.innerHTML = products.slice(0, 10).map(p => createProductCard(p)).join('');
-    }
-
-    // 4. Renderizar Tabela de Ofertas
-    const tableBody = document.getElementById('offersTableBody');
-    if (tableBody) {
-        tableBody.innerHTML = products.map(p => createTableRow(p)).join('');
-    }
-}
-
-function createProductCard(p) {
-    const discountBadge = p.discount ? `<div class="product-badge">↓ ${p.discount}%</div>` : '';
-    const storeBadge = `<div class="store-badge ${p.store}">${p.store === 'amazon' ? '🔥 Amazon' : '🔥 Mercado Livre'}</div>`;
-    
-    return `
-        <div class="product-card">
-            ${discountBadge}
-            ${storeBadge}
-            <div class="card-image">
-                <img src="${p.image}" alt="${p.name}" onerror="this.src='assets/images/placeholder.svg'">
-            </div>
-            <div class="card-content">
-                <span class="category">${p.category}</span>
-                <h3>${p.name}</h3>
-                <div class="price-box">
-                    <div class="current-price">R$ ${p.price.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
-                    <div class="price-details">
-                        ${p.originalPrice ? `<span class="old-price">R$ ${p.originalPrice.toLocaleString('pt-BR')}</span>` : ''}
-                        <span class="lowest-price">Menor: R$ ${p.price.toLocaleString('pt-BR')}</span>
+        featuredGrid.innerHTML = products.map(p => `
+            <div class="product-card">
+                <div class="product-badge">↓ ${p.discount}%</div>
+                <div class="store-badge ${p.store}">${p.store === 'mercadolivre' ? 'Mercado Livre' : 'Amazon'}</div>
+                <div class="card-image">
+                    <img src="${p.image}" alt="${p.name}" onerror="this.src='assets/images/placeholder.svg'">
+                </div>
+                <div class="card-content">
+                    <span class="category">${p.category}</span>
+                    <h3>${p.name}</h3>
+                    <div class="price-box">
+                        <div class="current-price">R$ ${p.price.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
+                        <div class="price-details">
+                            <span class="old-price">R$ ${p.originalPrice.toLocaleString('pt-BR')}</span>
+                            <span class="lowest-price">Menor: R$ ${p.price.toLocaleString('pt-BR')}</span>
+                        </div>
                     </div>
+                    <a href="${p.url}" class="btn-offer" target="_blank">🛒 Ver oferta</a>
                 </div>
-                ${p.isLowestPrice ? '<div class="lowest-tag">🔥 Menor preço</div>' : ''}
-                <a href="${p.url}" class="btn-offer" target="_blank" rel="noopener sponsored">🛒 Ver oferta</a>
             </div>
-        </div>
-    `;
-}
+        `).join('');
+    }
 
-function createTableRow(p) {
-    return `
-        <div class="offer-row">
-            <div class="offer-info">
-                <img src="${p.image}" alt="${p.name}" class="offer-thumb" onerror="this.src='assets/images/placeholder.svg'">
-                <div class="offer-title-box">
-                    <span class="offer-title">${p.name}</span>
-                    <span class="offer-store">${p.store}</span>
-                </div>
-            </div>
-            <div class="offer-price">R$ ${p.price.toLocaleString('pt-BR')}</div>
-            <div class="offer-lowest">R$ ${p.price.toLocaleString('pt-BR')}</div>
-            <div class="offer-discount">${p.discount || 0}%</div>
-            <div class="offer-action">
-                <a href="${p.url}" class="btn-table" target="_blank">Ver oferta</a>
-            </div>
-        </div>
-    `;
+    // Hero Product
+    const hero = products[0];
+    const heroImg = document.getElementById('heroProductImg');
+    if (heroImg) heroImg.src = hero.image;
+    const heroName = document.getElementById('heroProductName');
+    if (heroName) heroName.innerText = hero.name;
+    const heroPrice = document.getElementById('heroProductPrice');
+    if (heroPrice) heroPrice.innerText = `R$ ${hero.price.toLocaleString('pt-BR')}`;
 }
 
 document.addEventListener('DOMContentLoaded', init);
+window.onload = hideLoading; // Garantia extra

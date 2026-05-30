@@ -9,7 +9,7 @@ const CONFIG = {
   userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 };
 
-const productsToScrape = [
+const products = [
   {
     id: "ml-ps5-slim",
     name: "Console PlayStation 5 Slim + 2 Jogos",
@@ -45,45 +45,34 @@ const productsToScrape = [
   }
 ];
 
-async function cacheImage(url, id) {
-  if (!url) return null;
-  const fileName = `${id}.webp`;
-  const filePath = path.join(CONFIG.imageDir, fileName);
+async function downloadAndProcess(url, id) {
   try {
+    const fileName = `${id}.webp`;
+    const dest = path.join(CONFIG.imageDir, fileName);
     await fs.ensureDir(CONFIG.imageDir);
-    const response = await axios({ 
-      url, 
-      method: 'GET', 
-      responseType: 'arraybuffer', 
-      timeout: 15000, 
-      headers: { 'User-Agent': CONFIG.userAgent } 
-    });
-    await sharp(response.data).resize(400, 400, { fit: 'inside' }).webp().toFile(filePath);
-    console.log(`📸 Imagem salva: ${fileName}`);
+
+    const response = await axios({ url, responseType: 'arraybuffer', headers: { 'User-Agent': CONFIG.userAgent } });
+    await sharp(response.data).resize(500, 500, { fit: 'inside' }).webp().toFile(dest);
+    console.log(`✅ Imagem salva: ${fileName}`);
     return `images/produtos/${fileName}`;
-  } catch (err) { 
-    console.log(`❌ Erro ao baixar ${url}: ${err.message}`);
-    return null; 
+  } catch (err) {
+    console.error(`❌ Erro imagem ${id}:`, err.message);
+    return url; // Fallback para URL original
   }
 }
 
 async function run() {
-  console.log('🚀 Scanner de Imagens Iniciado');
-  const final = [];
-  
-  for (const p of productsToScrape) {
-    console.log(`🔍 Processando: ${p.name}`);
-    const localPath = await cacheImage(p.imgUrl, p.id);
-    p.image = localPath || p.imgUrl;
-    p.isLowestPrice = true;
-    p.lowestPrice = p.price;
+  const finalProducts = [];
+  for (const p of products) {
+    console.log(`Processando ${p.id}...`);
+    p.image = await downloadAndProcess(p.imgUrl, p.id);
     delete p.imgUrl;
-    final.push(p);
+    finalProducts.push(p);
   }
 
   await fs.ensureDir(path.dirname(CONFIG.dataPath));
-  await fs.writeJson(CONFIG.dataPath, final, { spaces: 2 });
-  console.log(`✅ Sucesso: ${final.length} produtos processados.`);
+  await fs.writeJson(CONFIG.dataPath, finalProducts, { spaces: 2 });
+  console.log('FIM: Dados e imagens processados.');
 }
 
 run();
