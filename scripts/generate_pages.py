@@ -6,11 +6,11 @@ from logger import logger
 def slugify(text: str) -> str:
     text = text.lower()
     text = text.replace(" ", "-")
-    text = ''.join(c for c in text if c.isalnum() or c == '-')
+    text = "".join(c for c in text if c.isalnum() or c == "-")
     return text
 
 def generate_product_page(product: Dict[str, Any], template_path: str, output_dir: str) -> None:
-    # BUGFIX: Corrigido SyntaxError nas aspas da f-string
+    # BUGFIX DEFINITIVO: Corrigido aspas da f-string para evitar SyntaxError
     name = product.get("name") or product.get("title") or "Produto"
     logger.info(f"Gerando página para o produto: {name}")
     
@@ -21,7 +21,7 @@ def generate_product_page(product: Dict[str, Any], template_path: str, output_di
     with open(template_path, "r", encoding="utf-8") as f:
         template = f.read()
         
-    # Preparar dados para o template
+    # Preparar dados para o template usando campos normalizados
     product_name = name
     product_slug = slugify(product_name)
     product_id = product.get("id", "")
@@ -33,9 +33,14 @@ def generate_product_page(product: Dict[str, Any], template_path: str, output_di
     product_price = f"R$ {float(price_val):.2f}".replace(".", ",")
     product_original_price = f"R$ {float(orig_price_val):.2f}".replace(".", ",")
     product_discount = product.get("custom_discount_pct", 0)
-    product_image = product.get("custom_image_url", "")
-    product_url = product.get("custom_affiliate_url", "")
-    product_category = product.get("custom_category_slug", "")
+    
+    # Imagem: prioridade para custom_image_url ou image (normalizado)
+    product_image = product.get("custom_image_url") or product.get("image") or product.get("thumbnail", "")
+    
+    # URL: prioridade para custom_affiliate_url
+    product_url = product.get("custom_affiliate_url") or product.get("permalink", "")
+    
+    product_category = product.get("custom_category_slug", "geral")
     product_permalink = product.get("permalink", "")
     
     # Conteúdo SEO e descrição
@@ -94,4 +99,3 @@ if __name__ == "__main__":
         generate_all_product_pages("data/new_offers.json", "templates/product_template.html", "ofertas")
     except Exception as e:
         logger.error(f"Erro fatal no gerador de páginas: {e}")
-        # Hardening: Não sair com erro para não quebrar o workflow
