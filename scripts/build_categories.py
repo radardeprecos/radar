@@ -28,7 +28,7 @@ def build_category_page(category_slug: str, products: List[Dict[str, Any]], temp
         category_products_html += f"""
         <div class="product-card">
             <span class="badge">↓ {p.get("custom_discount_pct", 0)}%</span>
-            <div class="card-img"><img src="{p.get("custom_image_url", "")}" alt="{p.get("name", "")}"></div>
+            <div class="card-img"><img src="{p.get("image", p.get("thumbnail", ""))}" alt="{p.get("name", "")}"></div>
             <h3>{p.get("name", "")[:50]}...</h3>
             <div class="price-tag" style="font-size: 20px;">R$ {p.get("price", 0):.2f}</div>
             <a href="{p.get("custom_affiliate_url", "")}" class="btn" style="width: 100%; text-align: center;" target="_blank">Ver</a>
