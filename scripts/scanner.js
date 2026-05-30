@@ -6,7 +6,6 @@ const sharp = require('sharp');
 
 const CONFIG = {
   dataPath: path.join(__dirname, '../data/products/offers.json'),
-  historyDir: path.join(__dirname, '../data/history/'),
   imageDir: path.join(__dirname, '../images/produtos/'),
   categories: [
     { name: 'Celulares', queries: ['iphone', 'samsung galaxy'] },
@@ -23,58 +22,58 @@ async function cacheImage(url, id) {
     await fs.ensureDir(CONFIG.imageDir);
     const response = await axios({ url, method: 'GET', responseType: 'arraybuffer', timeout: 15000, headers: { 'User-Agent': CONFIG.userAgent } });
     await sharp(response.data).resize(400, 400, { fit: 'inside' }).webp().toFile(filePath);
+    console.log(`📸 Imagem salva: ${fileName}`);
     return `images/produtos/${fileName}`;
-  } catch (err) { return null; }
+  } catch (err) { 
+    console.log(`❌ Erro imagem ${id}: ${err.message}`);
+    return null; 
+  }
 }
 
 async function scrapeML(query, category) {
   const products = [];
   try {
+    console.log(`🔍 ML: ${query}`);
     const { data } = await axios.get(`https://lista.mercadolivre.com.br/${encodeURIComponent(query)}`, { headers: { 'User-Agent': CONFIG.userAgent } });
     const $ = cheerio.load(data);
-    $('.ui-search-result__wrapper, .ui-search-layout__item').each((i, el) => {
-      if (i >= 5) return;
-      const name = $(el).find('.ui-search-item__title').text().trim();
-      const price = parseFloat($(el).find('.andes-money-amount__fraction').first().text().replace(/\./g, ''));
+    // Seletores extremamente genéricos
+    $('.ui-search-result__wrapper, .ui-search-layout__item, .ui-search-result').each((i, el) => {
+      if (i >= 8) return;
+      const name = $(el).find('h2').text().trim();
+      const priceVal = $(el).find('.andes-money-amount__fraction').first().text().replace(/\./g, '');
+      const price = parseFloat(priceVal);
       const img = $(el).find('img').attr('data-src') || $(el).find('img').attr('src');
-      const link = $(el).find('a.ui-search-link').attr('href');
-      if (name && price && link) products.push({ id: 'ml-' + i + Date.now(), name, price, img, url: link.split('?')[0], store: 'mercadolivre', category });
+      const link = $(el).find('a').attr('href');
+      
+      if (name && price && link) {
+        console.log(`📦 Encontrado: ${name.substring(0, 30)}...`);
+        products.push({ id: 'ml-' + slugify(name.substring(0, 10)) + i, name, price, img, url: link.split('?')[0], store: 'mercadolivre', category });
+      }
     });
-  } catch (e) {}
+  } catch (e) { console.log(`❌ Erro ML: ${e.message}`); }
   return products;
 }
 
-async function scrapeAmz(query, category) {
-  const products = [];
-  try {
-    const { data } = await axios.get(`https://www.amazon.com.br/s?k=${encodeURIComponent(query)}`, { headers: { 'User-Agent': CONFIG.userAgent } });
-    const $ = cheerio.load(data);
-    $('.s-result-item[data-component-type="s-search-result"]').each((i, el) => {
-      if (i >= 5) return;
-      const name = $(el).find('h2 span').text().trim();
-      const price = parseFloat($(el).find('.a-price-whole').first().text().replace(/[.,]/g, ''));
-      const img = $(el).find('.s-image').attr('src');
-      const link = $(el).find('h2 a').attr('href');
-      if (name && price && link) products.push({ id: 'amz-' + i + Date.now(), name, price, img, url: 'https://www.amazon.com.br' + link.split('?')[0], store: 'amazon', category });
-    });
-  } catch (e) {}
-  return products;
-}
+function slugify(t) { return t.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''); }
 
 async function run() {
+  console.log('🚀 Scanner Iniciado');
   const all = [];
   for (const c of CONFIG.categories) {
     for (const q of c.queries) {
-      all.push(...(await scrapeML(q, c.name)));
-      all.push(...(await scrapeAmz(q, c.name)));
+      const results = await scrapeML(q, c.name);
+      all.push(...results);
     }
   }
+  
   const final = [];
   for (const p of all) {
     const local = await cacheImage(p.img, p.id);
     if (local) { p.image = local; final.push(p); }
   }
+  
   await fs.ensureDir(path.dirname(CONFIG.dataPath));
   await fs.writeJson(CONFIG.dataPath, final, { spaces: 2 });
+  console.log(`✅ Sucesso: ${final.length} produtos.`);
 }
 run();
