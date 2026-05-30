@@ -81,4 +81,4 @@ def build_all_category_pages(input_path: str, template_path: str, output_dir: st
         build_category_page(category_slug, cat_products, template_path, output_dir)
 
 if __name__ == "__main__":
-    build_all_category_pages("data/new_offers.json", "templates/category_template.html", "categorias")
+    build_all_category_pages("data/database/all_products.json", "templates/category_template.html", "categorias")
