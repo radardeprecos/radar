@@ -109,10 +109,17 @@ function renderCard(product) {
   const seals = getSeals(product);
   const storeName = product.store === 'amazon' ? 'Amazon' : product.store === 'mercadolivre' ? 'Mercado Livre' : product.store || '';
   
-  // CORREÇÃO: Sistema de imagem local com fallback
-  const imgPath = product.image && product.image.startsWith('assets/products/') 
-    ? product.image 
-    : (product.image || 'assets/images/placeholder.svg');
+  // CORREÇÃO: Sistema de imagem local com fallback robusto
+  let imgPath = 'assets/images/placeholder.svg';
+  if (product.image) {
+    if (product.image.startsWith('assets/products/')) {
+      // Se for caminho relativo salvo no JSON, garantimos que comece com ./ ou caminho absoluto do repo
+      imgPath = product.image;
+    } else {
+      // Se ainda for URL externa, tentamos usar, mas o fallback cuidará se falhar
+      imgPath = product.image;
+    }
+  }
 
   const card = el('div', 'product-card');
   card.innerHTML = `
@@ -150,9 +157,10 @@ function renderCard(product) {
 function renderOfferRow(product) {
   const link = buildAffiliateLink(product);
   const discount = product.discount || formatDiscount(product.price, product.originalPrice);
-  const imgPath = product.image && product.image.startsWith('assets/products/') 
-    ? product.image 
-    : (product.image || 'assets/images/placeholder.svg');
+  let imgPath = 'assets/images/placeholder.svg';
+  if (product.image) {
+    imgPath = product.image;
+  }
 
   const row = el('div', 'offer-row');
   row.innerHTML = `
@@ -203,9 +211,10 @@ function renderTopProducts(products) {
   products.slice(0, 5).forEach((p, i) => {
     const link = buildAffiliateLink(p);
     const discount = p.discount || formatDiscount(p.price, p.originalPrice);
-    const imgPath = p.image && p.image.startsWith('assets/products/') 
-      ? p.image 
-      : (p.image || 'assets/images/placeholder.svg');
+    let imgPath = 'assets/images/placeholder.svg';
+    if (p.image) {
+      imgPath = p.image;
+    }
 
     const item = el('a', 'top-product-item');
     item.href = link;
@@ -232,9 +241,10 @@ function renderHeroProduct(product) {
   if (el1) el1.textContent = product.name;
   if (el2) el2.textContent = formatPrice(product.price);
   if (el3) { 
-    const imgPath = product.image && product.image.startsWith('assets/products/') 
-      ? product.image 
-      : (product.image || 'assets/images/placeholder.svg');
+    let imgPath = 'assets/images/placeholder.svg';
+    if (product.image) {
+      imgPath = product.image;
+    }
     el3.src = imgPath; 
     el3.alt = product.name; 
     el3.onerror = function() { this.src='assets/images/placeholder.svg'; };
@@ -284,9 +294,10 @@ function initSearch() {
 
     if (results) {
       results.innerHTML = matches.map(p => {
-        const imgPath = p.image && p.image.startsWith('assets/products/') 
-          ? p.image 
-          : (p.image || 'assets/images/placeholder.svg');
+        let imgPath = 'assets/images/placeholder.svg';
+        if (p.image) {
+          imgPath = p.image;
+        }
         return `
           <a href="${buildAffiliateLink(p)}" class="search-result-item" target="_blank" rel="noopener sponsored">
             <img src="${imgPath}" class="search-result-img" alt="${p.name}" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';" />
