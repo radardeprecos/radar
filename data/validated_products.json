@@ -644,20 +644,6 @@
     "custom_affiliate_url": "https://www.mercadolivre.com.br/p/MLB54963045?matt_tool=vendas0nline"
   },
   {
-    "id": "MLB54961556",
-    "name": "Samsung Galaxy A07 256GB 8GB Preto",
-    "title": "Samsung Galaxy A07 256GB 8GB Preto",
-    "price": 799.2,
-    "originalPrice": 1799.0,
-    "original_price": 1799.0,
-    "permalink": "https://www.mercadolivre.com.br/p/MLB54961556",
-    "image": "https://http2.mlstatic.com/D_Q_NP_2X_895724-MLA91526198522_092025-AB.webp",
-    "thumbnail": "https://http2.mlstatic.com/D_Q_NP_2X_895724-MLA91526198522_092025-AB.webp",
-    "custom_category_slug": "celulares",
-    "custom_discount_pct": 55,
-    "custom_affiliate_url": "https://www.mercadolivre.com.br/p/MLB54961556?matt_tool=vendas0nline"
-  },
-  {
     "id": "MLB62321219",
     "name": "Asus ROG Ally Z1 Extreme 512GB",
     "title": "Asus ROG Ally Z1 Extreme 512GB",
@@ -712,33 +698,5 @@
     "custom_category_slug": "beleza",
     "custom_discount_pct": 67,
     "custom_affiliate_url": "https://www.mercadolivre.com.br/p/MLB26454796?matt_tool=vendas0nline"
-  },
-  {
-    "id": "MLB66060206",
-    "name": "Kit 10 Pote De Vidro Marmita Hermético",
-    "title": "Kit 10 Pote De Vidro Marmita Hermético",
-    "price": 67.16,
-    "originalPrice": 159.0,
-    "original_price": 159.0,
-    "permalink": "https://www.mercadolivre.com.br/p/MLB66060206",
-    "image": "https://http2.mlstatic.com/D_Q_NP_2X_761825-MLA111240637734_052026-AB.webp",
-    "thumbnail": "https://http2.mlstatic.com/D_Q_NP_2X_761825-MLA111240637734_052026-AB.webp",
-    "custom_category_slug": "casa",
-    "custom_discount_pct": 57,
-    "custom_affiliate_url": "https://www.mercadolivre.com.br/p/MLB66060206?matt_tool=vendas0nline"
-  },
-  {
-    "id": "MLB54575876",
-    "name": "Cadeira Escritório Ergonômica Python Fly",
-    "title": "Cadeira Escritório Ergonômica Python Fly",
-    "price": 388.63,
-    "originalPrice": 749.0,
-    "original_price": 749.0,
-    "permalink": "https://www.mercadolivre.com.br/p/MLB54575876",
-    "image": "https://http2.mlstatic.com/D_Q_NP_2X_767880-MLA99418713376_112025-AB.webp",
-    "thumbnail": "https://http2.mlstatic.com/D_Q_NP_2X_767880-MLA99418713376_112025-AB.webp",
-    "custom_category_slug": "casa",
-    "custom_discount_pct": 48,
-    "custom_affiliate_url": "https://www.mercadolivre.com.br/p/MLB54575876?matt_tool=vendas0nline"
   }
 ]
