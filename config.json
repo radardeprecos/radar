@@ -1,0 +1,79 @@
+{
+  "app": {
+    "name": "Radar de Preços",
+    "version": "2.0.0",
+    "description": "Sistema automático de monitoramento de ofertas",
+    "url": "https://radardeprecos.github.io/radar/"
+  },
+  "affiliates": {
+    "amazon": {
+      "id": "radar041-20",
+      "baseUrl": "https://www.amazon.com.br",
+      "enabled": true
+    },
+    "mercadolivre": {
+      "id": "vendas0nline",
+      "baseUrl": "https://www.mercadolivre.com.br",
+      "affiliateUrl": "https://www.mercadolivre.com.br/social/vendas0nline",
+      "enabled": true
+    }
+  },
+  "scanner": {
+    "interval": 30,
+    "intervalUnit": "minutes",
+    "timeout": 10000,
+    "minDiscount": 10,
+    "priceHistoryDays": 30,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+  },
+  "validation": {
+    "minTitleLength": 5,
+    "minPrice": 0.01,
+    "maxPrice": 999999.99,
+    "requireImage": true,
+    "requireValidUrl": true,
+    "requireCategory": true
+  },
+  "categories": [
+    "Celulares",
+    "Notebooks",
+    "Eletrodomésticos",
+    "Games",
+    "Acessórios",
+    "Informática",
+    "TV e Vídeo",
+    "Beleza",
+    "Casa",
+    "Ferramentas"
+  ],
+  "searchTerms": {
+    "amazon": [
+      "iPhone 15",
+      "Samsung Galaxy S24",
+      "PlayStation 5",
+      "Notebook Gamer",
+      "Air Fryer",
+      "Smart TV",
+      "Fone Bluetooth",
+      "Câmera Digital"
+    ],
+    "mercadolivre": [
+      "Celulares",
+      "Notebooks",
+      "Eletrodomésticos",
+      "Games",
+      "Informática"
+    ]
+  },
+  "publishing": {
+    "minProductsPerRun": 1,
+    "maxProductsPerRun": 100,
+    "autoCommit": true,
+    "autoPush": true
+  },
+  "logs": {
+    "enabled": true,
+    "level": "INFO",
+    "retentionDays": 30
+  }
+}

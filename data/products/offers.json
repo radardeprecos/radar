@@ -2,45 +2,49 @@
   {
     "id": "ml-ps5-slim-new",
     "name": "Console PlayStation 5 Slim Edição Digital",
-    "price": 3399,
-    "originalPrice": 3999,
+    "price": 3399.00,
+    "originalPrice": 3999.00,
     "discount": 15,
     "store": "mercadolivre",
     "category": "Games",
-    "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-cor-branco/p/MLB27953234",
-    "image": "images/produtos/ml-ps5-slim-new.webp"
+    "image": "images/produtos/ml-ps5-slim-new.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=ml-ps5-slim-new",
+    "source": "ml-scrape"
   },
   {
     "id": "ml-iphone-15-pro",
     "name": "Apple iPhone 15 Pro (128 GB) - Titânio Natural",
-    "price": 6299,
-    "originalPrice": 9299,
+    "price": 6299.00,
+    "originalPrice": 9299.00,
     "discount": 32,
     "store": "mercadolivre",
     "category": "Celulares",
-    "url": "https://www.mercadolivre.com.br/apple-iphone-15-pro-128-gb-titanio-natural/p/MLB27303032",
-    "image": "images/produtos/ml-iphone-15-pro.webp"
+    "image": "images/produtos/ml-iphone-15-pro.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=ml-iphone-15-pro",
+    "source": "ml-scrape"
   },
   {
     "id": "ml-s24-ultra-new",
     "name": "Samsung Galaxy S24 Ultra 512GB - Titânio",
-    "price": 6199,
-    "originalPrice": 9999,
+    "price": 6199.00,
+    "originalPrice": 9999.00,
     "discount": 38,
     "store": "mercadolivre",
     "category": "Celulares",
-    "url": "https://www.mercadolivre.com.br/samsung-galaxy-s24-ultra-5g-512gb-titnio/p/MLB33678310",
-    "image": "images/produtos/ml-s24-ultra-new.webp"
+    "image": "images/produtos/ml-s24-ultra-new.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=ml-s24-ultra-new",
+    "source": "ml-scrape"
   },
   {
     "id": "ml-airpods-pro",
     "name": "Apple AirPods Pro (2ª geração) com MagSafe",
-    "price": 1699,
-    "originalPrice": 2599,
+    "price": 1699.00,
+    "originalPrice": 2599.00,
     "discount": 34,
     "store": "mercadolivre",
     "category": "Acessórios",
-    "url": "https://www.mercadolivre.com.br/apple-airpods-pro-2-geraco-com-estojo-magsafe-usb-c/p/MLB27622615",
-    "image": "images/produtos/ml-airpods-pro.webp"
+    "image": "images/produtos/ml-airpods-pro.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=ml-airpods-pro",
+    "source": "ml-scrape"
   }
 ]
