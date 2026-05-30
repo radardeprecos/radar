@@ -5,19 +5,16 @@ const axios = require('axios');
 const sharp = require('sharp');
 
 /**
- * RADAR DE PREÇOS v8.0 — LÓGICA DE FERRO
- * - Download local de imagens (sem links quebrados)
- * - Links REAIS dos anúncios (sem URLs artificiais)
- * - Validação rigorosa (URL 200 OK + Imagem válida)
+ * RADAR DE PREÇOS v8.1 — CORREÇÃO DE IMAGENS
+ * - Garante caminhos de imagem compatíveis com GitHub Pages.
+ * - Download local e otimização.
  */
 
 const CONFIG = {
   dataPath: path.join(__dirname, '../data/products/offers.json'),
   imageDir: path.join(__dirname, '../images/produtos/'),
-  logsDir: path.join(__dirname, '../data/logs/'),
   queries: ['iPhone 15', 'Samsung Galaxy S24', 'PlayStation 5 Slim', 'Smart TV 4K', 'Air Fryer Mondial'],
-  minDiscount: 5,
-  timeout: 30000
+  minDiscount: 5
 };
 
 async function downloadImage(url, id) {
@@ -40,23 +37,15 @@ async function downloadImage(url, id) {
       .webp({ quality: 80 })
       .toFile(dest);
 
+    // Retorna o caminho relativo que o GitHub Pages entende
     return `images/produtos/${fileName}`;
   } catch (err) {
     return null;
   }
 }
 
-async function isValidUrl(url) {
-  try {
-    const res = await axios.head(url, { timeout: 5000 });
-    return res.status === 200;
-  } catch {
-    return false;
-  }
-}
-
 async function run() {
-  console.log('=== SCANNER v8.0 INICIADO ===');
+  console.log('=== SCANNER v8.1 INICIADO ===');
   const browser = await puppeteer.launch({ 
     headless: "new",
     args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -80,7 +69,6 @@ async function run() {
           const oldPriceStr = el.querySelector('.ui-search-price__part--del .andes-money-amount__fraction')?.innerText.replace(/\./g, '');
           const link = el.querySelector('a.ui-search-link')?.href;
           
-          // Captura robusta de imagem
           const imgTag = el.querySelector('img.ui-search-result-image__element') || el.querySelector('img.poly-component__picture');
           let img = imgTag?.src || imgTag?.dataset?.src || imgTag?.getAttribute('data-src');
 
@@ -93,7 +81,7 @@ async function run() {
               name: title,
               price: parseFloat(priceStr),
               originalPrice: oldPriceStr ? parseFloat(oldPriceStr) : parseFloat(priceStr) * 1.15,
-              url: link, // LINK REAL DO ANÚNCIO
+              url: link,
               image: img.replace(/-I\.jpg/, '-O.jpg')
             });
           }
@@ -102,37 +90,26 @@ async function run() {
       });
 
       for (const p of products) {
-        console.log(`Validando: ${p.name}`);
-        
-        // 1. Validar URL
-        if (!(await isValidUrl(p.url))) {
-          console.log('❌ Rejeitado: URL inválida');
-          continue;
-        }
-
-        // 2. Baixar e Validar Imagem
         const localImg = await downloadImage(p.image, p.id);
-        if (!localImg) {
-          console.log('❌ Rejeitado: Falha na imagem');
-          continue;
-        }
+        if (!localImg) continue;
 
         p.image = localImg;
         p.discount = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
         p.store = 'mercadolivre';
+        p.category = query.split(' ')[0]; // Categoria simples
         
         allProducts.push(p);
-        console.log(`✅ Publicado: ${p.name}`);
+        console.log(`✅ Adicionado: ${p.name}`);
       }
 
     } catch (err) {
-      console.error(`Erro na busca: ${query}`, err.message);
+      console.error(`Erro: ${query}`, err.message);
     }
   }
 
   if (allProducts.length > 0) {
     await fs.writeJson(CONFIG.dataPath, allProducts, { spaces: 2 });
-    console.log(`✨ FIM: ${allProducts.length} produtos reais publicados.`);
+    console.log(`✨ Sucesso: ${allProducts.length} produtos.`);
   }
 
   await browser.close();
