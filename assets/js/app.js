@@ -1,5 +1,5 @@
 /**
- * RADAR DE PREÇOS — Sistema de Renderização v2.0
+ * RADAR DE PREÇOS — Sistema de Renderização v2.1
  * Renderiza produtos com histórico de preços, validação e links de afiliados
  */
 
@@ -10,7 +10,7 @@ const API_URL = 'data/products/offers.json?t=' + new Date().getTime();
 // ============================================================================
 
 async function init() {
-  console.log('🚀 Iniciando Radar de Preços v2.0...');
+  console.log('🚀 Iniciando Radar de Preços v2.1...');
   try {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error(`Erro HTTP ${response.status}`);
@@ -65,6 +65,7 @@ function renderHero(product) {
 
   const discount = product.discount || 0;
   const savings = Math.round((product.originalPrice - product.price) * 100) / 100;
+  const imageUrl = product.image.startsWith('http') ? product.image : product.image;
 
   hero.innerHTML = `
     <div class="hero-content">
@@ -84,7 +85,7 @@ function renderHero(product) {
         <div class="hero-card">
           <div class="hero-badge">↓ ${discount}%</div>
           <div class="hero-image">
-            <img src="${product.image}" alt="${product.name}" onerror="this.src='assets/images/placeholder.svg'">
+            <img src="${imageUrl}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/500x500?text=Imagem+Indisponivel'">
           </div>
           <div class="hero-info">
             <h3>${product.name}</h3>
@@ -111,14 +112,15 @@ function renderFeaturedGrid(products) {
   const grid = document.getElementById('featuredGrid');
   if (!grid) return;
 
-  grid.innerHTML = products.slice(0, 8).map(p => {
+  grid.innerHTML = products.slice(0, 12).map(p => {
     const savings = Math.round((p.originalPrice - p.price) * 100) / 100;
+    const imageUrl = p.image.startsWith('http') ? p.image : p.image;
     return `
       <div class="product-card" data-product-id="${p.id}">
         <div class="product-badge">↓ ${p.discount}%</div>
         <div class="store-badge ${p.store}">${p.store === 'amazon' ? '🟠 Amazon' : '🟡 Mercado Livre'}</div>
         <div class="card-image">
-          <img src="${p.image}" alt="${p.name}" onerror="this.src='assets/images/placeholder.svg'">
+          <img src="${imageUrl}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/500x500?text=Imagem+Indisponivel'">
         </div>
         <div class="card-content">
           <span class="category">${p.category}</span>
@@ -147,10 +149,10 @@ function renderOffersTable(products) {
   const tableBody = document.getElementById('offersTableBody');
   if (!tableBody) return;
 
-  tableBody.innerHTML = products.slice(0, 10).map(p => `
+  tableBody.innerHTML = products.slice(0, 15).map(p => `
     <div class="offer-row">
       <div class="offer-info">
-        <img src="${p.image}" alt="${p.name}" class="offer-thumb" onerror="this.src='assets/images/placeholder.svg'">
+        <img src="${p.image}" alt="${p.name}" class="offer-thumb" onerror="this.src='https://via.placeholder.com/100x100?text=N/A'">
         <div class="offer-details">
           <span class="offer-title">${p.name}</span>
           <span class="offer-category">${p.category}</span>
@@ -196,12 +198,9 @@ function renderCategories(products) {
   const categoriesContainer = document.getElementById('categoriesContainer');
   if (!categoriesContainer) return;
 
-  // Agrupar por categoria
   const categories = {};
   products.forEach(p => {
-    if (!categories[p.category]) {
-      categories[p.category] = [];
-    }
+    if (!categories[p.category]) categories[p.category] = [];
     categories[p.category].push(p);
   });
 
@@ -216,7 +215,7 @@ function renderCategories(products) {
           <span class="category-count">${items.length} produtos</span>
         </div>
         <div class="category-preview">
-          <img src="${bestProduct.image}" alt="${bestProduct.name}" onerror="this.src='assets/images/placeholder.svg'">
+          <img src="${bestProduct.image}" alt="${bestProduct.name}" onerror="this.src='https://via.placeholder.com/300x300?text=N/A'">
         </div>
         <div class="category-best">
           <div class="best-label">Melhor preço</div>
@@ -249,57 +248,6 @@ function updateStats(products) {
     );
     statAvgDiscount.innerText = avgDiscount + '%';
   }
-}
-
-// ============================================================================
-// BUSCA
-// ============================================================================
-
-let allProducts = [];
-
-async function setupSearch() {
-  const searchInput = document.getElementById('searchInput');
-  const searchBtn = document.getElementById('searchBtn');
-  const searchResults = document.getElementById('searchResults');
-
-  if (!searchInput || !searchBtn) return;
-
-  try {
-    const response = await fetch(API_URL);
-    allProducts = await response.json();
-  } catch (err) {
-    console.error('Erro ao carregar produtos para busca:', err);
-  }
-
-  function performSearch(query) {
-    if (!query.trim()) {
-      searchResults.innerHTML = '';
-      return;
-    }
-
-    const results = allProducts.filter(p =>
-      p.name.toLowerCase().includes(query.toLowerCase()) ||
-      p.category.toLowerCase().includes(query.toLowerCase())
-    ).slice(0, 5);
-
-    if (results.length === 0) {
-      searchResults.innerHTML = '<div class="search-no-results">Nenhum produto encontrado</div>';
-      return;
-    }
-
-    searchResults.innerHTML = results.map(p => `
-      <a href="${p.url}" class="search-result" target="_blank" rel="noopener">
-        <img src="${p.image}" alt="${p.name}" onerror="this.src='assets/images/placeholder.svg'">
-        <div class="search-result-info">
-          <div class="search-result-name">${p.name}</div>
-          <div class="search-result-price">R$ ${formatPrice(p.price)}</div>
-        </div>
-      </a>
-    `).join('');
-  }
-
-  searchInput.addEventListener('input', (e) => performSearch(e.target.value));
-  searchBtn.addEventListener('click', () => performSearch(searchInput.value));
 }
 
 // ============================================================================
@@ -369,12 +317,5 @@ function setupTheme() {
 
 document.addEventListener('DOMContentLoaded', () => {
   setupTheme();
-  setupSearch();
   init();
 });
-
-if (document.readyState === 'complete') {
-  setupTheme();
-  setupSearch();
-  init();
-}
