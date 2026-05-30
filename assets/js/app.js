@@ -1,99 +1,380 @@
 /**
- * RADAR DE PREÇOS — Sistema de Renderização Definitivo
+ * RADAR DE PREÇOS — Sistema de Renderização v2.0
+ * Renderiza produtos com histórico de preços, validação e links de afiliados
  */
 
 const API_URL = 'data/products/offers.json?t=' + new Date().getTime();
 
-async function init() {
-    console.log('Iniciando Radar...');
-    try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error('Erro na rede');
-        const products = await response.json();
-        
-        if (!products || products.length === 0) {
-            console.warn('Nenhum produto encontrado no JSON');
-            return;
-        }
+// ============================================================================
+// INICIALIZAÇÃO
+// ============================================================================
 
-        renderAll(products);
-    } catch (err) {
-        console.error('Erro crítico:', err);
+async function init() {
+  console.log('🚀 Iniciando Radar de Preços v2.0...');
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error(`Erro HTTP ${response.status}`);
+    
+    const products = await response.json();
+    
+    if (!products || products.length === 0) {
+      console.warn('⚠️ Nenhum produto encontrado');
+      showEmptyState();
+      return;
     }
+
+    console.log(`✅ ${products.length} produtos carregados`);
+    renderAll(products);
+  } catch (err) {
+    console.error('❌ Erro crítico:', err);
+    showErrorState(err.message);
+  }
 }
+
+// ============================================================================
+// RENDERIZAÇÃO PRINCIPAL
+// ============================================================================
 
 function renderAll(products) {
-    // 1. Grid Principal (Featured)
-    const featuredGrid = document.getElementById('featuredGrid');
-    if (featuredGrid) {
-        featuredGrid.innerHTML = products.map(p => `
-            <div class="product-card">
-                <div class="product-badge">↓ ${p.discount}%</div>
-                <div class="store-badge ${p.store}">${p.store}</div>
-                <div class="card-image">
-                    <img src="${p.image}" alt="${p.name}" onerror="this.src='assets/images/placeholder.svg'">
-                </div>
-                <div class="card-content">
-                    <span class="category">${p.category}</span>
-                    <h3>${p.name}</h3>
-                    <div class="price-box">
-                        <div class="current-price">R$ ${p.price.toLocaleString('pt-BR')}</div>
-                        <div class="price-details">
-                            <span class="old-price">R$ ${p.originalPrice.toLocaleString('pt-BR')}</span>
-                        </div>
-                    </div>
-                    <a href="${p.url}" class="btn-offer" target="_blank">🛒 Ver oferta</a>
-                </div>
-            </div>
-        `).join('');
-    }
+  // 1. Hero Section
+  renderHero(products[0]);
 
-    // 2. Tabela de Ofertas (Corrigindo ID)
-    const tableBody = document.getElementById('offersTableBody');
-    if (tableBody) {
-        tableBody.innerHTML = products.map(p => `
-            <div class="offer-row">
-                <div class="offer-info">
-                    <img src="${p.image}" alt="${p.name}" class="offer-thumb" onerror="this.src='assets/images/placeholder.svg'">
-                    <span class="offer-title">${p.name}</span>
-                </div>
-                <div class="offer-price">R$ ${p.price.toLocaleString('pt-BR')}</div>
-                <div class="offer-discount">${p.discount}%</div>
-                <div class="offer-action">
-                    <a href="${p.url}" class="btn-table" target="_blank">Ver</a>
-                </div>
-            </div>
-        `).join('');
-    }
+  // 2. Grid de Ofertas em Destaque
+  renderFeaturedGrid(products);
 
-    // 3. Sidebar (Top Products)
-    const topProducts = document.getElementById('topProducts');
-    if (topProducts) {
-        topProducts.innerHTML = products.slice(0, 5).map((p, i) => `
-            <a href="${p.url}" class="top-product-item" target="_blank">
-                <div class="top-product-rank">${i + 1}</div>
-                <div class="top-product-info">
-                    <div class="top-product-name">${p.name}</div>
-                    <div class="top-product-price">R$ ${p.price.toLocaleString('pt-BR')}</div>
-                </div>
-            </a>
-        `).join('');
-    }
+  // 3. Tabela de Ofertas
+  renderOffersTable(products);
 
-    // 4. Hero Section
-    const hero = products[0];
-    const hImg = document.getElementById('heroProductImg');
-    const hName = document.getElementById('heroProductName');
-    const hPrice = document.getElementById('heroProductPrice');
-    if (hImg) hImg.src = hero.image;
-    if (hName) hName.innerText = hero.name;
-    if (hPrice) hPrice.innerText = `R$ ${hero.price.toLocaleString('pt-BR')}`;
+  // 4. Top Produtos (Sidebar)
+  renderTopProducts(products);
 
-    // 5. Stats
-    const stat = document.getElementById('statTotal');
-    if (stat) stat.innerText = products.length + '+';
+  // 5. Categorias
+  renderCategories(products);
+
+  // 6. Stats
+  updateStats(products);
 }
 
-document.addEventListener('DOMContentLoaded', init);
-// Garantia de execução
-if (document.readyState === 'complete') init();
+// ============================================================================
+// HERO SECTION
+// ============================================================================
+
+function renderHero(product) {
+  const hero = document.getElementById('heroSection');
+  if (!hero) return;
+
+  const discount = product.discount || 0;
+  const savings = Math.round((product.originalPrice - product.price) * 100) / 100;
+
+  hero.innerHTML = `
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Ofertas com<br><span class="highlight">menor preço da história!</span></h1>
+        <p>Monitoramos milhares de produtos todos os dias e mostramos quando o preço atinge o seu menor valor já registrado.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="document.getElementById('featuredGrid').scrollIntoView({behavior: 'smooth'})">
+            🔥 Ver ofertas agora
+          </button>
+          <button class="btn btn-secondary" onclick="document.getElementById('alertas').scrollIntoView({behavior: 'smooth'})">
+            🔔 Receber alertas
+          </button>
+        </div>
+      </div>
+      <div class="hero-product">
+        <div class="hero-card">
+          <div class="hero-badge">↓ ${discount}%</div>
+          <div class="hero-image">
+            <img src="${product.image}" alt="${product.name}" onerror="this.src='assets/images/placeholder.svg'">
+          </div>
+          <div class="hero-info">
+            <h3>${product.name}</h3>
+            <div class="hero-prices">
+              <div class="hero-current">R$ ${formatPrice(product.price)}</div>
+              <div class="hero-original">R$ ${formatPrice(product.originalPrice)}</div>
+            </div>
+            <div class="hero-savings">Economize R$ ${formatPrice(savings)}</div>
+            <a href="${product.url}" class="btn btn-offer" target="_blank" rel="noopener">
+              🛒 Ver oferta
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================================
+// GRID DE OFERTAS
+// ============================================================================
+
+function renderFeaturedGrid(products) {
+  const grid = document.getElementById('featuredGrid');
+  if (!grid) return;
+
+  grid.innerHTML = products.slice(0, 8).map(p => {
+    const savings = Math.round((p.originalPrice - p.price) * 100) / 100;
+    return `
+      <div class="product-card" data-product-id="${p.id}">
+        <div class="product-badge">↓ ${p.discount}%</div>
+        <div class="store-badge ${p.store}">${p.store === 'amazon' ? '🟠 Amazon' : '🟡 Mercado Livre'}</div>
+        <div class="card-image">
+          <img src="${p.image}" alt="${p.name}" onerror="this.src='assets/images/placeholder.svg'">
+        </div>
+        <div class="card-content">
+          <span class="category">${p.category}</span>
+          <h3>${p.name}</h3>
+          <div class="price-box">
+            <div class="current-price">R$ ${formatPrice(p.price)}</div>
+            <div class="price-details">
+              <span class="old-price">R$ ${formatPrice(p.originalPrice)}</span>
+              <span class="savings">Economize R$ ${formatPrice(savings)}</span>
+            </div>
+          </div>
+          <a href="${p.url}" class="btn-offer" target="_blank" rel="noopener">
+            🛒 Ver oferta
+          </a>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================================
+// TABELA DE OFERTAS
+// ============================================================================
+
+function renderOffersTable(products) {
+  const tableBody = document.getElementById('offersTableBody');
+  if (!tableBody) return;
+
+  tableBody.innerHTML = products.slice(0, 10).map(p => `
+    <div class="offer-row">
+      <div class="offer-info">
+        <img src="${p.image}" alt="${p.name}" class="offer-thumb" onerror="this.src='assets/images/placeholder.svg'">
+        <div class="offer-details">
+          <span class="offer-title">${p.name}</span>
+          <span class="offer-category">${p.category}</span>
+        </div>
+      </div>
+      <div class="offer-price">
+        <div class="current">R$ ${formatPrice(p.price)}</div>
+        <div class="original">R$ ${formatPrice(p.originalPrice)}</div>
+      </div>
+      <div class="offer-discount">↓ ${p.discount}%</div>
+      <div class="offer-action">
+        <a href="${p.url}" class="btn-table" target="_blank" rel="noopener">Ver oferta</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================================================
+// TOP PRODUTOS
+// ============================================================================
+
+function renderTopProducts(products) {
+  const topProducts = document.getElementById('topProducts');
+  if (!topProducts) return;
+
+  topProducts.innerHTML = products.slice(0, 5).map((p, i) => `
+    <a href="${p.url}" class="top-product-item" target="_blank" rel="noopener">
+      <div class="top-product-rank">🏆 #${i + 1}</div>
+      <div class="top-product-info">
+        <div class="top-product-name">${p.name}</div>
+        <div class="top-product-price">R$ ${formatPrice(p.price)}</div>
+        <div class="top-product-discount">↓ ${p.discount}%</div>
+      </div>
+    </a>
+  `).join('');
+}
+
+// ============================================================================
+// CATEGORIAS
+// ============================================================================
+
+function renderCategories(products) {
+  const categoriesContainer = document.getElementById('categoriesContainer');
+  if (!categoriesContainer) return;
+
+  // Agrupar por categoria
+  const categories = {};
+  products.forEach(p => {
+    if (!categories[p.category]) {
+      categories[p.category] = [];
+    }
+    categories[p.category].push(p);
+  });
+
+  categoriesContainer.innerHTML = Object.entries(categories).map(([cat, items]) => {
+    const bestPrice = items.reduce((min, p) => p.price < min ? p.price : min, Infinity);
+    const bestProduct = items.find(p => p.price === bestPrice);
+    
+    return `
+      <div class="category-card">
+        <div class="category-header">
+          <h3>${cat}</h3>
+          <span class="category-count">${items.length} produtos</span>
+        </div>
+        <div class="category-preview">
+          <img src="${bestProduct.image}" alt="${bestProduct.name}" onerror="this.src='assets/images/placeholder.svg'">
+        </div>
+        <div class="category-best">
+          <div class="best-label">Melhor preço</div>
+          <div class="best-price">R$ ${formatPrice(bestPrice)}</div>
+          <a href="${bestProduct.url}" class="btn-category" target="_blank" rel="noopener">Ver</a>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================================
+// STATS
+// ============================================================================
+
+function updateStats(products) {
+  const statTotal = document.getElementById('statTotal');
+  if (statTotal) statTotal.innerText = products.length + '+';
+
+  const statUpdate = document.getElementById('statUpdate');
+  if (statUpdate) {
+    const now = new Date();
+    statUpdate.innerText = now.toLocaleString('pt-BR');
+  }
+
+  const statAvgDiscount = document.getElementById('statAvgDiscount');
+  if (statAvgDiscount) {
+    const avgDiscount = Math.round(
+      products.reduce((sum, p) => sum + (p.discount || 0), 0) / products.length
+    );
+    statAvgDiscount.innerText = avgDiscount + '%';
+  }
+}
+
+// ============================================================================
+// BUSCA
+// ============================================================================
+
+let allProducts = [];
+
+async function setupSearch() {
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const searchResults = document.getElementById('searchResults');
+
+  if (!searchInput || !searchBtn) return;
+
+  try {
+    const response = await fetch(API_URL);
+    allProducts = await response.json();
+  } catch (err) {
+    console.error('Erro ao carregar produtos para busca:', err);
+  }
+
+  function performSearch(query) {
+    if (!query.trim()) {
+      searchResults.innerHTML = '';
+      return;
+    }
+
+    const results = allProducts.filter(p =>
+      p.name.toLowerCase().includes(query.toLowerCase()) ||
+      p.category.toLowerCase().includes(query.toLowerCase())
+    ).slice(0, 5);
+
+    if (results.length === 0) {
+      searchResults.innerHTML = '<div class="search-no-results">Nenhum produto encontrado</div>';
+      return;
+    }
+
+    searchResults.innerHTML = results.map(p => `
+      <a href="${p.url}" class="search-result" target="_blank" rel="noopener">
+        <img src="${p.image}" alt="${p.name}" onerror="this.src='assets/images/placeholder.svg'">
+        <div class="search-result-info">
+          <div class="search-result-name">${p.name}</div>
+          <div class="search-result-price">R$ ${formatPrice(p.price)}</div>
+        </div>
+      </a>
+    `).join('');
+  }
+
+  searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+  searchBtn.addEventListener('click', () => performSearch(searchInput.value));
+}
+
+// ============================================================================
+// UTILITÁRIOS
+// ============================================================================
+
+function formatPrice(price) {
+  return new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(price);
+}
+
+function showEmptyState() {
+  const main = document.querySelector('main');
+  if (main) {
+    main.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <h2>Nenhuma oferta disponível</h2>
+        <p>O robô está coletando produtos. Volte em alguns minutos.</p>
+      </div>
+    `;
+  }
+}
+
+function showErrorState(message) {
+  const main = document.querySelector('main');
+  if (main) {
+    main.innerHTML = `
+      <div class="error-state">
+        <div class="error-icon">⚠️</div>
+        <h2>Erro ao carregar ofertas</h2>
+        <p>${message}</p>
+      </div>
+    `;
+  }
+}
+
+// ============================================================================
+// TEMA ESCURO/CLARO
+// ============================================================================
+
+function setupTheme() {
+  const themeToggle = document.getElementById('themeToggle');
+  if (!themeToggle) return;
+
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const savedTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+
+  document.documentElement.setAttribute('data-theme', savedTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    themeToggle.innerText = next === 'dark' ? '☀️' : '🌙';
+  });
+
+  themeToggle.innerText = savedTheme === 'dark' ? '☀️' : '🌙';
+}
+
+// ============================================================================
+// INICIALIZAÇÃO
+// ============================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupTheme();
+  setupSearch();
+  init();
+});
+
+if (document.readyState === 'complete') {
+  setupTheme();
+  setupSearch();
+  init();
+}
