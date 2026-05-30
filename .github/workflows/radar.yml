@@ -1,5 +1,8 @@
 name: 🤖 Radar de Preços (ROBÔ SUPREMO)
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '0 */2 * * *' # Executa a cada 2 horas
   workflow_dispatch:
