@@ -1,3 +1,12 @@
+// Retorna a URL de afiliado válida ou o permalink como fallback
+function safeAffiliateUrl(product) {
+  const aff = product.custom_affiliate_url || '';
+  if (aff && !aff.includes('/social/') && !aff.includes('vendas0nline?')) {
+    return aff;
+  }
+  return product.permalink || product.url || '';
+}
+
 // Ajustar URL base para funcionar em subdiretórios
 const isSubDir = window.location.pathname.includes('/categorias/') || window.location.pathname.includes('/ofertas/') || window.location.pathname.includes('/sobre/') || window.location.pathname.includes('/contato/') || window.location.pathname.includes('/privacidade/') || window.location.pathname.includes('/termos/') || window.location.pathname.includes('/quem-somos/');
 const DATA_URL = isSubDir ? '../../data/products/offers.json' : 'data/products/offers.json';
@@ -32,7 +41,7 @@ function render(products) {
           <span class="badge">↓ ${hero.custom_discount_pct || hero.discount || 0}%</span>
           <h1>${escapeHtml(hero.name || '')}</h1>
           <div class="price-tag">R$ ${formatPrice(hero.price || 0)} <span class="old-price">R$ ${formatPrice(hero.originalPrice || 0)}</span></div>
-          <a href="${escapeHtml(hero.custom_affiliate_url || hero.url || '')}" class="btn" target="_blank" rel="noopener noreferrer">🛒 Ver oferta no Mercado Livre</a>
+          <a href="${escapeHtml(safeAffiliateUrl(hero))}" class="btn" target="_blank" rel="noopener noreferrer">🛒 Ver oferta no Mercado Livre</a>
         </div>
       </div>
     `;
@@ -47,7 +56,7 @@ function render(products) {
         <div class="card-img"><img src="${escapeHtml(p.custom_image_url || p.image || '')}" alt="${escapeHtml(p.name || '')}"></div>
         <h3>${escapeHtml((p.name || '').substring(0, 50))}${(p.name || '').length > 50 ? '...' : ''}</h3>
         <div class="price-tag" style="font-size: 20px;">R$ ${formatPrice(p.price || 0)}</div>
-        <a href="${escapeHtml(p.custom_affiliate_url || p.url || '')}" class="btn" style="width: 100%; text-align: center;" target="_blank" rel="noopener noreferrer">Ver</a>
+        <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" style="width: 100%; text-align: center;" target="_blank" rel="noopener noreferrer">Ver</a>
       </div>
     `).join('');
   }

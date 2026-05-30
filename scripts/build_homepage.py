@@ -36,6 +36,13 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
     featured_products = products[1:13] if len(products) > 1 else []
     
     # Renderizar hero section
+    def _safe_url(p):
+        """Retorna a URL de afiliado válida ou o permalink como fallback."""
+        aff = p.get('custom_affiliate_url', '')
+        if aff and '/social/' not in aff and 'vendas0nline?' not in aff:
+            return aff
+        return p.get('permalink', '')
+
     hero_html = "" 
     if hero_product:
         hero_html = f"""
@@ -45,7 +52,7 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
                 <span class="badge">↓ {hero_product.get("custom_discount_pct", 0)}%</span>
                 <h1>{hero_product.get("name", "")}</h1>
                 <div class="price-tag">R$ {hero_product.get("price", 0):.2f} <span class="old-price">R$ {hero_product.get("originalPrice", 0):.2f}</span></div>
-                <a href="{hero_product.get("custom_affiliate_url", "")}" class="btn" target="_blank">🛒 Ver oferta no Mercado Livre</a>
+                <a href="{_safe_url(hero_product)}" class="btn" target="_blank">🛒 Ver oferta no Mercado Livre</a>
             </div>
         </div>
         """
@@ -69,7 +76,7 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
                 <div class="card-img"><img src="{p.get("image", p.get("thumbnail", ""))}" alt="{p.get("name", "")}"></div>
                 <h3>{p.get("name", "")[:50]}...</h3>
                 <div class="price-tag" style="font-size: 20px;">R$ {p.get("price", 0):.2f}</div>
-                <a href="{p.get("custom_affiliate_url", "")}" class="btn" style="width: 100%; text-align: center;" target="_blank">Ver</a>
+                <a href="{_safe_url(p)}" class="btn" style="width: 100%; text-align: center;" target="_blank">Ver</a>
             </div>
             """
     else:

@@ -33,7 +33,10 @@ def generate_product_page(product: Dict[str, Any], template_path: str, output_di
     p_orig = f"R$ {orig_val:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
     
     p_img = product.get('image') or product.get('thumbnail') or ''
-    p_url = product.get('custom_affiliate_url') or product.get('permalink') or ''
+    # Usa custom_affiliate_url apenas se for válido (não aponta para /social/)
+    _aff = product.get('custom_affiliate_url', '')
+    _is_valid_aff = _aff and '/social/' not in _aff and 'vendas0nline?' not in _aff
+    p_url = _aff if _is_valid_aff else (product.get('permalink') or '')
     p_cat_slug = product.get('custom_category_slug', 'outros')
     p_discount = product.get('custom_discount_pct', 0)
     

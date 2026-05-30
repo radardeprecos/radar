@@ -31,7 +31,7 @@ def build_category_page(category_slug: str, products: List[Dict[str, Any]], temp
             <div class="card-img"><img src="{p.get("image", p.get("thumbnail", ""))}" alt="{p.get("name", "")}"></div>
             <h3>{p.get("name", "")[:50]}...</h3>
             <div class="price-tag" style="font-size: 20px;">R$ {p.get("price", 0):.2f}</div>
-            <a href="{p.get("custom_affiliate_url", "")}" class="btn" style="width: 100%; text-align: center;" target="_blank">Ver</a>
+            <a href="{p.get('custom_affiliate_url', '') if p.get('custom_affiliate_url', '') and '/social/' not in p.get('custom_affiliate_url', '') and 'vendas0nline?' not in p.get('custom_affiliate_url', '') else p.get('permalink', '')}" class="btn" style="width: 100%; text-align: center;" target="_blank">Ver</a>
         </div>
         """
         
