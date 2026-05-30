@@ -1,0 +1,81 @@
+name: 🤖 ROBÔ SUPREMO (RADAR DE PREÇOS)
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: robo-supremo-radar
+  cancel-in-progress: true
+
+jobs:
+  automation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 📥 Checkout Código
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Instalar Dependências
+        run: |
+          npm install sharp axios fs-extra cheerio
+
+      - name: 🤖 Execução do Scanner (com Cache de Imagens)
+        run: |
+          node scripts/scanner.js
+        continue-on-error: true
+
+      - name: 🚀 Publicação Automática (Git Push)
+        run: |
+          git config --global user.email "bot@radardeprecos.com"
+          git config --global user.name "RoboSupremo-Radar"
+          
+          if [[ -n $(git status -s) ]]; then
+            echo "✨ Mudanças detectadas (produtos e imagens)! Iniciando push..."
+            git add -A
+            git commit -m "🤖 [ROBÔ SUPREMO] Atualização de Ofertas e Cache de Imagens $(date +'%d/%m/%Y %H:%M')"
+            
+            git push origin main || {
+              echo "⚠️ Push falhou com GITHUB_TOKEN, tentando com PAT..."
+              if [ -n "${{ secrets.MY_GITHUB_PAT }}" ]; then
+                git remote set-url origin https://x-access-token:${{ secrets.MY_GITHUB_PAT }}@github.com/${{ github.repository }}.git
+                git push origin main
+              else
+                echo "❌ Erro: PAT não disponível."
+                exit 1
+              fi
+            }
+            echo "✅ SUCESSO: Mudanças enviadas!"
+          else
+            echo "⚠️ Nenhuma mudança detectada."
+          fi
+
+      - name: 📂 Preparar Artifact para Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: 🚀 Deploy para GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

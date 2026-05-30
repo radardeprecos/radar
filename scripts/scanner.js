@@ -1,5 +1,5 @@
 /**
- * RADAR DE PREÇOS — Robô Scanner
+ * RADAR DE PREÇOS — Robô Scanner (Versão Otimizada com Cache WebP)
  * Busca produtos, detecta preços, salva histórico e gera JSON para o site.
  */
 
@@ -7,6 +7,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs-extra');
 const path = require('path');
+const sharp = require('sharp');
 
 // ===== CONFIG =====
 const CONFIG = {
@@ -14,6 +15,7 @@ const CONFIG = {
   affiliateML: 'https://www.mercadolivre.com.br/social/vendas0nline',
   dataPath: path.join(__dirname, '../data/products/offers.json'),
   historyDir: path.join(__dirname, '../data/history/'),
+  imageDir: path.join(__dirname, '../assets/products/'),
   categories: [
     { name: 'Celulares', queries: ['iphone', 'samsung galaxy', 'xiaomi', 'motorola'] },
     { name: 'Informática', queries: ['notebook', 'ssd', 'monitor', 'teclado mecanico'] },
@@ -37,6 +39,43 @@ function slugify(text) {
     .replace(/--+/g, '-');
 }
 
+/**
+ * Baixa uma imagem, converte para WebP e salva localmente.
+ */
+async function cacheImage(url, id) {
+  if (!url) return null;
+  
+  const fileName = `${id}.webp`;
+  const filePath = path.join(CONFIG.imageDir, fileName);
+  const publicPath = `assets/products/${fileName}`;
+
+  // Se já existe, não baixa de novo para economizar banda/tempo
+  if (await fs.exists(filePath)) {
+    return publicPath;
+  }
+
+  try {
+    await fs.ensureDir(CONFIG.imageDir);
+    const response = await axios({
+      url,
+      method: 'GET',
+      responseType: 'arraybuffer',
+      timeout: 10000,
+      headers: { 'User-Agent': CONFIG.userAgent }
+    });
+
+    await sharp(response.data)
+      .resize(400, 400, { fit: 'inside', withoutEnlargement: true })
+      .webp({ quality: 80 })
+      .toFile(filePath);
+
+    return publicPath;
+  } catch (err) {
+    console.error(`❌ Erro ao cachear imagem (${id}):`, err.message);
+    return null; // Fallback será tratado no frontend
+  }
+}
+
 // ===== SCRAPERS =====
 
 async function scrapeAmazon(query, category) {
@@ -48,8 +87,10 @@ async function scrapeAmazon(query, category) {
     });
     const $ = cheerio.load(data);
 
-    $('.s-result-item[data-component-type="s-search-result"]').each((i, el) => {
-      if (i >= 12) return; // Aumentado para pegar muito mais produtos
+    const items = $('.s-result-item[data-component-type="s-search-result"]');
+    for (let i = 0; i < items.length; i++) {
+      if (i >= 12) break;
+      const el = items[i];
 
       const name = $(el).find('h2 span').text().trim();
       const priceWhole = $(el).find('.a-price-whole').text().replace(/[.,]/g, '').trim();
@@ -59,11 +100,10 @@ async function scrapeAmazon(query, category) {
       const originalPriceText = $(el).find('.a-text-price span.a-offscreen').text().replace(/[R$\s.]/g, '').replace(',', '.').trim();
       const originalPrice = originalPriceText ? parseFloat(originalPriceText) : null;
       
-      const image = $(el).find('.s-image').attr('src');
+      const imageSrc = $(el).find('.s-image').attr('src');
       const rawLink = $(el).find('h2 a').attr('href');
       
       if (name && price && rawLink && rawLink !== 'undefined') {
-        // Tenta extrair o código ASIN do link para garantir link direto
         const asinMatch = rawLink.match(/\/(?:dp|gp\/product)\/([A-Z0-9]{10})/);
         const asin = asinMatch ? asinMatch[1] : null;
         
@@ -75,19 +115,22 @@ async function scrapeAmazon(query, category) {
         }
         link = link.split('?')[0];
         
+        const id = 'amz-' + slugify(name.substring(0, 20) + '-' + price);
+        const localImage = await cacheImage(imageSrc, id);
+
         products.push({
-          id: 'amz-' + slugify(name.substring(0, 20) + '-' + price),
+          id,
           name,
           price,
           originalPrice,
-          image,
+          image: localImage || imageSrc,
           url: link,
           store: 'amazon',
           category,
           timestamp: new Date().toISOString()
         });
       }
-    });
+    }
   } catch (err) {
     console.error(`Erro Amazon (${query}):`, err.message);
   }
@@ -103,44 +146,49 @@ async function scrapeMercadoLivre(query, category) {
     });
     const $ = cheerio.load(data);
 
-    // Busca expandida para Mercado Livre
     const items = $('.ui-search-layout__item, .ui-search-result__wrapper');
-    items.each((i, el) => {
-      if (i >= 15) return; // Aumentado limite para Mercado Livre
+    for (let i = 0; i < items.length; i++) {
+      if (i >= 15) break;
+      const el = items[i];
 
       const name = $(el).find('.ui-search-item__title, .ui-search-result__content-title').text().trim();
       
-      // Lógica de preço mais robusta
       const priceContainer = $(el).find('.andes-money-amount--cents, .ui-search-price__second-line').first();
       const priceText = priceContainer.find('.andes-money-amount__fraction').text().replace(/\./g, '').trim();
       const priceCents = priceContainer.find('.andes-money-amount__cents').text().trim() || '00';
       const price = parseFloat(`${priceText}.${priceCents}`);
 
-      // Preço original para cálculo de desconto
       const originalPriceContainer = $(el).find('.andes-money-amount--previous, .ui-search-price__part--metadata');
       const originalPriceText = originalPriceContainer.find('.andes-money-amount__fraction').text().replace(/\./g, '').trim();
       const originalPrice = originalPriceText ? parseFloat(originalPriceText) : null;
 
-      const image = $(el).find('.ui-search-result-image__element').attr('data-src') || 
-                    $(el).find('.ui-search-result-image__element').attr('src') ||
-                    $(el).find('img').attr('data-src');
+      const imageSrc = $(el).find('.ui-search-result-image__element').attr('data-src') || 
+                       $(el).find('.ui-search-result-image__element').attr('src') ||
+                       $(el).find('img').attr('data-src');
       
-      const link = $(el).find('a.ui-search-link, a.ui-search-result__content').attr('href');
+      // CORREÇÃO: Usar o permalink direto se disponível no atributo ou no link principal
+      let link = $(el).find('a.ui-search-link, a.ui-search-result__content').attr('href');
+      if (link) {
+          link = link.split('#')[0].split('?')[0]; // Limpa rastreadores
+      }
 
       if (name && price) {
+        const id = 'ml-' + slugify(name.substring(0, 20) + '-' + price);
+        const localImage = await cacheImage(imageSrc, id);
+
         products.push({
-          id: 'ml-' + slugify(name.substring(0, 20) + '-' + price),
+          id,
           name,
           price,
           originalPrice,
-          image,
+          image: localImage || imageSrc,
           url: link,
           store: 'mercadolivre',
           category,
           timestamp: new Date().toISOString()
         });
       }
-    });
+    }
   } catch (err) {
     console.error(`Erro ML (${query}):`, err.message);
   }
@@ -163,17 +211,14 @@ async function processProducts(newProducts) {
       history = await fs.readJson(historyFile);
     }
 
-    // Adicionar novo preço ao histórico se for diferente do último
     const lastPrice = history.length > 0 ? history[history.length - 1].price : null;
     if (p.price !== lastPrice) {
       history.push({ price: p.price, date: p.timestamp });
-      // Manter apenas os últimos 30 registros
       if (history.length > 30) history.shift();
       await fs.ensureDir(CONFIG.historyDir);
       await fs.writeJson(historyFile, history);
     }
 
-    // Calcular métricas
     const prices = history.map(h => h.price);
     const lowestPrice = Math.min(...prices);
     const avgPrice = prices.reduce((a, b) => a + b, 0) / prices.length;
@@ -186,7 +231,6 @@ async function processProducts(newProducts) {
     p.priceDrop = lastPrice ? Math.round(((lastPrice - p.price) / lastPrice) * 100) : 0;
     p.isFlash = p.discount >= 30;
 
-    // Atualizar no DB principal
     const idx = db.findIndex(item => item.id === p.id);
     if (idx >= 0) {
       db[idx] = p;
@@ -195,14 +239,12 @@ async function processProducts(newProducts) {
     }
   }
 
-  // Ordenar por desconto e limitar a 100 produtos no JSON principal para performance
   db.sort((a, b) => (b.discount || 0) - (a.discount || 0));
   const finalDb = db.slice(0, 100);
 
   await fs.ensureDir(path.dirname(CONFIG.dataPath));
   await fs.writeJson(CONFIG.dataPath, finalDb, { spaces: 2 });
   
-  // Gerar Sitemap Dinâmico
   await generateSitemap(finalDb);
   
   console.log(`Processados ${newProducts.length} produtos. Banco de dados atualizado com ${finalDb.length} itens.`);
@@ -212,16 +254,13 @@ async function generateSitemap(products) {
   const baseUrl = 'https://radardeprecos.github.io/radar';
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
   
-  // URL Principal
   xml += `  <url>\n    <loc>${baseUrl}/</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <changefreq>hourly</changefreq>\n    <priority>1.0</priority>\n  </url>\n`;
   
-  // URLs de Categorias
   const categories = [...new Set(products.map(p => p.category))];
   for (const cat of categories) {
     xml += `  <url>\n    <loc>${baseUrl}/?cat=${encodeURIComponent(cat.toLowerCase())}</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
   }
 
-  // URLs de Produtos Individuais (SEO Forte)
   for (const p of products) {
     xml += `  <url>\n    <loc>${baseUrl}/p/${p.id}.html</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.6</priority>\n  </url>\n`;
     await generateProductPage(p);
@@ -229,7 +268,6 @@ async function generateSitemap(products) {
   
   xml += `</urlset>`;
   await fs.writeFile(path.join(__dirname, '../sitemap.xml'), xml);
-  console.log('✅ Sitemap.xml e Páginas de Produtos atualizados!');
 }
 
 async function generateProductPage(p) {
@@ -264,7 +302,7 @@ async function generateProductPage(p) {
 // ===== MAIN =====
 
 async function run() {
-  console.log('🚀 Iniciando Scanner Radar de Preços...');
+  console.log('🚀 Iniciando Scanner Radar de Preços (com Cache de Imagens)...');
   const allNewProducts = [];
 
   for (const cat of CONFIG.categories) {
@@ -273,10 +311,10 @@ async function run() {
       console.log(`🔍 Buscando: ${query}...`);
       
       const amz = await scrapeAmazon(query, cat.name);
-      await delay(2000); // Delay amigável
+      await delay(1000); 
       
       const ml = await scrapeMercadoLivre(query, cat.name);
-      await delay(2000);
+      await delay(1000);
 
       allNewProducts.push(...amz, ...ml);
     }
