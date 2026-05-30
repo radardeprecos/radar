@@ -56,9 +56,20 @@ def process_affiliate_links(input_path: str, output_path: str) -> List[Dict[str,
         logger.error(f"Arquivo de entrada {input_path} não encontrado!")
         return []
         
-    with open(input_path, "r", encoding="utf-8") as f:
-        products = json.load(f)
+    try:
+        with open(input_path, "r", encoding="utf-8") as f:
+            products = json.load(f)
+    except Exception as e:
+        logger.error(f"Erro ao carregar {input_path}: {e}")
+        return []
         
+    if not products:
+        logger.warning("Nenhum produto para processar links de afiliados.")
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump([], f)
+        return []
+
     for item in products:
         permalink = item.get("permalink", "")
         aff_link = generate_official_affiliate_link(permalink)

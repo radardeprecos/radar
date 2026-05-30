@@ -7,8 +7,8 @@ def calculate_score(item: Dict[str, Any]) -> float:
     score = 0.0
     
     # 1. Desconto percentual (Fator mais importante)
-    price = item.get("price", 0.0)
-    original_price = item.get("original_price") or price
+    price = item.get("price") or 0.0
+    original_price = item.get("originalPrice") or item.get("original_price") or price
     
     discount_pct = 0.0
     if original_price > price:
@@ -73,9 +73,21 @@ def score_and_rank_products(input_path: str, output_path: str) -> List[Dict[str,
         logger.error(f"Arquivo de entrada {input_path} não encontrado!")
         return []
         
-    with open(input_path, "r", encoding="utf-8") as f:
-        products = json.load(f)
+    try:
+        with open(input_path, "r", encoding="utf-8") as f:
+            products = json.load(f)
+    except Exception as e:
+        logger.error(f"Erro ao carregar {input_path}: {e}")
+        return []
         
+    if not products:
+        logger.warning("Nenhum produto para calcular score.")
+        # Criar arquivo vazio para não quebrar o pipeline downstream
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump([], f)
+        return []
+
     scored_products = []
     for item in products:
         score = calculate_score(item)

@@ -10,9 +10,20 @@ def deduplicate_products(validated_path: str, published_path: str, output_path: 
         logger.error(f"Arquivo de validados {validated_path} não encontrado!")
         return []
         
-    with open(validated_path, "r", encoding="utf-8") as f:
-        validated_products = json.load(f)
+    try:
+        with open(validated_path, "r", encoding="utf-8") as f:
+            validated_products = json.load(f)
+    except Exception as e:
+        logger.error(f"Erro ao carregar {validated_path}: {e}")
+        return []
         
+    if not validated_products:
+        logger.warning("Nenhum produto validado para deduplicar.")
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump([], f)
+        return []
+
     published_ids = set()
     if os.path.exists(published_path):
         try:

@@ -63,9 +63,20 @@ def validate_all_products(input_path: str, output_path: str) -> List[Dict[str, A
         logger.error(f"Arquivo {input_path} não encontrado!")
         return []
         
-    with open(input_path, "r", encoding="utf-8") as f:
-        products = json.load(f)
+    try:
+        with open(input_path, "r", encoding="utf-8") as f:
+            products = json.load(f)
+    except Exception as e:
+        logger.error(f"Erro ao carregar {input_path}: {e}")
+        return []
         
+    if not products:
+        logger.warning("Nenhum produto para validar.")
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump([], f)
+        return []
+
     valid_products = []
     
     # Validar em paralelo para acelerar o processo sem travar o pipeline
