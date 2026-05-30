@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{seo.title}}</title>
+  <meta name="description" content="{{meta.description}}">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="../../" class="logo">📊 <strong>Radar de Preços</strong></a>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
+      </div>
+      <button id="themeToggle">🌙</button>
+    </div>
+  </header>
+  <nav class="cat-nav">
+    <div class="container cat-tabs" id="catTabs">
+      <button class="cat-tab active" data-cat="todos">Todos</button>
+      <button class="cat-tab" data-cat="celulares">Celulares</button>
+      <button class="cat-tab" data-cat="informatica">Informática</button>
+      <button class="cat-tab" data-cat="eletrodomesticos">Eletrodomésticos</button>
+      <button class="cat-tab" data-cat="games">Games</button>
+      <button class="cat-tab" data-cat="tv-e-video">TV e Vídeo</button>
+      <button class="cat-tab" data-cat="ferramentas">Ferramentas</button>
+      <button class="cat-tab" data-cat="beleza">Beleza</button>
+      <button class="cat-tab" data-cat="casa">Casa</button>
+    </div>
+  </nav>
+  <main class="container">
+    <nav class="breadcrumb">
+      <a href="../../">Home</a> &gt; {{category.name}}
+    </nav>
+    <section class="section">
+      <h1>Ofertas de {{category.name}}</h1>
+      <div class="products-grid" id="categoryGrid">{{category.products}}</div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
+      <div class="footer-links">
+        <a href="../../sobre/">Sobre</a>
+        <a href="../../contato/">Contato</a>
+        <a href="../../privacidade/">Privacidade</a>
+        <a href="../../termos/">Termos</a>
+        <a href="../../quem-somos/">Quem Somos</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../assets/js/app.js"></script>
+</body>
+</html>

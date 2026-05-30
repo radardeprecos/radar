@@ -1,0 +1,64 @@
+name: 🤖 Radar de Preços (ROBÔ SUPREMO)
+on:
+  schedule:
+    - cron: '0 */2 * * *' # Executa a cada 2 horas
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  automation:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Código
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 📦 Instalar Dependências
+        run: pip install -r requirements.txt
+
+      - name: 🤖 Execução do Pipeline
+        env:
+          ML_CLIENT_ID: ${{ secrets.ML_CLIENT_ID }}
+          ML_CLIENT_SECRET: ${{ secrets.ML_CLIENT_SECRET }}
+          ML_AFILIADO_ID: ${{ secrets.ML_AFILIADO_ID || 'vendas0nline' }}
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/scripts
+          python scripts/fetch_products.py
+          python scripts/score_products.py
+          python scripts/affiliate_links.py
+          python scripts/validate_products.py
+          python scripts/deduplicate.py
+          python scripts/generate_pages.py
+          python scripts/build_homepage.py
+          python scripts/build_categories.py
+          python scripts/build_sitemap.py
+
+      - name: 🚀 Publicação Automática (Git Push)
+        run: |
+          git config --global user.email "bot@radardeprecos.com"
+          git config --global user.name "Radar-Bot"
+          git add .
+          if [[ -n $(git status -s) ]]; then
+            git commit -m "🤖 [ROBÔ] Atualização de Ofertas e Páginas $(date +'%Y-%m-%d %H:%M')"
+            git push origin main
+          fi
+
+      - name: 📂 Configurar Pages
+        uses: actions/configure-pages@v4
+
+      - name: 📂 Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: 🚀 Deploy para Pages
+        uses: actions/deploy-pages@v4
