@@ -1,24 +1,62 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs-extra');
 const path = require('path');
+const axios = require('axios');
+const sharp = require('sharp');
 
 /**
- * RADAR DE PREÇOS v7.0 — ESTABILIDADE TOTAL
- * URLs de Imagem Diretas (não quebram).
- * Links de Afiliados Sociais Corretos.
+ * RADAR DE PREÇOS v8.0 — LÓGICA DE FERRO
+ * - Download local de imagens (sem links quebrados)
+ * - Links REAIS dos anúncios (sem URLs artificiais)
+ * - Validação rigorosa (URL 200 OK + Imagem válida)
  */
 
 const CONFIG = {
   dataPath: path.join(__dirname, '../data/products/offers.json'),
-  sitemapPath: path.join(__dirname, '../sitemap.xml'),
-  siteUrl: 'https://radardeprecos.github.io/radar/',
-  mlSocialId: 'vendas0nline',
-  queries: ['iPhone 15', 'PlayStation 5 Slim', 'Samsung Galaxy S24', 'Smart TV 4K', 'Air Fryer Mondial'],
-  minDiscount: 5
+  imageDir: path.join(__dirname, '../images/produtos/'),
+  logsDir: path.join(__dirname, '../data/logs/'),
+  queries: ['iPhone 15', 'Samsung Galaxy S24', 'PlayStation 5 Slim', 'Smart TV 4K', 'Air Fryer Mondial'],
+  minDiscount: 5,
+  timeout: 30000
 };
 
+async function downloadImage(url, id) {
+  try {
+    if (!url || url.startsWith('data:image')) return null;
+    
+    const fileName = `${id}.webp`;
+    const dest = path.join(CONFIG.imageDir, fileName);
+    await fs.ensureDir(CONFIG.imageDir);
+
+    const response = await axios({
+      url,
+      responseType: 'arraybuffer',
+      timeout: 10000,
+      headers: { 'User-Agent': 'Mozilla/5.0' }
+    });
+
+    await sharp(response.data)
+      .resize(500, 500, { fit: 'inside' })
+      .webp({ quality: 80 })
+      .toFile(dest);
+
+    return `images/produtos/${fileName}`;
+  } catch (err) {
+    return null;
+  }
+}
+
+async function isValidUrl(url) {
+  try {
+    const res = await axios.head(url, { timeout: 5000 });
+    return res.status === 200;
+  } catch {
+    return false;
+  }
+}
+
 async function run() {
-  console.log('=== SCANNER v7.0 INICIADO ===');
+  console.log('=== SCANNER v8.0 INICIADO ===');
   const browser = await puppeteer.launch({ 
     headless: "new",
     args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -36,28 +74,27 @@ async function run() {
       const products = await page.evaluate(() => {
         const items = [];
         document.querySelectorAll('.ui-search-result__wrapper').forEach((el, i) => {
-          if (i >= 4) return;
+          if (i >= 5) return;
           const title = el.querySelector('.ui-search-item__title')?.innerText;
           const priceStr = el.querySelector('.andes-money-amount__fraction')?.innerText.replace(/\./g, '');
           const oldPriceStr = el.querySelector('.ui-search-price__part--del .andes-money-amount__fraction')?.innerText.replace(/\./g, '');
           const link = el.querySelector('a.ui-search-link')?.href;
           
-          // Pegar imagem de alta qualidade
+          // Captura robusta de imagem
           const imgTag = el.querySelector('img.ui-search-result-image__element') || el.querySelector('img.poly-component__picture');
-          let img = imgTag?.src || imgTag?.getAttribute('data-src');
+          let img = imgTag?.src || imgTag?.dataset?.src || imgTag?.getAttribute('data-src');
 
-          if (title && priceStr && link && img) {
-            // Limpar ID do link do Mercado Livre
-            const match = link.match(/MLB-?(\d+)/);
-            const id = match ? 'MLB' + match[1] : 'ml-' + Math.random().toString(36).substr(2, 5);
+          if (title && priceStr && link && img && !img.startsWith('data:image')) {
+            const idMatch = link.match(/MLB-?(\d+)/);
+            const id = idMatch ? 'MLB' + idMatch[1] : 'ml-' + Math.random().toString(36).substr(2, 5);
 
             items.push({
               id: id,
               name: title,
               price: parseFloat(priceStr),
               originalPrice: oldPriceStr ? parseFloat(oldPriceStr) : parseFloat(priceStr) * 1.15,
-              url: link,
-              image: img.replace(/-I\.jpg/, '-O.jpg') // Forçar alta qualidade
+              url: link, // LINK REAL DO ANÚNCIO
+              image: img.replace(/-I\.jpg/, '-O.jpg')
             });
           }
         });
@@ -65,15 +102,27 @@ async function run() {
       });
 
       for (const p of products) {
-        const discount = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
-        p.discount = discount;
+        console.log(`Validando: ${p.name}`);
+        
+        // 1. Validar URL
+        if (!(await isValidUrl(p.url))) {
+          console.log('❌ Rejeitado: URL inválida');
+          continue;
+        }
+
+        // 2. Baixar e Validar Imagem
+        const localImg = await downloadImage(p.image, p.id);
+        if (!localImg) {
+          console.log('❌ Rejeitado: Falha na imagem');
+          continue;
+        }
+
+        p.image = localImg;
+        p.discount = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
         p.store = 'mercadolivre';
         
-        // LINK DE AFILIADO SOCIAL CORRETO
-        p.url = `https://www.mercadolivre.com.br/social/${CONFIG.mlSocialId}?item=${p.id}`;
-        
         allProducts.push(p);
-        console.log(`✅ Adicionado: ${p.name}`);
+        console.log(`✅ Publicado: ${p.name}`);
       }
 
     } catch (err) {
@@ -83,7 +132,7 @@ async function run() {
 
   if (allProducts.length > 0) {
     await fs.writeJson(CONFIG.dataPath, allProducts, { spaces: 2 });
-    console.log(`✨ Scanner concluído: ${allProducts.length} produtos.`);
+    console.log(`✨ FIM: ${allProducts.length} produtos reais publicados.`);
   }
 
   await browser.close();

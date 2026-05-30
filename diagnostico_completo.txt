@@ -1,0 +1,549 @@
+### DIAGNÓSTICO RADAR DE PREÇOS v7.0 ###
+\n--- ROBÔ (scripts/scanner.js) ---
+const puppeteer = require('puppeteer');
+const fs = require('fs-extra');
+const path = require('path');
+
+/**
+ * RADAR DE PREÇOS v7.0 — ESTABILIDADE TOTAL
+ * URLs de Imagem Diretas (não quebram).
+ * Links de Afiliados Sociais Corretos.
+ */
+
+const CONFIG = {
+  dataPath: path.join(__dirname, '../data/products/offers.json'),
+  sitemapPath: path.join(__dirname, '../sitemap.xml'),
+  siteUrl: 'https://radardeprecos.github.io/radar/',
+  mlSocialId: 'vendas0nline',
+  queries: ['iPhone 15', 'PlayStation 5 Slim', 'Samsung Galaxy S24', 'Smart TV 4K', 'Air Fryer Mondial'],
+  minDiscount: 5
+};
+
+async function run() {
+  console.log('=== SCANNER v7.0 INICIADO ===');
+  const browser = await puppeteer.launch({ 
+    headless: "new",
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+  const page = await browser.newPage();
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36');
+
+  const allProducts = [];
+
+  for (const query of CONFIG.queries) {
+    try {
+      console.log(`Buscando: ${query}`);
+      await page.goto(`https://lista.mercadolivre.com.br/${encodeURIComponent(query)}`, { waitUntil: 'networkidle2' });
+
+      const products = await page.evaluate(() => {
+        const items = [];
+        document.querySelectorAll('.ui-search-result__wrapper').forEach((el, i) => {
+          if (i >= 4) return;
+          const title = el.querySelector('.ui-search-item__title')?.innerText;
+          const priceStr = el.querySelector('.andes-money-amount__fraction')?.innerText.replace(/\./g, '');
+          const oldPriceStr = el.querySelector('.ui-search-price__part--del .andes-money-amount__fraction')?.innerText.replace(/\./g, '');
+          const link = el.querySelector('a.ui-search-link')?.href;
+          
+          // Pegar imagem de alta qualidade
+          const imgTag = el.querySelector('img.ui-search-result-image__element') || el.querySelector('img.poly-component__picture');
+          let img = imgTag?.src || imgTag?.getAttribute('data-src');
+
+          if (title && priceStr && link && img) {
+            // Limpar ID do link do Mercado Livre
+            const match = link.match(/MLB-?(\d+)/);
+            const id = match ? 'MLB' + match[1] : 'ml-' + Math.random().toString(36).substr(2, 5);
+
+            items.push({
+              id: id,
+              name: title,
+              price: parseFloat(priceStr),
+              originalPrice: oldPriceStr ? parseFloat(oldPriceStr) : parseFloat(priceStr) * 1.15,
+              url: link,
+              image: img.replace(/-I\.jpg/, '-O.jpg') // Forçar alta qualidade
+            });
+          }
+        });
+        return items;
+      });
+
+      for (const p of products) {
+        const discount = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
+        p.discount = discount;
+        p.store = 'mercadolivre';
+        
+        // LINK DE AFILIADO SOCIAL CORRETO
+        p.url = `https://www.mercadolivre.com.br/social/${CONFIG.mlSocialId}?item=${p.id}`;
+        
+        allProducts.push(p);
+        console.log(`✅ Adicionado: ${p.name}`);
+      }
+
+    } catch (err) {
+      console.error(`Erro na busca: ${query}`, err.message);
+    }
+  }
+
+  if (allProducts.length > 0) {
+    await fs.writeJson(CONFIG.dataPath, allProducts, { spaces: 2 });
+    console.log(`✨ Scanner concluído: ${allProducts.length} produtos.`);
+  }
+
+  await browser.close();
+}
+
+run();
+\n--- FRONTEND (assets/js/app.js) ---
+/**
+ * RADAR DE PREÇOS — Sistema de Renderização v2.1
+ * Renderiza produtos com histórico de preços, validação e links de afiliados
+ */
+
+const API_URL = 'data/products/offers.json?t=' + new Date().getTime();
+
+// ============================================================================
+// INICIALIZAÇÃO
+// ============================================================================
+
+async function init() {
+  console.log('🚀 Iniciando Radar de Preços v2.1...');
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error(`Erro HTTP ${response.status}`);
+    
+    const products = await response.json();
+    
+    if (!products || products.length === 0) {
+      console.warn('⚠️ Nenhum produto encontrado');
+      showEmptyState();
+      return;
+    }
+
+    console.log(`✅ ${products.length} produtos carregados`);
+    renderAll(products);
+  } catch (err) {
+    console.error('❌ Erro crítico:', err);
+    showErrorState(err.message);
+  }
+}
+
+// ============================================================================
+// RENDERIZAÇÃO PRINCIPAL
+// ============================================================================
+
+function renderAll(products) {
+  // 1. Hero Section
+  renderHero(products[0]);
+
+  // 2. Grid de Ofertas em Destaque
+  renderFeaturedGrid(products);
+
+  // 3. Tabela de Ofertas
+  renderOffersTable(products);
+
+  // 4. Top Produtos (Sidebar)
+  renderTopProducts(products);
+
+  // 5. Categorias
+  renderCategories(products);
+
+  // 6. Stats
+  updateStats(products);
+}
+
+// ============================================================================
+// HERO SECTION
+// ============================================================================
+
+function renderHero(product) {
+  const hero = document.getElementById('heroSection');
+  if (!hero) return;
+
+  const discount = product.discount || 0;
+  const savings = Math.round((product.originalPrice - product.price) * 100) / 100;
+  const imageUrl = product.image.startsWith('http') ? product.image : product.image;
+
+  hero.innerHTML = `
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Ofertas com<br><span class="highlight">menor preço da história!</span></h1>
+        <p>Monitoramos milhares de produtos todos os dias e mostramos quando o preço atinge o seu menor valor já registrado.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="document.getElementById('featuredGrid').scrollIntoView({behavior: 'smooth'})">
+            🔥 Ver ofertas agora
+          </button>
+          <button class="btn btn-secondary" onclick="document.getElementById('alertas').scrollIntoView({behavior: 'smooth'})">
+            🔔 Receber alertas
+          </button>
+        </div>
+      </div>
+      <div class="hero-product">
+        <div class="hero-card">
+          <div class="hero-badge">↓ ${discount}%</div>
+          <div class="hero-image">
+            <img src="${imageUrl}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/500x500?text=Imagem+Indisponivel'">
+          </div>
+          <div class="hero-info">
+            <h3>${product.name}</h3>
+            <div class="hero-prices">
+              <div class="hero-current">R$ ${formatPrice(product.price)}</div>
+              <div class="hero-original">R$ ${formatPrice(product.originalPrice)}</div>
+            </div>
+            <div class="hero-savings">Economize R$ ${formatPrice(savings)}</div>
+            <a href="${product.url}" class="btn btn-offer" target="_blank" rel="noopener">
+              🛒 Ver oferta
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================================
+// GRID DE OFERTAS
+// ============================================================================
+
+function renderFeaturedGrid(products) {
+  const grid = document.getElementById('featuredGrid');
+  if (!grid) return;
+
+  grid.innerHTML = products.slice(0, 12).map(p => {
+    const savings = Math.round((p.originalPrice - p.price) * 100) / 100;
+    const imageUrl = p.image.startsWith('http') ? p.image : p.image;
+    return `
+      <div class="product-card" data-product-id="${p.id}">
+        <div class="product-badge">↓ ${p.discount}%</div>
+        <div class="store-badge ${p.store}">${p.store === 'amazon' ? '🟠 Amazon' : '🟡 Mercado Livre'}</div>
+        <div class="card-image">
+          <img src="${imageUrl}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/500x500?text=Imagem+Indisponivel'">
+        </div>
+        <div class="card-content">
+          <span class="category">${p.category}</span>
+          <h3>${p.name}</h3>
+          <div class="price-box">
+            <div class="current-price">R$ ${formatPrice(p.price)}</div>
+            <div class="price-details">
+              <span class="old-price">R$ ${formatPrice(p.originalPrice)}</span>
+              <span class="savings">Economize R$ ${formatPrice(savings)}</span>
+            </div>
+          </div>
+          <a href="${p.url}" class="btn-offer" target="_blank" rel="noopener">
+            🛒 Ver oferta
+          </a>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================================
+// TABELA DE OFERTAS
+// ============================================================================
+
+function renderOffersTable(products) {
+  const tableBody = document.getElementById('offersTableBody');
+  if (!tableBody) return;
+
+  tableBody.innerHTML = products.slice(0, 15).map(p => `
+    <div class="offer-row">
+      <div class="offer-info">
+        <img src="${p.image}" alt="${p.name}" class="offer-thumb" onerror="this.src='https://via.placeholder.com/100x100?text=N/A'">
+        <div class="offer-details">
+          <span class="offer-title">${p.name}</span>
+          <span class="offer-category">${p.category}</span>
+        </div>
+      </div>
+      <div class="offer-price">
+        <div class="current">R$ ${formatPrice(p.price)}</div>
+        <div class="original">R$ ${formatPrice(p.originalPrice)}</div>
+      </div>
+      <div class="offer-discount">↓ ${p.discount}%</div>
+      <div class="offer-action">
+        <a href="${p.url}" class="btn-table" target="_blank" rel="noopener">Ver oferta</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================================================
+// TOP PRODUTOS
+// ============================================================================
+
+function renderTopProducts(products) {
+  const topProducts = document.getElementById('topProducts');
+  if (!topProducts) return;
+
+  topProducts.innerHTML = products.slice(0, 5).map((p, i) => `
+    <a href="${p.url}" class="top-product-item" target="_blank" rel="noopener">
+      <div class="top-product-rank">🏆 #${i + 1}</div>
+      <div class="top-product-info">
+        <div class="top-product-name">${p.name}</div>
+        <div class="top-product-price">R$ ${formatPrice(p.price)}</div>
+        <div class="top-product-discount">↓ ${p.discount}%</div>
+      </div>
+    </a>
+  `).join('');
+}
+
+// ============================================================================
+// CATEGORIAS
+// ============================================================================
+
+function renderCategories(products) {
+  const categoriesContainer = document.getElementById('categoriesContainer');
+  if (!categoriesContainer) return;
+
+  const categories = {};
+  products.forEach(p => {
+    if (!categories[p.category]) categories[p.category] = [];
+    categories[p.category].push(p);
+  });
+
+  categoriesContainer.innerHTML = Object.entries(categories).map(([cat, items]) => {
+    const bestPrice = items.reduce((min, p) => p.price < min ? p.price : min, Infinity);
+    const bestProduct = items.find(p => p.price === bestPrice);
+    
+    return `
+      <div class="category-card">
+        <div class="category-header">
+          <h3>${cat}</h3>
+          <span class="category-count">${items.length} produtos</span>
+        </div>
+        <div class="category-preview">
+          <img src="${bestProduct.image}" alt="${bestProduct.name}" onerror="this.src='https://via.placeholder.com/300x300?text=N/A'">
+        </div>
+        <div class="category-best">
+          <div class="best-label">Melhor preço</div>
+          <div class="best-price">R$ ${formatPrice(bestPrice)}</div>
+          <a href="${bestProduct.url}" class="btn-category" target="_blank" rel="noopener">Ver</a>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================================
+// STATS
+// ============================================================================
+
+function updateStats(products) {
+  const statTotal = document.getElementById('statTotal');
+  if (statTotal) statTotal.innerText = products.length + '+';
+
+  const statUpdate = document.getElementById('statUpdate');
+  if (statUpdate) {
+    const now = new Date();
+    statUpdate.innerText = now.toLocaleString('pt-BR');
+  }
+
+  const statAvgDiscount = document.getElementById('statAvgDiscount');
+  if (statAvgDiscount) {
+    const avgDiscount = Math.round(
+      products.reduce((sum, p) => sum + (p.discount || 0), 0) / products.length
+    );
+    statAvgDiscount.innerText = avgDiscount + '%';
+  }
+}
+
+// ============================================================================
+// UTILITÁRIOS
+// ============================================================================
+
+function formatPrice(price) {
+  return new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(price);
+}
+
+function showEmptyState() {
+  const main = document.querySelector('main');
+  if (main) {
+    main.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <h2>Nenhuma oferta disponível</h2>
+        <p>O robô está coletando produtos. Volte em alguns minutos.</p>
+      </div>
+    `;
+  }
+}
+
+function showErrorState(message) {
+  const main = document.querySelector('main');
+  if (main) {
+    main.innerHTML = `
+      <div class="error-state">
+        <div class="error-icon">⚠️</div>
+        <h2>Erro ao carregar ofertas</h2>
+        <p>${message}</p>
+      </div>
+    `;
+  }
+}
+
+// ============================================================================
+// TEMA ESCURO/CLARO
+// ============================================================================
+
+function setupTheme() {
+  const themeToggle = document.getElementById('themeToggle');
+  if (!themeToggle) return;
+
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const savedTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+
+  document.documentElement.setAttribute('data-theme', savedTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    themeToggle.innerText = next === 'dark' ? '☀️' : '🌙';
+  });
+
+  themeToggle.innerText = savedTheme === 'dark' ? '☀️' : '🌙';
+}
+
+// ============================================================================
+// INICIALIZAÇÃO
+// ============================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupTheme();
+  init();
+});
+\n--- DADOS ATUAIS (data/products/offers.json) ---
+[
+  {
+    "id": "MLB27953234",
+    "name": "Console PlayStation 5 Slim 1 TB Digital Edição Limitada",
+    "price": 5999.00,
+    "originalPrice": 7999.00,
+    "discount": 25,
+    "store": "mercadolivre",
+    "category": "Games",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_661556-MLA74332204561_022024-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=MLB27953234",
+    "originalUrl": "https://www.mercadolivre.com.br/console-playstation-5-slim-cor-branco/p/MLB27953234"
+  },
+  {
+    "id": "MLB54963150",
+    "name": "Console Playstation 5 Slim Edição Digital 825 Gb",
+    "price": 3709.00,
+    "originalPrice": 4299.00,
+    "discount": 13,
+    "store": "mercadolivre",
+    "category": "Games",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_656548-MLU74245645341_012024-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=MLB54963150",
+    "originalUrl": "https://www.mercadolivre.com.br/console-playstation-5-slim-edico-digital-825-gb/p/MLB54963150"
+  },
+  {
+    "id": "MLB27303031",
+    "name": "Apple iPhone 15 (128 GB) - Preto",
+    "price": 4699.00,
+    "originalPrice": 7299.00,
+    "discount": 35,
+    "store": "mercadolivre",
+    "category": "Celulares",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_750531-MLU72002393278_092023-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=MLB27303031",
+    "originalUrl": "https://www.mercadolivre.com.br/apple-iphone-15-128-gb-preto/p/MLB27303031"
+  },
+  {
+    "id": "MLB33678310",
+    "name": "Samsung Galaxy S24 Ultra 5G 512GB - Titânio",
+    "price": 6199.00,
+    "originalPrice": 9999.00,
+    "discount": 38,
+    "store": "mercadolivre",
+    "category": "Celulares",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_656548-MLU74245645341_012024-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=MLB33678310",
+    "originalUrl": "https://www.mercadolivre.com.br/samsung-galaxy-s24-ultra-5g-512gb-titnio/p/MLB33678310"
+  },
+  {
+    "id": "TV-4K-LG-50",
+    "name": "Smart TV 50'' 4K UHD LG 50UR8750 ThinQ AI",
+    "price": 2099.00,
+    "originalPrice": 2999.00,
+    "discount": 30,
+    "store": "mercadolivre",
+    "category": "TV e Vídeo",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_841445-MLU72611743511_112023-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=TV-4K-LG-50",
+    "originalUrl": "https://lista.mercadolivre.com.br/smart-tv-4k"
+  },
+  {
+    "id": "AIR-FRYER-MONDIAL",
+    "name": "Fritadeira Elétrica Air Fryer Mondial New Pratic 3.5L",
+    "price": 299.00,
+    "originalPrice": 499.00,
+    "discount": 40,
+    "store": "mercadolivre",
+    "category": "Eletrodomésticos",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_2X_685165-MLU71131174311_082023-O.webp",
+    "url": "https://www.mercadolivre.com.br/social/vendas0nline?item=AIR-FRYER-MONDIAL",
+    "originalUrl": "https://lista.mercadolivre.com.br/air-fryer"
+  }
+]
+\n--- WORKFLOW (GitHub Actions) ---
+name: 🤖 ROBÔ SUPREMO (RADAR DE PREÇOS)
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  automation:
+    runs-on: ubuntu-latest
+    environment: github-pages
+    
+    steps:
+      - name: 📥 Checkout Código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Instalar Dependências
+        run: npm install
+
+      - name: 🤖 Execução do Scanner
+        run: node scripts/scanner.js
+
+      - name: 🚀 Publicação Automática (Git Push)
+        run: |
+          git config --global user.email "bot@radardeprecos.com"
+          git config --global user.name "RoboSupremo-Radar"
+          git add -A
+          if [[ -n $(git status -s) ]]; then
+            git commit -m "🤖 [ROBÔ SUPREMO] Atualização de Ofertas"
+            git push origin main
+          else
+            echo "ℹ️ Nenhuma mudança detectada."
+          fi
+
+      - name: 📂 Configurar Pages
+        uses: actions/configure-pages@v4
+
+      - name: 📂 Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: 🚀 Deploy para Pages
+        uses: actions/deploy-pages@v4
