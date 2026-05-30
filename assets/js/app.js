@@ -3,31 +3,49 @@
  * Gerenciamento de UI e renderização de ofertas.
  */
 
+// Usando caminho relativo para garantir funcionamento no GitHub Pages
 const API_URL = 'data/products/offers.json';
 
 async function init() {
+    console.log('Iniciando carregamento de ofertas...');
     try {
         const response = await fetch(API_URL);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const products = await response.json();
         
+        console.log('Ofertas carregadas:', products.length);
         renderUI(products);
         hideLoading();
     } catch (err) {
         console.error('Erro ao carregar ofertas:', err);
         // Mesmo em erro, removemos o loading para não travar o usuário
         hideLoading();
+        showErrorMessage();
     }
 }
 
 function hideLoading() {
     const overlay = document.getElementById('loadingOverlay');
     if (overlay) {
-        overlay.style.display = 'none';
+        overlay.classList.add('fade-out');
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 500);
+    }
+}
+
+function showErrorMessage() {
+    const featuredGrid = document.getElementById('featuredGrid');
+    if (featuredGrid) {
+        featuredGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">⚠️ Erro ao carregar ofertas. Por favor, tente novamente mais tarde.</p>';
     }
 }
 
 function renderUI(products) {
-    if (!products || products.length === 0) return;
+    if (!products || products.length === 0) {
+        showErrorMessage();
+        return;
+    }
 
     // 1. Atualizar Estatísticas
     const statTotal = document.getElementById('statTotal');
