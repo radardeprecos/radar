@@ -7,6 +7,21 @@
   <title>Parafusadeira Furadeira C/ 2 Baterias Maleta Kit Completo Led Eixo Flexível Vários Níveis Torque Amarelo 127/220v 60 Hz com 57% de Desconto | Radar de Preços</title>
   <meta name="description" content="Confira a oferta de Parafusadeira Furadeira C/ 2 Baterias Maleta Kit Completo Led Eixo Flexível Vários Níveis Torque Amarelo 127/220v 60 Hz no Radar de Preços. Economize com os melhores descontos do Mercado Livre.">
   <link rel="canonical" href="https://radardeprecos.github.io/radar/ofertas/ferramentas/parafusadeira-furadeira-c-2-baterias-maleta-kit-completo-led-eixo-flexivel-varios-niveis-torque-amarelo-127220v-60-hz-MLB4345564271.html">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="product">
+  <meta property="og:url" content="https://radardeprecos.github.io/radar/ofertas/ferramentas/parafusadeira-furadeira-c-2-baterias-maleta-kit-completo-led-eixo-flexivel-varios-niveis-torque-amarelo-127220v-60-hz-MLB4345564271.html">
+  <meta property="og:title" content="Parafusadeira Furadeira C/ 2 Baterias Maleta Kit Completo Led Eixo Flexível Vários Níveis Torque Amarelo 127/220v 60 Hz com 57% de Desconto | Radar de Preços">
+  <meta property="og:description" content="Confira a oferta de Parafusadeira Furadeira C/ 2 Baterias Maleta Kit Completo Led Eixo Flexível Vários Níveis Torque Amarelo 127/220v 60 Hz no Radar de Preços. Economize com os melhores descontos do Mercado Livre.">
+  <meta property="og:image" content="https://http2.mlstatic.com/D_Q_NP_2X_828436-MLA100007265481_122025-AB.webp">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://radardeprecos.github.io/radar/ofertas/ferramentas/parafusadeira-furadeira-c-2-baterias-maleta-kit-completo-led-eixo-flexivel-varios-niveis-torque-amarelo-127220v-60-hz-MLB4345564271.html">
+  <meta property="twitter:title" content="Parafusadeira Furadeira C/ 2 Baterias Maleta Kit Completo Led Eixo Flexível Vários Níveis Torque Amarelo 127/220v 60 Hz com 57% de Desconto | Radar de Preços">
+  <meta property="twitter:description" content="Confira a oferta de Parafusadeira Furadeira C/ 2 Baterias Maleta Kit Completo Led Eixo Flexível Vários Níveis Torque Amarelo 127/220v 60 Hz no Radar de Preços. Economize com os melhores descontos do Mercado Livre.">
+  <meta property="twitter:image" content="https://http2.mlstatic.com/D_Q_NP_2X_828436-MLA100007265481_122025-AB.webp">
+
   <link rel="stylesheet" href="../../assets/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -66,11 +81,11 @@
     <div class="product-detail">
       <div class="product-image-box"><img src="https://http2.mlstatic.com/D_Q_NP_2X_828436-MLA100007265481_122025-AB.webp" alt="Parafusadeira Furadeira C/ 2 Baterias Maleta Kit Completo Led Eixo Flexível Vários Níveis Torque Amarelo 127/220v 60 Hz"></div>
       <div class="product-info-box">
-        <div class="radar-score-box">
-            <div class="score-circle" id="radarScore">9.4</div>
+        <div class="radar-score-box" id="radarScoreBox">
+            <div class="score-circle" id="radarScore">--</div>
             <div>
-                <div style="font-weight: 800; font-size: 18px;">Radar Score™</div>
-                <div style="font-size: 14px; opacity: 0.9;">Esta é uma das melhores ofertas detectadas hoje!</div>
+                <div style="font-weight: 800; font-size: 18px;">Radar IA Analisa: <span id="radarStatusText">Analisando...</span></div>
+                <div style="font-size: 14px; opacity: 0.9;" id="radarStatusSub">Aguarde enquanto avaliamos esta oferta.</div>
             </div>
         </div>
         
@@ -149,11 +164,29 @@
             }
         });
 
-        // Calcular Radar Score Dinâmico
+        // Calcular Radar Score Dinâmico e Status Radar IA
         const discount = 57;
         let score = 5.0 + (discount / 10);
         if (score > 9.9) score = 9.9;
         document.getElementById('radarScore').innerText = score.toFixed(1);
+
+        const statusText = document.getElementById('radarStatusText');
+        const statusSub = document.getElementById('radarStatusSub');
+        const scoreBox = document.getElementById('radarScoreBox');
+
+        if (score >= 8.5) {
+            statusText.innerText = "🟢 Excelente Compra";
+            statusSub.innerText = "Preço imbatível e alto nível de confiança. Pode comprar!";
+            scoreBox.style.background = "linear-gradient(135deg, #00c853 0%, #007e33 100%)";
+        } else if (score >= 7.0) {
+            statusText.innerText = "🟡 Bom Preço";
+            statusSub.innerText = "O preço está justo, mas pode baixar um pouco mais em breve.";
+            scoreBox.style.background = "linear-gradient(135deg, #ffbb33 0%, #ff8800 100%)";
+        } else {
+            statusText.innerText = "🔴 Aguarde Baixar";
+            statusSub.innerText = "Este produto já esteve mais barato. Recomendamos esperar.";
+            scoreBox.style.background = "linear-gradient(135deg, #ff4444 0%, #cc0000 100%)";
+        }
     });
   </script>
   <script src="../../assets/js/app.js"></script>
