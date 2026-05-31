@@ -26,6 +26,30 @@ function safeAffiliateUrl(product) {
   return product.permalink || product.url || '';
 }
 
+// --- Deduplicação de Produtos ---
+function deduplicateProducts(products) {
+  const originalCount = products.length;
+  const uniqueMap = new Map();
+  
+  products.forEach(p => {
+    // Chave primária: ID. Secundária: Permalink. Terciária: Nome + Preço.
+    const key = p.id || p.permalink || `${p.name}_${p.price}`;
+    if (!uniqueMap.has(key)) {
+      uniqueMap.set(key, p);
+    } else {
+      // Se já existe, mantém o que tiver maior desconto
+      const existing = uniqueMap.get(key);
+      if ((p.custom_discount_pct || 0) > (existing.custom_discount_pct || 0)) {
+        uniqueMap.set(key, p);
+      }
+    }
+  });
+  
+  const finalProducts = Array.from(uniqueMap.values());
+  console.log(`[Deduplicação] Original: ${originalCount} | Final: ${finalProducts.length} | Removidos: ${originalCount - finalProducts.length}`);
+  return finalProducts;
+}
+
 // --- Histórico de Preços Local ---
 function updatePriceHistory(product) {
   const history = JSON.parse(localStorage.getItem('price_history') || '{}');
@@ -62,10 +86,9 @@ function getBadges(product, isTopDiscount, isHistoricalMin) {
     badges.push('<span class="badge badge-custo-beneficio">🏆 Custo-Benefício</span>');
   }
 
-  // Aleatoriedade para simular "Mais Vendido" e "Recomendado" se não houver outros
   if (badges.length === 0) {
-    if (product.id.charCodeAt(0) % 3 === 0) badges.push('<span class="badge badge-mais-vendido">🚀 Mais Vendido</span>');
-    else if (product.id.charCodeAt(0) % 2 === 0) badges.push('<span class="badge badge-recomendado">⭐ Recomendado</span>');
+    if (product.id && product.id.charCodeAt(0) % 3 === 0) badges.push('<span class="badge badge-mais-vendido">🚀 Mais Vendido</span>');
+    else if (product.id && product.id.charCodeAt(0) % 2 === 0) badges.push('<span class="badge badge-recomendado">⭐ Recomendado</span>');
   }
 
   return badges.join('');
@@ -76,7 +99,7 @@ function renderCarousel(products) {
   const container = document.getElementById('heroProduct');
   if (!container) return;
 
-  // Selecionar top 5-8 produtos para o carrossel
+  // Carrossel já recebe produtos deduplicados. Pegamos os top 8.
   const carouselProducts = products.slice(0, 8);
   
   let slidesHtml = carouselProducts.map((p, idx) => {
@@ -138,11 +161,15 @@ function setupCarouselLogic(count) {
 }
 
 // --- Renderização do Grid ---
-function renderGrid(products) {
+function renderGrid(products, excludeFromCarousel = []) {
   const grid = document.getElementById('featuredGrid');
   if (!grid) return;
 
-  grid.innerHTML = products.slice(0, 24).map((p, idx) => {
+  // Filtrar produtos que já estão no carrossel para não repetir no grid
+  const carouselIds = new Set(excludeFromCarousel.map(p => p.id));
+  const gridProducts = products.filter(p => !carouselIds.has(p.id)).slice(0, 24);
+
+  grid.innerHTML = gridProducts.map((p, idx) => {
     const isHistMin = updatePriceHistory(p);
     const badges = getBadges(p, idx === 0, isHistMin);
     
@@ -211,13 +238,18 @@ function renderNews() {
 async function init() {
   try {
     const res = await fetch(DATA_URL + '?t=' + Date.now());
-    allProducts = await res.json();
+    let rawProducts = await res.json();
     
-    // Ordenar por desconto para o carrossel
+    // 1. Deduplicação Global
+    allProducts = deduplicateProducts(rawProducts);
+    
+    // 2. Ordenar por desconto para o carrossel
     const sorted = [...allProducts].sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0));
+    const carouselItems = sorted.slice(0, 8);
     
+    // 3. Renderizar componentes
     renderCarousel(sorted);
-    renderGrid(allProducts);
+    renderGrid(allProducts, carouselItems); // Passa os itens do carrossel para excluir do grid
     renderNews();
     
     setupCategoryFilters();
