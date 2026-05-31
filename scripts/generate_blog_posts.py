@@ -1,5 +1,6 @@
 import json
 import os
+import random
 from datetime import datetime
 
 def generate_blog_content():
@@ -10,7 +11,7 @@ def generate_blog_content():
     now = datetime.now()
     # Gera um título e slug baseados na data/hora para garantir que o robô publique algo novo
     post_title = f"Radar de Ofertas: Destaques de {now.strftime('%d de %B de %Y')}"
-    post_slug = f"radar-ofertas-{now.strftime('%Y-%m-%d-%H-%M')}"
+    post_slug = f"radar-ofertas-{now.strftime('%Y-%m-%d-%H-%M-%S')}"
     
     # Tenta pegar algumas ofertas reais para o post
     offers_file = 'data/products/offers.json'
@@ -20,7 +21,12 @@ def generate_blog_content():
         try:
             with open(offers_file, 'r') as f:
                 products = json.load(f)
-                top_3 = sorted(products, key=lambda x: x.get('custom_discount_pct', 0), reverse=True)[:3]
+                # Seleciona 3 produtos aleatórios com desconto > 30% para variar o conteúdo
+                eligible_products = [p for p in products if p.get('custom_discount_pct', 0) > 30]
+                if len(eligible_products) >= 3:
+                    top_3 = random.sample(eligible_products, 3)
+                else:
+                    top_3 = eligible_products
                 offers_summary += "<ul>"
                 for p in top_3:
                     offers_summary += f"<li><strong>{p.get('name', p.get('title'))}</strong>: {p.get('custom_discount_pct')}% de desconto!</li>"
