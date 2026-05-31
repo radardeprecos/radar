@@ -232,7 +232,7 @@ function renderNews() {
               <div class="news-info">
                 <h3>${n.title}</h3>
                 <p>${n.summary}</p>
-                <a href="#" class="btn" style="padding: 8px 20px; font-size: 14px; margin-top:0">Ler Mais</a>
+                <a href="/radar/noticias/" class="btn" style="padding: 8px 20px; font-size: 14px; margin-top:0">Ler Mais</a>
               </div>
             </div>
           `).join('')}
