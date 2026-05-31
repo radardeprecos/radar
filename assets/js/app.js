@@ -216,9 +216,9 @@ function renderNews() {
   if (!main || document.getElementById('newsSection')) return;
 
   const newsData = [
-    { title: "Como economizar no Mercado Livre em 2026", summary: "Dicas essenciais para encontrar os melhores cupons e ofertas relâmpago.", img: "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=400" },
-    { title: "Review: Os melhores celulares custo-benefício", summary: "Analisamos os modelos que dominam o mercado este mês.", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400" },
-    { title: "Guia de Compras: Eletrodomésticos Inteligentes", summary: "Transforme sua casa com tecnologia sem gastar uma fortuna.", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400" }
+    { title: "Samsung Galaxy A17 5G Chega ao Brasil", summary: "Confira as especificações e o preço agressivo do novo intermediário da Samsung.", img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400", url: "/radar/noticias/posts/samsung-galaxy-a17-5g-lancamento/" },
+    { title: "Notebooks Lenovo com 40% de Desconto", summary: "IdeaPad e ThinkPad em promoção histórica no Mercado Livre. Confira!", img: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400", url: "/radar/noticias/posts/notebooks-lenovo-promocao/" },
+    { title: "Amazon Prime Day 2026 Confirmado", summary: "Tudo o que você precisa saber para economizar no maior evento da Amazon.", img: "https://images.unsplash.com/photo-1523475496153-3d6cc0f0bf19?w=400", url: "/radar/noticias/posts/amazon-prime-day-2026/" }
   ];
 
   const newsHtml = `
@@ -232,7 +232,7 @@ function renderNews() {
               <div class="news-info">
                 <h3>${n.title}</h3>
                 <p>${n.summary}</p>
-                <a href="/radar/noticias/" class="btn" style="padding: 8px 20px; font-size: 14px; margin-top:0">Ler Mais</a>
+                <a href="${n.url}" class="btn" style="padding: 8px 20px; font-size: 14px; margin-top:0">Ler Mais</a>
               </div>
             </div>
           `).join('')}
