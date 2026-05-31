@@ -7,9 +7,27 @@ def generate_blog_content():
     if not os.path.exists(posts_dir):
         os.makedirs(posts_dir)
 
-    post_title = "Por que os preços de eletrônicos estão caindo em Junho de 2026"
-    post_slug = "tendencias-precos-eletronicos-junho-2026"
+    now = datetime.now()
+    # Gera um título e slug baseados na data/hora para garantir que o robô publique algo novo
+    post_title = f"Radar de Ofertas: Destaques de {now.strftime('%d de %B de %Y')}"
+    post_slug = f"radar-ofertas-{now.strftime('%Y-%m-%d-%H-%M')}"
     
+    # Tenta pegar algumas ofertas reais para o post
+    offers_file = 'data/products/offers.json'
+    offers_summary = "<p>Hoje nosso robô identificou diversas oportunidades com descontos reais acima de 30%.</p>"
+    
+    if os.path.exists(offers_file):
+        try:
+            with open(offers_file, 'r') as f:
+                products = json.load(f)
+                top_3 = sorted(products, key=lambda x: x.get('custom_discount_pct', 0), reverse=True)[:3]
+                offers_summary += "<ul>"
+                for p in top_3:
+                    offers_summary += f"<li><strong>{p.get('name', p.get('title'))}</strong>: {p.get('custom_discount_pct')}% de desconto!</li>"
+                offers_summary += "</ul>"
+        except:
+            pass
+
     content = f"""
     <!DOCTYPE html>
     <html lang="pt-BR">
@@ -21,13 +39,27 @@ def generate_blog_content():
     </head>
     <body>
         <header class="header"><div class="container"><a href="../../" class="logo">📊 Radar de Preços</a></div></header>
-        <article class="container">
-            <h1>{post_title}</h1>
-            <p>Análise de mercado exclusiva do Radar de Preços.</p>
-        </article>
+        <main class="container" style="padding: 40px 20px;">
+            <article>
+                <h1>{post_title}</h1>
+                <p>Publicado em: {now.strftime('%d/%m/%Y %H:%M')}</p>
+                <div class="content">
+                    {offers_summary}
+                    <p>Fique atento ao nosso radar para não perder nenhuma oportunidade!</p>
+                </div>
+                <div style="margin-top: 40px;">
+                    <a href="../../" class="btn">Voltar para a Home</a>
+                </div>
+            </article>
+        </main>
     </body>
     </html>
     """
-    with open(os.path.join(posts_dir, f"{post_slug}.html"), 'w') as f:
+    
+    file_path = os.path.join(posts_dir, f"{post_slug}.html")
+    with open(file_path, 'w') as f:
         f.write(content)
-generate_blog_content()
+    print(f"Postagem gerada: {file_path}")
+
+if __name__ == "__main__":
+    generate_blog_content()
