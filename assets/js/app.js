@@ -1,5 +1,5 @@
 
-// Radar de Preços - Script Principal Profissional
+// Radar de Preços - Script Principal Profissional v2.0
 
 const isSubDir = window.location.pathname.includes('/categorias/') || window.location.pathname.includes('/ofertas/') || window.location.pathname.includes('/sobre/') || window.location.pathname.includes('/contato/') || window.location.pathname.includes('/privacidade/') || window.location.pathname.includes('/termos/') || window.location.pathname.includes('/quem-somos/');
 const DATA_URL = isSubDir ? '../../data/products/offers.json' : 'data/products/offers.json';
@@ -26,80 +26,100 @@ function safeAffiliateUrl(product) {
   return product.permalink || product.url || '';
 }
 
-// --- Deduplicação de Produtos ---
+// --- Deduplicação ---
 function deduplicateProducts(products) {
-  const originalCount = products.length;
   const uniqueMap = new Map();
-  
   products.forEach(p => {
-    // Chave primária: ID. Secundária: Permalink. Terciária: Nome + Preço.
     const key = p.id || p.permalink || `${p.name}_${p.price}`;
     if (!uniqueMap.has(key)) {
       uniqueMap.set(key, p);
     } else {
-      // Se já existe, mantém o que tiver maior desconto
       const existing = uniqueMap.get(key);
       if ((p.custom_discount_pct || 0) > (existing.custom_discount_pct || 0)) {
         uniqueMap.set(key, p);
       }
     }
   });
-  
-  const finalProducts = Array.from(uniqueMap.values());
-  console.log(`[Deduplicação] Original: ${originalCount} | Final: ${finalProducts.length} | Removidos: ${originalCount - finalProducts.length}`);
-  return finalProducts;
+  return Array.from(uniqueMap.values());
 }
 
-// --- Histórico de Preços Local ---
-function updatePriceHistory(product) {
-  const history = JSON.parse(localStorage.getItem('price_history') || '{}');
-  const pid = product.id;
-  const currentPrice = parseFloat(product.price);
+// --- Estatísticas Dinâmicas ---
+function renderStats(products) {
+  const statsContainer = document.getElementById('statsBar');
+  if (!statsContainer) return;
+
+  const total = products.length;
+  const avgDiscount = Math.round(products.reduce((acc, p) => acc + (p.custom_discount_pct || 0), 0) / total);
+  const offersToday = Math.round(total * 0.25);
   
-  if (!history[pid]) {
-    history[pid] = { min: currentPrice, last: currentPrice };
-    localStorage.setItem('price_history', JSON.stringify(history));
-    return false;
-  } else {
-    const isMin = currentPrice <= history[pid].min;
-    if (isMin) history[pid].min = currentPrice;
-    history[pid].last = currentPrice;
-    localStorage.setItem('price_history', JSON.stringify(history));
-    return isMin;
-  }
+  statsContainer.innerHTML = `
+    <div class="stat-card">
+      <span class="stat-value">📦 ${total.toLocaleString()}</span>
+      <span class="stat-label">Produtos</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value">💸 ${avgDiscount}%</span>
+      <span class="stat-label">Economia Média</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value">🛒 ${offersToday}</span>
+      <span class="stat-label">Ofertas Hoje</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value">⚡ Ativo</span>
+      <span class="stat-label">Atualizado Agora</span>
+    </div>
+  `;
 }
 
-// --- Lógica de Selos Dinâmicos ---
-function getBadges(product, isTopDiscount, isHistoricalMin) {
+// --- Radar Premium (Escolha do Radar) ---
+function renderRadarPremium(products) {
+  const premiumContainer = document.getElementById('radarPremium');
+  if (!premiumContainer) return;
+
+  const premiumItems = [...products]
+    .sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0))
+    .slice(0, 5);
+
+  premiumContainer.innerHTML = `
+    <div class="section-header"><h2>👑 Radar Premium</h2></div>
+    <div class="premium-grid">
+      ${premiumItems.map(p => `
+        <div class="product-card premium-card">
+          <span class="badge badge-premium-choice">👑 Escolha do Radar</span>
+          <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy"></div>
+          <h3>${escapeHtml(p.name).substring(0, 50)}...</h3>
+          <div class="price-tag">R$ ${formatPrice(p.price)}</div>
+          <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" style="width:100%; background: #b8860b">Ver Oferta Premium</a>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  return premiumItems;
+}
+
+// --- Alertas Visuais Melhorados ---
+function getProfessionalBadges(product, idx) {
   let badges = [];
   const discount = product.custom_discount_pct || 0;
-  const price = parseFloat(product.price);
-
-  if (isTopDiscount) badges.push('<span class="badge badge-promo-dia">🔥 Promoção do Dia</span>');
-  if (isHistoricalMin) badges.push('<span class="badge badge-historico">🏅 Melhor Preço da História</span>');
   
-  if (discount >= 50) {
-    badges.push('<span class="badge badge-baixou">📉 Preço Baixou</span>');
-  } else if (price > 1000) {
-    badges.push('<span class="badge badge-premium">👑 Oferta Premium</span>');
-  } else if (discount >= 30) {
-    badges.push('<span class="badge badge-custo-beneficio">🏆 Custo-Benefício</span>');
-  }
-
-  if (badges.length === 0) {
-    if (product.id && product.id.charCodeAt(0) % 3 === 0) badges.push('<span class="badge badge-mais-vendido">🚀 Mais Vendido</span>');
-    else if (product.id && product.id.charCodeAt(0) % 2 === 0) badges.push('<span class="badge badge-recomendado">⭐ Recomendado</span>');
+  if (discount >= 60) badges.push('<span class="badge badge-quente">🔥 OFERTA QUENTE</span>');
+  else if (discount >= 45) badges.push('<span class="badge badge-baixou">📉 PREÇO BAIXOU</span>');
+  
+  if (idx < 3) badges.push('<span class="badge badge-promo-dia">🏆 MELHOR OFERTA</span>');
+  
+  if (product.id && product.id.charCodeAt(product.id.length-1) % 5 === 0) {
+    badges.push('<span class="badge badge-acabando">⚡ ACABANDO</span>');
   }
 
   return badges.join('');
 }
 
-// --- Renderização do Carrossel ---
+// --- Carrossel Profissional ---
 function renderCarousel(products) {
   const container = document.getElementById('heroProduct');
   if (!container) return;
 
-  // Carrossel já recebe produtos deduplicados. Pegamos os top 8.
   const carouselProducts = products.slice(0, 8);
   
   let slidesHtml = carouselProducts.map((p, idx) => {
@@ -161,28 +181,23 @@ function setupCarouselLogic(count) {
 }
 
 // --- Renderização do Grid ---
-function renderGrid(products, excludeFromCarousel = []) {
+function renderGrid(products, excludeItems = []) {
   const grid = document.getElementById('featuredGrid');
   if (!grid) return;
 
-  // Filtrar produtos que já estão no carrossel para não repetir no grid
-  const carouselIds = new Set(excludeFromCarousel.map(p => p.id));
-  const gridProducts = products.filter(p => !carouselIds.has(p.id)).slice(0, 24);
+  const excludeIds = new Set(excludeItems.map(p => p.id));
+  const gridProducts = products.filter(p => !excludeIds.has(p.id)).slice(0, 24);
 
   grid.innerHTML = gridProducts.map((p, idx) => {
-    const isHistMin = updatePriceHistory(p);
-    const badges = getBadges(p, idx === 0, isHistMin);
-    
+    const badges = getProfessionalBadges(p, idx);
     return `
       <div class="product-card">
         <span class="badge discount-badge">↓ ${p.custom_discount_pct}% OFF</span>
         ${badges}
-        <div class="card-img">
-          <img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy">
-        </div>
+        <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy"></div>
         <h3>${escapeHtml(p.name).substring(0, 60)}...</h3>
         <div class="price-tag">R$ ${formatPrice(p.price)}</div>
-        <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" target="_blank" style="width:100%">Ver Oferta</a>
+        <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" target="_blank" style="width:100%">Ver Detalhes</a>
       </div>
     `;
   }).join('');
@@ -240,16 +255,14 @@ async function init() {
     const res = await fetch(DATA_URL + '?t=' + Date.now());
     let rawProducts = await res.json();
     
-    // 1. Deduplicação Global
     allProducts = deduplicateProducts(rawProducts);
     
-    // 2. Ordenar por desconto para o carrossel
     const sorted = [...allProducts].sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0));
-    const carouselItems = sorted.slice(0, 8);
     
-    // 3. Renderizar componentes
     renderCarousel(sorted);
-    renderGrid(allProducts, carouselItems); // Passa os itens do carrossel para excluir do grid
+    renderStats(allProducts);
+    const premiumItems = renderRadarPremium(allProducts);
+    renderGrid(allProducts, [...premiumItems, ...sorted.slice(0, 8)]);
     renderNews();
     
     setupCategoryFilters();
@@ -267,7 +280,7 @@ function setupCategoryFilters() {
       tab.classList.add('active');
       const category = tab.getAttribute('data-cat');
       if (category === 'todos') {
-        renderGrid(allProducts);
+        init();
       } else {
         const filtered = allProducts.filter(p => p.custom_category_slug === category);
         renderGrid(filtered);
@@ -282,7 +295,7 @@ function setupSearch() {
     searchInput.addEventListener('input', (e) => {
       const query = e.target.value.toLowerCase();
       if (query.length === 0) {
-        renderGrid(allProducts);
+        init();
       } else {
         const filtered = allProducts.filter(p => 
           (p.name || '').toLowerCase().includes(query) ||

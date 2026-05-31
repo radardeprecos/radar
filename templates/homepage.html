@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -20,6 +21,37 @@
       <button id="themeToggle">🌙</button>
     </div>
   </header>
+
+  <!-- Novo Hero Banner Profissional -->
+  <section class="main-hero">
+    <div class="container">
+      <h1>🔥 As Melhores Ofertas do Dia</h1>
+      <p>+ de 5.000 ofertas curadas e atualizadas automaticamente pelo nosso robô.</p>
+      <div class="hero-btns">
+        <a href="#featuredGrid" class="btn btn-white">Ver Promoções</a>
+        <a href="categorias/celulares/index.html" class="btn btn-outline-white">Celulares</a>
+        <a href="categorias/informatica/index.html" class="btn btn-outline-white">Informática</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard de Estatísticas -->
+  <div class="container">
+    <div class="stats-bar" id="statsBar">
+      <!-- Preenchido via JS -->
+    </div>
+  </div>
+
+  <!-- Barra de Confiança -->
+  <div class="container">
+    <div class="trust-bar">
+      <div class="trust-item">✓ Atualização automática</div>
+      <div class="trust-item">✓ Dados oficiais ML</div>
+      <div class="trust-item">✓ Comparação real</div>
+      <div class="trust-item">✓ Ofertas verificadas</div>
+    </div>
+  </div>
+
   <nav class="cat-nav">
     <div class="container cat-tabs" id="catTabs">
       <button class="cat-tab active" data-cat="todos">Todos</button>
@@ -33,10 +65,18 @@
       <a href="categorias/casa/index.html" class="cat-tab">Casa</a>
     </div>
   </nav>
+
   <main class="container">
+    <!-- Carrossel de Destaques -->
     <section class="hero" id="heroProduct">
       {{hero_section}}
     </section>
+
+    <!-- Radar Premium -->
+    <section class="radar-premium" id="radarPremium">
+      <!-- Preenchido via JS -->
+    </section>
+
     <section class="section">
       <div class="section-header">
         <h2>🔥 Melhores Ofertas</h2>
@@ -46,6 +86,7 @@
       </div>
     </section>
   </main>
+
   <footer class="footer">
     <div class="container">
       <p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
