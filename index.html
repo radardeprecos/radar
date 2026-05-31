@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radar de Preços — As Melhores Ofertas do Mercado Livre Hoje</title>
-  <meta name="description" content="Economize com as melhores ofertas curadas do Mercado Livre. Descubra produtos com desconto de até 70% em eletrônicos, casa, beleza e muito mais.">
+  <title>Radar de Preços — Inteligência de Preços e Melhores Ofertas</title>
+  <meta name="description" content="Economize com as melhores ofertas curadas do Brasil. Inteligência de preços, comparadores, guias de compra e alertas de desconto.">
   <link rel="canonical" href="https://radardeprecos.github.io/radar/">
   <link rel="stylesheet" href="assets/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -18,19 +17,37 @@
       <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Buscar ofertas...">
       </div>
-      <button id="themeToggle">🌙</button>
+      <div class="header-actions">
+        <a href="meus-favoritos/" class="header-link">❤️ Favoritos</a>
+        <button id="themeToggle">🌙</button>
+      </div>
     </div>
   </header>
+
+  <!-- Novo Menu de Navegação Superior (Desktop) -->
+  <nav class="main-nav">
+    <div class="container">
+      <ul class="nav-list">
+        <li><a href="quedas-hoje/">🔥 Quedas de Preço</a></li>
+        <li><a href="vale-a-pena-esperar/">❓ Vale a Pena Esperar?</a></li>
+        <li><a href="comparar/">⚖️ Comparar</a></li>
+        <li><a href="aprender/">🎓 Universidade</a></li>
+        <li><a href="cupons/">🎟️ Cupons</a></li>
+        <li><a href="black-friday/">🛍️ Black Friday</a></li>
+        <li><a href="melhores-2026/">🏆 Melhores 2026</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <!-- Novo Hero Banner Profissional -->
   <section class="main-hero">
     <div class="container">
-      <h1>🔥 As Melhores Ofertas do Dia</h1>
-      <p>+ de 5.000 ofertas curadas e atualizadas automaticamente pelo nosso robô.</p>
+      <h1>🔥 Inteligência de Preços para você comprar melhor</h1>
+      <p>+ de 5.000 ofertas curadas e analisadas pelo nosso Radar IA.</p>
       <div class="hero-btns">
-        <a href="#featuredGrid" class="btn btn-white">Ver Promoções</a>
-        <a href="categorias/celulares/index.html" class="btn btn-outline-white">Celulares</a>
-        <a href="categorias/informatica/index.html" class="btn btn-outline-white">Informática</a>
+        <a href="quedas-hoje/" class="btn btn-white">Maiores Quedas</a>
+        <a href="vale-a-pena-esperar/" class="btn btn-outline-white">Vale a Pena Esperar?</a>
+        <a href="aprender/" class="btn btn-outline-white">Aprender a Economizar</a>
       </div>
     </div>
   </section>
@@ -42,13 +59,15 @@
     </div>
   </div>
 
-  <!-- Barra de Confiança -->
+  <!-- Barra de Utilidades (Mobile & Desktop) -->
   <div class="container">
-    <div class="trust-bar">
-      <div class="trust-item">✓ Atualização automática</div>
-      <div class="trust-item">✓ Dados oficiais ML</div>
-      <div class="trust-item">✓ Comparação real</div>
-      <div class="trust-item">✓ Ofertas verificadas</div>
+    <div class="utility-grid">
+      <a href="tendencias/" class="utility-card">📈 Tendências</a>
+      <a href="indice-radar/" class="utility-card">📊 Índice Radar</a>
+      <a href="explodindo/" class="utility-card">💣 Explodindo</a>
+      <a href="mais-clicados/" class="utility-card">👆 Mais Clicados</a>
+      <a href="calendario-de-precos/" class="utility-card">📅 Calendário</a>
+      <a href="noticias/" class="utility-card">📰 Notícias</a>
     </div>
   </div>
 
@@ -79,7 +98,7 @@
 
     <section class="section">
       <div class="section-header">
-        <h2>🔥 Melhores Ofertas</h2>
+        <h2>🔥 Melhores Ofertas do Dia</h2>
       </div>
       <div class="products-grid" id="featuredGrid">
         <div id="featuredGrid" class="products-grid"></div>
@@ -89,16 +108,34 @@
 
   <footer class="footer">
     <div class="container">
-      <p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
-      <div class="footer-links">
-        <a href="sobre/">Sobre</a>
-        <a href="contato/">Contato</a>
-        <a href="privacidade/">Privacidade</a>
-        <a href="termos/">Termos</a>
-        <a href="quem-somos/">Quem Somos</a>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>📊 Radar de Preços</h3>
+          <p>Sua plataforma inteligente de comparação de preços e economia no Brasil.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Recursos</h4>
+          <a href="quedas-hoje/">Quedas de Preço</a>
+          <a href="vale-a-pena-esperar/">Vale a Pena Esperar?</a>
+          <a href="comparar/">Comparador</a>
+          <a href="aprender/">Universidade</a>
+          <a href="cupons/">Cupons</a>
+        </div>
+        <div class="footer-col">
+          <h4>Institucional</h4>
+          <a href="sobre/">Sobre</a>
+          <a href="contato/">Contato</a>
+          <a href="privacidade/">Privacidade</a>
+          <a href="disclaimer/">Disclaimer</a>
+          <a href="politica-afiliados/">Política de Afiliados</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Radar de Preços. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/favorites.js"></script>
 </body>
 </html>
