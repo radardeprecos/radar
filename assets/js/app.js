@@ -85,12 +85,12 @@ function renderRadarPremium(products) {
     <div class="section-header"><h2>👑 Radar Premium</h2></div>
     <div class="premium-grid">
       ${premiumItems.map(p => `
-        <div class="product-card premium-card">
+        <div class="product-card radar-premium-card">
           <span class="badge badge-premium-choice">👑 Escolha do Radar</span>
-          <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy" width="120" height="120" style="width:100%;height:auto;"></div>
+          <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy" width="100" height="100" style="width:auto;height:auto;max-width:100%;max-height:100%;"></div>
           <h3>${escapeHtml(p.name).substring(0, 50)}...</h3>
           <div class="price-tag">R$ ${formatPrice(p.price)}</div>
-          <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" style="width:100%; background: #b8860b">Ver Oferta Premium</a>
+          <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" style="width:100%; background: #b8860b; font-size: 12px; padding: 8px 5px;">Ver Oferta Premium</a>
         </div>
       `).join('')}
     </div>
@@ -146,7 +146,7 @@ function renderCarousel(products) {
           <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" target="_blank">🛒 Ver Oferta no Mercado Livre</a>
         </div>
         <div class="carousel-img">
-          <img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy" width="300" height="300" style="width:100%;height:auto;">
+          <img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy" width="140" height="140" style="width:auto;height:auto;max-width:100%;max-height:100%;">
         </div>
       </div>
     `;
