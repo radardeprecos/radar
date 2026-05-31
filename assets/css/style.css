@@ -549,6 +549,20 @@ ins.adsbygoogle {
   .main-hero h1 { font-size: 28px; }
   .stats-bar { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr; }
+  
+  .card-img {
+    width: 120px !important;
+    height: 120px !important;
+    margin: 0 auto 8px auto !important;
+  }
+  
+  .carousel-img {
+    height: 160px !important;
+  }
+  
+  .news-img {
+    height: 120px !important;
+  }
   .adsense-container { min-height: 300px; }
   .ad-placeholder { min-height: 300px; }
 }
