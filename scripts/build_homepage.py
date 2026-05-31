@@ -75,11 +75,22 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
     meta_description = "Economize com as melhores ofertas curadas do Mercado Livre. Descubra produtos com desconto de até 70% em eletrônicos, casa, beleza e muito mais."
     canonical_url = BASE_URL
     
+    # Carregar o menu de exploração
+    explorar_menu_html = ""
+    explorar_menu_path = "templates/explorar_menu.html"
+    if os.path.exists(explorar_menu_path):
+        try:
+            with open(explorar_menu_path, "r", encoding="utf-8") as f:
+                explorar_menu_html = f.read()
+        except Exception as e:
+            logger.warning(f"Não foi possível carregar o menu de exploração: {e}")
+    
     content = template.replace("{{seo.title}}", seo_title)
     content = content.replace("{{meta.description}}", meta_description)
     content = content.replace("{{canonical.url}}", canonical_url)
     content = content.replace("{{hero_section}}", hero_html)
     content = content.replace("{{featured_products_grid}}", products_html)
+    content = content.replace("{{explorar_menu}}", explorar_menu_html)
     
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
