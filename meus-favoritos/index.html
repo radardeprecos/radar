@@ -210,25 +210,25 @@
       empty.style.display = 'none';
 
       grid.innerHTML = favoritos.map(fav => `
-        <div class="favorite-card">
-          <img src="${fav.image}" alt="${fav.title}" class="favorite-image">
-          <div class="favorite-content">
-            <div class="favorite-title">${fav.title}</div>
-            <div class="favorite-price">
-              <span class="current-price">R$ ${fav.currentPrice.toLocaleString('pt-BR')}</span>
-              <span class="old-price">R$ ${fav.oldPrice.toLocaleString('pt-BR')}</span>
-            </div>
-            <div class="favorite-stats">
-              <span>👁️ ${fav.views.toLocaleString('pt-BR')} visualizações</span>
-              <span>💰 Economize R$ ${(fav.oldPrice - fav.currentPrice).toLocaleString('pt-BR')}</span>
-            </div>
-            <div class="favorite-actions">
-              <button class="action-btn" onclick="alert('Ir para produto')">Ver Oferta</button>
-              <button class="action-btn remove" onclick="removeFavorite(${fav.id})">❌ Remover</button>
-            </div>
-          </div>
-        </div>
-      `).join('');
+<div class="favorite-card">
+<img alt="${fav.title}" class="favorite-image" height="120" src="${fav.image}" style="width:100%;height:auto;" width="120"/>
+<div class="favorite-content">
+<div class="favorite-title">${fav.title}</div>
+<div class="favorite-price">
+<span class="current-price">R$ ${fav.currentPrice.toLocaleString('pt-BR')}</span>
+<span class="old-price">R$ ${fav.oldPrice.toLocaleString('pt-BR')}</span>
+</div>
+<div class="favorite-stats">
+<span>👁️ ${fav.views.toLocaleString('pt-BR')} visualizações</span>
+<span>💰 Economize R$ ${(fav.oldPrice - fav.currentPrice).toLocaleString('pt-BR')}</span>
+</div>
+<div class="favorite-actions">
+<button class="action-btn" onclick="alert('Ir para produto')">Ver Oferta</button>
+<button class="action-btn remove" onclick="removeFavorite(${fav.id})">❌ Remover</button>
+</div>
+</div>
+</div>
+`).join('');
     }
 
     function removeFavorite(id) {

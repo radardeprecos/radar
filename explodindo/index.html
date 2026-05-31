@@ -368,7 +368,7 @@
           <div class="fire-tag">${fireLabel}</div>
           ${disc > 0 ? `<div class="discount-tag">-${disc}%</div>` : ''}
           <div class="card-img-wrap">
-            <img src="${p.image || p.thumbnail}" alt="${p.title}" loading="lazy" onerror="this.src='../assets/img/placeholder.png'">
+            <img src="${p.image || p.thumbnail}" alt="${p.title}" loading="lazy" onerror="this.src='../assets/img/placeholder.png'" width="120" height="120" style="width:100%;height:auto;">
           </div>
           <div class="card-body">
             <div class="card-name">${(p.title || p.name || '').substring(0, 65)}${(p.title||p.name||'').length > 65 ? '...' : ''}</div>
@@ -419,14 +419,14 @@
           const m = getMetrics(p);
           const url = p.custom_affiliate_url || p.permalink || '#';
           return `
-            <a href="${url}" target="_blank" rel="noopener sponsored" class="top3-card ${medalClass[i]}" style="text-decoration:none;color:inherit;">
-              <div class="top3-medal">${medals[i]}</div>
-              <img src="${p.image || p.thumbnail}" alt="${p.title}" class="top3-img" loading="lazy" onerror="this.src='../assets/img/placeholder.png'">
-              <div class="top3-name">${(p.title || p.name || '').substring(0, 50)}</div>
-              <div class="top3-stat">Cliques: <strong>${m.clicks.toLocaleString()}</strong></div>
-              <div class="top3-stat">Crescimento: <strong>+${m.growth}%</strong></div>
-            </a>
-          `;
+<a class="top3-card ${medalClass[i]}" href="${url}" rel="noopener sponsored" style="text-decoration:none;color:inherit;" target="_blank">
+<div class="top3-medal">${medals[i]}</div>
+<img alt="${p.title}" class="top3-img" height="120" loading="lazy" onerror="this.src='../assets/img/placeholder.png'" src="${p.image || p.thumbnail}" style="width:100%;height:auto;" width="120"/>
+<div class="top3-name">${(p.title || p.name || '').substring(0, 50)}</div>
+<div class="top3-stat">Cliques: <strong>${m.clicks.toLocaleString()}</strong></div>
+<div class="top3-stat">Crescimento: <strong>+${m.growth}%</strong></div>
+</a>
+`;
         }).join('');
 
         renderGrid(allProducts, 'all');

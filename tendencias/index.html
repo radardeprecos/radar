@@ -374,20 +374,20 @@
           const growth = Math.round(disc * 0.8 + Math.random() * 20);
           const url = p.custom_affiliate_url || p.permalink || '#';
           return `
-            <a href="${url}" target="_blank" rel="noopener sponsored" class="trend-card" style="text-decoration:none;color:inherit;">
-              <div class="trend-rank ${rankClass}">${i + 1}</div>
-              <img src="${p.image || p.thumbnail}" alt="${p.title}" class="trend-img" loading="lazy" onerror="this.src='../assets/img/placeholder.png'">
-              <div class="trend-name">${(p.title || p.name || '').substring(0, 60)}${(p.title||p.name||'').length > 60 ? '...' : ''}</div>
-              <div class="trend-meta">
-                <span class="trend-badge badge-hot">-${disc}% OFF</span>
-                <span class="trend-badge badge-up">Em alta</span>
-              </div>
-              <div class="trend-growth">
+<a class="trend-card" href="${url}" rel="noopener sponsored" style="text-decoration:none;color:inherit;" target="_blank">
+<div class="trend-rank ${rankClass}">${i + 1}</div>
+<img alt="${p.title}" class="trend-img" height="120" loading="lazy" onerror="this.src='../assets/img/placeholder.png'" src="${p.image || p.thumbnail}" style="width:100%;height:auto;" width="120"/>
+<div class="trend-name">${(p.title || p.name || '').substring(0, 60)}${(p.title||p.name||'').length &gt; 60 ? '...' : ''}</div>
+<div class="trend-meta">
+<span class="trend-badge badge-hot">-${disc}% OFF</span>
+<span class="trend-badge badge-up">Em alta</span>
+</div>
+<div class="trend-growth">
                 Interesse: <strong>+${growth}%</strong> esta semana
                 <div class="growth-bar"><div class="growth-bar-fill" style="width:${Math.min(growth, 100)}%"></div></div>
-              </div>
-            </a>
-          `;
+</div>
+</a>
+`;
         }).join('');
 
         // Renderiza categorias em alta
@@ -444,10 +444,10 @@
           const price = parseFloat(p.price || 0).toLocaleString('pt-BR', {minimumFractionDigits:2});
           const orig = parseFloat(p.originalPrice || p.original_price || p.price || 0).toLocaleString('pt-BR', {minimumFractionDigits:2});
           return `
-            <div class="product-card">
-              <a href="${url}" target="_blank" rel="noopener sponsored">
-                <img src="${p.image || p.thumbnail}" alt="${p.title}" loading="lazy" onerror="this.src='../assets/img/placeholder.png'">
-                ${disc > 0 ? `<span class="badge-discount">-${disc}%</span>` : ''}
+<div class="product-card">
+<a href="${url}" rel="noopener sponsored" target="_blank">
+<img alt="${p.title}" height="120" loading="lazy" onerror="this.src='../assets/img/placeholder.png'" src="${p.image || p.thumbnail}" style="width:100%;height:auto;" width="120"/>
+                ${disc &gt; 0 ? </a></div>`<span class="badge-discount">-${disc}%</span>` : ''}
                 <div class="product-info">
                   <h3 class="product-name">${(p.title || p.name || '').substring(0, 70)}</h3>
                   <div class="product-price">

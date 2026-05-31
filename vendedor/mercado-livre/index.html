@@ -223,10 +223,10 @@
         const price = parseFloat(p.price||0).toLocaleString('pt-BR',{minimumFractionDigits:2});
         const orig = parseFloat(p.originalPrice||p.original_price||p.price||0).toLocaleString('pt-BR',{minimumFractionDigits:2});
         return `
-          <div class="product-card">
-            <a href="${url}" target="_blank" rel="noopener sponsored">
-              <img src="${p.image||p.thumbnail}" alt="${p.title}" loading="lazy" onerror="this.src='../../assets/img/placeholder.png'">
-              ${disc>0?`<span class="badge-discount">-${disc}%</span>`:''}
+<div class="product-card">
+<a href="${url}" rel="noopener sponsored" target="_blank">
+<img alt="${p.title}" height="120" loading="lazy" onerror="this.src='../../assets/img/placeholder.png'" src="${p.image||p.thumbnail}" style="width:100%;height:auto;" width="120"/>
+              ${disc&gt;0?</a></div>`<span class="badge-discount">-${disc}%</span>`:''}
               <div class="product-info">
                 <h3 class="product-name">${(p.title||p.name||'').substring(0,70)}</h3>
                 <div class="product-price">

@@ -196,23 +196,23 @@
       grid.innerHTML = filtered
         .sort((a, b) => b.discount - a.discount)
         .map(drop => `
-          <div class="drop-card">
-            <img src="${drop.image}" alt="${drop.title}" class="drop-image">
-            <div class="drop-content">
-              <div class="drop-title">${drop.title}</div>
-              <div class="drop-price">
-                <span class="old-price">R$ ${drop.oldPrice.toLocaleString('pt-BR')}</span>
-                <span class="new-price">R$ ${drop.newPrice.toLocaleString('pt-BR')}</span>
-                <span class="drop-badge">-${drop.discount}%</span>
-              </div>
-              <div class="drop-stats">
-                <span>👁️ ${drop.views.toLocaleString('pt-BR')} visualizações</span>
-                <span>💰 Economize R$ ${(drop.oldPrice - drop.newPrice).toLocaleString('pt-BR')}</span>
-              </div>
-              <a href="${drop.affiliate_url}" class="drop-button">Ver Oferta</a>
-            </div>
-          </div>
-        `).join('');
+<div class="drop-card">
+<img alt="${drop.title}" class="drop-image" height="120" src="${drop.image}" style="width:100%;height:auto;" width="120"/>
+<div class="drop-content">
+<div class="drop-title">${drop.title}</div>
+<div class="drop-price">
+<span class="old-price">R$ ${drop.oldPrice.toLocaleString('pt-BR')}</span>
+<span class="new-price">R$ ${drop.newPrice.toLocaleString('pt-BR')}</span>
+<span class="drop-badge">-${drop.discount}%</span>
+</div>
+<div class="drop-stats">
+<span>👁️ ${drop.views.toLocaleString('pt-BR')} visualizações</span>
+<span>💰 Economize R$ ${(drop.oldPrice - drop.newPrice).toLocaleString('pt-BR')}</span>
+</div>
+<a class="drop-button" href="${drop.affiliate_url}">Ver Oferta</a>
+</div>
+</div>
+`).join('');
     }
 
     // Event listeners dos filtros

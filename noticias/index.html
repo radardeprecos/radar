@@ -441,12 +441,12 @@
         const disc = p.custom_discount_pct || 0;
         const price = parseFloat(p.price||0).toLocaleString('pt-BR',{minimumFractionDigits:2});
         return `
-          <a href="${url}" target="_blank" rel="noopener sponsored" style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;">
-            <img src="${p.image||p.thumbnail}" alt="${p.title}" style="width:50px;height:50px;object-fit:contain;border-radius:6px;background:var(--bg);" loading="lazy">
-            <div>
-              <div style="font-size:12px;font-weight:700;line-height:1.3;">${(p.title||p.name||'').substring(0,45)}...</div>
-              <div style="color:var(--primary);font-weight:800;font-size:13px;">R$ ${price}</div>
-              ${disc>0?`<span style="font-size:11px;color:#16a34a;font-weight:700;">-${disc}% OFF</span>`:''}
+<a href="${url}" rel="noopener sponsored" style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;" target="_blank">
+<img alt="${p.title}" height="120" loading="lazy" src="${p.image||p.thumbnail}" style="width:100%;height:auto;" width="120"/>
+<div>
+<div style="font-size:12px;font-weight:700;line-height:1.3;">${(p.title||p.name||'').substring(0,45)}...</div>
+<div style="color:var(--primary);font-weight:800;font-size:13px;">R$ ${price}</div>
+              ${disc&gt;0?</div></a>`<span style="font-size:11px;color:#16a34a;font-weight:700;">-${disc}% OFF</span>`:''}
             </div>
           </a>
         `;
