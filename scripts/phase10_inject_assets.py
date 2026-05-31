@@ -9,6 +9,12 @@ TARGETS = [
     ROOT / 'admin' / 'index.html',
     ROOT / 'admin' / 'login.html',
     ROOT / 'alertas' / 'index.html',
+    ROOT / 'imprensa' / 'index.html',
+    ROOT / 'parcerias' / 'index.html',
+    ROOT / 'midia-kit' / 'index.html',
+    ROOT / 'radar-index' / 'index.html',
+    ROOT / 'academia' / 'index.html',
+    ROOT / 'exclusivos' / 'index.html',
 ]
 
 EXTRA_DIRS = ['ofertas-hoje', 'quedas-hoje', 'melhores-ofertas', 'mais-clicados']
