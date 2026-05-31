@@ -30,8 +30,9 @@ async function init() {
 function render(products) {
   if (products.length === 0) return;
   
-  // Hero
-  const hero = products[0];
+  // Hero - Seleciona um produto aleatório entre os 5 primeiros para garantir rotatividade
+  const heroIndex = Math.floor(Math.random() * Math.min(products.length, 5));
+  const hero = products[heroIndex];
   const heroEl = document.getElementById('heroProduct');
   if (heroEl) {
     heroEl.innerHTML = `
@@ -47,10 +48,11 @@ function render(products) {
     `;
   }
 
-  // Grid
+  // Grid - Mostra os produtos restantes, excluindo o que foi sorteado para o Hero
   const grid = document.getElementById('featuredGrid');
   if (grid) {
-    grid.innerHTML = products.slice(1, 13).map(p => `
+    const gridProducts = products.filter((_, idx) => idx !== heroIndex).slice(0, 12);
+    grid.innerHTML = gridProducts.map(p => `
       <div class="product-card">
         <span class="badge">↓ ${p.custom_discount_pct || p.discount || 0}%</span>
         <div class="card-img"><img src="${escapeHtml(p.custom_image_url || p.image || '')}" alt="${escapeHtml(p.name || '')}"></div>
