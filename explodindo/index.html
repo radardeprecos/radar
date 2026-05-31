@@ -368,7 +368,7 @@
           <div class="fire-tag">${fireLabel}</div>
           ${disc > 0 ? `<div class="discount-tag">-${disc}%</div>` : ''}
           <div class="card-img-wrap">
-            <img src="${p.image || p.thumbnail}" alt="${p.title}" loading="lazy" onerror="this.src='../assets/img/placeholder.png'" width="120" height="120" style="width:100%;height:auto;">
+            <img alt="${p.title}" height="120" loading="lazy" onerror="this.src='../assets/img/placeholder.png'" src="${p.image || p.thumbnail}" style="width:100%;height:auto;" width="120"/>
           </div>
           <div class="card-body">
             <div class="card-name">${(p.title || p.name || '').substring(0, 65)}${(p.title||p.name||'').length > 65 ? '...' : ''}</div>
