@@ -391,7 +391,39 @@ if (themeToggle) {
 
 // Iniciar apenas uma vez
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('DOMContentLoaded', () => {
+    init();
+    injectExplorarMenu();
+  });
 } else {
   init();
+  injectExplorarMenu();
+}
+
+async function injectExplorarMenu() {
+    const container = document.getElementById('explorarMenuContainer');
+    if (!container) return;
+
+    try {
+        const isGithub = window.location.hostname.includes('github.io');
+        const pathParts = window.location.pathname.split('/').filter(p => p);
+        let prefix = './';
+        
+        if (isGithub) {
+            // No GitHub Pages (/radar/...), o primeiro elemento é 'radar'
+            const depth = pathParts.length - 1; 
+            if (depth > 0) prefix = '../'.repeat(depth);
+        } else {
+            const depth = pathParts.length;
+            if (depth > 0) prefix = '../'.repeat(depth);
+        }
+        
+        const response = await fetch(`${prefix}templates/explorar_menu.html`);
+        if (response.ok) {
+            const html = await response.text();
+            container.innerHTML = html;
+        }
+    } catch (e) {
+        console.error('Erro ao carregar menu explorar:', e);
+    }
 }
