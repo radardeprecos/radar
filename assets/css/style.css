@@ -589,3 +589,64 @@ ins.adsbygoogle {
   .adsense-container { min-height: 300px; }
   .ad-placeholder { min-height: 300px; }
 }
+
+/* Autocomplete */
+.autocomplete-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  z-index: 1000;
+  display: none;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.autocomplete-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-bottom: 1px solid var(--border);
+}
+.autocomplete-item:hover { background: var(--bg); }
+.autocomplete-item img { border-radius: 4px; }
+.autocomplete-item span { font-size: 13px; color: var(--text); }
+
+/* Favoritos */
+.fav-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+.fav-btn:hover { transform: scale(1.1); opacity: 1; }
+.fav-btn.active { filter: grayscale(0); opacity: 1; border-color: #ff4757; }
+
+/* Blog e Comparativos */
+.btn-outline-primary {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+}
+.btn-outline-primary:hover {
+  background: var(--primary);
+  color: white;
+}

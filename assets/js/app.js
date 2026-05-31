@@ -195,8 +195,10 @@ function renderGrid(products, excludeItems = []) {
 
   grid.innerHTML = gridProducts.map((p, idx) => {
     const badges = getProfessionalBadges(p, idx);
+    const favClass = isFavorite(p.id) ? 'active' : '';
     return `
       <div class="product-card">
+        <button class="fav-btn ${favClass}" onclick="event.preventDefault(); toggleFavorite('${p.id}')">❤️</button>
         <span class="badge discount-badge">↓ ${p.custom_discount_pct}% OFF</span>
         ${badges}
         <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy"></div>
@@ -302,28 +304,74 @@ function setupCategoryFilters() {
   });
 }
 
+// --- Busca Inteligente com Autocomplete ---
 function setupSearch() {
   const searchInput = document.getElementById('searchInput');
   if (!searchInput) return;
   
+  // Criar container de resultados do autocomplete
+  const autocompleteContainer = document.createElement('div');
+  autocompleteContainer.id = 'autocompleteResults';
+  autocompleteContainer.className = 'autocomplete-container';
+  searchInput.parentElement.appendChild(autocompleteContainer);
+
   let searchTimeout;
   searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
     clearTimeout(searchTimeout);
+    
+    if (query.length < 2) {
+      autocompleteContainer.style.display = 'none';
+      if (query.length === 0) init();
+      return;
+    }
+
+    const suggestions = allProducts.filter(p => 
+      (p.name || '').toLowerCase().includes(query)
+    ).slice(0, 5);
+
+    if (suggestions.length > 0) {
+      autocompleteContainer.innerHTML = suggestions.map(p => `
+        <div class="autocomplete-item" onclick="window.location.href='${safeAffiliateUrl(p)}'">
+          <img src="${p.image || p.thumbnail}" width="30">
+          <span>${p.name.substring(0, 40)}...</span>
+        </div>
+      `).join('');
+      autocompleteContainer.style.display = 'block';
+    } else {
+      autocompleteContainer.style.display = 'none';
+    }
+
     searchTimeout = setTimeout(() => {
-      const query = e.target.value.toLowerCase().trim();
-      if (query.length === 0) {
-        const sorted = [...allProducts].sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0));
-        const premiumItems = [...allProducts].sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0)).slice(0, 5);
-        renderGrid(allProducts, [...premiumItems, ...sorted.slice(0, 8)]);
-      } else {
-        const filtered = allProducts.filter(p => 
-          (p.name || '').toLowerCase().includes(query) ||
-          (p.custom_category_slug || '').toLowerCase().includes(query)
-        );
-        renderGrid(filtered);
-      }
+      const filtered = allProducts.filter(p => 
+        (p.name || '').toLowerCase().includes(query) ||
+        (p.custom_category_slug || '').toLowerCase().includes(query)
+      );
+      renderGrid(filtered);
     }, 300);
   });
+
+  // Fechar autocomplete ao clicar fora
+  document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target)) autocompleteContainer.style.display = 'none';
+  });
+}
+
+// --- Sistema de Favoritos (LocalStorage) ---
+function toggleFavorite(productId) {
+  let favorites = JSON.parse(localStorage.getItem('radar_favorites') || '[]');
+  if (favorites.includes(productId)) {
+    favorites = favorites.filter(id => id !== productId);
+  } else {
+    favorites.push(productId);
+  }
+  localStorage.setItem('radar_favorites', JSON.stringify(favorites));
+  init(); // Re-renderiza para atualizar os ícones
+}
+
+function isFavorite(productId) {
+  const favorites = JSON.parse(localStorage.getItem('radar_favorites') || '[]');
+  return favorites.includes(productId);
 }
 
 // Theme Toggle

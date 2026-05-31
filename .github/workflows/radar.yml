@@ -43,6 +43,8 @@ jobs:
           python scripts/generate_pages.py
           python scripts/build_homepage.py
           python scripts/build_categories.py
+          python scripts/generate_comparisons.py
+          python scripts/generate_rankings.py
           python scripts/build_sitemap.py
 
       - name: 🚀 Publicação Automática (Git Push)
