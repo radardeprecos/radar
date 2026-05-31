@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Admin — Radar de Preços</title>
-  <meta name="robots" content="noindex, nofollow">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Admin — Radar de Preços</title>
+<meta content="noindex, nofollow" name="robots"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<style>
     .admin-container { max-width: 1400px; margin: 0 auto; padding: 20px; }
     .admin-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; }
     .admin-header h1 { font-size: 28px; margin-bottom: 10px; }
@@ -43,146 +44,137 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="../" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div style="flex: 1;"></div>
-      <a href="../" style="color: var(--primary); text-decoration: none; font-weight: 700;">← Voltar ao Site</a>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <main class="admin-container">
-    <div class="admin-header">
-      <h1>📊 Dashboard Administrativo</h1>
-      <p>Métricas de performance, cliques e estimativa de receita em tempo real</p>
-    </div>
-
-    <!-- Métricas Principais -->
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <h3>Total de Cliques</h3>
-        <div class="metric-value" id="totalClicks">0</div>
-        <div class="metric-change">↑ 12% vs. semana anterior</div>
-      </div>
-      <div class="metric-card">
-        <h3>Páginas Visitadas</h3>
-        <div class="metric-value" id="totalPages">0</div>
-        <div class="metric-change">↑ 8% vs. semana anterior</div>
-      </div>
-      <div class="metric-card">
-        <h3>Conversão Estimada</h3>
-        <div class="metric-value" id="conversionRate">2%</div>
-        <div class="metric-change">Baseado em histórico</div>
-      </div>
-      <div class="metric-card">
-        <h3>Receita Estimada</h3>
-        <div class="metric-value" id="estimatedRevenue">R$ 0</div>
-        <div class="metric-change">Mês atual (estimado)</div>
-      </div>
-    </div>
-
-    <!-- Status do Robô -->
-    <div class="section">
-      <h2>🤖 Status do Robô de Ofertas</h2>
-      <div class="robot-status success">
-        <strong>✓ Última execução bem-sucedida</strong>
-        <p>Há 2 horas | Encontrados 1.247 novos produtos | 156 ofertas atualizadas</p>
-      </div>
-      <div class="robot-status success">
-        <strong>✓ Sincronização com GitHub</strong>
-        <p>Há 1 hora | Commit: e303849 | Branch: gh-pages</p>
-      </div>
-      <div class="robot-status pending">
-        <strong>⏳ Próxima execução agendada</strong>
-        <p>Em 58 minutos | Intervalo: A cada 1 hora</p>
-      </div>
-      <div class="action-buttons">
-        <button class="btn-action" onclick="alert('Robô disparado manualmente!')">🚀 Disparar Robô Agora</button>
-        <button class="btn-action btn-secondary" onclick="alert('Configurações do robô')">⚙️ Configurar</button>
-      </div>
-    </div>
-
-    <!-- Top 10 Produtos -->
-    <div class="section">
-      <h2>🔥 Top 10 Produtos Mais Clicados</h2>
-      <div class="table-responsive">
-        <table id="topProductsTable">
-          <thead>
-            <tr>
-              <th class="rank">#</th>
-              <th>Produto</th>
-              <th>Categoria</th>
-              <th>Cliques</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Preenchido via JavaScript -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- CTR por Categoria -->
-    <div class="section">
-      <h2>📊 CTR por Categoria</h2>
-      <div class="table-responsive">
-        <table id="categoryMetricsTable">
-          <thead>
-            <tr>
-              <th>Categoria</th>
-              <th>Visualizações</th>
-              <th>Cliques</th>
-              <th>CTR</th>
-              <th>Desempenho</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Preenchido via JavaScript -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Páginas Mais Visitadas -->
-    <div class="section">
-      <h2>📄 Páginas Mais Visitadas</h2>
-      <div class="table-responsive">
-        <table id="pagesTable">
-          <thead>
-            <tr>
-              <th>Página</th>
-              <th>Visualizações</th>
-              <th>% do Total</th>
-              <th>Desempenho</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Preenchido via JavaScript -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Ações -->
-    <div class="section">
-      <h2>⚙️ Ações</h2>
-      <div class="action-buttons">
-        <button class="btn-action" onclick="exportAnalytics()">📥 Exportar Dados (CSV)</button>
-        <button class="btn-action btn-secondary" onclick="resetAnalytics()">🗑️ Limpar Analytics (Teste)</button>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Dashboard Administrativo.</p>
-    </div>
-  </footer>
-
-  <script src="../assets/js/analytics.js"></script>
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<div style="flex: 1;"></div>
+<a href="../" style="color: var(--primary); text-decoration: none; font-weight: 700;">← Voltar ao Site</a>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<main class="admin-container">
+<div class="admin-header">
+<h1>📊 Dashboard Administrativo</h1>
+<p>Métricas de performance, cliques e estimativa de receita em tempo real</p>
+</div>
+<!-- Métricas Principais -->
+<div class="metrics-grid">
+<div class="metric-card">
+<h3>Total de Cliques</h3>
+<div class="metric-value" id="totalClicks">0</div>
+<div class="metric-change">↑ 12% vs. semana anterior</div>
+</div>
+<div class="metric-card">
+<h3>Páginas Visitadas</h3>
+<div class="metric-value" id="totalPages">0</div>
+<div class="metric-change">↑ 8% vs. semana anterior</div>
+</div>
+<div class="metric-card">
+<h3>Conversão Estimada</h3>
+<div class="metric-value" id="conversionRate">2%</div>
+<div class="metric-change">Baseado em histórico</div>
+</div>
+<div class="metric-card">
+<h3>Receita Estimada</h3>
+<div class="metric-value" id="estimatedRevenue">R$ 0</div>
+<div class="metric-change">Mês atual (estimado)</div>
+</div>
+</div>
+<!-- Status do Robô -->
+<div class="section">
+<h2>🤖 Status do Robô de Ofertas</h2>
+<div class="robot-status success">
+<strong>✓ Última execução bem-sucedida</strong>
+<p>Há 2 horas | Encontrados 1.247 novos produtos | 156 ofertas atualizadas</p>
+</div>
+<div class="robot-status success">
+<strong>✓ Sincronização com GitHub</strong>
+<p>Há 1 hora | Commit: e303849 | Branch: gh-pages</p>
+</div>
+<div class="robot-status pending">
+<strong>⏳ Próxima execução agendada</strong>
+<p>Em 58 minutos | Intervalo: A cada 1 hora</p>
+</div>
+<div class="action-buttons">
+<button class="btn-action" onclick="alert('Robô disparado manualmente!')">🚀 Disparar Robô Agora</button>
+<button class="btn-action btn-secondary" onclick="alert('Configurações do robô')">⚙️ Configurar</button>
+</div>
+</div>
+<!-- Top 10 Produtos -->
+<div class="section">
+<h2>🔥 Top 10 Produtos Mais Clicados</h2>
+<div class="table-responsive">
+<table id="topProductsTable">
+<thead>
+<tr>
+<th class="rank">#</th>
+<th>Produto</th>
+<th>Categoria</th>
+<th>Cliques</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<!-- Preenchido via JavaScript -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- CTR por Categoria -->
+<div class="section">
+<h2>📊 CTR por Categoria</h2>
+<div class="table-responsive">
+<table id="categoryMetricsTable">
+<thead>
+<tr>
+<th>Categoria</th>
+<th>Visualizações</th>
+<th>Cliques</th>
+<th>CTR</th>
+<th>Desempenho</th>
+</tr>
+</thead>
+<tbody>
+<!-- Preenchido via JavaScript -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- Páginas Mais Visitadas -->
+<div class="section">
+<h2>📄 Páginas Mais Visitadas</h2>
+<div class="table-responsive">
+<table id="pagesTable">
+<thead>
+<tr>
+<th>Página</th>
+<th>Visualizações</th>
+<th>% do Total</th>
+<th>Desempenho</th>
+</tr>
+</thead>
+<tbody>
+<!-- Preenchido via JavaScript -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- Ações -->
+<div class="section">
+<h2>⚙️ Ações</h2>
+<div class="action-buttons">
+<button class="btn-action" onclick="exportAnalytics()">📥 Exportar Dados (CSV)</button>
+<button class="btn-action btn-secondary" onclick="resetAnalytics()">🗑️ Limpar Analytics (Teste)</button>
+</div>
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Dashboard Administrativo.</p>
+</div>
+</footer>
+<script src="../assets/js/analytics.js"></script>
+<script>
     function renderDashboard() {
       // Métricas principais
       const revenue = RadarAnalytics.estimateRevenue();

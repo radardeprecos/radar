@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meus Favoritos — Radar de Preços</title>
-  <meta name="description" content="Gerencie seus produtos favoritos e lista de desejos. Acompanhe o histórico de preços e receba alertas.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/meus-favoritos/">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Meus Favoritos — Radar de Preços</title>
+<meta content="Gerencie seus produtos favoritos e lista de desejos. Acompanhe o histórico de preços e receba alertas." name="description"/>
+<link href="https://radardeprecos.github.io/radar/meus-favoritos/" rel="canonical"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<style>
     .hero { background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); color: white; padding: 60px 0 40px; margin-bottom: 40px; }
     .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
     .hero p { opacity: 0.9; font-size: 1.1rem; }
@@ -54,118 +55,110 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="../" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container">
-      <h1>❤️ Meus Favoritos</h1>
-      <p>Gerencie seus produtos favoritos e receba alertas quando o preço cair. Tudo sincronizado localmente no seu navegador.</p>
-    </div>
-  </section>
-
-  <main class="container">
-    <div class="tabs">
-      <button class="tab active" data-tab="favoritos">❤️ Favoritos</button>
-      <button class="tab" data-tab="desejos">🎁 Lista de Desejos</button>
-      <button class="tab" data-tab="alertas">🔔 Meus Alertas</button>
-    </div>
-
-    <!-- Favoritos -->
-    <div id="favoritos-tab" class="tab-content">
-      <div class="favorites-grid" id="favoritosGrid">
-        <!-- Preenchido via JavaScript -->
-      </div>
-      <div class="empty-state" id="favoritosEmpty">
-        <div class="empty-state-icon">❤️</div>
-        <p class="empty-state-text">Você ainda não tem favoritos. Comece a adicionar produtos que você gosta!</p>
-        <a href="../" class="empty-state-btn">Explorar Produtos</a>
-      </div>
-    </div>
-
-    <!-- Lista de Desejos -->
-    <div id="desejos-tab" class="tab-content" style="display: none;">
-      <div class="favorites-grid" id="desejosGrid">
-        <!-- Preenchido via JavaScript -->
-      </div>
-      <div class="empty-state" id="desejosEmpty">
-        <div class="empty-state-icon">🎁</div>
-        <p class="empty-state-text">Sua lista de desejos está vazia. Adicione produtos que você gostaria de comprar no futuro!</p>
-        <a href="../" class="empty-state-btn">Explorar Produtos</a>
-      </div>
-    </div>
-
-    <!-- Alertas -->
-    <div id="alertas-tab" class="tab-content" style="display: none;">
-      <div class="alert-section">
-        <h2>🔔 Criar Novo Alerta</h2>
-        <div class="alert-form">
-          <div class="alert-input">
-            <label>Produto</label>
-            <input type="text" id="alertProduct" placeholder="Ex: Samsung Galaxy A36">
-          </div>
-          <div class="alert-input">
-            <label>Preço Desejado (R$)</label>
-            <input type="number" id="alertPrice" placeholder="Ex: 999">
-          </div>
-          <button class="alert-btn" onclick="createAlert()">Criar Alerta</button>
-        </div>
-      </div>
-
-      <h2>📋 Meus Alertas Ativos</h2>
-      <div id="alertsList">
-        <div class="alert-section">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <div>
-              <div style="font-weight: 700; margin-bottom: 5px;">Samsung Galaxy A36</div>
-              <div style="color: var(--text-light); font-size: 0.9rem;">Preço desejado: R$ 999</div>
-            </div>
-            <button class="action-btn remove" onclick="removeAlert(this)">Remover</button>
-          </div>
-          <div class="price-history">
-            <div style="font-weight: 700; margin-bottom: 10px;">📊 Histórico de Preços</div>
-            <div class="history-item">
-              <span>Hoje</span>
-              <span style="font-weight: 700; color: var(--primary);">R$ 1.299</span>
-            </div>
-            <div class="history-item">
-              <span>Ontem</span>
-              <span>R$ 1.299</span>
-            </div>
-            <div class="history-item">
-              <span>7 dias atrás</span>
-              <span>R$ 1.399</span>
-            </div>
-            <div class="history-item">
-              <span>30 dias atrás</span>
-              <span>R$ 1.499</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Seus Favoritos, Sempre à Mão.</p>
-      <div class="footer-links">
-        <a href="../sobre/">Sobre</a>
-        <a href="../contato/">Contato</a>
-        <a href="../privacidade/">Privacidade</a>
-        <a href="../disclaimer/">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<section class="hero">
+<div class="container">
+<h1>❤️ Meus Favoritos</h1>
+<p>Gerencie seus produtos favoritos e receba alertas quando o preço cair. Tudo sincronizado localmente no seu navegador.</p>
+</div>
+</section>
+<main class="container">
+<div class="tabs">
+<button class="tab active" data-tab="favoritos">❤️ Favoritos</button>
+<button class="tab" data-tab="desejos">🎁 Lista de Desejos</button>
+<button class="tab" data-tab="alertas">🔔 Meus Alertas</button>
+</div>
+<!-- Favoritos -->
+<div class="tab-content" id="favoritos-tab">
+<div class="favorites-grid" id="favoritosGrid">
+<!-- Preenchido via JavaScript -->
+</div>
+<div class="empty-state" id="favoritosEmpty">
+<div class="empty-state-icon">❤️</div>
+<p class="empty-state-text">Você ainda não tem favoritos. Comece a adicionar produtos que você gosta!</p>
+<a class="empty-state-btn" href="../">Explorar Produtos</a>
+</div>
+</div>
+<!-- Lista de Desejos -->
+<div class="tab-content" id="desejos-tab" style="display: none;">
+<div class="favorites-grid" id="desejosGrid">
+<!-- Preenchido via JavaScript -->
+</div>
+<div class="empty-state" id="desejosEmpty">
+<div class="empty-state-icon">🎁</div>
+<p class="empty-state-text">Sua lista de desejos está vazia. Adicione produtos que você gostaria de comprar no futuro!</p>
+<a class="empty-state-btn" href="../">Explorar Produtos</a>
+</div>
+</div>
+<!-- Alertas -->
+<div class="tab-content" id="alertas-tab" style="display: none;">
+<div class="alert-section">
+<h2>🔔 Criar Novo Alerta</h2>
+<div class="alert-form">
+<div class="alert-input">
+<label>Produto</label>
+<input id="alertProduct" placeholder="Ex: Samsung Galaxy A36" type="text"/>
+</div>
+<div class="alert-input">
+<label>Preço Desejado (R$)</label>
+<input id="alertPrice" placeholder="Ex: 999" type="number"/>
+</div>
+<button class="alert-btn" onclick="createAlert()">Criar Alerta</button>
+</div>
+</div>
+<h2>📋 Meus Alertas Ativos</h2>
+<div id="alertsList">
+<div class="alert-section">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+<div>
+<div style="font-weight: 700; margin-bottom: 5px;">Samsung Galaxy A36</div>
+<div style="color: var(--text-light); font-size: 0.9rem;">Preço desejado: R$ 999</div>
+</div>
+<button class="action-btn remove" onclick="removeAlert(this)">Remover</button>
+</div>
+<div class="price-history">
+<div style="font-weight: 700; margin-bottom: 10px;">📊 Histórico de Preços</div>
+<div class="history-item">
+<span>Hoje</span>
+<span style="font-weight: 700; color: var(--primary);">R$ 1.299</span>
+</div>
+<div class="history-item">
+<span>Ontem</span>
+<span>R$ 1.299</span>
+</div>
+<div class="history-item">
+<span>7 dias atrás</span>
+<span>R$ 1.399</span>
+</div>
+<div class="history-item">
+<span>30 dias atrás</span>
+<span>R$ 1.499</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Seus Favoritos, Sempre à Mão.</p>
+<div class="footer-links">
+<a href="../sobre/">Sobre</a>
+<a href="../contato/">Contato</a>
+<a href="../privacidade/">Privacidade</a>
+<a href="../disclaimer/">Disclaimer</a>
+</div>
+</div>
+</footer>
+<script>
     // LocalStorage Management
     const STORAGE_KEYS = {
       FAVORITOS: 'radar_favoritos',

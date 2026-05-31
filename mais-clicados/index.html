@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Produtos Mais Clicados — Radar de Preços</title>
-  <meta name="description" content="Veja quais são os produtos mais populares e mais clicados por outros usuários. Tendências em tempo real.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/mais-clicados/">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Produtos Mais Clicados — Radar de Preços</title>
+<meta content="Veja quais são os produtos mais populares e mais clicados por outros usuários. Tendências em tempo real." name="description"/>
+<link href="https://radardeprecos.github.io/radar/mais-clicados/" rel="canonical"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<style>
     .hero { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); color: white; padding: 60px 0 40px; margin-bottom: 40px; }
     .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
     .hero p { opacity: 0.9; font-size: 1.1rem; }
@@ -75,208 +76,196 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="../" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container">
-      <h1>🔥 Mais Clicados</h1>
-      <p>Produtos e categorias mais populares entre os usuários do Radar. Veja o que está em alta!</p>
-    </div>
-  </section>
-
-  <main class="container">
-    <div class="tabs">
-      <button class="tab active" data-tab="produtos">📦 Produtos</button>
-      <button class="tab" data-tab="categorias">🏪 Categorias</button>
-      <button class="tab" data-tab="marcas">🏷️ Marcas</button>
-    </div>
-
-    <div class="period-selector">
-      <button class="period-btn active" data-period="today">Hoje</button>
-      <button class="period-btn" data-period="week">Esta Semana</button>
-      <button class="period-btn" data-period="month">Este Mês</button>
-      <button class="period-btn" data-period="all">Tudo</button>
-    </div>
-
-    <!-- Produtos -->
-    <div id="produtos-tab" class="tab-content">
-      <div class="ranking-list">
-        <div class="ranking-item">
-          <div class="ranking-position top1">🥇</div>
-          <div class="ranking-image"></div>
-          <div class="ranking-content">
-            <div class="ranking-title">Samsung Galaxy A36 128GB</div>
-            <div class="ranking-meta">
-              <span>📱 Celulares</span>
-              <span>💰 R$ 1.299</span>
-            </div>
-          </div>
-          <div class="ranking-stats">
-            <div class="stat-badge clicks">👆 15.2K cliques</div>
-            <div class="stat-badge trending">📈 +45%</div>
-          </div>
-        </div>
-
-        <div class="ranking-item">
-          <div class="ranking-position top2">🥈</div>
-          <div class="ranking-image"></div>
-          <div class="ranking-content">
-            <div class="ranking-title">LG 55" OLED 4K 120Hz</div>
-            <div class="ranking-meta">
-              <span>📺 TVs</span>
-              <span>💰 R$ 2.999</span>
-            </div>
-          </div>
-          <div class="ranking-stats">
-            <div class="stat-badge clicks">👆 12.8K cliques</div>
-            <div class="stat-badge trending">📈 +32%</div>
-          </div>
-        </div>
-
-        <div class="ranking-item">
-          <div class="ranking-position top3">🥉</div>
-          <div class="ranking-image"></div>
-          <div class="ranking-content">
-            <div class="ranking-title">Notebook Lenovo IdeaPad 3</div>
-            <div class="ranking-meta">
-              <span>💻 Informática</span>
-              <span>💰 R$ 1.999</span>
-            </div>
-          </div>
-          <div class="ranking-stats">
-            <div class="stat-badge clicks">👆 11.5K cliques</div>
-            <div class="stat-badge trending">📈 +28%</div>
-          </div>
-        </div>
-
-        <div class="ranking-item">
-          <div class="ranking-position">4</div>
-          <div class="ranking-image"></div>
-          <div class="ranking-content">
-            <div class="ranking-title">Xiaomi Redmi Note 13</div>
-            <div class="ranking-meta">
-              <span>📱 Celulares</span>
-              <span>💰 R$ 899</span>
-            </div>
-          </div>
-          <div class="ranking-stats">
-            <div class="stat-badge clicks">👆 9.3K cliques</div>
-            <div class="stat-badge trending">📈 +18%</div>
-          </div>
-        </div>
-
-        <div class="ranking-item">
-          <div class="ranking-position">5</div>
-          <div class="ranking-image"></div>
-          <div class="ranking-content">
-            <div class="ranking-title">PlayStation 5 Standard</div>
-            <div class="ranking-meta">
-              <span>🎮 Games</span>
-              <span>💰 R$ 3.999</span>
-            </div>
-          </div>
-          <div class="ranking-stats">
-            <div class="stat-badge clicks">👆 8.7K cliques</div>
-            <div class="stat-badge trending">📈 +15%</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Categorias -->
-    <div id="categorias-tab" class="tab-content" style="display: none;">
-      <div class="categories-grid">
-        <div class="category-card">
-          <div class="category-icon">📱</div>
-          <div class="category-name">Celulares</div>
-          <div class="category-count">45.2K cliques</div>
-        </div>
-        <div class="category-card">
-          <div class="category-icon">💻</div>
-          <div class="category-name">Informática</div>
-          <div class="category-count">32.1K cliques</div>
-        </div>
-        <div class="category-card">
-          <div class="category-icon">📺</div>
-          <div class="category-name">TVs</div>
-          <div class="category-count">28.5K cliques</div>
-        </div>
-        <div class="category-card">
-          <div class="category-icon">🎮</div>
-          <div class="category-name">Games</div>
-          <div class="category-count">25.3K cliques</div>
-        </div>
-        <div class="category-card">
-          <div class="category-icon">🏠</div>
-          <div class="category-name">Eletrodomésticos</div>
-          <div class="category-count">18.9K cliques</div>
-        </div>
-        <div class="category-card">
-          <div class="category-icon">🎧</div>
-          <div class="category-name">Áudio</div>
-          <div class="category-count">15.6K cliques</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Marcas -->
-    <div id="marcas-tab" class="tab-content" style="display: none;">
-      <div class="categories-grid">
-        <div class="category-card">
-          <div class="category-icon">🔷</div>
-          <div class="category-name">Samsung</div>
-          <div class="category-count">28.5K cliques</div>
-        </div>
-        <div class="category-card">
-          <div class="category-icon">🔶</div>
-          <div class="category-name">LG</div>
-          <div class="category-count">22.1K cliques</div>
-        </div>
-        <div class="category-card">
-          <div class="category-icon">🟦</div>
-          <div class="category-name">Xiaomi</div>
-          <div class="category-count">19.8K cliques</div>
-        </div>
-        <div class="category-card">
-          <div class="category-icon">🍎</div>
-          <div class="category-name">Apple</div>
-          <div class="category-count">18.3K cliques</div>
-        </div>
-        <div class="category-card">
-          <div class="category-icon">🟩</div>
-          <div class="category-name">Motorola</div>
-          <div class="category-count">14.2K cliques</div>
-        </div>
-        <div class="category-card">
-          <div class="category-icon">🟥</div>
-          <div class="category-name">Lenovo</div>
-          <div class="category-count">12.7K cliques</div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Tendências em Tempo Real.</p>
-      <div class="footer-links">
-        <a href="../sobre/">Sobre</a>
-        <a href="../contato/">Contato</a>
-        <a href="../privacidade/">Privacidade</a>
-        <a href="../disclaimer/">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<section class="hero">
+<div class="container">
+<h1>🔥 Mais Clicados</h1>
+<p>Produtos e categorias mais populares entre os usuários do Radar. Veja o que está em alta!</p>
+</div>
+</section>
+<main class="container">
+<div class="tabs">
+<button class="tab active" data-tab="produtos">📦 Produtos</button>
+<button class="tab" data-tab="categorias">🏪 Categorias</button>
+<button class="tab" data-tab="marcas">🏷️ Marcas</button>
+</div>
+<div class="period-selector">
+<button class="period-btn active" data-period="today">Hoje</button>
+<button class="period-btn" data-period="week">Esta Semana</button>
+<button class="period-btn" data-period="month">Este Mês</button>
+<button class="period-btn" data-period="all">Tudo</button>
+</div>
+<!-- Produtos -->
+<div class="tab-content" id="produtos-tab">
+<div class="ranking-list">
+<div class="ranking-item">
+<div class="ranking-position top1">🥇</div>
+<div class="ranking-image"></div>
+<div class="ranking-content">
+<div class="ranking-title">Samsung Galaxy A36 128GB</div>
+<div class="ranking-meta">
+<span>📱 Celulares</span>
+<span>💰 R$ 1.299</span>
+</div>
+</div>
+<div class="ranking-stats">
+<div class="stat-badge clicks">👆 15.2K cliques</div>
+<div class="stat-badge trending">📈 +45%</div>
+</div>
+</div>
+<div class="ranking-item">
+<div class="ranking-position top2">🥈</div>
+<div class="ranking-image"></div>
+<div class="ranking-content">
+<div class="ranking-title">LG 55" OLED 4K 120Hz</div>
+<div class="ranking-meta">
+<span>📺 TVs</span>
+<span>💰 R$ 2.999</span>
+</div>
+</div>
+<div class="ranking-stats">
+<div class="stat-badge clicks">👆 12.8K cliques</div>
+<div class="stat-badge trending">📈 +32%</div>
+</div>
+</div>
+<div class="ranking-item">
+<div class="ranking-position top3">🥉</div>
+<div class="ranking-image"></div>
+<div class="ranking-content">
+<div class="ranking-title">Notebook Lenovo IdeaPad 3</div>
+<div class="ranking-meta">
+<span>💻 Informática</span>
+<span>💰 R$ 1.999</span>
+</div>
+</div>
+<div class="ranking-stats">
+<div class="stat-badge clicks">👆 11.5K cliques</div>
+<div class="stat-badge trending">📈 +28%</div>
+</div>
+</div>
+<div class="ranking-item">
+<div class="ranking-position">4</div>
+<div class="ranking-image"></div>
+<div class="ranking-content">
+<div class="ranking-title">Xiaomi Redmi Note 13</div>
+<div class="ranking-meta">
+<span>📱 Celulares</span>
+<span>💰 R$ 899</span>
+</div>
+</div>
+<div class="ranking-stats">
+<div class="stat-badge clicks">👆 9.3K cliques</div>
+<div class="stat-badge trending">📈 +18%</div>
+</div>
+</div>
+<div class="ranking-item">
+<div class="ranking-position">5</div>
+<div class="ranking-image"></div>
+<div class="ranking-content">
+<div class="ranking-title">PlayStation 5 Standard</div>
+<div class="ranking-meta">
+<span>🎮 Games</span>
+<span>💰 R$ 3.999</span>
+</div>
+</div>
+<div class="ranking-stats">
+<div class="stat-badge clicks">👆 8.7K cliques</div>
+<div class="stat-badge trending">📈 +15%</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Categorias -->
+<div class="tab-content" id="categorias-tab" style="display: none;">
+<div class="categories-grid">
+<div class="category-card">
+<div class="category-icon">📱</div>
+<div class="category-name">Celulares</div>
+<div class="category-count">45.2K cliques</div>
+</div>
+<div class="category-card">
+<div class="category-icon">💻</div>
+<div class="category-name">Informática</div>
+<div class="category-count">32.1K cliques</div>
+</div>
+<div class="category-card">
+<div class="category-icon">📺</div>
+<div class="category-name">TVs</div>
+<div class="category-count">28.5K cliques</div>
+</div>
+<div class="category-card">
+<div class="category-icon">🎮</div>
+<div class="category-name">Games</div>
+<div class="category-count">25.3K cliques</div>
+</div>
+<div class="category-card">
+<div class="category-icon">🏠</div>
+<div class="category-name">Eletrodomésticos</div>
+<div class="category-count">18.9K cliques</div>
+</div>
+<div class="category-card">
+<div class="category-icon">🎧</div>
+<div class="category-name">Áudio</div>
+<div class="category-count">15.6K cliques</div>
+</div>
+</div>
+</div>
+<!-- Marcas -->
+<div class="tab-content" id="marcas-tab" style="display: none;">
+<div class="categories-grid">
+<div class="category-card">
+<div class="category-icon">🔷</div>
+<div class="category-name">Samsung</div>
+<div class="category-count">28.5K cliques</div>
+</div>
+<div class="category-card">
+<div class="category-icon">🔶</div>
+<div class="category-name">LG</div>
+<div class="category-count">22.1K cliques</div>
+</div>
+<div class="category-card">
+<div class="category-icon">🟦</div>
+<div class="category-name">Xiaomi</div>
+<div class="category-count">19.8K cliques</div>
+</div>
+<div class="category-card">
+<div class="category-icon">🍎</div>
+<div class="category-name">Apple</div>
+<div class="category-count">18.3K cliques</div>
+</div>
+<div class="category-card">
+<div class="category-icon">🟩</div>
+<div class="category-name">Motorola</div>
+<div class="category-count">14.2K cliques</div>
+</div>
+<div class="category-card">
+<div class="category-icon">🟥</div>
+<div class="category-name">Lenovo</div>
+<div class="category-count">12.7K cliques</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Tendências em Tempo Real.</p>
+<div class="footer-links">
+<a href="../sobre/">Sobre</a>
+<a href="../contato/">Contato</a>
+<a href="../privacidade/">Privacidade</a>
+<a href="../disclaimer/">Disclaimer</a>
+</div>
+</div>
+</footer>
+<script>
     // Tabs
     document.querySelectorAll('.tab').forEach(tab => {
       tab.addEventListener('click', () => {

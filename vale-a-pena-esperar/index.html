@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vale a Pena Esperar? — Análise de Preço | Radar de Preços</title>
-  <meta name="description" content="Descubra se vale a pena esperar para comprar. Análise probabilística baseada em histórico de preços e sazonalidade.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/vale-a-pena-esperar/">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vale a Pena Esperar? — Análise de Preço | Radar de Preços</title>
+<meta content="Descubra se vale a pena esperar para comprar. Análise probabilística baseada em histórico de preços e sazonalidade." name="description"/>
+<link href="https://radardeprecos.github.io/radar/vale-a-pena-esperar/" rel="canonical"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<style>
     .hero { background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); color: white; padding: 60px 0 40px; margin-bottom: 40px; }
     .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
     .hero p { opacity: 0.9; font-size: 1.1rem; }
@@ -49,186 +50,175 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="../" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container">
-      <h1>❓ Vale a Pena Esperar?</h1>
-      <p>Análise inteligente baseada em histórico de preços e sazonalidade. Descubra se você deve comprar agora ou esperar.</p>
-    </div>
-  </section>
-
-  <main class="container">
-    <div class="search-section">
-      <h2>🔍 Buscar Produto</h2>
-      <div class="search-input-group">
-        <input type="text" id="productSearch" placeholder="Digite o nome do produto (ex: Samsung Galaxy A36)">
-        <button onclick="analyzeProduct()">Analisar</button>
-      </div>
-      <p style="color: var(--text-light); font-size: 0.9rem;">Exemplos: Samsung Galaxy A36, LG OLED 55, Notebook Lenovo</p>
-    </div>
-
-    <div class="analysis-result" id="analysisResult">
-      <div class="product-header">
-        <div class="product-image" id="productImage"></div>
-        <div class="product-info">
-          <h2 id="productName"></h2>
-          <div class="current-price">R$ <span id="currentPrice"></span></div>
-          <div style="color: var(--text-light); font-size: 0.9rem; margin-top: 5px;">
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<section class="hero">
+<div class="container">
+<h1>❓ Vale a Pena Esperar?</h1>
+<p>Análise inteligente baseada em histórico de preços e sazonalidade. Descubra se você deve comprar agora ou esperar.</p>
+</div>
+</section>
+<main class="container">
+<div class="search-section">
+<h2>🔍 Buscar Produto</h2>
+<div class="search-input-group">
+<input id="productSearch" placeholder="Digite o nome do produto (ex: Samsung Galaxy A36)" type="text"/>
+<button onclick="analyzeProduct()">Analisar</button>
+</div>
+<p style="color: var(--text-light); font-size: 0.9rem;">Exemplos: Samsung Galaxy A36, LG OLED 55, Notebook Lenovo</p>
+</div>
+<div class="analysis-result" id="analysisResult">
+<div class="product-header">
+<div class="product-image" id="productImage"></div>
+<div class="product-info">
+<h2 id="productName"></h2>
+<div class="current-price">R$ <span id="currentPrice"></span></div>
+<div style="color: var(--text-light); font-size: 0.9rem; margin-top: 5px;">
             Preço médio histórico: R$ <span id="avgPrice"></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="recommendation-box" id="recommendationBox">
-        <div class="recommendation-title" id="recommendationTitle"></div>
-        <div class="recommendation-text" id="recommendationText"></div>
-      </div>
-
-      <div class="probability-meter">
-        <div class="probability-label">
-          <span>Probabilidade de Queda de Preço</span>
-          <span id="probabilityPercent">78%</span>
-        </div>
-        <div class="probability-bar">
-          <div class="probability-fill" id="probabilityFill" style="width: 78%;">78%</div>
-        </div>
-      </div>
-
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value" id="bestMonth">Novembro</div>
-          <div class="stat-label">Melhor mês para comprar</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="maxDiscount">-45%</div>
-          <div class="stat-label">Maior desconto registrado</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="expectedDrop">-R$ 200</div>
-          <div class="stat-label">Queda esperada</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="waitTime">2-4 semanas</div>
-          <div class="stat-label">Tempo estimado de espera</div>
-        </div>
-      </div>
-
-      <div class="seasonal-chart">
-        <h3>📈 Histórico de Preços por Mês</h3>
-        <div class="month-bar">
-          <div class="month-label">Jan</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 70%;">R$ 1.399</div>
-          </div>
-        </div>
-        <div class="month-bar">
-          <div class="month-label">Fev</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 68%;">R$ 1.359</div>
-          </div>
-        </div>
-        <div class="month-bar">
-          <div class="month-label">Mar</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 75%;">R$ 1.499</div>
-          </div>
-        </div>
-        <div class="month-bar">
-          <div class="month-label">Abr</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 72%;">R$ 1.439</div>
-          </div>
-        </div>
-        <div class="month-bar">
-          <div class="month-label">Mai</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 65%;">R$ 1.299</div>
-          </div>
-        </div>
-        <div class="month-bar">
-          <div class="month-label">Jun</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 60%;">R$ 1.199</div>
-          </div>
-        </div>
-        <div class="month-bar">
-          <div class="month-label">Jul</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 62%;">R$ 1.239</div>
-          </div>
-        </div>
-        <div class="month-bar">
-          <div class="month-label">Ago</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 68%;">R$ 1.359</div>
-          </div>
-        </div>
-        <div class="month-bar">
-          <div class="month-label">Set</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 70%;">R$ 1.399</div>
-          </div>
-        </div>
-        <div class="month-bar">
-          <div class="month-label">Out</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 72%;">R$ 1.439</div>
-          </div>
-        </div>
-        <div class="month-bar">
-          <div class="month-label">Nov</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 55%;">R$ 1.099</div>
-          </div>
-        </div>
-        <div class="month-bar">
-          <div class="month-label">Dez</div>
-          <div class="month-bar-bg">
-            <div class="month-bar-fill" style="width: 58%;">R$ 1.159</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tips">
-        <h3>💡 Dicas Inteligentes</h3>
-        <ul>
-          <li><strong>Black Friday (Novembro):</strong> Melhor mês para comprar. Descontos de até 45%.</li>
-          <li><strong>Lançamentos:</strong> Preços caem 2-3 meses após o lançamento.</li>
-          <li><strong>Sazonalidade:</strong> Produtos de verão caem em março/abril. Produtos de inverno caem em julho/agosto.</li>
-          <li><strong>Risco:</strong> Esperar muito pode resultar em falta de estoque.</li>
-          <li><strong>Ative alertas:</strong> Crie um alerta de preço para ser notificado quando cair.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div id="emptyState" style="text-align: center; padding: 60px 20px;">
-      <div style="font-size: 3rem; margin-bottom: 20px;">🔍</div>
-      <p style="font-size: 1.1rem; color: var(--text-light);">Digite um produto acima para começar a análise</p>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Análise Inteligente de Preços.</p>
-      <div class="footer-links">
-        <a href="../sobre/">Sobre</a>
-        <a href="../contato/">Contato</a>
-        <a href="../privacidade/">Privacidade</a>
-        <a href="../disclaimer/">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+</div>
+</div>
+</div>
+<div class="recommendation-box" id="recommendationBox">
+<div class="recommendation-title" id="recommendationTitle"></div>
+<div class="recommendation-text" id="recommendationText"></div>
+</div>
+<div class="probability-meter">
+<div class="probability-label">
+<span>Probabilidade de Queda de Preço</span>
+<span id="probabilityPercent">78%</span>
+</div>
+<div class="probability-bar">
+<div class="probability-fill" id="probabilityFill" style="width: 78%;">78%</div>
+</div>
+</div>
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-value" id="bestMonth">Novembro</div>
+<div class="stat-label">Melhor mês para comprar</div>
+</div>
+<div class="stat-card">
+<div class="stat-value" id="maxDiscount">-45%</div>
+<div class="stat-label">Maior desconto registrado</div>
+</div>
+<div class="stat-card">
+<div class="stat-value" id="expectedDrop">-R$ 200</div>
+<div class="stat-label">Queda esperada</div>
+</div>
+<div class="stat-card">
+<div class="stat-value" id="waitTime">2-4 semanas</div>
+<div class="stat-label">Tempo estimado de espera</div>
+</div>
+</div>
+<div class="seasonal-chart">
+<h3>📈 Histórico de Preços por Mês</h3>
+<div class="month-bar">
+<div class="month-label">Jan</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 70%;">R$ 1.399</div>
+</div>
+</div>
+<div class="month-bar">
+<div class="month-label">Fev</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 68%;">R$ 1.359</div>
+</div>
+</div>
+<div class="month-bar">
+<div class="month-label">Mar</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 75%;">R$ 1.499</div>
+</div>
+</div>
+<div class="month-bar">
+<div class="month-label">Abr</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 72%;">R$ 1.439</div>
+</div>
+</div>
+<div class="month-bar">
+<div class="month-label">Mai</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 65%;">R$ 1.299</div>
+</div>
+</div>
+<div class="month-bar">
+<div class="month-label">Jun</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 60%;">R$ 1.199</div>
+</div>
+</div>
+<div class="month-bar">
+<div class="month-label">Jul</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 62%;">R$ 1.239</div>
+</div>
+</div>
+<div class="month-bar">
+<div class="month-label">Ago</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 68%;">R$ 1.359</div>
+</div>
+</div>
+<div class="month-bar">
+<div class="month-label">Set</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 70%;">R$ 1.399</div>
+</div>
+</div>
+<div class="month-bar">
+<div class="month-label">Out</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 72%;">R$ 1.439</div>
+</div>
+</div>
+<div class="month-bar">
+<div class="month-label">Nov</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 55%;">R$ 1.099</div>
+</div>
+</div>
+<div class="month-bar">
+<div class="month-label">Dez</div>
+<div class="month-bar-bg">
+<div class="month-bar-fill" style="width: 58%;">R$ 1.159</div>
+</div>
+</div>
+</div>
+<div class="tips">
+<h3>💡 Dicas Inteligentes</h3>
+<ul>
+<li><strong>Black Friday (Novembro):</strong> Melhor mês para comprar. Descontos de até 45%.</li>
+<li><strong>Lançamentos:</strong> Preços caem 2-3 meses após o lançamento.</li>
+<li><strong>Sazonalidade:</strong> Produtos de verão caem em março/abril. Produtos de inverno caem em julho/agosto.</li>
+<li><strong>Risco:</strong> Esperar muito pode resultar em falta de estoque.</li>
+<li><strong>Ative alertas:</strong> Crie um alerta de preço para ser notificado quando cair.</li>
+</ul>
+</div>
+</div>
+<div id="emptyState" style="text-align: center; padding: 60px 20px;">
+<div style="font-size: 3rem; margin-bottom: 20px;">🔍</div>
+<p style="font-size: 1.1rem; color: var(--text-light);">Digite um produto acima para começar a análise</p>
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Análise Inteligente de Preços.</p>
+<div class="footer-links">
+<a href="../sobre/">Sobre</a>
+<a href="../contato/">Contato</a>
+<a href="../privacidade/">Privacidade</a>
+<a href="../disclaimer/">Disclaimer</a>
+</div>
+</div>
+</footer>
+<script>
     function analyzeProduct() {
       const productName = document.getElementById('productSearch').value.trim();
       if (!productName) return;

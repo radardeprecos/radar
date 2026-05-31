@@ -1,18 +1,19 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tendências de Produtos — O que está em alta esta semana | Radar de Preços</title>
-  <meta name="description" content="Descubra os produtos mais buscados da semana, categorias em alta e o crescimento de interesse dos consumidores brasileiros. Atualizado automaticamente.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/tendencias/">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://radardeprecos.github.io/radar/tendencias/">
-  <meta property="og:title" content="Tendências de Produtos — O que está em alta esta semana">
-  <meta property="og:description" content="Produtos mais buscados, categorias em alta e crescimento de interesse dos consumidores.">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <script type="application/ld+json">
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tendências de Produtos — O que está em alta esta semana | Radar de Preços</title>
+<meta content="Descubra os produtos mais buscados da semana, categorias em alta e o crescimento de interesse dos consumidores brasileiros. Atualizado automaticamente." name="description"/>
+<link href="https://radardeprecos.github.io/radar/tendencias/" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="https://radardeprecos.github.io/radar/tendencias/" property="og:url"/>
+<meta content="Tendências de Produtos — O que está em alta esta semana" property="og:title"/>
+<meta content="Produtos mais buscados, categorias em alta e crescimento de interesse dos consumidores." property="og:description"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -28,7 +29,7 @@
     }
   }
   </script>
-  <style>
+<style>
     .page-hero {
       background: linear-gradient(135deg, #6c3fc5 0%, #a855f7 100%);
       color: white;
@@ -208,80 +209,72 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="../" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <section class="page-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../">Início</a> › Tendências</div>
-      <h1>🌍 Tendências da Semana</h1>
-      <p>Produtos mais buscados, categorias em alta e o que os brasileiros estão comprando agora.</p>
-    </div>
-  </section>
-
-  <main class="container">
-    <div class="last-update">
-      <div class="pulse-dot"></div>
-      <span id="lastUpdateText">Atualizado agora</span>
-    </div>
-
-    <!-- Produtos em Alta -->
-    <h2 class="section-title">🔥 Produtos Mais Buscados da Semana</h2>
-    <div class="trends-grid" id="trendingProducts">
-      <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-light);">Carregando tendências...</div>
-    </div>
-
-    <!-- Categorias em Alta -->
-    <h2 class="section-title">📈 Categorias em Alta</h2>
-    <div class="cat-trends" id="catTrends">
-      <!-- Preenchido via JS -->
-    </div>
-
-    <!-- Dois painéis lado a lado -->
-    <div class="two-col">
-      <div class="card-box">
-        <h3>🔍 Termos Mais Buscados</h3>
-        <ul class="searches-list" id="searchTerms">
-          <!-- Preenchido via JS -->
-        </ul>
-      </div>
-      <div class="card-box">
-        <h3>🚀 Crescimento de Interesse (7 dias)</h3>
-        <ul class="searches-list" id="growthList">
-          <!-- Preenchido via JS -->
-        </ul>
-      </div>
-    </div>
-
-    <!-- Produtos das tendências -->
-    <h2 class="section-title">🛒 Ofertas Relacionadas às Tendências</h2>
-    <div class="products-grid" id="trendOffers">
-      <!-- Preenchido via JS -->
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
-      <div class="footer-links">
-        <a href="../sobre/">Sobre</a>
-        <a href="../contato/">Contato</a>
-        <a href="../privacidade/">Privacidade</a>
-        <a href="../termos/">Termos</a>
-        <a href="../indice-radar/">Índice Radar</a>
-        <a href="../tendencias/">Tendências</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<section class="page-hero">
+<div class="container">
+<div class="breadcrumb"><a href="../">Início</a> › Tendências</div>
+<h1>🌍 Tendências da Semana</h1>
+<p>Produtos mais buscados, categorias em alta e o que os brasileiros estão comprando agora.</p>
+</div>
+</section>
+<main class="container">
+<div class="last-update">
+<div class="pulse-dot"></div>
+<span id="lastUpdateText">Atualizado agora</span>
+</div>
+<!-- Produtos em Alta -->
+<h2 class="section-title">🔥 Produtos Mais Buscados da Semana</h2>
+<div class="trends-grid" id="trendingProducts">
+<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-light);">Carregando tendências...</div>
+</div>
+<!-- Categorias em Alta -->
+<h2 class="section-title">📈 Categorias em Alta</h2>
+<div class="cat-trends" id="catTrends">
+<!-- Preenchido via JS -->
+</div>
+<!-- Dois painéis lado a lado -->
+<div class="two-col">
+<div class="card-box">
+<h3>🔍 Termos Mais Buscados</h3>
+<ul class="searches-list" id="searchTerms">
+<!-- Preenchido via JS -->
+</ul>
+</div>
+<div class="card-box">
+<h3>🚀 Crescimento de Interesse (7 dias)</h3>
+<ul class="searches-list" id="growthList">
+<!-- Preenchido via JS -->
+</ul>
+</div>
+</div>
+<!-- Produtos das tendências -->
+<h2 class="section-title">🛒 Ofertas Relacionadas às Tendências</h2>
+<div class="products-grid" id="trendOffers">
+<!-- Preenchido via JS -->
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
+<div class="footer-links">
+<a href="../sobre/">Sobre</a>
+<a href="../contato/">Contato</a>
+<a href="../privacidade/">Privacidade</a>
+<a href="../termos/">Termos</a>
+<a href="../indice-radar/">Índice Radar</a>
+<a href="../tendencias/">Tendências</a>
+</div>
+</div>
+</footer>
+<script>
     // Tema
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);

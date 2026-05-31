@@ -1,17 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mercado Livre — Produtos, Descontos e Reputação | Radar de Preços</title>
-  <meta name="description" content="Veja todos os produtos do Mercado Livre no Radar de Preços: média de desconto, produtos mais populares, histórico de preços e avaliação da loja.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/vendedor/mercado-livre/">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://radardeprecos.github.io/radar/vendedor/mercado-livre/">
-  <meta property="og:title" content="Mercado Livre — Produtos e Descontos | Radar de Preços">
-  <link rel="stylesheet" href="../../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <script type="application/ld+json">
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mercado Livre — Produtos, Descontos e Reputação | Radar de Preços</title>
+<meta content="Veja todos os produtos do Mercado Livre no Radar de Preços: média de desconto, produtos mais populares, histórico de preços e avaliação da loja." name="description"/>
+<link href="https://radardeprecos.github.io/radar/vendedor/mercado-livre/" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="https://radardeprecos.github.io/radar/vendedor/mercado-livre/" property="og:url"/>
+<meta content="Mercado Livre — Produtos e Descontos | Radar de Preços" property="og:title"/>
+<link href="../../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Store",
@@ -21,7 +22,7 @@
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "12500" }
   }
   </script>
-  <style>
+<style>
     .page-hero {
       background: linear-gradient(135deg, #ffe600 0%, #ffb800 100%);
       color: #333;
@@ -97,86 +98,77 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="../../" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <section class="page-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../../">Início</a> › <a href="../">Lojas</a> › Mercado Livre</div>
-      <div class="store-profile">
-        <div class="store-big-logo">🛒</div>
-        <div class="store-info">
-          <h1>Mercado Livre</h1>
-          <p>Maior marketplace do Brasil • Monitorado pelo Radar de Preços</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <main class="container">
-
-    <!-- Estatísticas -->
-    <div class="stats-row" id="statsRow">
-      <div class="stat-box"><div class="stat-box-val" id="totalProds">-</div><div class="stat-box-label">Produtos Monitorados</div></div>
-      <div class="stat-box"><div class="stat-box-val" id="avgDisc">-</div><div class="stat-box-label">Desconto Médio</div></div>
-      <div class="stat-box"><div class="stat-box-val" id="maxDisc">-</div><div class="stat-box-label">Maior Desconto</div></div>
-      <div class="stat-box"><div class="stat-box-val">⭐ 4.8</div><div class="stat-box-label">Reputação</div></div>
-      <div class="stat-box"><div class="stat-box-val">24h</div><div class="stat-box-label">Entrega Média</div></div>
-      <div class="stat-box"><div class="stat-box-val" id="catCount">-</div><div class="stat-box-label">Categorias</div></div>
-    </div>
-
-    <!-- Reputação -->
-    <div class="rep-box">
-      <div>
-        <div class="rep-score">4.8</div>
-        <div class="rep-stars">★★★★★</div>
-        <div class="rep-detail">12.500+ avaliações</div>
-      </div>
-      <div class="rep-bars">
-        <div class="rep-bar-item">5 ★ <div class="rep-bar-track"><div class="rep-bar-fill" style="width:78%"></div></div> 78%</div>
-        <div class="rep-bar-item">4 ★ <div class="rep-bar-track"><div class="rep-bar-fill" style="width:14%"></div></div> 14%</div>
-        <div class="rep-bar-item">3 ★ <div class="rep-bar-track"><div class="rep-bar-fill" style="width:5%"></div></div> 5%</div>
-        <div class="rep-bar-item">2 ★ <div class="rep-bar-track"><div class="rep-bar-fill" style="width:2%"></div></div> 2%</div>
-        <div class="rep-bar-item">1 ★ <div class="rep-bar-track"><div class="rep-bar-fill" style="width:1%"></div></div> 1%</div>
-      </div>
-    </div>
-
-    <!-- Distribuição por categoria -->
-    <div class="cat-dist">
-      <h3>📊 Distribuição por Categoria</h3>
-      <div id="catBars"><!-- Preenchido via JS --></div>
-    </div>
-
-    <!-- Produtos mais populares -->
-    <h2 class="section-title">🔥 Produtos Mais Populares</h2>
-    <div class="products-grid" id="popularProducts">
-      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);">Carregando...</div>
-    </div>
-
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
-      <div class="footer-links">
-        <a href="../../sobre/">Sobre</a>
-        <a href="../../contato/">Contato</a>
-        <a href="../../privacidade/">Privacidade</a>
-        <a href="../../indice-radar/">Índice Radar</a>
-        <a href="../../tendencias/">Tendências</a>
-        <a href="../">Lojas</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../../">📊 <strong>Radar de Preços</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<section class="page-hero">
+<div class="container">
+<div class="breadcrumb"><a href="../../">Início</a> › <a href="../">Lojas</a> › Mercado Livre</div>
+<div class="store-profile">
+<div class="store-big-logo">🛒</div>
+<div class="store-info">
+<h1>Mercado Livre</h1>
+<p>Maior marketplace do Brasil • Monitorado pelo Radar de Preços</p>
+</div>
+</div>
+</div>
+</section>
+<main class="container">
+<!-- Estatísticas -->
+<div class="stats-row" id="statsRow">
+<div class="stat-box"><div class="stat-box-val" id="totalProds">-</div><div class="stat-box-label">Produtos Monitorados</div></div>
+<div class="stat-box"><div class="stat-box-val" id="avgDisc">-</div><div class="stat-box-label">Desconto Médio</div></div>
+<div class="stat-box"><div class="stat-box-val" id="maxDisc">-</div><div class="stat-box-label">Maior Desconto</div></div>
+<div class="stat-box"><div class="stat-box-val">⭐ 4.8</div><div class="stat-box-label">Reputação</div></div>
+<div class="stat-box"><div class="stat-box-val">24h</div><div class="stat-box-label">Entrega Média</div></div>
+<div class="stat-box"><div class="stat-box-val" id="catCount">-</div><div class="stat-box-label">Categorias</div></div>
+</div>
+<!-- Reputação -->
+<div class="rep-box">
+<div>
+<div class="rep-score">4.8</div>
+<div class="rep-stars">★★★★★</div>
+<div class="rep-detail">12.500+ avaliações</div>
+</div>
+<div class="rep-bars">
+<div class="rep-bar-item">5 ★ <div class="rep-bar-track"><div class="rep-bar-fill" style="width:78%"></div></div> 78%</div>
+<div class="rep-bar-item">4 ★ <div class="rep-bar-track"><div class="rep-bar-fill" style="width:14%"></div></div> 14%</div>
+<div class="rep-bar-item">3 ★ <div class="rep-bar-track"><div class="rep-bar-fill" style="width:5%"></div></div> 5%</div>
+<div class="rep-bar-item">2 ★ <div class="rep-bar-track"><div class="rep-bar-fill" style="width:2%"></div></div> 2%</div>
+<div class="rep-bar-item">1 ★ <div class="rep-bar-track"><div class="rep-bar-fill" style="width:1%"></div></div> 1%</div>
+</div>
+</div>
+<!-- Distribuição por categoria -->
+<div class="cat-dist">
+<h3>📊 Distribuição por Categoria</h3>
+<div id="catBars"><!-- Preenchido via JS --></div>
+</div>
+<!-- Produtos mais populares -->
+<h2 class="section-title">🔥 Produtos Mais Populares</h2>
+<div class="products-grid" id="popularProducts">
+<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);">Carregando...</div>
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
+<div class="footer-links">
+<a href="../../sobre/">Sobre</a>
+<a href="../../contato/">Contato</a>
+<a href="../../privacidade/">Privacidade</a>
+<a href="../../indice-radar/">Índice Radar</a>
+<a href="../../tendencias/">Tendências</a>
+<a href="../">Lojas</a>
+</div>
+</div>
+</footer>
+<script>
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     document.getElementById('themeToggle').addEventListener('click', () => {

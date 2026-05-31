@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login — Dashboard Radar de Preços</title>
-  <meta name="robots" content="noindex, nofollow">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login — Dashboard Radar de Preços</title>
+<meta content="noindex, nofollow" name="robots"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<style>
     body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
     .login-container { background: var(--card); padding: 40px; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 400px; width: 100%; }
     .login-header { text-align: center; margin-bottom: 30px; }
@@ -24,31 +25,28 @@
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <div class="login-header">
-      <h1>📊 Radar Admin</h1>
-      <p>Dashboard de Performance</p>
+<div class="login-container">
+<div class="login-header">
+<h1>📊 Radar Admin</h1>
+<p>Dashboard de Performance</p>
+</div>
+<div class="info">
+<strong>Demo:</strong> Use qualquer senha para testar (em produção, isso seria seguro)
     </div>
-
-    <div class="info">
-      <strong>Demo:</strong> Use qualquer senha para testar (em produção, isso seria seguro)
-    </div>
-
-    <form onsubmit="handleLogin(event)">
-      <div class="form-group">
-        <label>Usuário</label>
-        <input type="text" id="username" placeholder="admin" required>
-      </div>
-      <div class="form-group">
-        <label>Senha</label>
-        <input type="password" id="password" placeholder="••••••••" required>
-      </div>
-      <button type="submit" class="login-btn">Entrar</button>
-      <div id="error" class="error"></div>
-    </form>
-  </div>
-
-  <script>
+<form onsubmit="handleLogin(event)">
+<div class="form-group">
+<label>Usuário</label>
+<input id="username" placeholder="admin" required="" type="text"/>
+</div>
+<div class="form-group">
+<label>Senha</label>
+<input id="password" placeholder="••••••••" required="" type="password"/>
+</div>
+<button class="login-btn" type="submit">Entrar</button>
+<div class="error" id="error"></div>
+</form>
+</div>
+<script>
     function handleLogin(event) {
       event.preventDefault();
       

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maiores Quedas de Preço Hoje | Radar de Preços</title>
-  <meta name="description" content="Veja os produtos com maiores quedas de preço hoje. Ofertas que explodiram com descontos de até 80%. Atualizado em tempo real.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/quedas-hoje/">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <script type="application/ld+json">
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Maiores Quedas de Preço Hoje | Radar de Preços</title>
+<meta content="Veja os produtos com maiores quedas de preço hoje. Ofertas que explodiram com descontos de até 80%. Atualizado em tempo real." name="description"/>
+<link href="https://radardeprecos.github.io/radar/quedas-hoje/" rel="canonical"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -21,7 +22,7 @@
     }
   }
   </script>
-  <style>
+<style>
     .hero-section {
       background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
       color: white;
@@ -59,55 +60,49 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="../" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <section class="hero-section">
-    <div class="container">
-      <h1>🔥 Maiores Quedas de Preço Hoje</h1>
-      <p>Produtos com os maiores descontos em tempo real. Atualizado a cada hora.</p>
-    </div>
-  </section>
-
-  <main class="container">
-    <div class="filters">
-      <button class="filter-btn active" data-filter="all">Todas as Categorias</button>
-      <button class="filter-btn" data-filter="celulares">📱 Celulares</button>
-      <button class="filter-btn" data-filter="informatica">💻 Informática</button>
-      <button class="filter-btn" data-filter="tv">📺 TVs</button>
-      <button class="filter-btn" data-filter="games">🎮 Games</button>
-    </div>
-
-    <div class="drops-grid" id="dropsGrid">
-      <!-- Preenchido via JavaScript -->
-    </div>
-
-    <div class="empty-state" id="emptyState" style="display: none;">
-      <div class="empty-state-icon">📊</div>
-      <p class="empty-state-text">Nenhuma queda de preço encontrada nesta categoria.</p>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Atualizado em tempo real.</p>
-      <div class="footer-links">
-        <a href="../sobre/">Sobre</a>
-        <a href="../contato/">Contato</a>
-        <a href="../privacidade/">Privacidade</a>
-        <a href="../disclaimer/">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<section class="hero-section">
+<div class="container">
+<h1>🔥 Maiores Quedas de Preço Hoje</h1>
+<p>Produtos com os maiores descontos em tempo real. Atualizado a cada hora.</p>
+</div>
+</section>
+<main class="container">
+<div class="filters">
+<button class="filter-btn active" data-filter="all">Todas as Categorias</button>
+<button class="filter-btn" data-filter="celulares">📱 Celulares</button>
+<button class="filter-btn" data-filter="informatica">💻 Informática</button>
+<button class="filter-btn" data-filter="tv">📺 TVs</button>
+<button class="filter-btn" data-filter="games">🎮 Games</button>
+</div>
+<div class="drops-grid" id="dropsGrid">
+<!-- Preenchido via JavaScript -->
+</div>
+<div class="empty-state" id="emptyState" style="display: none;">
+<div class="empty-state-icon">📊</div>
+<p class="empty-state-text">Nenhuma queda de preço encontrada nesta categoria.</p>
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Atualizado em tempo real.</p>
+<div class="footer-links">
+<a href="../sobre/">Sobre</a>
+<a href="../contato/">Contato</a>
+<a href="../privacidade/">Privacidade</a>
+<a href="../disclaimer/">Disclaimer</a>
+</div>
+</div>
+</footer>
+<script>
     // Dados simulados de quedas de preço (em produção, viriam da API)
     const drops = [
       {

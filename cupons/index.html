@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cupons e Códigos de Desconto — Radar de Preços</title>
-  <meta name="description" content="Cupons e códigos de desconto para Mercado Livre, Amazon, Magalu e outras lojas. Economize com cupons exclusivos.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/cupons/">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cupons e Códigos de Desconto — Radar de Preços</title>
+<meta content="Cupons e códigos de desconto para Mercado Livre, Amazon, Magalu e outras lojas. Economize com cupons exclusivos." name="description"/>
+<link href="https://radardeprecos.github.io/radar/cupons/" rel="canonical"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<style>
     .hero { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 60px 0 40px; margin-bottom: 40px; }
     .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
     .hero p { opacity: 0.9; font-size: 1.1rem; }
@@ -47,51 +48,46 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="../" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container">
-      <h1>🎟️ Cupons e Códigos de Desconto</h1>
-      <p>Cupons exclusivos para Mercado Livre, Amazon, Magalu e outras lojas. Economize ainda mais nas suas compras.</p>
-    </div>
-  </section>
-
-  <main class="container">
-    <div class="filters">
-      <button class="filter-btn active" data-filter="all">Todas as Lojas</button>
-      <button class="filter-btn" data-filter="mercado-livre">🛒 Mercado Livre</button>
-      <button class="filter-btn" data-filter="amazon">📦 Amazon</button>
-      <button class="filter-btn" data-filter="magalu">🏪 Magalu</button>
-      <button class="filter-btn" data-filter="shopee">🛍️ Shopee</button>
-      <button class="filter-btn" data-filter="aliexpress">🌐 AliExpress</button>
-    </div>
-
-    <div class="coupons-grid" id="couponsGrid">
-      <!-- Preenchido via JavaScript -->
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Cupons e Descontos.</p>
-      <div class="footer-links">
-        <a href="../sobre/">Sobre</a>
-        <a href="../contato/">Contato</a>
-        <a href="../privacidade/">Privacidade</a>
-        <a href="../disclaimer/">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<section class="hero">
+<div class="container">
+<h1>🎟️ Cupons e Códigos de Desconto</h1>
+<p>Cupons exclusivos para Mercado Livre, Amazon, Magalu e outras lojas. Economize ainda mais nas suas compras.</p>
+</div>
+</section>
+<main class="container">
+<div class="filters">
+<button class="filter-btn active" data-filter="all">Todas as Lojas</button>
+<button class="filter-btn" data-filter="mercado-livre">🛒 Mercado Livre</button>
+<button class="filter-btn" data-filter="amazon">📦 Amazon</button>
+<button class="filter-btn" data-filter="magalu">🏪 Magalu</button>
+<button class="filter-btn" data-filter="shopee">🛍️ Shopee</button>
+<button class="filter-btn" data-filter="aliexpress">🌐 AliExpress</button>
+</div>
+<div class="coupons-grid" id="couponsGrid">
+<!-- Preenchido via JavaScript -->
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Cupons e Descontos.</p>
+<div class="footer-links">
+<a href="../sobre/">Sobre</a>
+<a href="../contato/">Contato</a>
+<a href="../privacidade/">Privacidade</a>
+<a href="../disclaimer/">Disclaimer</a>
+</div>
+</div>
+</footer>
+<script>
     const coupons = [
       {
         id: 1,

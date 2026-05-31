@@ -1,103 +1,96 @@
 
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{seo.title}}</title>
-  <meta name="description" content="{{meta.description}}">
-  <link rel="canonical" href="{{canonical.url}}">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>{{seo.title}}</title>
+<meta content="{{meta.description}}" name="description"/>
+<link href="{{canonical.url}}" rel="canonical"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="./" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <!-- Novo Hero Banner Profissional -->
-  <section class="main-hero">
-    <div class="container">
-      <h1>🔥 As Melhores Ofertas do Dia</h1>
-      <p>+ de 5.000 ofertas curadas e atualizadas automaticamente pelo nosso robô.</p>
-      <div class="hero-btns">
-        <a href="#featuredGrid" class="btn btn-white">Ver Promoções</a>
-        <a href="categorias/celulares/index.html" class="btn btn-outline-white">Celulares</a>
-        <a href="categorias/informatica/index.html" class="btn btn-outline-white">Informática</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Dashboard de Estatísticas -->
-  <div class="container">
-    <div class="stats-bar" id="statsBar">
-      <!-- Preenchido via JS -->
-    </div>
-  </div>
-
-  <!-- Barra de Confiança -->
-  <div class="container">
-    <div class="trust-bar">
-      <div class="trust-item">✓ Atualização automática</div>
-      <div class="trust-item">✓ Dados oficiais ML</div>
-      <div class="trust-item">✓ Comparação real</div>
-      <div class="trust-item">✓ Ofertas verificadas</div>
-    </div>
-  </div>
-
-  <nav class="cat-nav">
-    <div class="container cat-tabs" id="catTabs">
-      <button class="cat-tab active" data-cat="todos">Todos</button>
-      <a href="categorias/celulares/index.html" class="cat-tab">Celulares</a>
-      <a href="categorias/informatica/index.html" class="cat-tab">Informática</a>
-      <a href="categorias/eletrodomesticos/index.html" class="cat-tab">Eletrodomésticos</a>
-      <a href="categorias/games/index.html" class="cat-tab">Games</a>
-      <a href="categorias/tv-e-video/index.html" class="cat-tab">TV e Vídeo</a>
-      <a href="categorias/ferramentas/index.html" class="cat-tab">Ferramentas</a>
-      <a href="categorias/beleza/index.html" class="cat-tab">Beleza</a>
-      <a href="categorias/casa/index.html" class="cat-tab">Casa</a>
-    </div>
-  </nav>
-
-  <main class="container">
-    <!-- Carrossel de Destaques -->
-    <section class="hero" id="heroProduct">
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="./">📊 <strong>Radar de Preços</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<!-- Novo Hero Banner Profissional -->
+<section class="main-hero">
+<div class="container">
+<h1>🔥 As Melhores Ofertas do Dia</h1>
+<p>+ de 5.000 ofertas curadas e atualizadas automaticamente pelo nosso robô.</p>
+<div class="hero-btns">
+<a class="btn btn-white" href="#featuredGrid">Ver Promoções</a>
+<a class="btn btn-outline-white" href="categorias/celulares/index.html">Celulares</a>
+<a class="btn btn-outline-white" href="categorias/informatica/index.html">Informática</a>
+</div>
+</div>
+</section>
+<!-- Dashboard de Estatísticas -->
+<div class="container">
+<div class="stats-bar" id="statsBar">
+<!-- Preenchido via JS -->
+</div>
+</div>
+<!-- Barra de Confiança -->
+<div class="container">
+<div class="trust-bar">
+<div class="trust-item">✓ Atualização automática</div>
+<div class="trust-item">✓ Dados oficiais ML</div>
+<div class="trust-item">✓ Comparação real</div>
+<div class="trust-item">✓ Ofertas verificadas</div>
+</div>
+</div>
+<nav class="cat-nav">
+<div class="container cat-tabs" id="catTabs">
+<button class="cat-tab active" data-cat="todos">Todos</button>
+<a class="cat-tab" href="categorias/celulares/index.html">Celulares</a>
+<a class="cat-tab" href="categorias/informatica/index.html">Informática</a>
+<a class="cat-tab" href="categorias/eletrodomesticos/index.html">Eletrodomésticos</a>
+<a class="cat-tab" href="categorias/games/index.html">Games</a>
+<a class="cat-tab" href="categorias/tv-e-video/index.html">TV e Vídeo</a>
+<a class="cat-tab" href="categorias/ferramentas/index.html">Ferramentas</a>
+<a class="cat-tab" href="categorias/beleza/index.html">Beleza</a>
+<a class="cat-tab" href="categorias/casa/index.html">Casa</a>
+</div>
+</nav>
+<main class="container">
+<!-- Carrossel de Destaques -->
+<section class="hero" id="heroProduct">
       {{hero_section}}
     </section>
-
-    <!-- Radar Premium -->
-    <section class="radar-premium" id="radarPremium">
-      <!-- Preenchido via JS -->
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <h2>🔥 Melhores Ofertas</h2>
-      </div>
-      <div class="products-grid" id="featuredGrid">
+<!-- Radar Premium -->
+<section class="radar-premium" id="radarPremium">
+<!-- Preenchido via JS -->
+</section>
+<section class="section">
+<div class="section-header">
+<h2>🔥 Melhores Ofertas</h2>
+</div>
+<div class="products-grid" id="featuredGrid">
         {{featured_products_grid}}
       </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
-      <div class="footer-links">
-        <a href="sobre/">Sobre</a>
-        <a href="contato/">Contato</a>
-        <a href="privacidade/">Privacidade</a>
-        <a href="termos/">Termos</a>
-        <a href="quem-somos/">Quem Somos</a>
-      </div>
-    </div>
-  </footer>
-  <script src="assets/js/app.js"></script>
+</section>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
+<div class="footer-links">
+<a href="sobre/">Sobre</a>
+<a href="contato/">Contato</a>
+<a href="privacidade/">Privacidade</a>
+<a href="termos/">Termos</a>
+<a href="quem-somos/">Quem Somos</a>
+</div>
+</div>
+</footer>
+<script src="assets/js/app.js"></script>
 </body>
 </html>

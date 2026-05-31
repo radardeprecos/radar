@@ -1,19 +1,20 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Índice Radar de Preços — O IPCA das Ofertas | Radar de Preços</title>
-  <meta name="description" content="Acompanhe a variação mensal de preços por categoria: eletrônicos, celulares, TVs e mais. O Índice Radar é o termômetro das ofertas do mercado brasileiro.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/indice-radar/">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://radardeprecos.github.io/radar/indice-radar/">
-  <meta property="og:title" content="Índice Radar de Preços — O IPCA das Ofertas">
-  <meta property="og:description" content="Variação mensal de preços por categoria. Eletrônicos, celulares, TVs e mais.">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <script type="application/ld+json">
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Índice Radar de Preços — O IPCA das Ofertas | Radar de Preços</title>
+<meta content="Acompanhe a variação mensal de preços por categoria: eletrônicos, celulares, TVs e mais. O Índice Radar é o termômetro das ofertas do mercado brasileiro." name="description"/>
+<link href="https://radardeprecos.github.io/radar/indice-radar/" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="https://radardeprecos.github.io/radar/indice-radar/" property="og:url"/>
+<meta content="Índice Radar de Preços — O IPCA das Ofertas" property="og:title"/>
+<meta content="Variação mensal de preços por categoria. Eletrônicos, celulares, TVs e mais." property="og:description"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -22,7 +23,7 @@
     "url": "https://radardeprecos.github.io/radar/indice-radar/"
   }
   </script>
-  <style>
+<style>
     .page-hero {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
       color: white;
@@ -178,109 +179,99 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="../" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <section class="page-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../">Início</a> › Índice Radar</div>
-      <div class="hero-badge">📊 Publicado mensalmente</div>
-      <h1>Índice Radar de Preços</h1>
-      <p>O termômetro das ofertas: acompanhe a variação mensal de preços por categoria, como um IPCA das promoções.</p>
-    </div>
-  </section>
-
-  <main class="container">
-
-    <!-- Destaque do mês -->
-    <div class="highlight-box" id="highlightBox">
-      <div>
-        <div class="highlight-num green" id="hlBestCat">-8%</div>
-        <div class="highlight-label">Maior queda do mês</div>
-      </div>
-      <div>
-        <div class="highlight-num blue" id="hlAvg">-3,2%</div>
-        <div class="highlight-label">Variação média geral</div>
-      </div>
-      <div>
-        <div class="highlight-num red" id="hlWorstCat">+2%</div>
-        <div class="highlight-label">Maior alta do mês</div>
-      </div>
-    </div>
-
-    <!-- Cards por categoria -->
-    <h2 class="section-title">📊 Variação por Categoria — Maio 2026</h2>
-    <div class="index-summary" id="indexSummary">
-      <!-- Preenchido via JS -->
-    </div>
-
-    <!-- Gráfico histórico -->
-    <div class="chart-section">
-      <h2>📈 Histórico de Variação (últimos 6 meses)</h2>
-      <div class="tab-bar" id="chartTabs">
-        <button class="tab-btn active" data-cat="all">Geral</button>
-        <button class="tab-btn" data-cat="celulares">Celulares</button>
-        <button class="tab-btn" data-cat="informatica">Informática</button>
-        <button class="tab-btn" data-cat="tv-e-video">TV e Vídeo</button>
-        <button class="tab-btn" data-cat="eletrodomesticos">Eletrodomésticos</button>
-        <button class="tab-btn" data-cat="games">Games</button>
-      </div>
-      <div class="chart-container">
-        <canvas id="historyChart"></canvas>
-      </div>
-    </div>
-
-    <!-- Tabela detalhada -->
-    <h2 class="section-title">📋 Tabela Detalhada por Mês</h2>
-    <div style="overflow-x:auto; margin-bottom:40px;">
-      <table class="history-table" id="historyTable">
-        <thead>
-          <tr>
-            <th>Categoria</th>
-            <th>Dez/25</th>
-            <th>Jan/26</th>
-            <th>Fev/26</th>
-            <th>Mar/26</th>
-            <th>Abr/26</th>
-            <th>Mai/26</th>
-            <th>Tendência</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody">
-          <!-- Preenchido via JS -->
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Metodologia -->
-    <div class="methodology-box">
-      <h3>🔬 Metodologia do Índice Radar</h3>
-      <p>O Índice Radar de Preços é calculado mensalmente com base na variação do preço médio dos produtos monitorados em cada categoria. Comparamos o preço médio do mês atual com o mês anterior, considerando apenas produtos com histórico de pelo menos 30 dias. Os dados são coletados automaticamente via API oficial do Mercado Livre e atualizados diariamente. Uma variação negativa indica que os preços caíram (bom para o consumidor), enquanto uma variação positiva indica alta de preços.</p>
-    </div>
-
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
-      <div class="footer-links">
-        <a href="../sobre/">Sobre</a>
-        <a href="../contato/">Contato</a>
-        <a href="../privacidade/">Privacidade</a>
-        <a href="../indice-radar/">Índice Radar</a>
-        <a href="../tendencias/">Tendências</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<section class="page-hero">
+<div class="container">
+<div class="breadcrumb"><a href="../">Início</a> › Índice Radar</div>
+<div class="hero-badge">📊 Publicado mensalmente</div>
+<h1>Índice Radar de Preços</h1>
+<p>O termômetro das ofertas: acompanhe a variação mensal de preços por categoria, como um IPCA das promoções.</p>
+</div>
+</section>
+<main class="container">
+<!-- Destaque do mês -->
+<div class="highlight-box" id="highlightBox">
+<div>
+<div class="highlight-num green" id="hlBestCat">-8%</div>
+<div class="highlight-label">Maior queda do mês</div>
+</div>
+<div>
+<div class="highlight-num blue" id="hlAvg">-3,2%</div>
+<div class="highlight-label">Variação média geral</div>
+</div>
+<div>
+<div class="highlight-num red" id="hlWorstCat">+2%</div>
+<div class="highlight-label">Maior alta do mês</div>
+</div>
+</div>
+<!-- Cards por categoria -->
+<h2 class="section-title">📊 Variação por Categoria — Maio 2026</h2>
+<div class="index-summary" id="indexSummary">
+<!-- Preenchido via JS -->
+</div>
+<!-- Gráfico histórico -->
+<div class="chart-section">
+<h2>📈 Histórico de Variação (últimos 6 meses)</h2>
+<div class="tab-bar" id="chartTabs">
+<button class="tab-btn active" data-cat="all">Geral</button>
+<button class="tab-btn" data-cat="celulares">Celulares</button>
+<button class="tab-btn" data-cat="informatica">Informática</button>
+<button class="tab-btn" data-cat="tv-e-video">TV e Vídeo</button>
+<button class="tab-btn" data-cat="eletrodomesticos">Eletrodomésticos</button>
+<button class="tab-btn" data-cat="games">Games</button>
+</div>
+<div class="chart-container">
+<canvas id="historyChart"></canvas>
+</div>
+</div>
+<!-- Tabela detalhada -->
+<h2 class="section-title">📋 Tabela Detalhada por Mês</h2>
+<div style="overflow-x:auto; margin-bottom:40px;">
+<table class="history-table" id="historyTable">
+<thead>
+<tr>
+<th>Categoria</th>
+<th>Dez/25</th>
+<th>Jan/26</th>
+<th>Fev/26</th>
+<th>Mar/26</th>
+<th>Abr/26</th>
+<th>Mai/26</th>
+<th>Tendência</th>
+</tr>
+</thead>
+<tbody id="tableBody">
+<!-- Preenchido via JS -->
+</tbody>
+</table>
+</div>
+<!-- Metodologia -->
+<div class="methodology-box">
+<h3>🔬 Metodologia do Índice Radar</h3>
+<p>O Índice Radar de Preços é calculado mensalmente com base na variação do preço médio dos produtos monitorados em cada categoria. Comparamos o preço médio do mês atual com o mês anterior, considerando apenas produtos com histórico de pelo menos 30 dias. Os dados são coletados automaticamente via API oficial do Mercado Livre e atualizados diariamente. Uma variação negativa indica que os preços caíram (bom para o consumidor), enquanto uma variação positiva indica alta de preços.</p>
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
+<div class="footer-links">
+<a href="../sobre/">Sobre</a>
+<a href="../contato/">Contato</a>
+<a href="../privacidade/">Privacidade</a>
+<a href="../indice-radar/">Índice Radar</a>
+<a href="../tendencias/">Tendências</a>
+</div>
+</div>
+</footer>
+<script>
     // Tema
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);

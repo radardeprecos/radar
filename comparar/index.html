@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comparador de Produtos — Radar de Preços</title>
-  <meta name="description" content="Compare produtos lado a lado. Veja preços, especificações, prós e contras. Descubra qual é o melhor para você.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/comparar/">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Comparador de Produtos — Radar de Preços</title>
+<meta content="Compare produtos lado a lado. Veja preços, especificações, prós e contras. Descubra qual é o melhor para você." name="description"/>
+<link href="https://radardeprecos.github.io/radar/comparar/" rel="canonical"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<style>
     .hero { background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); color: white; padding: 60px 0 40px; margin-bottom: 40px; }
     .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
     .hero p { opacity: 0.9; font-size: 1.1rem; }
@@ -39,135 +40,125 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="../" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container">
-      <h1>⚖️ Comparador de Produtos</h1>
-      <p>Compare produtos lado a lado. Veja preços, especificações, prós e contras. Descubra qual é o melhor para você.</p>
-    </div>
-  </section>
-
-  <main class="container">
-    <div class="search-section">
-      <h2>🔍 Criar Comparação</h2>
-      <div class="search-grid">
-        <div class="search-input">
-          <label>Produto 1</label>
-          <input type="text" id="product1" placeholder="Ex: Samsung Galaxy A36">
-        </div>
-        <div class="vs-text">VS</div>
-        <div class="search-input">
-          <label>Produto 2</label>
-          <input type="text" id="product2" placeholder="Ex: Xiaomi Redmi Note 13">
-        </div>
-      </div>
-      <button class="compare-btn" onclick="createComparison()">Comparar Agora</button>
-    </div>
-
-    <h2>📊 Comparações Populares</h2>
-    <div class="comparisons-grid">
-      <a href="galaxy-a36-vs-moto-g35/" class="comparison-card">
-        <div class="comparison-card-header">
-          <h3>📱 Celulares</h3>
-        </div>
-        <div class="comparison-card-content">
-          <div class="comparison-products">
-            <div class="product-badge">Samsung Galaxy A36</div>
-            <div class="product-badge">Motorola Moto G35</div>
-          </div>
-          <div class="comparison-meta">Comparação completa com veredito final</div>
-        </div>
-      </a>
-
-      <a href="lg-oled-55-vs-samsung-qn55/" class="comparison-card">
-        <div class="comparison-card-header">
-          <h3>📺 TVs</h3>
-        </div>
-        <div class="comparison-card-content">
-          <div class="comparison-products">
-            <div class="product-badge">LG OLED 55"</div>
-            <div class="product-badge">Samsung QN55"</div>
-          </div>
-          <div class="comparison-meta">Comparação completa com veredito final</div>
-        </div>
-      </a>
-
-      <a href="lenovo-ideapad-vs-samsung-book/" class="comparison-card">
-        <div class="comparison-card-header">
-          <h3>💻 Notebooks</h3>
-        </div>
-        <div class="comparison-card-content">
-          <div class="comparison-products">
-            <div class="product-badge">Lenovo IdeaPad</div>
-            <div class="product-badge">Samsung Book</div>
-          </div>
-          <div class="comparison-meta">Comparação completa com veredito final</div>
-        </div>
-      </a>
-
-      <a href="iphone-15-vs-galaxy-s24/" class="comparison-card">
-        <div class="comparison-card-header">
-          <h3>📱 Celulares Premium</h3>
-        </div>
-        <div class="comparison-card-content">
-          <div class="comparison-products">
-            <div class="product-badge">iPhone 15</div>
-            <div class="product-badge">Galaxy S24</div>
-          </div>
-          <div class="comparison-meta">Comparação completa com veredito final</div>
-        </div>
-      </a>
-
-      <a href="ps5-vs-xbox-series-x/" class="comparison-card">
-        <div class="comparison-card-header">
-          <h3>🎮 Consoles</h3>
-        </div>
-        <div class="comparison-card-content">
-          <div class="comparison-products">
-            <div class="product-badge">PlayStation 5</div>
-            <div class="product-badge">Xbox Series X</div>
-          </div>
-          <div class="comparison-meta">Comparação completa com veredito final</div>
-        </div>
-      </a>
-
-      <a href="ipad-air-vs-samsung-tab-s9/" class="comparison-card">
-        <div class="comparison-card-header">
-          <h3>📱 Tablets</h3>
-        </div>
-        <div class="comparison-card-content">
-          <div class="comparison-products">
-            <div class="product-badge">iPad Air</div>
-            <div class="product-badge">Samsung Tab S9</div>
-          </div>
-          <div class="comparison-meta">Comparação completa com veredito final</div>
-        </div>
-      </a>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Comparações Inteligentes.</p>
-      <div class="footer-links">
-        <a href="../sobre/">Sobre</a>
-        <a href="../contato/">Contato</a>
-        <a href="../privacidade/">Privacidade</a>
-        <a href="../disclaimer/">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<section class="hero">
+<div class="container">
+<h1>⚖️ Comparador de Produtos</h1>
+<p>Compare produtos lado a lado. Veja preços, especificações, prós e contras. Descubra qual é o melhor para você.</p>
+</div>
+</section>
+<main class="container">
+<div class="search-section">
+<h2>🔍 Criar Comparação</h2>
+<div class="search-grid">
+<div class="search-input">
+<label>Produto 1</label>
+<input id="product1" placeholder="Ex: Samsung Galaxy A36" type="text"/>
+</div>
+<div class="vs-text">VS</div>
+<div class="search-input">
+<label>Produto 2</label>
+<input id="product2" placeholder="Ex: Xiaomi Redmi Note 13" type="text"/>
+</div>
+</div>
+<button class="compare-btn" onclick="createComparison()">Comparar Agora</button>
+</div>
+<h2>📊 Comparações Populares</h2>
+<div class="comparisons-grid">
+<a class="comparison-card" href="galaxy-a36-vs-moto-g35/">
+<div class="comparison-card-header">
+<h3>📱 Celulares</h3>
+</div>
+<div class="comparison-card-content">
+<div class="comparison-products">
+<div class="product-badge">Samsung Galaxy A36</div>
+<div class="product-badge">Motorola Moto G35</div>
+</div>
+<div class="comparison-meta">Comparação completa com veredito final</div>
+</div>
+</a>
+<a class="comparison-card" href="lg-oled-55-vs-samsung-qn55/">
+<div class="comparison-card-header">
+<h3>📺 TVs</h3>
+</div>
+<div class="comparison-card-content">
+<div class="comparison-products">
+<div class="product-badge">LG OLED 55"</div>
+<div class="product-badge">Samsung QN55"</div>
+</div>
+<div class="comparison-meta">Comparação completa com veredito final</div>
+</div>
+</a>
+<a class="comparison-card" href="lenovo-ideapad-vs-samsung-book/">
+<div class="comparison-card-header">
+<h3>💻 Notebooks</h3>
+</div>
+<div class="comparison-card-content">
+<div class="comparison-products">
+<div class="product-badge">Lenovo IdeaPad</div>
+<div class="product-badge">Samsung Book</div>
+</div>
+<div class="comparison-meta">Comparação completa com veredito final</div>
+</div>
+</a>
+<a class="comparison-card" href="iphone-15-vs-galaxy-s24/">
+<div class="comparison-card-header">
+<h3>📱 Celulares Premium</h3>
+</div>
+<div class="comparison-card-content">
+<div class="comparison-products">
+<div class="product-badge">iPhone 15</div>
+<div class="product-badge">Galaxy S24</div>
+</div>
+<div class="comparison-meta">Comparação completa com veredito final</div>
+</div>
+</a>
+<a class="comparison-card" href="ps5-vs-xbox-series-x/">
+<div class="comparison-card-header">
+<h3>🎮 Consoles</h3>
+</div>
+<div class="comparison-card-content">
+<div class="comparison-products">
+<div class="product-badge">PlayStation 5</div>
+<div class="product-badge">Xbox Series X</div>
+</div>
+<div class="comparison-meta">Comparação completa com veredito final</div>
+</div>
+</a>
+<a class="comparison-card" href="ipad-air-vs-samsung-tab-s9/">
+<div class="comparison-card-header">
+<h3>📱 Tablets</h3>
+</div>
+<div class="comparison-card-content">
+<div class="comparison-products">
+<div class="product-badge">iPad Air</div>
+<div class="product-badge">Samsung Tab S9</div>
+</div>
+<div class="comparison-meta">Comparação completa com veredito final</div>
+</div>
+</a>
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Comparações Inteligentes.</p>
+<div class="footer-links">
+<a href="../sobre/">Sobre</a>
+<a href="../contato/">Contato</a>
+<a href="../privacidade/">Privacidade</a>
+<a href="../disclaimer/">Disclaimer</a>
+</div>
+</div>
+</footer>
+<script>
     function createComparison() {
       const p1 = document.getElementById('product1').value.trim().toLowerCase().replace(/\s+/g, '-');
       const p2 = document.getElementById('product2').value.trim().toLowerCase().replace(/\s+/g, '-');

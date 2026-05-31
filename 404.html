@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página Não Encontrada (404) | Radar de Preços</title>
-  <meta name="description" content="A página que você procura não foi encontrada. Use nossa busca ou confira nossas melhores ofertas e guias de compra.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/404.html">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Página Não Encontrada (404) | Radar de Preços</title>
+<meta content="A página que você procura não foi encontrada. Use nossa busca ou confira nossas melhores ofertas e guias de compra." name="description"/>
+<link href="https://radardeprecos.github.io/radar/404.html" rel="canonical"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<style>
     .error-container {
       max-width: 800px;
       margin: 80px auto;
@@ -81,59 +82,53 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="./" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <main class="container">
-    <div class="error-container">
-      <div class="error-code">404</div>
-      <h1 class="error-title">Ops! Página não encontrada</h1>
-      <p class="error-text">Parece que o link que você seguiu não existe ou a página foi movida. Tente buscar o que precisa abaixo ou confira nossas sugestões.</p>
-
-      <div class="search-box-404">
-        <input type="text" id="searchInput404" placeholder="O que você está procurando?">
-      </div>
-
-      <h2>Páginas Recomendadas</h2>
-      <div class="recommendations">
-        <a href="./" class="rec-card">
-          <div class="rec-icon">🏠</div>
-          <div class="rec-title">Página Inicial</div>
-        </a>
-        <a href="guias/melhor-celular-ate-1500/" class="rec-card">
-          <div class="rec-icon">📱</div>
-          <div class="rec-title">Guia de Celulares</div>
-        </a>
-        <a href="tendencias/" class="rec-card">
-          <div class="rec-icon">📈</div>
-          <div class="rec-title">Tendências</div>
-        </a>
-        <a href="explodindo/" class="rec-card">
-          <div class="rec-icon">🔥</div>
-          <div class="rec-title">Ofertas Quentes</div>
-        </a>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Transparência e Tecnologia.</p>
-      <div class="footer-links">
-        <a href="sobre/">Sobre</a>
-        <a href="contato/">Contato</a>
-        <a href="privacidade/">Privacidade</a>
-        <a href="disclaimer/">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
-
-
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="./">📊 <strong>Radar de Preços</strong></a>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<main class="container">
+<div class="error-container">
+<div class="error-code">404</div>
+<h1 class="error-title">Ops! Página não encontrada</h1>
+<p class="error-text">Parece que o link que você seguiu não existe ou a página foi movida. Tente buscar o que precisa abaixo ou confira nossas sugestões.</p>
+<div class="search-box-404">
+<input id="searchInput404" placeholder="O que você está procurando?" type="text"/>
+</div>
+<h2>Páginas Recomendadas</h2>
+<div class="recommendations">
+<a class="rec-card" href="./">
+<div class="rec-icon">🏠</div>
+<div class="rec-title">Página Inicial</div>
+</a>
+<a class="rec-card" href="guias/melhor-celular-ate-1500/">
+<div class="rec-icon">📱</div>
+<div class="rec-title">Guia de Celulares</div>
+</a>
+<a class="rec-card" href="tendencias/">
+<div class="rec-icon">📈</div>
+<div class="rec-title">Tendências</div>
+</a>
+<a class="rec-card" href="explodindo/">
+<div class="rec-icon">🔥</div>
+<div class="rec-title">Ofertas Quentes</div>
+</a>
+</div>
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Transparência e Tecnologia.</p>
+<div class="footer-links">
+<a href="sobre/">Sobre</a>
+<a href="contato/">Contato</a>
+<a href="privacidade/">Privacidade</a>
+<a href="disclaimer/">Disclaimer</a>
+</div>
+</div>
+</footer>
+<script>
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     document.getElementById('themeToggle').addEventListener('click', () => {

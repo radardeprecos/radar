@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lojas e Vendedores — Compare Descontos por Loja | Radar de Preços</title>
-  <meta name="description" content="Compare as melhores lojas do Brasil: Mercado Livre, Amazon, Shopee e mais. Veja média de desconto, produtos populares e reputação de cada vendedor.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/vendedor/">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lojas e Vendedores — Compare Descontos por Loja | Radar de Preços</title>
+<meta content="Compare as melhores lojas do Brasil: Mercado Livre, Amazon, Shopee e mais. Veja média de desconto, produtos populares e reputação de cada vendedor." name="description"/>
+<link href="https://radardeprecos.github.io/radar/vendedor/" rel="canonical"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<style>
     .page-hero {
       background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
       color: white;
@@ -56,126 +57,120 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="../" class="logo">📊 <strong>Radar de Preços</strong></a>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Buscar ofertas...">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <section class="page-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../">Início</a> › Lojas</div>
-      <h1>🏪 Lojas e Vendedores</h1>
-      <p>Compare descontos, reputação e produtos populares de cada loja. Escolha onde comprar com mais segurança.</p>
-    </div>
-  </section>
-
-  <main class="container">
-    <h2 class="section-title">Principais Lojas Monitoradas</h2>
-    <div class="stores-grid">
-      <a href="mercado-livre/" class="store-card">
-        <div class="store-header">
-          <div class="store-logo" style="background:#fff3cd;">🛒</div>
-          <div>
-            <div class="store-name">Mercado Livre</div>
-            <div class="store-type">Marketplace</div>
-          </div>
-        </div>
-        <div class="store-stats">
-          <div class="store-stat"><div class="store-stat-val" id="ml-count">44</div><div class="store-stat-label">Produtos</div></div>
-          <div class="store-stat"><div class="store-stat-val">28%</div><div class="store-stat-label">Desc. Médio</div></div>
-          <div class="store-stat"><div class="store-stat-val">⭐ 4.8</div><div class="store-stat-label">Reputação</div></div>
-          <div class="store-stat"><div class="store-stat-val">24h</div><div class="store-stat-label">Entrega</div></div>
-        </div>
-        <div class="store-tags">
-          <span class="store-tag">✅ Oficial</span>
-          <span class="store-tag">🚚 Frete Grátis</span>
-          <span class="store-tag">💳 Parcelamento</span>
-        </div>
-      </a>
-
-      <a href="amazon/" class="store-card">
-        <div class="store-header">
-          <div class="store-logo" style="background:#fff8e1;">📦</div>
-          <div>
-            <div class="store-name">Amazon Brasil</div>
-            <div class="store-type">E-commerce</div>
-          </div>
-        </div>
-        <div class="store-stats">
-          <div class="store-stat"><div class="store-stat-val">320+</div><div class="store-stat-label">Produtos</div></div>
-          <div class="store-stat"><div class="store-stat-val">22%</div><div class="store-stat-label">Desc. Médio</div></div>
-          <div class="store-stat"><div class="store-stat-val">⭐ 4.7</div><div class="store-stat-label">Reputação</div></div>
-          <div class="store-stat"><div class="store-stat-val">2 dias</div><div class="store-stat-label">Entrega</div></div>
-        </div>
-        <div class="store-tags">
-          <span class="store-tag">✅ Prime</span>
-          <span class="store-tag">🔄 Devolução</span>
-          <span class="store-tag">💳 Parcelamento</span>
-        </div>
-      </a>
-
-      <a href="shopee/" class="store-card">
-        <div class="store-header">
-          <div class="store-logo" style="background:#fee2e2;">🧡</div>
-          <div>
-            <div class="store-name">Shopee</div>
-            <div class="store-type">Marketplace</div>
-          </div>
-        </div>
-        <div class="store-stats">
-          <div class="store-stat"><div class="store-stat-val">500+</div><div class="store-stat-label">Produtos</div></div>
-          <div class="store-stat"><div class="store-stat-val">35%</div><div class="store-stat-label">Desc. Médio</div></div>
-          <div class="store-stat"><div class="store-stat-val">⭐ 4.5</div><div class="store-stat-label">Reputação</div></div>
-          <div class="store-stat"><div class="store-stat-val">5-10d</div><div class="store-stat-label">Entrega</div></div>
-        </div>
-        <div class="store-tags">
-          <span class="store-tag">💰 Preço Baixo</span>
-          <span class="store-tag">🎁 Cupons</span>
-          <span class="store-tag">🚚 Frete Grátis</span>
-        </div>
-      </a>
-
-      <a href="americanas/" class="store-card">
-        <div class="store-header">
-          <div class="store-logo" style="background:#fce7f3;">🏬</div>
-          <div>
-            <div class="store-name">Americanas</div>
-            <div class="store-type">E-commerce</div>
-          </div>
-        </div>
-        <div class="store-stats">
-          <div class="store-stat"><div class="store-stat-val">280+</div><div class="store-stat-label">Produtos</div></div>
-          <div class="store-stat"><div class="store-stat-val">25%</div><div class="store-stat-label">Desc. Médio</div></div>
-          <div class="store-stat"><div class="store-stat-val">⭐ 4.4</div><div class="store-stat-label">Reputação</div></div>
-          <div class="store-stat"><div class="store-stat-val">1-3d</div><div class="store-stat-label">Entrega</div></div>
-        </div>
-        <div class="store-tags">
-          <span class="store-tag">🏷️ Promoções</span>
-          <span class="store-tag">💳 Ame Digital</span>
-          <span class="store-tag">🚚 Retirada</span>
-        </div>
-      </a>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
-      <div class="footer-links">
-        <a href="../sobre/">Sobre</a>
-        <a href="../contato/">Contato</a>
-        <a href="../privacidade/">Privacidade</a>
-        <a href="../indice-radar/">Índice Radar</a>
-        <a href="../tendencias/">Tendências</a>
-      </div>
-    </div>
-  </footer>
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<section class="page-hero">
+<div class="container">
+<div class="breadcrumb"><a href="../">Início</a> › Lojas</div>
+<h1>🏪 Lojas e Vendedores</h1>
+<p>Compare descontos, reputação e produtos populares de cada loja. Escolha onde comprar com mais segurança.</p>
+</div>
+</section>
+<main class="container">
+<h2 class="section-title">Principais Lojas Monitoradas</h2>
+<div class="stores-grid">
+<a class="store-card" href="mercado-livre/">
+<div class="store-header">
+<div class="store-logo" style="background:#fff3cd;">🛒</div>
+<div>
+<div class="store-name">Mercado Livre</div>
+<div class="store-type">Marketplace</div>
+</div>
+</div>
+<div class="store-stats">
+<div class="store-stat"><div class="store-stat-val" id="ml-count">44</div><div class="store-stat-label">Produtos</div></div>
+<div class="store-stat"><div class="store-stat-val">28%</div><div class="store-stat-label">Desc. Médio</div></div>
+<div class="store-stat"><div class="store-stat-val">⭐ 4.8</div><div class="store-stat-label">Reputação</div></div>
+<div class="store-stat"><div class="store-stat-val">24h</div><div class="store-stat-label">Entrega</div></div>
+</div>
+<div class="store-tags">
+<span class="store-tag">✅ Oficial</span>
+<span class="store-tag">🚚 Frete Grátis</span>
+<span class="store-tag">💳 Parcelamento</span>
+</div>
+</a>
+<a class="store-card" href="amazon/">
+<div class="store-header">
+<div class="store-logo" style="background:#fff8e1;">📦</div>
+<div>
+<div class="store-name">Amazon Brasil</div>
+<div class="store-type">E-commerce</div>
+</div>
+</div>
+<div class="store-stats">
+<div class="store-stat"><div class="store-stat-val">320+</div><div class="store-stat-label">Produtos</div></div>
+<div class="store-stat"><div class="store-stat-val">22%</div><div class="store-stat-label">Desc. Médio</div></div>
+<div class="store-stat"><div class="store-stat-val">⭐ 4.7</div><div class="store-stat-label">Reputação</div></div>
+<div class="store-stat"><div class="store-stat-val">2 dias</div><div class="store-stat-label">Entrega</div></div>
+</div>
+<div class="store-tags">
+<span class="store-tag">✅ Prime</span>
+<span class="store-tag">🔄 Devolução</span>
+<span class="store-tag">💳 Parcelamento</span>
+</div>
+</a>
+<a class="store-card" href="shopee/">
+<div class="store-header">
+<div class="store-logo" style="background:#fee2e2;">🧡</div>
+<div>
+<div class="store-name">Shopee</div>
+<div class="store-type">Marketplace</div>
+</div>
+</div>
+<div class="store-stats">
+<div class="store-stat"><div class="store-stat-val">500+</div><div class="store-stat-label">Produtos</div></div>
+<div class="store-stat"><div class="store-stat-val">35%</div><div class="store-stat-label">Desc. Médio</div></div>
+<div class="store-stat"><div class="store-stat-val">⭐ 4.5</div><div class="store-stat-label">Reputação</div></div>
+<div class="store-stat"><div class="store-stat-val">5-10d</div><div class="store-stat-label">Entrega</div></div>
+</div>
+<div class="store-tags">
+<span class="store-tag">💰 Preço Baixo</span>
+<span class="store-tag">🎁 Cupons</span>
+<span class="store-tag">🚚 Frete Grátis</span>
+</div>
+</a>
+<a class="store-card" href="americanas/">
+<div class="store-header">
+<div class="store-logo" style="background:#fce7f3;">🏬</div>
+<div>
+<div class="store-name">Americanas</div>
+<div class="store-type">E-commerce</div>
+</div>
+</div>
+<div class="store-stats">
+<div class="store-stat"><div class="store-stat-val">280+</div><div class="store-stat-label">Produtos</div></div>
+<div class="store-stat"><div class="store-stat-val">25%</div><div class="store-stat-label">Desc. Médio</div></div>
+<div class="store-stat"><div class="store-stat-val">⭐ 4.4</div><div class="store-stat-label">Reputação</div></div>
+<div class="store-stat"><div class="store-stat-val">1-3d</div><div class="store-stat-label">Entrega</div></div>
+</div>
+<div class="store-tags">
+<span class="store-tag">🏷️ Promoções</span>
+<span class="store-tag">💳 Ame Digital</span>
+<span class="store-tag">🚚 Retirada</span>
+</div>
+</a>
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
+<div class="footer-links">
+<a href="../sobre/">Sobre</a>
+<a href="../contato/">Contato</a>
+<a href="../privacidade/">Privacidade</a>
+<a href="../indice-radar/">Índice Radar</a>
+<a href="../tendencias/">Tendências</a>
+</div>
+</div>
+</footer>
+<script>
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     document.getElementById('themeToggle').addEventListener('click', () => {
