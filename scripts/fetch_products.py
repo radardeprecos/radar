@@ -8,7 +8,7 @@ def fetch_all_products() -> List[Dict[str, Any]]:
     if os.path.exists(curated_path):
         try:
             with open(curated_path, "r", encoding="utf-8") as f:
-                products = json.load(f)
+                products = [p for p in json.load(f) if p.get("name") and p.get("price") and p.get("price") > 0]
                 logger.info(f"Sucesso: {len(products)} produtos carregados da lista curada.")
                 return products
         except Exception as e:
