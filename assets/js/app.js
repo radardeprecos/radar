@@ -103,10 +103,14 @@ function getProfessionalBadges(product, idx) {
   let badges = [];
   const discount = product.custom_discount_pct || 0;
   
+  // Medalhas de Ranking
+  if (idx === 0) badges.push('<span class="badge badge-menor-preco">🥇 MELHOR PREÇO DO MÊS</span>');
+  else if (idx === 1) badges.push('<span class="badge badge-mais-vendido">🥈 TOP VENDEDOR</span>');
+  else if (idx === 2) badges.push('<span class="badge badge-custo-beneficio">🥉 MAIS CLICADO</span>');
+
+  // Alertas de Urgência e Oportunidade
   if (discount >= 60) badges.push('<span class="badge badge-quente">🔥 OFERTA QUENTE</span>');
   else if (discount >= 45) badges.push('<span class="badge badge-baixou">📉 PREÇO BAIXOU</span>');
-  
-  if (idx < 3) badges.push('<span class="badge badge-promo-dia">🏆 MELHOR OFERTA</span>');
   
   if (product.id && product.id.charCodeAt(product.id.length-1) % 5 === 0) {
     badges.push('<span class="badge badge-acabando">⚡ ACABANDO</span>');
