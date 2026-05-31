@@ -216,9 +216,9 @@ function renderNews() {
   if (!main || document.getElementById('newsSection')) return;
 
   const newsData = [
-    { title: "Samsung Galaxy A17 5G Chega ao Brasil", summary: "Confira as especificações e o preço agressivo do novo intermediário da Samsung.", img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400", url: "/radar/noticias/posts/samsung-galaxy-a17-5g-lancamento/" },
-    { title: "Notebooks Lenovo com 40% de Desconto", summary: "IdeaPad e ThinkPad em promoção histórica no Mercado Livre. Confira!", img: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400", url: "/radar/noticias/posts/notebooks-lenovo-promocao/" },
-    { title: "Amazon Prime Day 2026 Confirmado", summary: "Tudo o que você precisa saber para economizar no maior evento da Amazon.", img: "https://images.unsplash.com/photo-1523475496153-3d6cc0f0bf19?w=400", url: "/radar/noticias/posts/amazon-prime-day-2026/" }
+    { title: "Samsung Galaxy A17 5G Chega ao Brasil", summary: "Confira as especificações e o preço agressivo do novo intermediário da Samsung.", img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400", url: "/radar/noticias/posts/samsung-galaxy-a17-5g-lancamento.html" },
+    { title: "Notebooks Lenovo com 40% de Desconto", summary: "IdeaPad e ThinkPad em promoção histórica no Mercado Livre. Confira!", img: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400", url: "/radar/noticias/posts/notebooks-lenovo-promocao.html" },
+    { title: "Amazon Prime Day 2026 Confirmado", summary: "Tudo o que você precisa saber para economizar no maior evento da Amazon.", img: "https://images.unsplash.com/photo-1523475496153-3d6cc0f0bf19?w=400", url: "/radar/noticias/posts/amazon-prime-day-2026.html" }
   ];
 
   const newsHtml = `
