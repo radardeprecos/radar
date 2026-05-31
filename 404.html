@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Não Encontrada (404) | Radar de Preços</title>
+  <meta name="description" content="A página que você procura não foi encontrada. Use nossa busca ou confira nossas melhores ofertas e guias de compra.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    .error-container {
+      max-width: 800px;
+      margin: 80px auto;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .error-code {
+      font-size: 8rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .error-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    .error-text {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+    .search-box-404 {
+      max-width: 500px;
+      margin: 0 auto 60px;
+      position: relative;
+    }
+    .search-box-404 input {
+      width: 100%;
+      padding: 15px 25px;
+      border-radius: 30px;
+      border: 2px solid var(--border);
+      background: var(--card);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .search-box-404 input:focus {
+      border-color: var(--primary);
+    }
+    .recommendations {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .rec-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .rec-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+    }
+    .rec-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .rec-title {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="./" class="logo">📊 <strong>Radar de Preços</strong></a>
+      <button id="themeToggle">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="error-container">
+      <div class="error-code">404</div>
+      <h1 class="error-title">Ops! Página não encontrada</h1>
+      <p class="error-text">Parece que o link que você seguiu não existe ou a página foi movida. Tente buscar o que precisa abaixo ou confira nossas sugestões.</p>
+
+      <div class="search-box-404">
+        <input type="text" id="searchInput404" placeholder="O que você está procurando?">
+      </div>
+
+      <h2>Páginas Recomendadas</h2>
+      <div class="recommendations">
+        <a href="./" class="rec-card">
+          <div class="rec-icon">🏠</div>
+          <div class="rec-title">Página Inicial</div>
+        </a>
+        <a href="guias/melhor-celular-ate-1500/" class="rec-card">
+          <div class="rec-icon">📱</div>
+          <div class="rec-title">Guia de Celulares</div>
+        </a>
+        <a href="tendencias/" class="rec-card">
+          <div class="rec-icon">📈</div>
+          <div class="rec-title">Tendências</div>
+        </a>
+        <a href="explodindo/" class="rec-card">
+          <div class="rec-icon">🔥</div>
+          <div class="rec-title">Ofertas Quentes</div>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Radar de Preços. Transparência e Tecnologia.</p>
+      <div class="footer-links">
+        <a href="sobre/">Sobre</a>
+        <a href="contato/">Contato</a>
+        <a href="privacidade/">Privacidade</a>
+        <a href="disclaimer/">Disclaimer</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+
+    document.getElementById('searchInput404').addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        const q = e.target.value.trim();
+        if (q) window.location.href = `./?q=${encodeURIComponent(q)}`;
+      }
+    });
+  </script>
+</body>
+</html>
