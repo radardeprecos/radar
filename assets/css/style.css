@@ -562,7 +562,14 @@ ins.adsbygoogle {
   }
   
   .carousel-img {
-    height: 160px !important;
+    height: 120px !important; /* Reduzido para ser igual aos cards de produto */
+  }
+  .carousel-img img {
+    max-height: 100px !important;
+  }
+  .radar-premium-card .card-img {
+    height: 100px !important;
+    max-width: 100px !important;
   }
   
   .news-img {
