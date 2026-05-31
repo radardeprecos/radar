@@ -590,3 +590,217 @@ body {
 .price-tag {
   color: #d32f2f !important; /* Vermelho comercial para preço */
 }
+
+/* Carousel / Banner Rotativo */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 40px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border);
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  height: 450px;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 40px;
+  align-items: center;
+}
+
+.carousel-slide.featured {
+  background: linear-gradient(135deg, var(--card) 0%, rgba(0, 200, 83, 0.05) 100%);
+}
+
+.carousel-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.carousel-img img {
+  max-width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+}
+
+.carousel-info h2 {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 10px 0;
+  line-height: 1.2;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  pointer-events: none;
+}
+
+.carousel-btn {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.3s;
+  font-size: 20px;
+}
+
+[data-theme="dark"] .carousel-btn {
+  background: rgba(30, 30, 30, 0.8);
+}
+
+.carousel-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.indicator.active {
+  background: var(--primary);
+  width: 25px;
+  border-radius: 5px;
+}
+
+/* Novos Selos */
+.badge-custo-beneficio { background: linear-gradient(45deg, #11998e, #38ef7d) !important; left: 12px; right: auto; }
+.badge-mais-vendido { background: linear-gradient(45deg, #f12711, #f5af19) !important; left: 12px; right: auto; }
+.badge-recomendado { background: linear-gradient(45deg, #6a11cb, #2575fc) !important; left: 12px; right: auto; }
+.badge-premium { background: linear-gradient(45deg, #232526, #414345) !important; left: 12px; right: auto; }
+.badge-historico { background: linear-gradient(45deg, #ff00cc, #3333ff) !important; left: 12px; right: auto; top: 45px !important; }
+
+/* Seção de Notícias / Novas Postagens */
+.news-section {
+  margin: 60px 0;
+}
+
+.news-carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  height: 200px;
+}
+
+.news-track {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+  height: 100%;
+}
+
+.news-slide {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.news-img {
+  width: 200px;
+  height: 160px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.news-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-info {
+  flex: 1;
+}
+
+.news-info h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.news-info p {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Responsivo para Novos Elementos */
+@media (max-width: 768px) {
+  .carousel-slide {
+    grid-template-columns: 1fr;
+    height: auto;
+    padding: 30px 20px;
+    text-align: center;
+  }
+  
+  .carousel-track {
+    height: auto;
+  }
+  
+  .carousel-img img {
+    max-height: 200px;
+  }
+  
+  .carousel-info h2 {
+    font-size: 24px;
+  }
+  
+  .news-slide {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+  }
+  
+  .news-carousel {
+    height: auto;
+  }
+  
+  .news-img {
+    width: 100%;
+    height: 150px;
+  }
+}

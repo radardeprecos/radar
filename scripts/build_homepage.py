@@ -66,53 +66,10 @@ def build_homepage(input_path: str, template_path: str, output_path: str) -> Non
     p_cat = p.get("custom_category_slug", "outros")
     internal_url = f"ofertas/{p_cat}/{p_slug}-{p_id}.html"
     
-    hero_html = f"""
-    <div class="hero-content">
-      <div class="hero-text">
-        <span class="badge" style="background: var(--primary); color: white;">{random.choice(badges)}</span>
-        <h1>{p_name}</h1>
-        <p>{random.choice(catchy_phrases)}</p>
-        <div class="price-tag" style="font-size: 32px;">R$ {p.get("price", 0):.2f} <span class="old-price" style="font-size: 18px;">R$ {p.get("originalPrice", 0):.2f}</span></div>
-        <a href="{internal_url}" class="btn" style="padding: 15px 30px; font-size: 18px;">Ver Detalhes da Oferta</a>
-      </div>
-      <div class="hero-img">
-        <img src="{p.get("image", p.get("thumbnail", ""))}" alt="{p_name}">
-      </div>
-    </div>
-    """
+    hero_html = '<div id="heroProduct" class="hero-placeholder" style="min-height: 450px; display: flex; align-items: center; justify-content: center; background: var(--card); border-radius: 16px; border: 1px solid var(--border);"><p>Carregando as melhores ofertas do dia...</p></div>'
 
-    # Grid de produtos (Top 50 restantes)
-    products_html = ""
-    for idx, p in enumerate(remaining_products[:50]):
-        p_name = p.get("name") or p.get("title") or ""
-        p_id = p.get("id", "")
-        p_slug = slugify(p_name)
-        p_cat = p.get("custom_category_slug", "outros")
-        internal_url = f"ofertas/{p_cat}/{p_slug}-{p_id}.html"
-        discount = p.get("custom_discount_pct", 0)
-        
-        # Lógica de Selos Dinâmicos
-        # Garantir que sempre existam pelo menos 10 produtos com selo "PROMOÇÃO DO DIA" de forma rotativa
-        extra_badge = ""
-        if discount >= 60:
-            extra_badge = '<span class="badge badge-menor-preco">💎 MENOR PREÇO</span>'
-        elif discount >= 45:
-            extra_badge = '<span class="badge badge-baixou">📉 BAIXOU!</span>'
-        
-        # Se não tiver selo de desconto alto, vamos atribuir "PROMOÇÃO DO DIA" aleatoriamente para 15 produtos do grid
-        if not extra_badge and random.random() < 0.3: # 30% de chance para produtos do grid
-            extra_badge = '<span class="badge badge-promo-dia">🌟 PROMOÇÃO DO DIA</span>'
-        
-        products_html += f"""
-        <div class="product-card" data-cat="{p_cat}">
-            <span class="badge discount-badge">↓ {discount}% OFF</span>
-            {extra_badge}
-            <div class="card-img"><img src="{p.get("image", p.get("thumbnail", ""))}" alt="{p_name}"></div>
-            <h3>{p_name[:50]}...</h3>
-            <div class="price-tag">R$ {p.get("price", 0):.2f} <span class="old-price">R$ {p.get("originalPrice", 0):.2f}</span></div>
-            <a href="{internal_url}" class="btn">Ver Oferta</a>
-        </div>
-        """
+    # Grid de produtos - agora gerenciado pelo app.js para ser 100% dinâmico
+    products_html = '<div id="featuredGrid" class="products-grid"></div>'
     
     seo_title = "Radar de Preços — As Melhores Ofertas do Mercado Livre Hoje"
     meta_description = "Economize com as melhores ofertas curadas do Mercado Livre. Descubra produtos com desconto de até 70% em eletrônicos, casa, beleza e muito mais."
