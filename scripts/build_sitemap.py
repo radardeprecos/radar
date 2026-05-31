@@ -20,7 +20,9 @@ def generate_sitemap(db_path: str, output_path: str) -> None:
     static_pages = [
         "", "noticias/", "comparar/", "melhores-2026/", "estatisticas/", 
         "black-friday/", "meus-favoritos/", "glossario/", "marcas/",
-        "alertas/", "sobre/", "contato/", "privacidade/", "termos/", "quem-somos/"
+        "alertas/", "metodologia/", "radar-de-mercado/", "observatorio/",
+        "premio-radar-2026/", "o-que-esta-em-alta/", "ferramentas/economia/",
+        "sobre/", "contato/", "privacidade/", "termos/", "quem-somos/"
     ]
     for page in static_pages:
         urls.append({"loc": f"{BASE_URL}{page}", "lastmod": datetime.now().isoformat(), "priority": "1.0"})

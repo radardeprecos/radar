@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Economia Anual | Radar de Preços</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .sim-container { max-width: 600px; margin: 40px auto; background: var(--card); padding: 40px; border-radius: 20px; border: 1px solid var(--border); }
+    .input-row { margin-bottom: 20px; }
+    .input-row label { display: block; margin-bottom: 10px; font-weight: 700; }
+    .input-row input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); }
+    .result-box { margin-top: 30px; padding: 30px; background: var(--primary); color: white; border-radius: 15px; text-align: center; display: none; }
+    .result-val { font-size: 32px; font-weight: 900; display: block; }
+  </style>
+</head>
+<body>
+  <header class="header"><div class="container"><a href="../../" class="logo">📊 Radar de Preços</a></div></header>
+  <main class="container">
+    <div class="sim-container">
+      <h1>💰 Quanto você pode economizar?</h1>
+      <p>Simule sua economia anual média utilizando o monitoramento do Radar de Preços em vez de comprar pelo preço de tabela.</p>
+      
+      <div style="margin-top: 30px;">
+        <div class="input-row">
+          <label>Gasto médio mensal em eletrônicos (R$)</label>
+          <input type="number" id="monthlySpend" placeholder="Ex: 500">
+        </div>
+        <div class="input-row">
+          <label>Quantas grandes compras faz por ano? (Celular, TV, etc)</label>
+          <input type="number" id="bigPurchases" placeholder="Ex: 2">
+        </div>
+        <button onclick="calculate()" class="btn" style="width: 100%; padding: 15px;">Calcular Economia Potencial</button>
+      </div>
+
+      <div id="result" class="result-box">
+        <span class="result-label">Sua economia anual estimada:</span>
+        <span class="result-val" id="savingsValue">R$ 0,00</span>
+        <p style="font-size: 12px; margin-top: 10px; opacity: 0.8;">Baseado na economia média de 22% registrada pelo Radar em 2026.</p>
+      </div>
+    </div>
+  </main>
+  <script>
+    function calculate() {
+      const spend = document.getElementById('monthlySpend').value || 0;
+      const big = document.getElementById('bigPurchases').value || 0;
+      
+      // Cálculo: 22% de economia média do Radar
+      const annualSavings = (spend * 12 * 0.22) + (big * 1500 * 0.22);
+      
+      document.getElementById('savingsValue').innerText = 'R$ ' + annualSavings.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+      document.getElementById('result').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
