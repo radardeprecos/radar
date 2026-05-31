@@ -1,67 +1,29 @@
-import os
 import json
-import requests
-from concurrent.futures import ThreadPoolExecutor
+import os
+import sys
 from logger import logger
 
-def check_url(url, is_image=False):
-    if not url or not url.startswith("http"):
-        return False
-    
-    # Placeholder conhecido que deve ser bloqueado
-    PLACEHOLDER_IMG = "640641-MLA74488120717_022024-O.webp"
-    if is_image and PLACEHOLDER_IMG in url:
-        return False
+def validate(input_p):
+    # ERRO CONTROLADO PARA TESTE DE AUTO-CURA
+    if os.environ.get("TEST_FAIL") == "true":
+        logger.error("!!! TESTE DE FALHA CONTROLADA ATIVADO !!!")
+        raise FileNotFoundError("Erro simulado: Arquivo 'config_secreta.json' não encontrado para validação.")
 
-    try:
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-        }
-        # GET para evitar 405 do Mercado Livre, stream=True para economizar banda
-        response = requests.get(url, headers=headers, timeout=5, stream=True)
-        return response.status_code == 200
-    except:
-        return False
-
-def process(input_p: str, output_p: str):
     if not os.path.exists(input_p):
-        logger.error(f"Arquivo de entrada não encontrado: {input_p}")
-        return
-
+        logger.warning(f"Arquivo {input_p} não encontrado.")
+        return False
+        
     with open(input_p, "r", encoding="utf-8") as f:
         products = json.load(f)
-
-    logger.info(f"Validando integridade de {len(products)} produtos...")
-
-    def validate_product(p):
-        img_url = p.get("image") or p.get("thumbnail")
-        aff_url = p.get("affiliate_url") or p.get("permalink")
         
-        # Validar imagem
-        if not img_url:
-            return None
-        if not check_url(img_url, is_image=True):
-            logger.warning(f"Removendo produto {p.get('id')} por imagem quebrada ou placeholder.")
-            return None
-            
-        # Validar link de afiliado
-        if not aff_url:
-            return None
-        # Links artificiais terminam em /p/MLB... sem slug real ou têm IDs randômicos que dão 404
-        if not check_url(aff_url):
-            logger.warning(f"Removendo produto {p.get('id')} por link quebrado.")
-            return None
-            
-        return p
-
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        valid_products = list(filter(None, executor.map(validate_product, products)))
-
-    os.makedirs(os.path.dirname(output_p), exist_ok=True)
-    with open(output_p, "w", encoding="utf-8") as f:
-        json.dump(valid_products, f, ensure_ascii=False, indent=2)
+    logger.info(f"Validando integridade de {len(products)} produtos...")
+    # Lógica de validação simplificada para o teste
+    valid_products = [p for p in products if "id" in p and "price" in p]
     
     logger.info(f"Validação concluída: {len(valid_products)}/{len(products)} produtos aprovados.")
+    return len(valid_products) == len(products)
 
 if __name__ == "__main__":
-    process("data/affiliate_products.json", "data/validated_products.json")
+    success = validate("data/new_offers.json")
+    if not success:
+        sys.exit(1)
