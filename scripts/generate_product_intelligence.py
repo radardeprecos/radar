@@ -91,8 +91,14 @@ def generate_intelligence():
     # Gerar apenas para produtos com desconto alto (>30%) para economizar build
     for p in products:
         if p.get('custom_discount_pct', 0) > 30:
-            # Limpar nome para URL segura
-            name_slug = "".join([c if c.isalnum() or c == '-' else '-' for c in p['name'].lower()]).replace('--', '-').strip('-')[:40]
+            # Limpar nome para URL segura (Remover acentos e caracteres especiais)
+            import unicodedata
+            def slugify(text):
+                text = unicodedata.normalize('NFD', text).encode('ascii', 'ignore').decode('utf-8')
+                text = "".join([c if c.isalnum() or c == '-' else '-' for c in text.lower()])
+                return text.replace('--', '-').strip('-')[:40]
+            
+            name_slug = slugify(p['name'])
             filename = f"intel-{name_slug}-{p['id']}.html"
             
             # Garantir diretório da categoria
