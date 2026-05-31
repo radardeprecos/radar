@@ -345,8 +345,9 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 340px !important; /* Altura fixa para o card inteiro */
+  height: 340px !important;
   justify-content: space-between;
+  contain: layout style; /* Melhora performance de renderização */
 }
 
 .product-card:hover {
@@ -552,7 +553,8 @@ ins.adsbygoogle {
   .footer-grid { grid-template-columns: 1fr; }
   
   .product-card {
-    height: 360px !important; /* Altura fixa maior para o mobile para acomodar o conteúdo */
+    height: 360px !important;
+    contain: layout style;
   }
   .card-img {
     width: 100% !important;

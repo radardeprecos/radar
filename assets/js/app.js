@@ -1,5 +1,5 @@
 
-// Radar de Preços - Script Principal Profissional v2.0
+// Radar de Preços - Script Principal Profissional v2.1 (Correção de Scroll e Renderização)
 
 const isSubDir = window.location.pathname.includes('/categorias/') || window.location.pathname.includes('/ofertas/') || window.location.pathname.includes('/sobre/') || window.location.pathname.includes('/contato/') || window.location.pathname.includes('/privacidade/') || window.location.pathname.includes('/termos/') || window.location.pathname.includes('/quem-somos/');
 const DATA_URL = isSubDir ? '../../data/products/offers.json' : 'data/products/offers.json';
@@ -49,7 +49,7 @@ function renderStats(products) {
   if (!statsContainer) return;
 
   const total = products.length;
-  const avgDiscount = Math.round(products.reduce((acc, p) => acc + (p.custom_discount_pct || 0), 0) / total);
+  const avgDiscount = total > 0 ? Math.round(products.reduce((acc, p) => acc + (p.custom_discount_pct || 0), 0) / total) : 0;
   const offersToday = Math.round(total * 0.25);
   
   statsContainer.innerHTML = `
@@ -72,10 +72,10 @@ function renderStats(products) {
   `;
 }
 
-// --- Radar Premium (Escolha do Radar) ---
+// --- Radar Premium ---
 function renderRadarPremium(products) {
   const premiumContainer = document.getElementById('radarPremium');
-  if (!premiumContainer) return;
+  if (!premiumContainer) return [];
 
   const premiumItems = [...products]
     .sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0))
@@ -87,7 +87,7 @@ function renderRadarPremium(products) {
       ${premiumItems.map(p => `
         <div class="product-card radar-premium-card">
           <span class="badge badge-premium-choice">👑 Escolha do Radar</span>
-          <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy" width="100" height="100" style="width:auto;height:auto;max-width:100%;max-height:100%;"></div>
+          <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy"></div>
           <h3>${escapeHtml(p.name).substring(0, 50)}...</h3>
           <div class="price-tag">R$ ${formatPrice(p.price)}</div>
           <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" style="width:100%; background: #b8860b; font-size: 12px; padding: 8px 5px;">Ver Oferta Premium</a>
@@ -98,34 +98,22 @@ function renderRadarPremium(products) {
   return premiumItems;
 }
 
-// --- Alertas Visuais Melhorados ---
+// --- Badges ---
 function getProfessionalBadges(product, idx) {
   let badges = [];
   const discount = product.custom_discount_pct || 0;
   
-  // Medalhas de Ranking
   if (idx === 0) badges.push('<span class="badge badge-menor-preco">🥇 MELHOR PREÇO DO MÊS</span>');
   else if (idx === 1) badges.push('<span class="badge badge-mais-vendido">🥈 TOP VENDEDOR</span>');
   else if (idx === 2) badges.push('<span class="badge badge-custo-beneficio">🥉 MAIS CLICADO</span>');
 
-  // Alertas de Urgência e Oportunidade
   if (discount >= 60) badges.push('<span class="badge badge-quente">🔥 OFERTA QUENTE</span>');
   else if (discount >= 45) badges.push('<span class="badge badge-baixou">📉 PREÇO BAIXOU</span>');
   
-  if (product.id && product.id.charCodeAt(product.id.length-1) % 5 === 0) {
-    badges.push('<span class="badge badge-acabando">⚡ ACABANDO</span>');
-  }
-
-  // Selo Radar Verificado (Para produtos com score alto)
-  const score = 5.0 + (discount / 10);
-  if (score >= 9.0) {
-    badges.push('<span class="badge" style="background: #00c853; border: 1px solid white; top: 45px !important;">✓ Radar Verificado</span>');
-  }
-
   return badges.join('');
 }
 
-// --- Carrossel Profissional ---
+// --- Carrossel ---
 function renderCarousel(products) {
   const container = document.getElementById('heroProduct');
   if (!container) return;
@@ -146,7 +134,7 @@ function renderCarousel(products) {
           <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" target="_blank">🛒 Ver Oferta no Mercado Livre</a>
         </div>
         <div class="carousel-img">
-          <img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy" width="140" height="140" style="width:auto;height:auto;max-width:100%;max-height:100%;">
+          <img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy">
         </div>
       </div>
     `;
@@ -179,18 +167,18 @@ function setupCarouselLogic(count) {
     indicators.forEach((ind, i) => ind.classList.toggle('active', i === currentSlide));
   }
 
-  document.getElementById('nextBtn')?.addEventListener('click', () => goToSlide(currentSlide + 1));
-  document.getElementById('prevBtn')?.addEventListener('click', () => goToSlide(currentSlide - 1));
+  document.getElementById('nextBtn')?.addEventListener('click', (e) => { e.preventDefault(); goToSlide(currentSlide + 1); });
+  document.getElementById('prevBtn')?.addEventListener('click', (e) => { e.preventDefault(); goToSlide(currentSlide - 1); });
   
   indicators.forEach(ind => {
-    ind.addEventListener('click', () => goToSlide(parseInt(ind.dataset.index)));
+    ind.addEventListener('click', (e) => { e.preventDefault(); goToSlide(parseInt(ind.dataset.index)); });
   });
 
   if (carouselInterval) clearInterval(carouselInterval);
   carouselInterval = setInterval(() => goToSlide(currentSlide + 1), 5000);
 }
 
-// --- Renderização do Grid ---
+// --- Grid de Produtos ---
 function renderGrid(products, excludeItems = []) {
   const grid = document.getElementById('featuredGrid');
   if (!grid) return;
@@ -200,13 +188,18 @@ function renderGrid(products, excludeItems = []) {
   const limit = isTodayPage ? 50 : 24;
   const gridProducts = products.filter(p => !excludeIds.has(p.id)).slice(0, limit);
 
+  if (gridProducts.length === 0) {
+    grid.innerHTML = '<div class="no-results"><p>Nenhuma oferta encontrada.</p></div>';
+    return;
+  }
+
   grid.innerHTML = gridProducts.map((p, idx) => {
     const badges = getProfessionalBadges(p, idx);
     return `
       <div class="product-card">
         <span class="badge discount-badge">↓ ${p.custom_discount_pct}% OFF</span>
         ${badges}
-        <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy" width="120" height="120" style="width:100%;height:auto;"></div>
+        <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy"></div>
         <h3>${escapeHtml(p.name).substring(0, 60)}...</h3>
         <div class="price-tag">R$ ${formatPrice(p.price)}</div>
         <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" target="_blank" style="width:100%">Ver Detalhes</a>
@@ -215,7 +208,7 @@ function renderGrid(products, excludeItems = []) {
   }).join('');
 }
 
-// --- Seção de Notícias ---
+// --- Notícias ---
 function renderNews() {
   const main = document.querySelector('main');
   if (!main || document.getElementById('newsSection')) return;
@@ -233,7 +226,7 @@ function renderNews() {
         <div class="news-track" id="newsTrack">
           ${newsData.map(n => `
             <div class="news-slide">
-              <div class="news-img"><img src="${n.img}" alt="${n.title}" loading="lazy" width="200" height="150" style="width:100%;height:auto;"></div>
+              <div class="news-img"><img src="${n.img}" alt="${n.title}" loading="lazy"></div>
               <div class="news-info">
                 <h3>${n.title}</h3>
                 <p>${n.summary}</p>
@@ -261,14 +254,14 @@ function renderNews() {
   }, 6000);
 }
 
-// --- Inicialização ---
+// --- Inicialização Principal ---
 async function init() {
   try {
     const res = await fetch(DATA_URL + '?t=' + Date.now());
+    if (!res.ok) throw new Error('Falha ao carregar dados');
     let rawProducts = await res.json();
     
     allProducts = deduplicateProducts(rawProducts);
-    
     const sorted = [...allProducts].sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0));
     
     renderCarousel(sorted);
@@ -281,18 +274,26 @@ async function init() {
     setupSearch();
   } catch (e) {
     console.error('Erro ao carregar ofertas:', e);
+    const grid = document.getElementById('featuredGrid');
+    if (grid) grid.innerHTML = '<p style="text-align:center; padding: 20px;">Ocorreu um erro ao carregar as ofertas. Por favor, tente novamente mais tarde.</p>';
   }
 }
 
 function setupCategoryFilters() {
   const tabs = document.querySelectorAll('.cat-tab');
   tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
+    tab.addEventListener('click', (e) => {
+      const category = tab.getAttribute('data-cat');
+      if (!category) return; // Se for um link <a> para outra página, segue o link normalmente
+      
+      e.preventDefault();
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      const category = tab.getAttribute('data-cat');
+      
       if (category === 'todos') {
-        init();
+        const sorted = [...allProducts].sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0));
+        const premiumItems = [...allProducts].sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0)).slice(0, 5);
+        renderGrid(allProducts, [...premiumItems, ...sorted.slice(0, 8)]);
       } else {
         const filtered = allProducts.filter(p => p.custom_category_slug === category);
         renderGrid(filtered);
@@ -303,11 +304,17 @@ function setupCategoryFilters() {
 
 function setupSearch() {
   const searchInput = document.getElementById('searchInput');
-  if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase();
+  if (!searchInput) return;
+  
+  let searchTimeout;
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      const query = e.target.value.toLowerCase().trim();
       if (query.length === 0) {
-        init();
+        const sorted = [...allProducts].sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0));
+        const premiumItems = [...allProducts].sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0)).slice(0, 5);
+        renderGrid(allProducts, [...premiumItems, ...sorted.slice(0, 8)]);
       } else {
         const filtered = allProducts.filter(p => 
           (p.name || '').toLowerCase().includes(query) ||
@@ -315,8 +322,8 @@ function setupSearch() {
         );
         renderGrid(filtered);
       }
-    });
-  }
+    }, 300);
+  });
 }
 
 // Theme Toggle
@@ -334,7 +341,7 @@ if (themeToggle) {
   });
 }
 
-// Iniciar
+// Iniciar apenas uma vez
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
