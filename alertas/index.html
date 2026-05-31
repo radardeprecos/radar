@@ -1,50 +1,52 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alertas de Preço — Seja avisado primeiro | Radar de Preços</title>
+  <title>Alertas de Preço — Radar de Preços</title>
+  <meta name="description" content="Crie alertas de preço reais, monitore favoritos e veja histórico de quedas com a Central de Alertas do Radar de Preços.">
+  <link rel="canonical" href="https://radardeprecos.github.io/radar/alertas/">
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#00c853">
+  <link rel="apple-touch-icon" href="../assets/icons/icon-192.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    .alert-hero { background: var(--primary); color: white; padding: 80px 0; text-align: center; border-radius: 0 0 50px 50px; }
-    .email-box { max-width: 500px; margin: -40px auto 40px; background: var(--card); padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid var(--border); }
-    .email-input { width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 15px; font-size: 16px; }
+    .hero-alertas { background: linear-gradient(135deg, #1976d2 0%, #00c853 100%); color:#fff; padding:70px 0; text-align:center; }
+    .hero-alertas h1 { font-size: clamp(2rem, 5vw, 3.4rem); margin-bottom:14px; }
+    .hero-alertas p { max-width:760px; margin:0 auto 24px; opacity:.92; }
+    .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; margin:36px 0; }
+    .step { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; }
+    .step strong { color:var(--primary); }
   </style>
 </head>
 <body>
-  <header class="header"><div class="container"><a href="../" class="logo">📊 Radar de Preços</a></div></header>
-  <section class="alert-hero">
+  <header class="header"><div class="container header-inner"><a href="../" class="logo">📊 <strong>Radar de Preços</strong></a><button id="themeToggle">🌙</button></div></header>
+  <section class="hero-alertas">
     <div class="container">
-      <h1>🔔 Não perca nenhuma "Explodida"</h1>
-      <p>O robô encontra a oferta, nós te avisamos na hora.</p>
+      <h1>Alertas de preço que fazem o usuário voltar</h1>
+      <p>Monitore produtos favoritos, defina preço alvo e acompanhe histórico de queda direto na sua Central Radar.</p>
+      <a href="../minha-lista/" class="btn btn-white">Abrir minha central</a>
+      <a href="../recomendados/" class="btn btn-outline-white">Ver recomendações</a>
     </div>
   </section>
   <main class="container">
-    <div class="email-box">
-      <h3>Entrar para a Lista VIP</h3>
-      <p style="font-size: 14px; color: var(--text-light); margin-bottom: 20px;">Receba alertas de quedas de preço superiores a 40% direto no seu e-mail.</p>
-      <form id="alertLead">
-        <input type="email" class="email-input" placeholder="Seu melhor e-mail..." required>
-        <button type="submit" class="btn" style="width: 100%; padding: 15px;">Quero ser avisado</button>
-      </form>
-    </div>
-    
-    <div style="text-align: center; margin-top: 60px;">
-      <h2>Como funciona?</h2>
-      <div class="stats-grid" style="margin-top: 30px;">
-        <div><h4>1. O Robô Monitora</h4><p>Varremos o mercado 24h por dia.</p></div>
-        <div><h4>2. O Preço Cai</h4><p>Detectamos quedas reais abaixo da média.</p></div>
-        <div><h4>3. Você Economiza</h4><p>Enviamos o link direto para o seu e-mail.</p></div>
-      </div>
-    </div>
+    <section class="steps">
+      <article class="step"><strong>1. Favorite produtos</strong><p>Salve itens relevantes nos cards do Radar e mantenha tudo em uma lista sincronizável.</p></article>
+      <article class="step"><strong>2. Defina preço alvo</strong><p>Crie alertas por produto e veja se o preço atual já atingiu o ponto de compra.</p></article>
+      <article class="step"><strong>3. Acompanhe histórico</strong><p>Veja estimativas de queda e decisão do Radar IA: comprar agora, esperar ou avaliar preço.</p></article>
+      <article class="step"><strong>4. Ative recorrência</strong><p>Configure newsletter e notificações para receber melhores quedas e voltar ao site.</p></article>
+    </section>
   </main>
-  <script src="../assets/js/app.js"></script>
+  <footer class="footer"><div class="container"><p>© 2026 Radar de Preços.</p></div></footer>
+  <script src="../assets/js/firebase-config.js"></script>
+  <script src="../assets/js/radar-auth.js"></script>
+  <script src="../assets/js/pwa.js"></script>
   <script>
-    document.getElementById('alertLead').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Inscrição realizada com sucesso! Você será avisado assim que o sistema de alertas for ativado.');
-    });
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    document.getElementById('themeToggle').addEventListener('click', () => { const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', next); localStorage.setItem('theme', next); document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙'; });
   </script>
 </body>
 </html>

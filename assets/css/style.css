@@ -650,3 +650,173 @@ ins.adsbygoogle {
   background: var(--primary);
   color: white;
 }
+
+/* Fase 10 — Ecossistema Radar: conta, retenção e PWA */
+.radar-auth-widget {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.radar-auth-link {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.radar-auth-link:hover {
+  color: var(--primary);
+}
+
+.radar-auth-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 7px 12px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.radar-auth-button img,
+.radar-auth-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  object-fit: cover;
+}
+
+.fav-btn,
+.alert-mini-btn {
+  position: absolute;
+  border: none;
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  z-index: 8;
+}
+
+.fav-btn {
+  left: 8px;
+  top: 8px;
+}
+
+.alert-mini-btn {
+  left: 48px;
+  top: 8px;
+}
+
+.fav-btn.active,
+.alert-mini-btn.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.radar-decision {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  background: rgba(0, 200, 83, 0.1);
+  color: var(--primary);
+  margin: 4px 0;
+}
+
+.radar-decision.wait {
+  background: rgba(255, 152, 0, 0.12);
+  color: var(--warning);
+}
+
+.radar-decision.expensive {
+  background: rgba(244, 67, 54, 0.12);
+  color: var(--error);
+}
+
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.ecosystem-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+}
+
+.ecosystem-card strong {
+  color: var(--primary);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.form-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.form-row input,
+.form-row select {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  background: rgba(25, 118, 210, 0.1);
+  color: var(--secondary);
+}
+
+@media (max-width: 768px) {
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .radar-auth-widget {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .radar-auth-button span {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
