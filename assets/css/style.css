@@ -26,6 +26,12 @@
   box-sizing: border-box;
 }
 
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -42,6 +48,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  width: 100%;
 }
 
 /* Header */
@@ -168,6 +175,7 @@ body {
   text-align: center;
   border-radius: 0 0 50px 50px;
   margin-bottom: 40px;
+  width: 100%;
 }
 
 .main-hero h1 {
@@ -207,6 +215,7 @@ body {
   gap: 20px;
   margin-top: -40px;
   margin-bottom: 40px;
+  width: 100%;
 }
 
 .stat-card {
