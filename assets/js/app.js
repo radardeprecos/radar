@@ -116,6 +116,12 @@ function getProfessionalBadges(product, idx) {
     badges.push('<span class="badge badge-acabando">⚡ ACABANDO</span>');
   }
 
+  // Selo Radar Verificado (Para produtos com score alto)
+  const score = 5.0 + (discount / 10);
+  if (score >= 9.0) {
+    badges.push('<span class="badge" style="background: #00c853; border: 1px solid white; top: 45px !important;">✓ Radar Verificado</span>');
+  }
+
   return badges.join('');
 }
 
@@ -190,7 +196,9 @@ function renderGrid(products, excludeItems = []) {
   if (!grid) return;
 
   const excludeIds = new Set(excludeItems.map(p => p.id));
-  const gridProducts = products.filter(p => !excludeIds.has(p.id)).slice(0, 24);
+  const isTodayPage = window.location.pathname.includes('/ofertas-hoje/');
+  const limit = isTodayPage ? 50 : 24;
+  const gridProducts = products.filter(p => !excludeIds.has(p.id)).slice(0, limit);
 
   grid.innerHTML = gridProducts.map((p, idx) => {
     const badges = getProfessionalBadges(p, idx);
