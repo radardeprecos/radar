@@ -83,14 +83,30 @@ def build_all_category_pages(input_path: str, template_path: str, output_dir: st
         return
         
     categories: Dict[str, List[Dict[str, Any]]] = {}
+    categories: Dict[str, List[Dict[str, Any]]] = {}
+    brands: Dict[str, List[Dict[str, Any]]] = {}
+    
     for product in products:
-        category_slug = product.get("custom_category_slug", "outros")
-        if category_slug not in categories:
-            categories[category_slug] = []
-        categories[category_slug].append(product)
+        # Categorias
+        cat_slug = product.get("custom_category_slug", "outros")
+        if cat_slug not in categories: categories[cat_slug] = []
+        categories[cat_slug].append(product)
         
-    for category_slug, cat_products in categories.items():
-        build_category_page(category_slug, cat_products, template_path, output_dir)
+        # Marcas (extrair do nome se não houver campo específico)
+        name_lower = (product.get("name") or "").lower()
+        for brand in ["samsung", "motorola", "lenovo", "lg", "jbl", "apple", "philco", "asus"]:
+            if brand in name_lower:
+                if brand not in brands: brands[brand] = []
+                brands[brand].append(product)
+                break
+        
+    # Gerar páginas de categorias
+    for slug, cat_products in categories.items():
+        build_category_page(slug, cat_products, template_path, output_dir)
+        
+    # Gerar páginas de marcas (Hub de Marcas)
+    for brand, brand_products in brands.items():
+        build_category_page(brand, brand_products, template_path, output_dir)
 
 if __name__ == "__main__":
     build_all_category_pages("data/database/all_products.json", "templates/category_template.html", "categorias")

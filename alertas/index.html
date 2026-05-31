@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alertas de Preço — Seja avisado primeiro | Radar de Preços</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .alert-hero { background: var(--primary); color: white; padding: 80px 0; text-align: center; border-radius: 0 0 50px 50px; }
+    .email-box { max-width: 500px; margin: -40px auto 40px; background: var(--card); padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid var(--border); }
+    .email-input { width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 15px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <header class="header"><div class="container"><a href="../" class="logo">📊 Radar de Preços</a></div></header>
+  <section class="alert-hero">
+    <div class="container">
+      <h1>🔔 Não perca nenhuma "Explodida"</h1>
+      <p>O robô encontra a oferta, nós te avisamos na hora.</p>
+    </div>
+  </section>
+  <main class="container">
+    <div class="email-box">
+      <h3>Entrar para a Lista VIP</h3>
+      <p style="font-size: 14px; color: var(--text-light); margin-bottom: 20px;">Receba alertas de quedas de preço superiores a 40% direto no seu e-mail.</p>
+      <form id="alertLead">
+        <input type="email" class="email-input" placeholder="Seu melhor e-mail..." required>
+        <button type="submit" class="btn" style="width: 100%; padding: 15px;">Quero ser avisado</button>
+      </form>
+    </div>
+    
+    <div style="text-align: center; margin-top: 60px;">
+      <h2>Como funciona?</h2>
+      <div class="stats-grid" style="margin-top: 30px;">
+        <div><h4>1. O Robô Monitora</h4><p>Varremos o mercado 24h por dia.</p></div>
+        <div><h4>2. O Preço Cai</h4><p>Detectamos quedas reais abaixo da média.</p></div>
+        <div><h4>3. Você Economiza</h4><p>Enviamos o link direto para o seu e-mail.</p></div>
+      </div>
+    </div>
+  </main>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    document.getElementById('alertLead').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Inscrição realizada com sucesso! Você será avisado assim que o sistema de alertas for ativado.');
+    });
+  </script>
+</body>
+</html>
