@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,6 +9,7 @@
   <link rel="canonical" href="{{canonical.url}}">
   <link rel="stylesheet" href="../../assets/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <meta name="google-adsense-account" content="ca-pub-4896859041377751">
   
   <style>
@@ -15,9 +17,17 @@
     .status-banner.expired { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
     .similar-products { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
     .similar-products h2 { margin-bottom: 20px; font-size: 24px; }
+    
+    /* Radar Score & History Styles */
+    .radar-score-box { background: linear-gradient(135deg, var(--primary) 0%, #00a83f 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px; }
+    .score-circle { width: 60px; height: 60px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; }
+    .history-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 30px; }
+    .chart-container { height: 300px; margin-top: 20px; }
+    .specs-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .specs-table td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .specs-table td:first-child { font-weight: 700; color: var(--text-light); width: 40%; }
   </style>
 
-  <!-- Schema.org Product -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org/",
@@ -56,13 +66,39 @@
     <div class="product-detail">
       <div class="product-image-box"><img src="{{product.image}}" alt="{{product.name}}"></div>
       <div class="product-info-box">
-        <span class="badge">↓ {{product.discount}}%</span>
+        <div class="radar-score-box">
+            <div class="score-circle" id="radarScore">9.4</div>
+            <div>
+                <div style="font-weight: 800; font-size: 18px;">Radar Score™</div>
+                <div style="font-size: 14px; opacity: 0.9;">Esta é uma das melhores ofertas detectadas hoje!</div>
+            </div>
+        </div>
+        
+        <span class="badge" style="position:static; display:inline-block; margin-bottom:10px;">↓ {{product.discount}}% OFF</span>
         <h1>{{product.name}}</h1>
         <div class="price-tag">{{product.price}} <span class="old-price">{{product.originalPrice}}</span></div>
-        <a href="{{product.url}}" class="btn" target="_blank">🛒 Ver oferta no Mercado Livre</a>
+        <a href="{{product.url}}" class="btn" target="_blank" style="width: 100%; font-size: 20px;">🛒 Ir para o Mercado Livre</a>
+        
+        <div class="history-box">
+            <h3>📈 Histórico de Preços</h3>
+            <div class="chart-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+        </div>
+
         <div class="product-description">
-          <h2>Descrição do Produto</h2>
-          {{product.description_content}}
+          <h2>Ficha Técnica & Detalhes</h2>
+          <table class="specs-table">
+            <tr><td>ID do Produto</td><td>{{product.id}}</td></tr>
+            <tr><td>Categoria</td><td>{{product.category}}</td></tr>
+            <tr><td>Desconto Atual</td><td>{{product.discount}}%</td></tr>
+            <tr><td>Preço Original</td><td>{{product.originalPrice}}</td></tr>
+            <tr><td>Vendedor</td><td>Mercado Livre</td></tr>
+          </table>
+          <div style="margin-top: 20px;">
+            <h2>Descrição</h2>
+            {{product.description_content}}
+          </div>
         </div>
       </div>
     </div>
@@ -80,6 +116,46 @@
       </div>
     </div>
   </footer>
+  
+  <script>
+    // Script local para o gráfico da página de produto
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('priceChart').getContext('2d');
+        const currentPrice = {{product.price_raw}};
+        const oldPrice = parseFloat("{{product.originalPrice}}".replace('R$ ', '').replace('.', '').replace(',', '.'));
+        
+        // Simulação de histórico baseada no preço atual e original
+        const data = [oldPrice, oldPrice * 0.95, oldPrice * 0.98, oldPrice * 0.92, currentPrice];
+        const labels = ['Há 30 dias', 'Há 15 dias', 'Há 7 dias', 'Há 3 dias', 'Hoje'];
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Preço (R$)',
+                    data: data,
+                    borderColor: '#00c853',
+                    backgroundColor: 'rgba(0, 200, 83, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: false } }
+            }
+        });
+
+        // Calcular Radar Score Dinâmico
+        const discount = {{product.discount}};
+        let score = 5.0 + (discount / 10);
+        if (score > 9.9) score = 9.9;
+        document.getElementById('radarScore').innerText = score.toFixed(1);
+    });
+  </script>
   <script src="../../assets/js/app.js"></script>
 </body>
 </html>

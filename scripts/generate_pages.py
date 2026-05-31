@@ -92,6 +92,7 @@ def generate_product_page(product: Dict[str, Any], all_products: List[Dict[str, 
     content = content.replace('{{product.price}}', p_price)
     content = content.replace('{{product.price_raw}}', str(price_val))
     content = content.replace('{{product.originalPrice}}', p_orig)
+    content = content.replace('{{product.originalPrice_raw}}', str(orig_val))
     content = content.replace('{{product.image}}', p_img)
     content = content.replace('{{product.url}}', p_url)
     content = content.replace('{{product.id}}', p_id)
