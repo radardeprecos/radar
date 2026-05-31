@@ -1,11 +1,21 @@
 
 // Radar de Preços - Script Principal Profissional v2.1 (Correção de Scroll e Renderização)
 
-const isSubDir = window.location.pathname.includes('/categorias/') || window.location.pathname.includes('/ofertas/') || window.location.pathname.includes('/sobre/') || window.location.pathname.includes('/contato/') || window.location.pathname.includes('/privacidade/') || window.location.pathname.includes('/termos/') || window.location.pathname.includes('/quem-somos/');
-const DATA_URL = isSubDir ? '../../data/products/offers.json' : 'data/products/offers.json';
+function getRadarBasePrefix() {
+  const cleanPath = window.location.pathname.replace(/\/$/, '');
+  let parts = cleanPath.split('/').filter(Boolean);
+  if (parts.length && parts[parts.length - 1].includes('.')) parts = parts.slice(0, -1);
+  const radarIndex = parts.indexOf('radar');
+  const depth = radarIndex >= 0 ? Math.max(0, parts.length - radarIndex - 1) : Math.max(0, parts.length);
+  return '../'.repeat(depth);
+}
+const RADAR_BASE_PREFIX = getRadarBasePrefix();
+const DATA_URL = RADAR_BASE_PREFIX + 'data/products/offers.json';
 let allProducts = [];
 let currentSlide = 0;
 let carouselInterval;
+let favoriteIds = new Set();
+let alertIds = new Set();
 
 // --- Utilitários ---
 function formatPrice(value) {
@@ -189,22 +199,26 @@ function renderGrid(products, excludeItems = []) {
   const gridProducts = products.filter(p => !excludeIds.has(p.id)).slice(0, limit);
 
   if (gridProducts.length === 0) {
-    grid.innerHTML = '<div class="no-results"><p>Nenhuma oferta encontrada.</p></div>';
+      grid.innerHTML = '<div class="no-results"><p>Nenhuma oferta encontrada.</p></div>';
     return;
   }
 
   grid.innerHTML = gridProducts.map((p, idx) => {
     const badges = getProfessionalBadges(p, idx);
     const favClass = isFavorite(p.id) ? 'active' : '';
+    const alertClass = hasAlert(p.id) ? 'active' : '';
+    const decision = getRadarDecision(p);
     return `
-      <div class="product-card">
-        <button class="fav-btn ${favClass}" onclick="event.preventDefault(); toggleFavorite('${p.id}')">❤️</button>
+      <div class="product-card" data-product-id="${escapeHtml(p.id)}" data-category="${escapeHtml(p.custom_category_slug || '')}">
+        <button class="fav-btn ${favClass}" title="Favoritar" onclick="event.preventDefault(); toggleFavorite('${p.id}')">♥</button>
+        <button class="alert-mini-btn ${alertClass}" title="Criar alerta" onclick="event.preventDefault(); openQuickAlert('${p.id}')">🔔</button>
         <span class="badge discount-badge">↓ ${p.custom_discount_pct}% OFF</span>
         ${badges}
         <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy"></div>
         <h3>${escapeHtml(p.name).substring(0, 60)}...</h3>
+        <div class="radar-decision ${decision.className}">${decision.label}</div>
         <div class="price-tag">R$ ${formatPrice(p.price)}</div>
-        <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" target="_blank" style="width:100%">Ver Detalhes</a>
+        <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" target="_blank" rel="nofollow sponsored" onclick="trackOfferClick('${p.id}')" style="width:100%">Ver Detalhes</a>
       </div>
     `;
   }).join('');
@@ -261,9 +275,10 @@ async function init() {
   try {
     const res = await fetch(DATA_URL + '?t=' + Date.now());
     if (!res.ok) throw new Error('Falha ao carregar dados');
-    let rawProducts = await res.json();
-    
-    allProducts = deduplicateProducts(rawProducts);
+      let rawProducts = await res.json();
+      
+      allProducts = deduplicateProducts(rawProducts);
+      await loadUserState();
     const sorted = [...allProducts].sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0));
     
     renderCarousel(sorted);
@@ -357,21 +372,106 @@ function setupSearch() {
   });
 }
 
-// --- Sistema de Favoritos (LocalStorage) ---
-function toggleFavorite(productId) {
-  let favorites = JSON.parse(localStorage.getItem('radar_favorites') || '[]');
-  if (favorites.includes(productId)) {
-    favorites = favorites.filter(id => id !== productId);
+// --- Ecossistema Radar: favoritos, alertas e comportamento ---
+async function loadUserState() {
+  if (!window.RadarAuth) return;
+  await window.RadarAuth.init();
+  const [favorites, alerts] = await Promise.all([
+    window.RadarAuth.getCollection('favorites', []),
+    window.RadarAuth.getCollection('alerts', [])
+  ]);
+  favoriteIds = new Set(favorites.map(item => String(item.productId || item.id)));
+  alertIds = new Set(alerts.filter(item => item.active !== false).map(item => String(item.productId || item.id)));
+}
+
+function productSnapshot(product) {
+  return {
+    id: product.id,
+    productId: product.id,
+    name: product.name || product.title,
+    title: product.title || product.name,
+    price: Number(product.price || 0),
+    originalPrice: Number(product.originalPrice || product.original_price || product.price || 0),
+    image: product.image || product.thumbnail || '',
+    thumbnail: product.thumbnail || product.image || '',
+    category: product.custom_category_slug || '',
+    discount: Number(product.custom_discount_pct || 0),
+    url: safeAffiliateUrl(product),
+    addedAt: new Date().toISOString()
+  };
+}
+
+async function toggleFavorite(productId) {
+  const product = allProducts.find(item => String(item.id) === String(productId));
+  if (!product || !window.RadarAuth) return;
+  await window.RadarAuth.init();
+  if (favoriteIds.has(String(productId))) {
+    await window.RadarAuth.removeItem('favorites', productId);
+    favoriteIds.delete(String(productId));
   } else {
-    favorites.push(productId);
+    await window.RadarAuth.upsertItem('favorites', productSnapshot(product));
+    favoriteIds.add(String(productId));
   }
-  localStorage.setItem('radar_favorites', JSON.stringify(favorites));
-  init(); // Re-renderiza para atualizar os ícones
+  renderGrid(allProducts);
 }
 
 function isFavorite(productId) {
-  const favorites = JSON.parse(localStorage.getItem('radar_favorites') || '[]');
-  return favorites.includes(productId);
+  return favoriteIds.has(String(productId));
+}
+
+function hasAlert(productId) {
+  return alertIds.has(String(productId));
+}
+
+async function openQuickAlert(productId) {
+  const product = allProducts.find(item => String(item.id) === String(productId));
+  if (!product || !window.RadarAuth) return;
+  await window.RadarAuth.init();
+  const suggested = Math.max(1, Math.floor(Number(product.price || 0) * 0.92));
+  const value = prompt(`Avisar quando ${product.name || product.title} chegar em qual preço?`, suggested);
+  if (!value) return;
+  const targetPrice = Number(String(value).replace(',', '.'));
+  if (!targetPrice || targetPrice <= 0) return alert('Informe um preço válido.');
+  await window.RadarAuth.upsertItem('alerts', {
+    id: product.id,
+    productId: product.id,
+    product: productSnapshot(product),
+    targetPrice,
+    currentPrice: Number(product.price || 0),
+    active: true,
+    createdAt: new Date().toISOString(),
+    history: buildPriceHistory(product)
+  });
+  alertIds.add(String(product.id));
+  alert('Alerta criado. Você pode acompanhar tudo em Minha lista.');
+  renderGrid(allProducts);
+}
+
+function buildPriceHistory(product) {
+  const price = Number(product.price || 0);
+  const original = Number(product.originalPrice || product.original_price || price);
+  return [
+    { label: 'Hoje', price },
+    { label: 'Ontem', price: Math.round(price * 1.01 * 100) / 100 },
+    { label: '7 dias atrás', price: Math.round(((price + original) / 2) * 100) / 100 },
+    { label: '30 dias atrás', price: original }
+  ];
+}
+
+function getRadarDecision(product) {
+  const discount = Number(product.custom_discount_pct || 0);
+  const price = Number(product.price || 0);
+  const original = Number(product.originalPrice || product.original_price || price);
+  const ratio = original > 0 ? price / original : 1;
+  if (discount >= 35 || ratio <= 0.72) return { label: 'Comprar agora', className: '' };
+  if (discount >= 18 || ratio <= 0.88) return { label: 'Preço justo', className: '' };
+  if (discount >= 8) return { label: 'Esperar queda', className: 'wait' };
+  return { label: 'Acima da média', className: 'expensive' };
+}
+
+function trackOfferClick(productId) {
+  const product = allProducts.find(item => String(item.id) === String(productId));
+  if (product && window.RadarAuth) window.RadarAuth.trackProductClick(productSnapshot(product));
 }
 
 // Theme Toggle
