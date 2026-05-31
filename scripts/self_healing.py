@@ -2,13 +2,22 @@ import os
 import sys
 import json
 import subprocess
-from openai import OpenAI
+try:
+    from openai import OpenAI
+    OPENAI_AVAILABLE = True
+except ImportError:
+    OPENAI_AVAILABLE = False
 from logger import logger
-
-client = OpenAI() # Usa as variáveis de ambiente pré-configuradas
 
 def analyze_error(error_log):
     """Envia o log de erro para o GPT e solicita uma sugestão de correção ou diagnóstico."""
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not OPENAI_AVAILABLE or not api_key:
+        logger.warning("Auto-cura desativada: OpenAI SDK não instalado ou chave ausente.")
+        return None
+        
+    client = OpenAI(api_key=api_key)
+    
     prompt = f"""
     Você é o engenheiro de manutenção do 'Radar de Preços', um robô em Python que coleta ofertas do Mercado Livre.
     O pipeline de automação falhou com o seguinte erro:
@@ -27,8 +36,8 @@ def analyze_error(error_log):
     try:
         response = client.chat.completions.create(
             model="gpt-4.1-mini",
-            messages=[{{"role": "user", "content": prompt}}],
-            response_format={{"type": "json_object"}}
+            messages=[{"role": "user", "content": prompt}],
+            response_format={"type": "json_object"}
         )
         return json.loads(response.choices[0].message.content)
     except Exception as e:
@@ -53,14 +62,13 @@ def run_pipeline():
         if result.returncode != 0:
             logger.error(f"Falha no script {script}!")
             error_info = result.stderr or result.stdout
+            print(f"DEBUG ERROR: {error_info}")
             analysis = analyze_error(error_info)
             
             if analysis:
                 logger.info(f"Análise da IA: {analysis['cause']}")
-                if analysis['can_auto_fix']:
+                if analysis.get('can_auto_fix'):
                     logger.info(f"Tentando auto-correção sugerida: {analysis['fix_suggestion']}")
-                    # Aqui poderíamos implementar a execução da correção, mas por segurança apenas logamos
-                    # Em um cenário real, poderíamos usar subprocess.run(analysis['fix_suggestion'], shell=True)
             
             return False
     return True
