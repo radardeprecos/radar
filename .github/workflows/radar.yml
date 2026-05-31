@@ -4,7 +4,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 */2 * * *' # Executa a cada 2 horas
+    - cron: '0 * * * *' # Executa a cada 1 hora
   workflow_dispatch:
 
 permissions:
