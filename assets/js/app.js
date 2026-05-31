@@ -87,7 +87,7 @@ function renderRadarPremium(products) {
       ${premiumItems.map(p => `
         <div class="product-card premium-card">
           <span class="badge badge-premium-choice">👑 Escolha do Radar</span>
-          <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy"></div>
+          <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy" width="160" height="160" style="width:100%;height:100%;"></div>
           <h3>${escapeHtml(p.name).substring(0, 50)}...</h3>
           <div class="price-tag">R$ ${formatPrice(p.price)}</div>
           <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" style="width:100%; background: #b8860b">Ver Oferta Premium</a>
@@ -146,7 +146,7 @@ function renderCarousel(products) {
           <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" target="_blank">🛒 Ver Oferta no Mercado Livre</a>
         </div>
         <div class="carousel-img">
-          <img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy">
+          <img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy" width="300" height="300" style="width:100%;height:auto;">
         </div>
       </div>
     `;
@@ -206,7 +206,7 @@ function renderGrid(products, excludeItems = []) {
       <div class="product-card">
         <span class="badge discount-badge">↓ ${p.custom_discount_pct}% OFF</span>
         ${badges}
-        <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy"></div>
+        <div class="card-img"><img src="${escapeHtml(p.image || p.thumbnail)}" alt="${escapeHtml(p.name)}" loading="lazy" width="160" height="160" style="width:100%;height:100%;"></div>
         <h3>${escapeHtml(p.name).substring(0, 60)}...</h3>
         <div class="price-tag">R$ ${formatPrice(p.price)}</div>
         <a href="${escapeHtml(safeAffiliateUrl(p))}" class="btn" target="_blank" style="width:100%">Ver Detalhes</a>
@@ -233,7 +233,7 @@ function renderNews() {
         <div class="news-track" id="newsTrack">
           ${newsData.map(n => `
             <div class="news-slide">
-              <div class="news-img"><img src="${n.img}" alt="${n.title}" loading="lazy"></div>
+              <div class="news-img"><img src="${n.img}" alt="${n.title}" loading="lazy" width="200" height="150" style="width:100%;height:auto;"  ></div>
               <div class="news-info">
                 <h3>${n.title}</h3>
                 <p>${n.summary}</p>

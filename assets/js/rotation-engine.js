@@ -178,7 +178,7 @@ class RotationEngine {
           <a href="${product.link}" class="btn" style="padding: 15px 30px; font-size: 18px;">Ver Detalhes</a>
         </div>
         <div class="hero-img">
-          <img src="${product.image}" alt="${product.title}" loading="lazy">
+          <img src="${product.image}" alt="${product.title}" loading="lazy" width="400" height="400" style="width:100%;height:auto;"  >
         </div>
       </div>
     `;
