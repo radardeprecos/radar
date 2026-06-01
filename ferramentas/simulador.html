@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Economia | Radar de Preços</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .sim-card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-top: 30px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #64748b; }
+        .input-group input { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; }
+        .result-box { background: #f0fdf4; border: 1px solid #16a34a; padding: 20px; border-radius: 12px; text-align: center; margin-top: 20px; display: none; }
+        .result-value { font-size: 32px; font-weight: 800; color: #16a34a; }
+    </style>
+</head>
+<body>
+    <header class="header"><div class="container"><a href="../" class="logo">📊 Radar de Preços</a></div></header>
+    <main class="container">
+        <div style="margin-top: 40px; text-align: center;">
+            <h1>💰 Simulador de Economia</h1>
+            <p style="color: #64748b;">Descubra quanto você está deixando de economizar por não usar o Radar.</p>
+        </div>
+
+        <div class="sim-card">
+            <div class="input-group">
+                <label>Gasto mensal médio em compras online (R$):</label>
+                <input type="number" id="monthlySpend" placeholder="Ex: 1000">
+            </div>
+            <div class="input-group">
+                <label>Quantas compras você faz por mês?</label>
+                <input type="number" id="purchaseCount" placeholder="Ex: 5">
+            </div>
+            <button onclick="calculate()" class="buy-btn" style="width: 100%;">CALCULAR ECONOMIA REAL</button>
+
+            <div id="result" class="result-box">
+                <p>Sua economia estimada com o Radar é de:</p>
+                <div class="result-value" id="savingsValue">R$ 0,00</div>
+                <p style="font-size: 14px; color: #166534; margin-top: 10px;">Isso equivale a uma redução de ~22% nos seus gastos anuais!</p>
+                <a href="../vip/" class="buy-btn" style="background: #16a34a; margin-top: 15px; display: inline-block;">QUERO ECONOMIZAR AGORA</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function calculate() {
+            const spend = document.getElementById('monthlySpend').value;
+            if (!spend) return;
+            const annualSavings = spend * 12 * 0.22; // Média de 22% de economia com Radar
+            document.getElementById('savingsValue').innerText = 'R$ ' + annualSavings.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
