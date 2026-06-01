@@ -14,6 +14,12 @@
       "status": "down"
     },
     {
+      "category": "TVs",
+      "score": 81,
+      "change": 0.09,
+      "status": "up"
+    },
+    {
       "category": "Notebooks",
       "score": 89,
       "change": 1.31,
