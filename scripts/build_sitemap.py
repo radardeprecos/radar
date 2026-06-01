@@ -1,50 +1,63 @@
 import os
-import json
 from datetime import datetime
-from logger import logger
 
-def generate_sitemap():
-    logger.info("Gerando sitemap.xml defensivo...")
-    base_url = "https://radardeprecos.github.io/radar"
-    urls = [
-        {"loc": f"{base_url}/", "priority": "1.0", "changefreq": "daily"},
-        {"loc": f"{base_url}/noticias/", "priority": "0.8", "changefreq": "daily"},
-        {"loc": f"{base_url}/melhores-ofertas/", "priority": "0.9", "changefreq": "hourly"},
+BASE_URL = "https://radardeprecos.github.io/radar/"
+
+def generate_valid_sitemap():
+    print("Iniciando correção do sitemap baseada em arquivos físicos...")
+    
+    # 1. Coletar arquivos HTML reais
+    valid_urls = [
+        BASE_URL,
+        f"{BASE_URL}noticias/",
+        f"{BASE_URL}melhores-ofertas/",
+        f"{BASE_URL}sobre/",
+        f"{BASE_URL}contato/",
     ]
     
-    seen_locs = {u["loc"] for u in urls}
-    
-    # Adicionar produtos do banco
-    db_path = "data/database/all_products.json"
-    if os.path.exists(db_path):
-        with open(db_path, "r", encoding="utf-8") as f:
-            products = json.load(f)
-            for p in products:
-                # Gerar slug limpo para URL
-                slug = p.get('slug') or p.get('id')
-                category = p.get('category', 'geral').lower().replace(' ', '-')
-                loc = f"{base_url}/ofertas/{category}/{slug}.html"
-                if loc not in seen_locs:
-                    urls.append({"loc": loc, "priority": "0.6", "changefreq": "weekly"})
-                    seen_locs.add(loc)
+    # Ofertas
+    ofertas_count = 0
+    if os.path.exists("ofertas"):
+        for root, dirs, files in os.walk("ofertas"):
+            for file in files:
+                if file.endswith(".html"):
+                    rel_path = os.path.relpath(os.path.join(root, file), ".")
+                    url = f"{BASE_URL}{rel_path}"
+                    valid_urls.append(url)
+                    ofertas_count += 1
+                    
+    # Categorias
+    cat_count = 0
+    if os.path.exists("categorias"):
+        for root, dirs, files in os.walk("categorias"):
+            for file in files:
+                if file.endswith("index.html"):
+                    rel_path = os.path.relpath(os.path.join(root, file), ".")
+                    url = f"{BASE_URL}{rel_path}"
+                    valid_urls.append(url)
+                    cat_count += 1
 
-    # Gerar XML
-    now = datetime.now().strftime("%Y-%m-%dT%H:%M:%S+00:00")
-    xml_content = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    # 2. Gerar XML Único e Robusto (Sitemap.xml)
+    now = datetime.now().strftime("%Y-%m-%d")
+    xml = ['<?xml version="1.0" encoding="UTF-8"?>', 
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     
-    for u in urls:
-        xml_content.append(f'    <url>')
-        xml_content.append(f'        <loc>{u["loc"]}</loc>')
-        xml_content.append(f'        <lastmod>{now}</lastmod>')
-        xml_content.append(f'        <changefreq>{u["changefreq"]}</changefreq>')
-        xml_content.append(f'        <priority>{u["priority"]}</priority>')
-        xml_content.append(f'    </url>')
+    for url in sorted(list(set(valid_urls))):
+        xml.append('  <url>')
+        xml.append(f'    <loc>{url}</loc>')
+        xml.append(f'    <lastmod>{now}</lastmod>')
+        xml.append('    <changefreq>daily</changefreq>')
+        xml.append('    <priority>0.7</priority>')
+        xml.append('  </url>')
     
-    xml_content.append('</urlset>')
+    xml.append('</urlset>')
     
     with open("sitemap.xml", "w", encoding="utf-8") as f:
-        f.write("\n".join(xml_content))
-    logger.info(f"Sitemap gerado com {len(urls)} URLs únicas.")
+        f.write("\n".join(xml))
+        
+    print(f"Sucesso! Sitemap.xml gerado com {len(valid_urls)} URLs válidas.")
+    print(f"- Ofertas encontradas: {ofertas_count}")
+    print(f"- Categorias encontradas: {cat_count}")
 
 if __name__ == "__main__":
-    generate_sitemap()
+    generate_valid_sitemap()
