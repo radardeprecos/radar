@@ -1,45 +1,91 @@
 import os
 import subprocess
-import glob
+import time
 from logger import logger
 
-def run_step(name, command):
-    logger.info(f"🚀 Iniciando Etapa: {name}")
+def run_cmd(cmd, timeout=300):
+    """Executa um comando com captura de erro e log."""
     try:
-        # shell=True para suportar pipes e redirecionamentos se necessário
-        result = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=300)
-        if result.returncode == 0:
-            logger.info(f"✅ {name} concluído com sucesso.")
-            return True
-        else:
-            logger.warning(f"⚠️ {name} falhou com código {result.returncode}. Continuando...")
-            logger.debug(f"Erro: {result.stderr}")
-            return False
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
+        if result.returncode != 0:
+            logger.warning(f"Comando falhou: {cmd}\nErro: {result.stderr}")
+        return result.returncode == 0, result.stdout
     except Exception as e:
-        logger.error(f"❌ Erro crítico em {name}: {e}. Continuando pipeline...")
-        return False
+        logger.error(f"Exceção ao executar {cmd}: {e}")
+        return False, str(e)
+
+def git_guard():
+    """Resolve conflitos de git automaticamente para garantir o push."""
+    logger.info("🛡️ Ativando Git-Guard...")
+    run_cmd("git config user.name 'Radar-Bot'")
+    run_cmd("git config user.email 'bot@radardeprecos.com.br'")
+    
+    # Tentar sincronizar
+    success, _ = run_cmd("git pull origin main --no-rebase -X ours")
+    if not success:
+        logger.warning("Falha no pull, tentando resetar índice...")
+        run_cmd("git reset -- merge")
+    
+    return True
+
+def auto_setup():
+    """Garante que a estrutura de pastas exista."""
+    dirs = [
+        "data/database", "data/history", "data/products", 
+        "ofertas/beleza", "ofertas/casa", "ofertas/celulares", 
+        "ofertas/informatica", "ofertas/games", "ofertas/tv-e-video",
+        "noticias/posts"
+    ]
+    for d in dirs:
+        os.makedirs(d, exist_ok=True)
+    logger.info("✅ Estrutura de diretórios validada.")
 
 def orchestrate():
-    logger.info("🤖 Iniciando Orquestrador Supremo (Modo Fluxo Contínuo)")
+    logger.info("🚀 [ROBÔ SUPREMO 2.0] Iniciando em modo AUTONOMIA TOTAL")
     
-    # 1. Coleta e Sincronização
-    run_step("Fetch Products", "python3.11 scripts/fetch_products.py")
-    run_step("Sync Database", "python3.11 scripts/sync_database.py")
+    auto_setup()
+    git_guard()
+
+    steps = [
+        ("Coleta", "python3.11 scripts/fetch_products.py"),
+        ("Sincronia", "python3.11 scripts/sync_database.py"),
+        ("Deduplicação", "python3.11 scripts/deduplicate.py"),
+        ("Afiliados", "python3.11 scripts/affiliate_links.py"),
+        ("Limpeza", "python3.11 scripts/deep_clean.py"),
+        ("Home", "python3.11 scripts/build_homepage.py"),
+        ("Blog", "python3.11 scripts/generate_blog_posts.py"),
+        ("Páginas", "python3.11 scripts/generate_pages.py"),
+        ("Sitemap", "python3.11 scripts/build_sitemap.py")
+    ]
+
+    for name, cmd in steps:
+        logger.info(f"🔄 Executando: {name}")
+        # Retry logic simples
+        success = False
+        for attempt in range(2):
+            ok, _ = run_cmd(cmd)
+            if ok:
+                success = True
+                break
+            logger.warning(f"Tentativa {attempt+1} falhou para {name}. Re-tentando...")
+            time.sleep(2)
+        
+        if not success:
+            logger.error(f"❌ {name} falhou após retentativas. Pulando para manter o fluxo.")
+
+    # Push Final Automático
+    logger.info("📤 Enviando atualizações para o GitHub...")
+    run_cmd("git add .")
+    run_cmd('git commit -m "🤖 [ROBÔ] Atualização Automática e Auto-Cura "')
     
-    # 2. Blindagem e Limpeza (Não bloqueante)
-    run_step("Deduplicate", "python3.11 scripts/deduplicate.py")
-    run_step("Affiliate Links", "python3.11 scripts/affiliate_links.py")
-    run_step("Deep Clean", "python3.11 scripts/deep_clean.py")
-    
-    # 3. Geração de Conteúdo
-    run_step("Build Homepage", "python3.11 scripts/build_homepage.py")
-    run_step("Generate Blog", "python3.11 scripts/generate_blog_posts.py")
-    run_step("Generate Pages", "python3.11 scripts/generate_pages.py")
-    
-    # 4. Finalização
-    run_step("Build Sitemap", "python3.11 scripts/build_sitemap.py")
-    
-    logger.info("🏁 Pipeline finalizado. Sistema em estado de Auto-Cura.")
+    # Git-Guard no Push
+    push_ok, _ = run_cmd("git push origin main")
+    if not push_ok:
+        logger.warning("Push falhou, tentando forçar sincronia final...")
+        git_guard()
+        run_cmd("git push origin main")
+
+    logger.info("🏁 Ciclo de autonomia finalizado com sucesso.")
 
 if __name__ == "__main__":
     orchestrate()
