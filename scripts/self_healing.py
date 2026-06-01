@@ -55,7 +55,7 @@ def orchestrate():
         ("Home", "python3.11 scripts/build_homepage.py"),
         ("Blog", "python3.11 scripts/generate_blog_posts.py"),
         ("Páginas", "python3.11 scripts/generate_pages.py"),
-        ("Sitemap", "python3.11 scripts/build_sitemap.py")
+        ("Rankings", "python3.11 scripts/build_top_rankings.py"), ("Sitemap", "python3.11 scripts/build_sitemap.py")
     ]
 
     for name, cmd in steps:
