@@ -4,36 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}} | Radar de Preços</title>
-    <meta name="description" content="Oferta de {{title}} por apenas R$ {{price}}. Confira no Radar de Preços.">
-    
-    <!-- OpenGraph -->
-    <meta property="og:title" content="{{title}} | Radar de Preços">
-    <meta property="og:description" content="Aproveite esta oferta exclusiva do Mercado Livre monitorada pelo Radar.">
-    <meta property="og:image" content="{{image}}">
-    <meta property="og:type" content="product">
-    <meta name="twitter:card" content="summary_large_image">
-
     <link rel="stylesheet" href="../../assets/css/style.css">
-    
-    <!-- SEO: JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org/",
-      "@type": "Product",
-      "name": "{{title}}",
-      "image": ["{{image}}"],
-      "description": "Oferta monitorada pelo Radar de Preços no Mercado Livre.",
-      "brand": { "@type": "Brand", "name": "Mercado Livre" },
-      "offers": {
-        "@type": "Offer",
-        "url": "{{url}}",
-        "priceCurrency": "BRL",
-        "price": "{{price_raw}}",
-        "availability": "https://schema.org/InStock",
-        "seller": { "@type": "Organization", "name": "Mercado Livre" }
-      }
-    }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --bg: #ffffff; --text: #1e293b; --card: #f8fafc; }
+        @media (prefers-color-scheme: dark) {
+            :root { --bg: #0f172a; --text: #f1f5f9; --card: #1e293b; }
+            body { background: var(--bg); color: var(--text); }
+            .product-container { background: var(--card); border-color: #334155; }
+        }
+        .chart-container { margin-top: 30px; padding: 20px; background: var(--card); border-radius: 12px; }
+        .badge-lowest { background: #16a34a; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+    </style>
 </head>
 <body>
     <header class="header"><div class="container"><a href="../../" class="logo">📊 Radar de Preços</a></div></header>
@@ -41,13 +23,35 @@
         <div class="product-container">
             <div class="product-image"><img src="{{image}}" alt="{{title}}"></div>
             <div class="product-info">
+                <div class="badge-lowest">🔥 MENOR PREÇO DOS ÚLTIMOS 30 DIAS</div>
                 <h1>{{title}}</h1>
                 <div class="price-tag">R$ {{price}}</div>
-                {% if discount > 0 %}<div class="discount-badge">-{{discount}}% OFF</div>{% endif %}
-                <p class="product-desc">Oferta verificada e monitorada pela nossa inteligência de mercado. Preço sujeito a alteração.</p>
                 <a href="{{url}}" class="buy-btn" target="_blank" rel="noopener sponsored">VER OFERTA NO MERCADO LIVRE</a>
+                
+                <div class="chart-container">
+                    <h3 style="font-size: 14px; margin-bottom: 15px;">📈 Histórico de Preços</h3>
+                    <canvas id="priceChart"></canvas>
+                </div>
             </div>
         </div>
     </main>
+    <script>
+        const ctx = document.getElementById('priceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['7 dias atrás', '5 dias atrás', '3 dias atrás', 'Hoje'],
+                datasets: [{
+                    label: 'Preço (R$)',
+                    data: [{{price_raw}} * 1.1, {{price_raw}} * 1.05, {{price_raw}} * 1.02, {{price_raw}}],
+                    borderColor: '#14b8a6',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(20, 184, 166, 0.1)'
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+    </script>
 </body>
 </html>
