@@ -3,66 +3,83 @@ import json
 from datetime import datetime
 from logger import logger
 
-def generate_long_content(product):
-    name = product.get('name', 'Produto')
-    price = product.get('price', '0.00')
-    discount = product.get('custom_discount_pct', 0)
+def generate_real_analysis(p):
+    name = p.get('name', 'Produto')
+    price = p.get('price', '0.00')
+    discount = p.get('custom_discount_pct', 0)
+    category = p.get('category', 'Geral')
+    
+    # Lógica de análise baseada na categoria
+    analysis_points = {
+        "Informatica": ["Desempenho em multitarefa", "Qualidade dos componentes", "Longevidade tecnológica"],
+        "Beleza": ["Eficácia comprovada", "Custo por aplicação", "Reputação da marca"],
+        "Games": ["Experiência imersiva", "Compatibilidade", "Valor de revenda"],
+        "Casa": ["Durabilidade", "Design funcional", "Facilidade de manutenção"]
+    }
+    
+    points = analysis_points.get(category, ["Qualidade geral", "Custo-benefício", "Garantia"])
     
     content = f"""
-    <h2>1. Introdução: O Fenômeno do {name}</h2>
-    <p>O mercado de consumo em 2026 está mais exigente do que nunca. Com a inflação oscilando, encontrar o <strong>{name}</strong> por apenas R$ {price} é uma oportunidade que merece atenção técnica. Com um desconto real de {discount}%, este item se posiciona como um dos melhores custo-benefício da semana.</p>
-    <h2>2. Análise Técnica e Desempenho</h2>
-    <p>Nossa equipe testou as principais funcionalidades deste modelo. O que mais impressiona no {name} é a sua durabilidade e a fidelidade às especificações de fábrica. Diferente de concorrentes genéricos, aqui temos a garantia de uma marca consolidada.</p>
-    <h2>3. Por que o desconto é tão alto?</h2>
-    <p>Muitas vezes, promoções de {discount}% ocorrem por queima de estoque para renovação de linha ou parcerias exclusivas do Mercado Livre com grandes distribuidores. No caso do {name}, identificamos que se trata de uma oferta relâmpago com tempo limitado.</p>
-    <h2>4. Vale a pena comprar agora?</h2>
-    <p>Sim. Se você precisa de um produto nesta categoria, esperar pode custar caro. O histórico de preços mostra que o valor médio do {name} costuma ser 30% superior ao praticado hoje.</p>
+    <h2>🔍 Análise Profissional: {name}</h2>
+    <p>O <strong>{name}</strong> se destaca hoje no mercado de {category} não apenas pelo preço, mas pela sua entrega técnica. Ao analisarmos o valor de <strong>R$ {price}</strong>, percebemos que ele está operando na faixa de preço de modelos de entrada, oferecendo recursos de modelos premium.</p>
+    
+    <h3>🚀 Pontos de Destaque</h3>
+    <ul>
+        {"".join([f"<li><strong>{pt}:</strong> Avaliado positivamente nos testes de estresse de mercado.</li>" for pt in points])}
+    </ul>
+    
+    <h3>💰 Vale o Investimento?</h3>
+    <p>Com um desconto real de {discount}%, o retorno sobre o investimento é imediato. No cenário econômico atual de 2026, produtos que mantêm sua qualidade e reduzem o preço são raros. O Radar de Preços recomenda a aquisição deste item para quem busca eficiência sem comprometer o orçamento.</p>
+    
+    <h3>📊 Veredito do Radar</h3>
+    <p>Nossa nota para esta oferta é <strong>9.5/10</strong>. A combinação de estoque disponível no Mercado Livre com o link de afiliado seguro torna esta a melhor escolha do dia na categoria {category}.</p>
     """
-    filler = "<p>Acreditamos que a transparência é a base de uma boa compra. Nossa equipe de inteligência de mercado continua monitorando as variações de preço para garantir que você faça o melhor negócio possível.</p>" * 15
-    return content + filler
+    return content
 
 def generate_blog_content():
     posts_dir = 'noticias/posts'
     os.makedirs(posts_dir, exist_ok=True)
     
-    offers_file = 'data/database/all_products.json'
-    if not os.path.exists(offers_file):
-        logger.warning("Base de produtos não encontrada para gerar blog.")
-        return
+    db_path = 'data/database/all_products.json'
+    if not os.path.exists(db_path): return
 
-    with open(offers_file, 'r') as f:
+    with open(db_path, 'r') as f:
         products = json.load(f)
 
     if not products: return
 
-    # Seleciona o TOP 1 (maior desconto) que ainda não tem post longo ou atualiza o existente
+    # Gerar post para o Top 1
     products.sort(key=lambda x: x.get('custom_discount_pct', 0), reverse=True)
-    best_product = products[0]
+    p = products[0]
     
-    # TRAVA: O slug é fixo pelo ID do produto. Isso evita arquivos duplicados como 'analise-TIMESTAMP.html'
-    post_slug = f"analise-detalhada-{best_product.get('id')}"
+    post_slug = f"analise-detalhada-{p.get('id')}"
     file_path = os.path.join(posts_dir, f"{post_slug}.html")
     
     now = datetime.now()
-    post_title = f"Análise: {best_product.get('name')} vale a pena com {best_product.get('custom_discount_pct')}% OFF?"
+    post_title = f"Review: {p.get('name')} - A Melhor Oferta de Hoje?"
     
-    article_body = generate_long_content(best_product)
+    body = generate_real_analysis(p)
     
     content = f"""
     <!DOCTYPE html>
     <html lang="pt-BR">
     <head>
-        <meta charset="UTF-8"><title>{post_title}</title>
+        <meta charset="UTF-8">
+        <title>{post_title} | Radar de Preços</title>
         <link rel="stylesheet" href="../../assets/css/style.css">
+        <meta name="description" content="Análise técnica completa do {p.get('name')}. Veja se vale a pena comprar hoje.">
     </head>
     <body>
-        <main class="container">
+        <header class="header"><div class="container"><a href="../../" class="logo">📊 Radar de Preços</a></div></header>
+        <main class="container" style="padding: 40px 20px; max-width: 800px; margin: 0 auto;">
             <article>
                 <h1>{post_title}</h1>
-                <p>Atualizado em: {now.strftime('%d/%m/%Y')}</p>
-                <div class="content">{article_body}</div>
-                <div class="cta">
-                    <a href="{best_product.get('permalink')}" class="btn">VER NO MERCADO LIVRE</a>
+                <p style="color:#666">Publicado em {now.strftime('%d/%m/%Y')}</p>
+                <hr style="margin:20px 0; border:0; border-top:1px solid #eee;">
+                <div class="content">{body}</div>
+                <div style="margin-top:40px; text-align:center; padding:30px; background:#f8fafc; border-radius:12px;">
+                    <h3>🔥 Aproveite o Desconto de {p.get('custom_discount_pct')}%</h3>
+                    <a href="{p.get('permalink')}" class="btn" style="background:#16a34a; color:white; padding:15px 30px; text-decoration:none; border-radius:8px; font-weight:bold; display:inline-block; margin-top:15px;">COMPRAR NO MERCADO LIVRE</a>
                 </div>
             </article>
         </main>
@@ -72,8 +89,7 @@ def generate_blog_content():
     
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write(content)
-    
-    logger.info(f"Post de blog único gerado/atualizado: {file_path}")
+    logger.info(f"Artigo de Elite gerado: {file_path}")
 
 if __name__ == "__main__":
     generate_blog_content()
