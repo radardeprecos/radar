@@ -2,6 +2,7 @@ import os
 import json
 import re
 import unicodedata
+from datetime import datetime, timedelta
 from pathlib import Path
 from logger import logger
 
@@ -36,20 +37,64 @@ def extract_news_from_index(news_index_path):
         logger.error(f"Erro ao parsear NEWS do index: {e}")
         return []
 
-def build_homepage(input_path, news_index_path, template_path, output_path):
-    logger.info(f"Construindo página inicial aprimorada...")
+def load_rotation_history(history_path):
+    if os.path.exists(history_path):
+        try:
+            with open(history_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except:
+            return {}
+    return {}
+
+def save_rotation_history(history_path, history):
+    os.makedirs(os.path.dirname(history_path), exist_ok=True)
+    with open(history_path, "w", encoding="utf-8") as f:
+        json.dump(history, f, ensure_ascii=False, indent=2)
+
+def build_homepage(input_path, news_index_path, template_path, output_path, history_path):
+    logger.info(f"Construindo página inicial com lógica de rotação...")
     if not os.path.exists(template_path):
         logger.error(f"Template {template_path} não encontrado!")
         return
     with open(template_path, "r", encoding="utf-8") as f:
         template = f.read()
+
     products = []
     if os.path.exists(input_path):
         with open(input_path, "r", encoding="utf-8") as f:
             products = json.load(f)
+    
     active_products = [p for p in products if p.get("status") == "active"]
-    active_products.sort(key=lambda x: x.get("custom_discount_pct", 0), reverse=True)
-    display_products = active_products[:24]
+    
+    history = load_rotation_history(history_path)
+    now = datetime.now()
+    threshold = now - timedelta(hours=48)
+    
+    available_products = []
+    recent_ids = set()
+    for pid, date_str in history.items():
+        try:
+            if datetime.fromisoformat(date_str) > threshold:
+                recent_ids.add(pid)
+        except:
+            pass
+    
+    for p in active_products:
+        p_id = str(p.get("id"))
+        if p_id not in recent_ids:
+            available_products.append(p)
+    
+    if len(available_products) < 12:
+        logger.warning(f"Poucos produtos inéditos ({len(available_products)}). Relaxando regra de rotação.")
+        available_products = active_products
+    
+    available_products.sort(key=lambda x: x.get("custom_discount_pct", 0), reverse=True)
+    display_products = available_products[:24]
+    
+    for p in display_products:
+        history[str(p.get("id"))] = now.isoformat()
+    save_rotation_history(history_path, history)
+
     products_html = ""
     for p in display_products:
         p_name = p.get("name") or p.get("title") or "Produto"
@@ -61,6 +106,7 @@ def build_homepage(input_path, news_index_path, template_path, output_path):
         p_price = money(p.get("price"))
         p_old = money(p.get("originalPrice") or p.get("original_price"))
         p_disc = p.get("custom_discount_pct", 0)
+        
         products_html += f"""
         <div class="product-card">
             <div class="badge-discount">{p_disc}% OFF</div>
@@ -73,6 +119,7 @@ def build_homepage(input_path, news_index_path, template_path, output_path):
             <a href="{p_url}" class="btn">VER ALERTA</a>
         </div>
         """
+
     news_list = extract_news_from_index(news_index_path)
     news_html = ""
     if news_list:
@@ -93,6 +140,7 @@ def build_homepage(input_path, news_index_path, template_path, output_path):
             """
     else:
         news_html = "<p style='grid-column: 1/-1; text-align: center; color: #666;'>Nenhuma notícia recente disponível.</p>"
+
     content = template.replace("{{products_html}}", products_html)
     if "{{news_html}}" in content:
         content = content.replace("{{news_html}}", news_html)
@@ -114,9 +162,16 @@ def build_homepage(input_path, news_index_path, template_path, output_path):
     </section>
         """
         content = content.replace('<footer class="footer">', f"{news_section}\n    <footer class=\"footer\">")
+
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
-    logger.info(f"Homepage aprimorada gerada com {len(display_products)} produtos e {len(news_list[:3])} notícias.")
+    logger.info(f"Homepage gerada com {len(display_products)} produtos (rotação ativa) e {len(news_list[:3])} notícias.")
 
 if __name__ == "__main__":
-    build_homepage("data/database/all_products.json", "noticias/index.html", "templates/homepage.html", "index.html")
+    build_homepage(
+        "data/database/all_products.json", 
+        "noticias/index.html", 
+        "templates/homepage.html", 
+        "index.html",
+        "data/history/homepage_rotation.json"
+    )
