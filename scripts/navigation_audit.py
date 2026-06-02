@@ -37,11 +37,11 @@ def audit_navigation():
         {"name": "Calendário de Preços", "path": "calendario-de-precos/index.html", "url": "calendario-de-precos/"},
         {"name": "Melhores 2026", "path": "melhores-2026/index.html", "url": "melhores-2026/"},
         {"name": "Estatísticas", "path": "estatisticas/index.html", "url": "estatisticas/"},
-        {"name": "Radar de Mercado", "path": "radar-de-mercado/index.html", "url": "radar-de-mercado/"},
-        {"name": "Prêmio Radar 2026", "path": "premio-radar-2026/index.html", "url": "premio-radar-2026/"},
+        {"name": "Radar de Preços de Mercado", "path": "radar-de-mercado/index.html", "url": "radar-de-mercado/"},
+        {"name": "Prêmio Radar de Preços 2026", "path": "premio-radar-2026/index.html", "url": "premio-radar-2026/"},
         {"name": "Simulador Economia", "path": "ferramentas/economia/index.html", "url": "ferramentas/economia/"},
         {"name": "Metodologia", "path": "metodologia/index.html", "url": "metodologia/"},
-        {"name": "O Que Está em Alta", "path": "o-que-esta-em-alta/index.html", "url": "o-que-esta-em-alta/"},
+        {"name": "O Que Está em Alta", "path": "tendencias/index.html", "url": "tendencias/"},
     ]
     
     for page in strategic_pages:

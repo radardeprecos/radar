@@ -1,108 +1,741 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notícias & Cupons | Radar de Preços</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
-        .search-container { margin: 20px 0; position: relative; }
-        .search-input { width: 100%; padding: 15px 20px; border-radius: 12px; border: 2px solid #e2e8f0; font-size: 16px; outline: none; transition: border-color 0.3s; }
-        .search-input:focus { border-color: #14b8a6; }
-        .filter-tabs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
-        .filter-tab { padding: 10px 20px; border-radius: 20px; background: #f1f5f9; cursor: pointer; white-space: nowrap; transition: all 0.3s; border: none; font-weight: 600; color: #64748b; }
-        .filter-tab.active { background: #14b8a6; color: white; }
-        .news-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .news-item { background: white; border-radius: 16px; padding: 20px; border: 1px solid #e2e8f0; transition: transform 0.3s; }
-        .news-item:hover { transform: translateY(-5px); border-color: #14b8a6; }
-        .coupon-card { background: #f0fdf4; border: 2px dashed #16a34a; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
-        .copy-btn { background: #16a34a; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-    </style>
+<head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Notícias de Tecnologia e Promoções — Lançamentos e Cupons | Compara Preço</title>
+<meta content="Fique por dentro dos lançamentos de produtos, promoções especiais, cupons de desconto e eventos de ofertas como Black Friday e promoções." name="description"/>
+<link href="https://comparapreco.github.io/noticias/" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="https://comparapreco.github.io/noticias/" property="og:url"/>
+<meta content="Notícias de Tecnologia e Promoções | Compara Preço" property="og:title"/>
+<meta content="Lançamentos, promoções, cupons e eventos de ofertas atualizados." property="og:description"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Compara Preço — Centro de Notícias",
+    "description": "Lançamentos, promoções, cupons e eventos de ofertas.",
+    "url": "https://comparapreco.github.io/noticias/"
+  }
+  </script>
+<style>
+    .page-hero {
+      background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+      color: white;
+      padding: 50px 0 40px;
+      margin-bottom: 40px;
+    }
+    .page-hero h1 { font-size: 2rem; margin-bottom: 10px; }
+    .breadcrumb { font-size: 13px; opacity: 0.8; margin-bottom: 15px; }
+    .breadcrumb a { color: white; text-decoration: none; }
+    .news-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 900px) { .news-layout { grid-template-columns: 1fr; } }
+    .news-main {}
+    .news-sidebar {}
+    .featured-news {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 25px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.2s;
+    }
+    .featured-news:hover { transform: translateY(-3px); }
+    .featured-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--primary), #00a83f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .featured-img-placeholder {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .featured-body { padding: 20px; }
+    .news-tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tag-lancamento { background: #dbeafe; color: #1d4ed8; }
+    .tag-promocao { background: #dcfce7; color: #15803d; }
+    .tag-cupom { background: #fef3c7; color: #b45309; }
+    .tag-evento { background: #fce7f3; color: #9d174d; }
+    .tag-analise { background: #f3e8ff; color: #7e22ce; }
+    .news-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; line-height: 1.4; }
+    .news-excerpt { font-size: 14px; color: var(--text-light); line-height: 1.6; margin-bottom: 12px; }
+    .news-meta { font-size: 12px; color: var(--text-light); display: flex; gap: 12px; align-items: center; }
+    .news-list { display: flex; flex-direction: column; gap: 15px; }
+    .news-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      gap: 15px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s;
+    }
+    .news-item:hover { border-color: var(--primary); }
+    .news-item-icon {
+      width: 60px; height: 60px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      background: var(--bg);
+    }
+    .news-item-body { flex: 1; }
+    .news-item-title { font-weight: 700; font-size: 14px; margin-bottom: 5px; line-height: 1.4; }
+    .news-item-meta { font-size: 12px; color: var(--text-light); }
+    .sidebar-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .sidebar-box h3 { font-weight: 800; margin-bottom: 15px; font-size: 1rem; }
+    .cupom-item {
+      background: var(--bg);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .cupom-code {
+      font-family: monospace;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 2px;
+      margin-bottom: 4px;
+    }
+    .cupom-desc { font-size: 12px; color: var(--text-light); }
+    .copy-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+    .event-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .event-item:last-child { border-bottom: none; }
+    .event-date {
+      background: var(--primary);
+      color: white;
+      border-radius: 8px;
+      padding: 6px 10px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      min-width: 50px;
+    }
+    .event-name { font-weight: 700; font-size: 13px; }
+    .event-desc { font-size: 11px; color: var(--text-light); }
+    .section-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; }
+    .filter-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .filter-tab {
+      padding: 7px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .filter-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+  </style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P0X4Z9Y7B2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P0X4Z9Y7B2');
+</script>
+<script>
+  // Rastreamento de cliques em afiliados
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href*="mercadolivre.com"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        gtag('event', 'affiliate_click', {
+          'event_category': 'engagement',
+          'event_label': this.href,
+          'link_url': this.href,
+          'product_name': this.getAttribute('title') || this.innerText
+        });
+      });
+    });
+  });
+</script>
+  <meta name="google-adsense-account" content="ca-pub-4896859041377751">
 </head>
 <body>
-    <header class="header"><div class="container"><a href="../" class="logo">📊 Radar de Preços</a></div></header>
-    
-    <main class="container" style="padding: 20px;">
-        <h1 style="margin-bottom: 10px;">Notícias & Cupons</h1>
-        <p style="color: #64748b; margin-bottom: 30px;">Tudo o que você precisa saber para economizar no Mercado Livre.</p>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Compara Preço</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<section class="page-hero">
+<div class="container">
+<div class="breadcrumb"><a href="../">Início</a> › Notícias</div>
+<h1>📰 Centro de Notícias</h1>
+<p>Lançamentos, promoções, cupons e eventos de ofertas. Tudo o que você precisa saber para economizar.</p>
+</div>
+</section>
+<main class="container">
+<div class="filter-tabs" id="filterTabs">
+<button class="filter-tab active" data-filter="all">📰 Todas</button>
+<button class="filter-tab" data-filter="lancamento">🚀 Lançamentos</button>
+<button class="filter-tab" data-filter="promocao">💰 Promoções</button>
+<button class="filter-tab" data-filter="cupom">🎟️ Cupons</button>
+<button class="filter-tab" data-filter="evento">🎉 Eventos</button>
+</div>
+<div class="news-layout">
+<!-- Coluna principal -->
+<div class="news-main">
+<!-- Notícia em destaque -->
+<div class="featured-news" id="featuredNews">
+<!-- Preenchido via JS -->
+</div>
+<h2 class="section-title">Últimas Notícias</h2>
+<div class="news-list" id="newsList">
+<!-- Preenchido via JS -->
+</div>
+</div>
+<!-- Sidebar -->
+<div class="news-sidebar">
+<!-- Cupons ativos -->
+<div class="sidebar-box">
+<h3>🎟️ Cupons Ativos</h3>
+<div class="cupom-item">
+<div class="cupom-code">RADAR10</div>
+<div class="cupom-desc">10% extra em eletrônicos no Mercado Livre</div>
+<button class="copy-btn" onclick="copyCode('RADAR10', this)">Copiar</button>
+</div>
+<div class="cupom-item">
+<div class="cupom-code">TECH20</div>
+<div class="cupom-desc">R$20 off em compras acima de R$200</div>
+<button class="copy-btn" onclick="copyCode('TECH20', this)">Copiar</button>
+</div>
+<div class="cupom-item">
+<div class="cupom-code">FRETEGRATIS</div>
+<div class="cupom-desc">Frete grátis em qualquer produto</div>
+<button class="copy-btn" onclick="copyCode('FRETEGRATIS', this)">Copiar</button>
+</div>
+<div class="cupom-item">
+<div class="cupom-code">PRIMEDAY26</div>
+<div class="cupom-desc">15% off em produtos Mercado Livre</div>
+<button class="copy-btn" onclick="copyCode('PRIMEDAY26', this)">Copiar</button>
+</div>
+</div>
+<!-- Próximos eventos -->
+<div class="sidebar-box">
+<h3>📅 Próximos Eventos</h3>
+<div class="event-item">
+<div class="event-date">JUL<br/>15</div>
+<div>
+<div class="event-name">Promoções do Mercado Livre</div>
+<div class="event-desc">48h de ofertas exclusivas</div>
+</div>
+</div>
+<div class="event-item">
+<div class="event-date">AGO<br/>01</div>
+<div>
+<div class="event-name">Mega Oferta ML</div>
+<div class="event-desc">Festival de descontos Mercado Livre</div>
+</div>
+</div>
+<div class="event-item">
+<div class="event-date">NOV<br/>28</div>
+<div>
+<div class="event-name">Black Friday 2026</div>
+<div class="event-desc">O maior evento de descontos do ano</div>
+</div>
+</div>
+<div class="event-item">
+<div class="event-date">DEZ<br/>12</div>
+<div>
+<div class="event-name">Cyber Monday</div>
+<div class="event-desc">Foco em eletrônicos e tech</div>
+</div>
+</div>
+</div>
+<!-- Produtos em destaque -->
+<div class="sidebar-box">
+<h3>🔥 Ofertas do Momento</h3>
+<div id="sidebarOffers">Carregando...</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="footer">
+<div class="container">
+<p>© 2026 Compara Preço. Atualizado via API oficial do Mercado Livre.</p>
+<div class="footer-links">
+<a href="../sobre/">Sobre</a>
+<a href="../contato/">Contato</a>
+<a href="../privacidade/">Privacidade</a>
+<a href="../indice-compara/">Índice Compara Preço</a>
+<a href="../tendencias/">Tendências</a>
+<a href="../noticias/">Notícias</a>
+</div>
+</div>
+</footer>
+<script>
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+    if (savedTheme === 'dark') document.getElementById('themeToggle').textContent = '☀️';
+    document.getElementById('searchInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') { const q = e.target.value.trim(); if (q) window.location.href = `../?q=${encodeURIComponent(q)}`; }
+    });
 
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="Pesquisar notícias ou cupons...">
+    function copyCode(code, btn) {
+      navigator.clipboard.writeText(code).then(() => {
+        btn.textContent = '✅ Copiado!';
+        setTimeout(() => btn.textContent = 'Copiar', 2000);
+      });
+    }
+
+    // Notícias estáticas (em produção viriam de um JSON gerado automaticamente)
+    const NEWS = [
+        {
+        "id": 1780385748,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Aparador De Pelos Multigroom 8 Em 1 Mg3917/15 Philips Preto 127/220v vale a pena com 47% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Aparador De Pelos Multigroom 8 Em 1 Mg3917/15 Philips Preto 127/220v com 47% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-aparador-de-pelos-multigroom-8-em-1-mg3917-15-philips-p-MLB5556558810-20260602073548-1.html"
+},
+        {
+        "id": 1780384001,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Monitor Gamer Aoc 21.5'' Full Hd Gaming 120hz 1ms 22b30hm23 Cor Preto 127/220v vale a pena com 42% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Monitor Gamer Aoc 21.5'' Full Hd Gaming 120hz 1ms 22b30hm23 Cor Preto 127/220v com 42% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-monitor-gamer-aoc-21-5-full-hd-gaming-120hz-1ms-22b30hm-MLB4089347501-20260602070641-1.html"
+},
+        {
+        "id": 1780383134,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Smart Tv Philco 50 P50vik 4k Uhd Led Roku Dolby Audio Wi-fi Hdr10 110/220v vale a pena com 43% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Smart Tv Philco 50 P50vik 4k Uhd Led Roku Dolby Audio Wi-fi Hdr10 110/220v com 43% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-smart-tv-philco-50-p50vik-4k-uhd-led-roku-dolby-audio-w-MLB6539025322-20260602065214-1.html"
+},
+        {
+        "id": 1780378750,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Asus ROG Ally Z1 Extreme 512GB vale a pena com 47% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Asus ROG Ally Z1 Extreme 512GB com 47% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-asus-rog-ally-z1-extreme-512gb-MLB62321219-20260602053910-1.html"
+},
+        {
+        "id": 1780377471,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Aparador De Pelos Multigroom 8 Em 1 Mg3917/15 Philips Preto 127/220v vale a pena com 47% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Aparador De Pelos Multigroom 8 Em 1 Mg3917/15 Philips Preto 127/220v com 47% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-aparador-de-pelos-multigroom-8-em-1-mg3917-15-philips-p-MLB5556558810-20260602051751-1.html"
+},
+        {
+        "id": 1780375891,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Jogo Chave Catraca Reversível Soquete 46 Peças Maleta vale a pena com 48% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Jogo Chave Catraca Reversível Soquete 46 Peças Maleta com 48% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-jogo-chave-catraca-reversivel-soquete-46-pecas-maleta-MLB3247449553-20260602045131-1.html"
+},
+        {
+        "id": 1780375558,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Smartphone Samsung Galaxy A36 5g 128gb 6gb Ram Câmera Tripla De Até 50mp Selfie De 12mp Ip67 Super Amoled 6.7'' Nfc Recursos Ai Android E Segurança Snapdragon - Preto vale a pena com 48% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Smartphone Samsung Galaxy A36 5g 128gb 6gb Ram Câmera Tripla De Até 50mp Selfie  com 48% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-smartphone-samsung-galaxy-a36-5g-128gb-6gb-ram-camera-t-MLB6756182602-20260602044558-1.html"
+},
+        {
+        "id": 1780375247,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Cadeira Escritório Ergonômica Giratória Com Apoio Lombar Da Python Fly Preto Malha vale a pena com 48% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Cadeira Escritório Ergonômica Giratória Com Apoio Lombar Da Python Fly Preto Mal com 48% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-cadeira-escritorio-ergonomica-giratoria-com-apoio-lomba-MLB5664473412-20260602044047-1.html"
+},
+        {
+        "id": 1780375123,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Kit C/ 36 Envelopes (252 Cromos) - Copa Do Mundo Fifa 2026 vale a pena com 49% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Kit C/ 36 Envelopes (252 Cromos) - Copa Do Mundo Fifa 2026 com 49% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-kit-c-36-envelopes-252-cromos-copa-do-mundo-fifa-2026-MLB6582857986-20260602043843-1.html"
+},
+        {
+        "id": 1780375002,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Samsung Galaxy Tab A11+ 5g 6gb, 128gb Cinza vale a pena com 49% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Samsung Galaxy Tab A11+ 5g 6gb, 128gb Cinza com 49% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-samsung-galaxy-tab-a11-5g-6gb-128gb-cinza-MLB6233727450-20260602043642-1.html"
+},
+        {
+        "id": 1780374889,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Perfume Sedutor Árabe Sabah 100ml Original Feminino vale a pena com 49% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Perfume Sedutor Árabe Sabah 100ml Original Feminino com 49% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-perfume-sedutor-arabe-sabah-100ml-original-feminino-MLB3994439565-20260602043449-1.html"
+},
+        {
+        "id": 1780374761,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Furadeira Parafusadeira Impacto Bateria 21v Bivolt vale a pena com 50% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Furadeira Parafusadeira Impacto Bateria 21v Bivolt com 50% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-furadeira-parafusadeira-impacto-bateria-21v-bivolt-MLB3386925565-20260602043241-1.html"
+},
+        {
+        "id": 1780374742,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Jogo 6 Copos Diamond Egipcio 300ml Vidro Grosso Diamante Luxo Transparente Vitrex vale a pena com 54% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Jogo 6 Copos Diamond Egipcio 300ml Vidro Grosso Diamante Luxo Transparente Vitre com 54% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-jogo-6-copos-diamond-egipcio-300ml-vidro-grosso-diamant-MLB6600589630-20260602043222-1.html"
+},
+        {
+        "id": 1780374565,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Celular Samsung Galaxy A17 5g Com Ia, 128gb, 4gb Ram, Câm De 50mp, Tela De 6.7 , Nfc, Ip54 - Cinza vale a pena com 55% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Celular Samsung Galaxy A17 5g Com Ia, 128gb, 4gb Ram, Câm De 50mp, Tela De 6.7 , com 55% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-celular-samsung-galaxy-a17-5g-com-ia-128gb-4gb-ram-cam-MLB4238150607-20260602042925-1.html"
+},
+        {
+        "id": 1780371341,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Celular Samsung Galaxy A07 256gb, 8gb, Câmera 50mp, Tela 6.7 , Proteção Ip54, Processador 6nm - Preto vale a pena com 55% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Celular Samsung Galaxy A07 256gb, 8gb, Câmera 50mp, Tela 6.7 , Proteção Ip54, Pr com 55% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-celular-samsung-galaxy-a07-256gb-8gb-camera-50mp-tela-6-MLB6443434920-20260602033541-1.html"
+},
+        {
+        "id": 1780370992,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Creatina Monohidratada Pura 1kg Dark Lab Unidade Sem Sabor vale a pena com 56% OFF?",
+        "excerpt": "Análise automática do Radar Ninja sobre Creatina Monohidratada Pura 1kg Dark Lab Unidade Sem Sabor com 56% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-creatina-monohidratada-pura-1kg-dark-lab-unidade-sem-sa-MLB4812130742-20260602032952-1.html"
+},
+    {
+        "id": 1780268075,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Vale a Pena Comprar o Parafusadeira Furadeira C/ 2 Baterias Maleta Kit Completo Led Eixo Flexível Vários Níveis Torque Amarelo 127/220v 60 Hz?",
+        "excerpt": "Análise técnica do Parafusadeira Furadeira C/ 2 Baterias Maleta Kit C... com 57% de desconto.",
+        "date": "31 May 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-MLB4345564271-20260531.html"
+    },
+    {
+        "id": 1780268075,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Vale a Pena Comprar o Kit 10 Pote De Vidro Marmita Hermético 370ml Freezer Fitness Rishon Transparente?",
+        "excerpt": "Análise técnica do Kit 10 Pote De Vidro Marmita Hermético 370ml Freez... com 57% de desconto.",
+        "date": "31 May 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-MLB4371605519-20260531.html"
+    },
+    {
+        "id": 1780268075,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Vale a Pena Comprar o Cooktop A Gás Fischer 4 Bocas Fit Line Trempe Esmaltada Aramado Preto 127/220v?",
+        "excerpt": "Análise técnica do Cooktop A Gás Fischer 4 Bocas Fit Line Trempe Esma... com 59% de desconto.",
+        "date": "31 May 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-MLB4292031849-20260531.html"
+    },
+    {
+        "id": 1780268075,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Vale a Pena Comprar o Creatina Monohidratada Pura 500g Dark Lab Unidade Sem Sabor?",
+        "excerpt": "Análise técnica do Creatina Monohidratada Pura 500g Dark Lab Unidade ... com 65% de desconto.",
+        "date": "31 May 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-MLB4812143184-20260531.html"
+    },
+    {
+        "id": 1780268075,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise: Vale a Pena Comprar o Whey Protein Concentrado 100% 900g Refil Dark Lab Sabor Morango?",
+        "excerpt": "Análise técnica do Whey Protein Concentrado 100% 900g Refil Dark Lab ... com 68% de desconto.",
+        "date": "31 May 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-MLB3755400429-20260531.html"
+    },
+{
+        "id": 1780266818,
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Análise Completa: Vale a Pena Comprar o Celular Samsung Galaxy A17 5g Com Ia, 128gb, 4gb Ram, Câm De 50mp, Tela De 6.7 , Nfc, Ip54 - Cinza em 2026?",
+        "excerpt": "Análise completa e profissional deste produto. Descubra se vale a pena comprar com 55% de desconto.",
+        "date": "31 May 2026",
+        "readTime": "15 min",
+        "featured": true,
+        "url": "posts/analise-completa-MLB4238150607-2026-05-31-22-33-38.html"
+}];
+
+    let currentFilter = 'all';
+
+    function renderNews(filter) {
+      const filtered = filter === 'all' ? NEWS : NEWS.filter(n => n.tag === filter);
+
+      // Notícia em destaque
+      const featured = filtered[0];
+      if (featured) {
+        document.getElementById('featuredNews').innerHTML = `
+          <div class="featured-img-placeholder" style="background:linear-gradient(135deg,#0f766e,#14b8a6);">${featured.icon}</div>
+          <div class="featured-body">
+            <span class="news-tag ${featured.tagClass}">${featured.tagLabel}</span>
+            <a href="${featured.url}" style="text-decoration:none; color:inherit;"><div class="news-title">${featured.title}</div></a>
+            <div class="news-excerpt">${featured.excerpt}</div>
+            <div class="news-meta">
+              <span>📅 ${featured.date}</span>
+              <span>⏱️ ${featured.readTime} de leitura</span>
+            </div>
+          </div>
+        `;
+      }
+
+      // Lista de notícias
+      const rest = filtered.slice(1);
+      document.getElementById('newsList').innerHTML = rest.map(n => `
+        <a href="${n.url}" style="text-decoration:none; color:inherit;">
+        <div class="news-item">
+          <div class="news-item-icon">${n.icon}</div>
+          <div class="news-item-body">
+            <span class="news-tag ${n.tagClass}" style="margin-bottom:5px;display:inline-block;">${n.tagLabel}</span>
+            <div class="news-item-title">${n.title}</div>
+            <div class="news-item-meta">📅 ${n.date} · ⏱️ ${n.readTime}</div>
+          </div>
         </div>
+        </a>
+      `).join('');
 
-        <div class="filter-tabs" id="filterTabs">
-            <button class="filter-tab active" data-filter="all">📂 Todas</button>
-            <button class="filter-tab" data-filter="lancamento">🚀 Lançamentos</button>
-            <button class="filter-tab" data-filter="promocao">💰 Promoções</button>
-            <button class="filter-tab" data-filter="cupom">🎟️ Cupons</button>
-            <button class="filter-tab" data-filter="evento">🎉 Eventos</button>
-        </div>
+      if (rest.length === 0 && !featured) {
+        document.getElementById('newsList').innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-light);">Nenhuma notícia nesta categoria no momento.</div>';
+      }
+    }
 
-        <div id="newsContent" class="news-grid">
-            <!-- Conteúdo dinâmico aqui -->
-        </div>
-    </main>
+    document.getElementById('filterTabs').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-tab');
+      if (!btn) return;
+      document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      renderNews(currentFilter);
+    });
 
-    <script>
-        const DATA = [
-            { type: 'cupom', code: 'RADAR10', desc: '10% extra em eletrônicos no Mercado Livre', filter: 'cupom' },
-            { type: 'cupom', code: 'TECH20', desc: 'R0 off em compras acima de R00', filter: 'cupom' },
-            { type: 'noticia', tag: 'lancamento', title: 'Samsung Galaxy A17 5G: O novo rei do custo-benefício?', excerpt: 'Analisamos o novo lançamento da Samsung que promete dominar o mercado intermediário em 2026.', url: 'posts/samsung-galaxy-a17-5g-lancamento.html', filter: 'lancamento' },
-            { type: 'noticia', tag: 'promocao', title: 'Amazon Prime Day 2026: O que esperar das ofertas no Brasil', excerpt: 'As datas foram confirmadas! Veja como se preparar para o maior evento de compras do ano.', url: 'posts/amazon-prime-day-2026.html', filter: 'promocao' },
-            { type: 'noticia', tag: 'evento', title: 'Black Friday 2026: Guia Definitivo de Sobrevivência', excerpt: 'Não caia em falsas promoções. Aprenda a usar o Radar para garantir descontos reais.', url: 'posts/como-economizar-eletronicos-2026.html', filter: 'evento' }
-        ];
+    renderNews('all');
 
-        function render(filter = 'all', search = '') {
-            const container = document.getElementById('newsContent');
-            const filtered = DATA.filter(item => {
-                const matchesFilter = filter === 'all' || item.filter === filter;
-                const matchesSearch = (item.title || item.code || '').toLowerCase().includes(search.toLowerCase()) || 
-                                     (item.excerpt || item.desc || '').toLowerCase().includes(search.toLowerCase());
-                return matchesFilter && matchesSearch;
-            });
-
-            container.innerHTML = filtered.map(item => {
-                if (item.type === 'cupom') {
-                    return `
-                        <div class="coupon-card">
-                            <div style="font-weight: 800; color: #16a34a; font-size: 20px; margin-bottom: 5px;">${item.code}</div>
-                            <p style="margin-bottom: 10px; color: #166534;">${item.desc}</p>
-                            <button class="copy-btn" onclick="copyText('${item.code}')">Copiar Código</button>
-                        </div>
-                    `;
-                } else {
-                    return `
-                        <a href="${item.url}" style="text-decoration: none; color: inherit;">
-                            <div class="news-item">
-                                <span class="news-tag" style="background: #e2e8f0; padding: 4px 10px; border-radius: 4px; font-size: 12px;">${item.tag.toUpperCase()}</span>
-                                <h3 style="margin: 10px 0;">${item.title}</h3>
-                                <p style="color: #64748b; font-size: 14px;">${item.excerpt}</p>
-                            </div>
-                        </a>
-                    `;
-                }
-            }).join('') || '<p style="text-align:center; padding: 40px; color: #64748b;">Nenhum resultado encontrado.</p>';
+    // Sidebar: produtos em destaque
+    async function loadSidebarOffers() {
+      const sidebarContainer = document.getElementById('sidebarOffers');
+      try {
+        // Tenta carregar com cache busting para garantir dados novos
+        const response = await fetch('../data/products/offers.json?t=' + Date.now());
+        if (!response.ok) throw new Error('Falha ao carregar ofertas');
+        
+        const products = await response.json();
+        if (!products || products.length === 0) {
+          sidebarContainer.innerHTML = 'Nenhuma oferta no momento.';
+          return;
         }
 
-        function copyText(text) {
-            navigator.clipboard.writeText(text);
-            alert('Cupom ' + text + ' copiado!');
-        }
+        const top3 = [...products]
+          .sort((a, b) => (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0))
+          .slice(0, 3);
 
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const activeFilter = document.querySelector('.filter-tab.active').dataset.filter;
-            render(activeFilter, e.target.value);
-        });
+        sidebarContainer.innerHTML = top3.map(p => {
+          const url = p.custom_affiliate_url || p.permalink || '#';
+          const disc = p.custom_discount_pct || 0;
+          const price = parseFloat(p.price || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+          const img = p.image || p.thumbnail || '';
+          const title = (p.title || p.name || '').substring(0, 45);
 
-        document.getElementById('filterTabs').addEventListener('click', (e) => {
-            if (e.target.classList.contains('filter-tab')) {
-                document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                render(e.target.dataset.filter, document.getElementById('searchInput').value);
-            }
-        });
+          return `
+            <a href="${url}" rel="noopener sponsored" style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;" target="_blank">
+              <div style="width:60px;height:60px;flex-shrink:0;background:#f5f5f5;border-radius:4px;overflow:hidden;">
+                <img src="${img}" alt="${title}" style="width:100%;height:100%;object-fit:contain;" loading="lazy">
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;line-height:1.3;margin-bottom:4px;">${title}...</div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="color:var(--primary);font-weight:800;font-size:13px;">R$ ${price}</div>
+                  ${disc > 0 ? `<span style="font-size:11px;color:#16a34a;font-weight:700;">-${disc}%</span>` : ''}
+                </div>
+              </div>
+            </a>
+          `;
+        }).join('');
+      } catch (error) {
+        console.error('Erro ao carregar ofertas da sidebar:', error);
+        sidebarContainer.innerHTML = 'Não foi possível carregar as ofertas agora.';
+      }
+    }
 
-        render();
-    </script>
+    loadSidebarOffers();
+  </script>
 </body>
 </html>

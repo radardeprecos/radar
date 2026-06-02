@@ -4,9 +4,9 @@
 <head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Cupons e Códigos de Desconto — Radar de Preços</title>
-<meta content="Cupons e códigos de desconto para Mercado Livre, Amazon, Magalu e outras lojas. Economize com cupons exclusivos." name="description"/>
-<link href="https://radardeprecos.github.io/radar/cupons/" rel="canonical"/>
+<title>Cupons e Códigos de Desconto — Compara Preço</title>
+<meta content="Cupons e códigos de desconto para Mercado Livre. Economize com cupons exclusivos." name="description"/>
+<link href="https://comparapreco.github.io/cupons/" rel="canonical"/>
 <link href="../assets/css/style.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
 <style>
@@ -70,11 +70,12 @@
     });
   });
 </script>
+  <meta name="google-adsense-account" content="ca-pub-4896859041377751">
 </head>
 <body>
 <header class="header">
 <div class="container header-inner">
-<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<a class="logo" href="../">📊 <strong>Compara Preço</strong></a>
 <div class="search-bar">
 <input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
 </div>
@@ -84,17 +85,14 @@
 <section class="hero">
 <div class="container">
 <h1>🎟️ Cupons e Códigos de Desconto</h1>
-<p>Cupons exclusivos para Mercado Livre, Amazon, Magalu e outras lojas. Economize ainda mais nas suas compras.</p>
+<p>Cupons exclusivos para Mercado Livre. Economize ainda mais nas suas compras.</p>
 </div>
 </section>
 <main class="container">
 <div class="filters">
 <button class="filter-btn active" data-filter="all">Todas as Lojas</button>
 <button class="filter-btn" data-filter="mercado-livre">🛒 Mercado Livre</button>
-<button class="filter-btn" data-filter="amazon">📦 Amazon</button>
-<button class="filter-btn" data-filter="magalu">🏪 Magalu</button>
-<button class="filter-btn" data-filter="shopee">🛍️ Shopee</button>
-<button class="filter-btn" data-filter="aliexpress">🌐 AliExpress</button>
+
 </div>
 <div class="coupons-grid" id="couponsGrid">
 <!-- Preenchido via JavaScript -->
@@ -102,7 +100,7 @@
 </main>
 <footer class="footer">
 <div class="container">
-<p>© 2026 Radar de Preços. Cupons e Descontos.</p>
+<p>© 2026 Compara Preço. Cupons e Descontos.</p>
 <div class="footer-links">
 <a href="../sobre/">Sobre</a>
 <a href="../contato/">Contato</a>
@@ -128,10 +126,7 @@
       },
       {
         id: 2,
-        store: 'Amazon',
-        filter: 'amazon',
-        title: '15% de desconto em primeira compra',
-        description: 'Código exclusivo para primeira compra na Amazon',
+        
         code: 'RADAR15',
         discount: '15%',
         minPurchase: 'Sem mínimo',
@@ -141,23 +136,9 @@
       },
       {
         id: 3,
-        store: 'Magalu',
-        filter: 'magalu',
-        title: 'Frete grátis em eletrônicos',
-        description: 'Frete grátis em compras de eletrônicos acima de R$ 150',
-        code: 'RADARFRETE',
-        discount: 'Frete Grátis',
-        minPurchase: 'R$ 150',
-        validUntil: '30/06/2026',
-        uses: 'Ilimitado',
-        badge: 'Ativo'
-      },
       {
         id: 4,
-        store: 'Shopee',
-        filter: 'shopee',
-        title: 'R$ 30 de desconto',
-        description: 'Desconto de R$ 30 em compras acima de R$ 100',
+        
         code: 'RADAR30',
         discount: 'R$ 30',
         minPurchase: 'R$ 100',

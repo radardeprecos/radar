@@ -27,7 +27,7 @@ def migrate():
         path = os.path.join(posts_dir, filename)
         
         # Tentar identificar o produto pelo nome do arquivo ou conteúdo
-        # Como os nomes antigos eram radar-ofertas-..., vamos pegar um produto aleatório 
+        # Como os nomes antigos eram compara-ofertas-..., vamos pegar um produto aleatório 
         # ou os top produtos para preencher esses posts antigos com conteúdo de valor.
         
         target_product = random.choice(products)
@@ -52,7 +52,7 @@ def migrate():
                 <article>
                     <header style="margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
                         <h1>{new_title}</h1>
-                        <p style="color: #666;">Publicado por Equipe Radar em {now.strftime('%d/%m/%Y %H:%M')} | Leitura de 15 min</p>
+                        <p style="color: #666;">Publicado por Equipe Radar de Preços em {now.strftime('%d/%m/%Y %H:%M')} | Leitura de 15 min</p>
                     </header>
                     <div class="content" style="line-height: 1.8; font-size: 16px; color: #333;">
                         {article_body}

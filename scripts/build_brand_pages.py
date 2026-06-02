@@ -182,7 +182,7 @@ TEMPLATE = '''<!DOCTYPE html>
         <a href="../../sobre/">Sobre</a>
         <a href="../../contato/">Contato</a>
         <a href="../../privacidade/">Privacidade</a>
-        <a href="../../indice-radar/">Índice Radar</a>
+        <a href="../../indice-compara/">Índice Radar de Preços</a>
         <a href="../../tendencias/">Tendências</a>
       </div>
     </div>
@@ -329,7 +329,7 @@ def build_hub():
     <div class="container">
       <div class="breadcrumb"><a href="../">Início</a> › Melhores Ofertas por Marca</div>
       <h1>🏷️ Melhores Ofertas por Marca</h1>
-      <p>Encontre as melhores promoções organizadas por fabricante. Descontos reais verificados pelo Radar.</p>
+      <p>Encontre as melhores promoções organizadas por fabricante. Descontos reais verificados pelo Radar de Preços.</p>
     </div>
   </section>
   <main class="container">
@@ -344,7 +344,7 @@ def build_hub():
       <div class="footer-links">
         <a href="../sobre/">Sobre</a>
         <a href="../contato/">Contato</a>
-        <a href="../indice-radar/">Índice Radar</a>
+        <a href="../indice-compara/">Índice Radar de Preços</a>
         <a href="../tendencias/">Tendências</a>
       </div>
     </div>

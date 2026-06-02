@@ -2,8 +2,13 @@ import os
 import json
 import unicodedata
 import random
+from pathlib import Path
 from logger import logger
 
+BASE_URL = "https://radardeprecos.github.io/radar/"
+ROOT = Path(__file__).resolve().parents[1] if "__file__" in locals() else Path(".")
+
+# Configuração Portal Único
 BASE_URL = "https://radardeprecos.github.io/radar/"
 
 def slugify(text: str) -> str:
@@ -13,6 +18,7 @@ def slugify(text: str) -> str:
 
 def build_homepage(input_path: str, template_path: str, output_path: str) -> None:
     logger.info(f"Construindo página inicial dinâmica a partir de {input_path}...")
+    
     if not os.path.exists(template_path):
         logger.error(f"Template {template_path} não encontrado!")
         return

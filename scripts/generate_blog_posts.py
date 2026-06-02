@@ -1,95 +1,233 @@
-import os
+import html
 import json
+import os
+import re
+import unicodedata
 from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+try:
+    from openai import OpenAI
+    AI_ENABLED = True
+except Exception:
+    AI_ENABLED = False
+
 from logger import logger
 
-def generate_real_analysis(p):
-    name = p.get('name', 'Produto')
-    price = p.get('price', '0.00')
-    discount = p.get('custom_discount_pct', 0)
-    category = p.get('category', 'Geral')
-    
-    # Lógica de análise baseada na categoria
-    analysis_points = {
-        "Informatica": ["Desempenho em multitarefa", "Qualidade dos componentes", "Longevidade tecnológica"],
-        "Beleza": ["Eficácia comprovada", "Custo por aplicação", "Reputação da marca"],
-        "Games": ["Experiência imersiva", "Compatibilidade", "Valor de revenda"],
-        "Casa": ["Durabilidade", "Design funcional", "Facilidade de manutenção"]
-    }
-    
-    points = analysis_points.get(category, ["Qualidade geral", "Custo-benefício", "Garantia"])
-    
-    content = f"""
-    <h2>🔍 Análise Profissional: {name}</h2>
-    <p>O <strong>{name}</strong> se destaca hoje no mercado de {category} não apenas pelo preço, mas pela sua entrega técnica. Ao analisarmos o valor de <strong>R$ {price}</strong>, percebemos que ele está operando na faixa de preço de modelos de entrada, oferecendo recursos de modelos premium.</p>
-    
-    <h3>🚀 Pontos de Destaque</h3>
-    <ul>
-        {"".join([f"<li><strong>{pt}:</strong> Avaliado positivamente nos testes de estresse de mercado.</li>" for pt in points])}
-    </ul>
-    
-    <h3>💰 Vale o Investimento?</h3>
-    <p>Com um desconto real de {discount}%, o retorno sobre o investimento é imediato. No cenário econômico atual de 2026, produtos que mantêm sua qualidade e reduzem o preço são raros. O Radar de Preços recomenda a aquisição deste item para quem busca eficiência sem comprometer o orçamento.</p>
-    
-    <h3>📊 Veredito do Radar</h3>
-    <p>Nossa nota para esta oferta é <strong>9.5/10</strong>. A combinação de estoque disponível no Mercado Livre com o link de afiliado seguro torna esta a melhor escolha do dia na categoria {category}.</p>
-    """
-    return content
+BASE_URL = "https://radardeprecos.github.io/radar/"
+ROOT = Path(__file__).resolve().parents[1]
 
-def generate_blog_content():
-    posts_dir = 'noticias/posts'
-    os.makedirs(posts_dir, exist_ok=True)
-    
-    db_path = 'data/database/all_products.json'
-    if not os.path.exists(db_path): return
+# Configuração Portal Único
+POSTS_DIR = ROOT / "noticias" / "posts"
+NEWS_INDEX = ROOT / "noticias" / "index.html"
+BASE_URL = "https://radardeprecos.github.io/radar/"
 
-    with open(db_path, 'r') as f:
+PRODUCTS_FILE = ROOT / "data" / "database" / "all_products.json"
+
+
+def slugify(text: str, max_len: int = 90) -> str:
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    text = re.sub(r"[^a-zA-Z0-9]+", "-", text.lower()).strip("-")
+    return text[:max_len].strip("-") or "oferta"
+
+
+def money(value: Any) -> str:
+    try:
+        return f"R$ {float(value):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    except (TypeError, ValueError):
+        return "Preço indisponível"
+
+
+def load_products() -> List[Dict[str, Any]]:
+    if not PRODUCTS_FILE.exists():
+        logger.error(f"Banco de dados de produtos não encontrado: {PRODUCTS_FILE}")
+        return []
+    with PRODUCTS_FILE.open("r", encoding="utf-8") as f:
         products = json.load(f)
+    
+    active = [p for p in products if p.get("status", "active") == "active" and p.get("name")]
+    active.sort(key=lambda p: float(p.get("custom_discount_pct") or 0), reverse=True)
+    return active
 
-    if not products: return
 
-    # Gerar post para o Top 1
-    products.sort(key=lambda x: x.get('custom_discount_pct', 0), reverse=True)
-    p = products[0]
-    
-    post_slug = f"analise-detalhada-{p.get('id')}"
-    file_path = os.path.join(posts_dir, f"{post_slug}.html")
-    
-    now = datetime.now()
-    post_title = f"Review: {p.get('name')} - A Melhor Oferta de Hoje?"
-    
-    body = generate_real_analysis(p)
-    
-    content = f"""
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <title>{post_title} | Radar de Preços</title>
-        <link rel="stylesheet" href="../../assets/css/style.css">
-        <meta name="description" content="Análise técnica completa do {p.get('name')}. Veja se vale a pena comprar hoje.">
-    </head>
-    <body>
-        <header class="header"><div class="container"><a href="../../" class="logo">📊 Radar de Preços</a></div></header>
-        <main class="container" style="padding: 40px 20px; max-width: 800px; margin: 0 auto;">
-            <article>
-                <h1>{post_title}</h1>
-                <p style="color:#666">Publicado em {now.strftime('%d/%m/%Y')}</p>
-                <hr style="margin:20px 0; border:0; border-top:1px solid #eee;">
-                <div class="content">{body}</div>
-                <div style="margin-top:40px; text-align:center; padding:30px; background:#f8fafc; border-radius:12px;">
-                    <h3>🔥 Aproveite o Desconto de {p.get('custom_discount_pct')}%</h3>
-                    <a href="{p.get('permalink')}" class="btn" style="background:#16a34a; color:white; padding:15px 30px; text-decoration:none; border-radius:8px; font-weight:bold; display:inline-block; margin-top:15px;">COMPRAR NO MERCADO LIVRE</a>
-                </div>
-            </article>
-        </main>
-    </body>
-    </html>
+def select_products(products: List[Dict[str, Any]], count: int) -> List[Dict[str, Any]]:
+    if not products:
+        return []
+    existing_count = len(list(POSTS_DIR.glob("*.html"))) if POSTS_DIR.exists() else 0
+    selected: List[Dict[str, Any]] = []
+    for i in range(count):
+        selected.append(products[(existing_count + i) % len(products)])
+    return selected
+
+
+def generate_product_specs(product: Dict[str, Any]) -> Dict[str, str]:
+    name = product.get("name", "Produto")
+    specs = {
+        "Produto": name,
+        "Categoria": product.get("custom_category_slug", "geral").replace("-", " ").title(),
+        "Preço atual": money(product.get("price")),
+        "Preço anterior": money(product.get("originalPrice") or product.get("original_price")),
+        "Desconto monitorado": f"{product.get('custom_discount_pct', 0)}%",
+    }
+    lower_name = name.lower()
+    storage = re.search(r"(\d+\s?gb|\d+\s?tb)", lower_name)
+    if storage:
+        specs["Armazenamento citado"] = storage.group(1).upper().replace(" ", "")
+    screen = re.search(r"(\d+(?:[,.]\d+)?)\s?(?:polegadas|\")", lower_name)
+    if screen:
+        specs["Tela citada"] = f"{screen.group(1)} polegadas"
+    return specs
+
+
+def generate_ai_content(product: Dict[str, Any]) -> Optional[str]:
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not AI_ENABLED or not api_key:
+        return None
+    try:
+        client = OpenAI(api_key=api_key)
+        prompt = (
+            "Escreva uma análise curta, objetiva e original para o blog Radar de Preços sobre "
+            f"o produto {product.get('name')}. O desconto atual é de "
+            f"{product.get('custom_discount_pct')}% e o preço é {money(product.get('price'))}. "
+            "Use português do Brasil, tom editorial, sem promessas absolutas, em 3 parágrafos. "
+            "Responda apenas com HTML simples usando parágrafos."
+        )
+        response = client.chat.completions.create(
+            model="gpt-4.1-mini",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7,
+        )
+        return response.choices[0].message.content
+    except Exception as exc:
+        logger.warning(f"IA indisponível para artigo; usando texto determinístico. Motivo: {exc}")
+        return None
+
+
+def generate_long_content(product: Dict[str, Any]) -> str:
+    name = html.escape(product.get("name", "Produto"))
+    discount = html.escape(str(product.get("custom_discount_pct", 0)))
+    category = html.escape(product.get("custom_category_slug", "geral").replace("-", " "))
+    specs = generate_product_specs(product)
+    specs_html = "".join(f"<li><strong>{html.escape(k)}:</strong> {html.escape(v)}</li>" for k, v in specs.items())
+    ai_text = generate_ai_content(product)
+    intro = ai_text or (
+        f"<p>O <strong>{name}</strong> entrou no radar do Radar de Preços porque combina desconto relevante, "
+        "preço competitivo e procura recorrente entre consumidores que acompanham ofertas do Mercado Livre.</p>"
+    )
+    return f"""
+        {intro}
+        <h2>Por que esta oferta foi selecionada?</h2>
+        <p>Nosso robô prioriza produtos ativos com maior redução percentual, disponibilidade pública e potencial de economia. Nesta análise, o destaque é o desconto de <strong>{discount}%</strong> na categoria <strong>{category}</strong>.</p>
+        <h2>Resumo técnico e comercial</h2>
+        <ul>{specs_html}</ul>
+        <h2>Pontos de atenção antes de comprar</h2>
+        <p>Antes de concluir a compra, confira o prazo de entrega, a reputação do vendedor, as condições de garantia e se o preço final ainda corresponde ao valor exibido no momento da análise.</p>
+        <h2>Veredito do Radar Ninja</h2>
+        <p>Esta é uma oferta que merece acompanhamento porque apresenta desconto expressivo em relação ao preço de referência cadastrado. Se o produto atende à sua necessidade, vale comparar rapidamente com alternativas da mesma categoria antes que o valor mude.</p>
     """
-    
-    with open(file_path, 'w', encoding='utf-8') as f:
-        f.write(content)
-    logger.info(f"Artigo de Elite gerado: {file_path}")
+
+
+def render_post(product: Dict[str, Any], now: datetime, sequence: int) -> tuple[str, str, str]:
+    product_name = product.get("name", "Produto")
+    safe_name = html.escape(product_name)
+    product_id = str(product.get("id", "produto"))
+    timestamp = now.strftime("%Y%m%d%H%M%S")
+    slug = f"analise-{slugify(product_name, 55)}-{product_id}-{timestamp}-{sequence}"
+    title = f"Análise: {product_name} vale a pena com {product.get('custom_discount_pct', 0)}% OFF?"
+    canonical = f"{BASE_URL}noticias/posts/{slug}.html"
+    article_body = generate_long_content(product)
+    image = html.escape(product.get("image") or product.get("thumbnail") or "")
+    offer_url = html.escape(product.get("custom_affiliate_url") or product.get("permalink") or "#")
+    content = f"""<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{html.escape(title)} | Radar de Preços</title>
+    <meta name="description" content="Análise automática do Radar Ninja sobre {safe_name}, preço, desconto e pontos de atenção antes de comprar.">
+    <link rel="canonical" href="{canonical}">
+    <link rel="alternate" type="application/rss+xml" title="Radar de Preços - Feed" href="{BASE_URL}feed.xml">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+    <header class="header"><div class="container"><a href="../../" class="logo">📊 Radar de Preços</a></div></header>
+    <main class="container" style="padding: 40px 20px; max-width: 860px; margin: 0 auto;">
+        <article>
+            <header style="margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
+                <div style="color: var(--primary); font-weight: bold; margin-bottom: 10px;">ANÁLISE AUTOMÁTICA DO RADAR NINJA</div>
+                <h1>{html.escape(title)}</h1>
+                <p style="color: #666;">Equipe Radar de Preços | {now.strftime('%d/%m/%Y %H:%M')}</p>
+            </header>
+            <section style="background: #f9f9f9; padding: 20px; border-radius: 12px; display: flex; gap: 20px; align-items: center; margin-bottom: 30px; flex-wrap: wrap;">
+                <img src="{image}" alt="{safe_name}" style="width: 160px; height: 160px; object-fit: contain; background: white; border-radius: 8px;">
+                <div>
+                    <div style="font-size: 26px; font-weight: 800; color: #d32f2f;">{money(product.get('price'))}</div>
+                    <div style="color: #388e3c; font-weight: bold;">{html.escape(str(product.get('custom_discount_pct', 0)))}% OFF monitorado</div>
+                    <a href="{offer_url}" class="btn" style="margin-top: 15px; display: inline-block;">Ver Oferta no Mercado Livre</a>
+                </div>
+            </section>
+            <div class="content">{article_body}</div>
+            <footer style="margin-top: 40px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+                <a href="../../noticias/" style="color: var(--primary); text-decoration: none; font-weight: bold;">← Ver todas as notícias</a>
+            </footer>
+        </article>
+    </main>
+</body>
+</html>
+"""
+    return title, slug, content
+
+
+def update_news_index(title: str, slug: str, product: Dict[str, Any], now: datetime) -> None:
+    if not NEWS_INDEX.exists():
+        logger.warning(f"Índice de notícias não encontrado: {NEWS_INDEX}")
+        return
+    content = NEWS_INDEX.read_text(encoding="utf-8")
+    url = f"posts/{slug}.html"
+    if url in content:
+        logger.info(f"Post já estava indexado: {url}")
+        return
+    entry = {
+        "id": int(now.timestamp()),
+        "tag": "analise",
+        "tagLabel": "📊 Análise",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": title,
+        "excerpt": f"Análise automática do Radar Ninja sobre {product.get('name', 'produto')[:80]} com {product.get('custom_discount_pct', 0)}% de desconto monitorado.",
+        "date": now.strftime("%d %b %Y"),
+        "readTime": "5 min",
+        "featured": True,
+        "url": url,
+    }
+    serialized = json.dumps(entry, ensure_ascii=False, indent=8)
+    marker = "const NEWS = ["
+    if marker not in content:
+        logger.warning("Marcador const NEWS = [ não encontrado; índice não atualizado.")
+        return
+    content = content.replace(marker, f"{marker}\n        {serialized},", 1)
+    NEWS_INDEX.write_text(content, encoding="utf-8")
+
+
+def generate_blog_content(count: int = 1) -> List[Path]:
+    POSTS_DIR.mkdir(parents=True, exist_ok=True)
+    products = load_products()
+    selected = select_products(products, count)
+    created: List[Path] = []
+    now = datetime.now()
+    for sequence, product in enumerate(selected, start=1):
+        title, slug, content = render_post(product, now, sequence)
+        file_path = POSTS_DIR / f"{slug}.html"
+        file_path.write_text(content, encoding="utf-8")
+        update_news_index(title, slug, product, now)
+        created.append(file_path)
+        logger.info(f"Artigo gerado: {file_path.relative_to(ROOT)}")
+    logger.info(f"Total de artigos gerados nesta execução: {len(created)}")
+    return created
+
 
 if __name__ == "__main__":
-    generate_blog_content()
+    import sys
+    count = int(sys.argv[1]) if len(sys.argv) > 1 else int(os.environ.get("BLOG_POST_COUNT", "1"))
+    generate_blog_content(max(1, count))
