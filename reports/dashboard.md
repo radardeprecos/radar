@@ -1,10 +1,10 @@
 # 📊 Dashboard de Observabilidade - Radar de Preços
-Atualizado em: 2026-06-02 08:02:56
+Atualizado em: 2026-06-02 08:03:27
 
 ## 🛡️ Status do Sistema
 - **Saúde:** ✅ Healthy
 - **Taxa de Duplicação:** 0.00% (Meta: < 1%)
-- **Sitemaps:** 303 URLs em 8 arquivos
+- **Sitemaps:** 304 URLs em 8 arquivos
 
 ## 📦 Inventário e Conteúdo
 | Métrica | Total |
@@ -13,11 +13,12 @@ Atualizado em: 2026-06-02 08:02:56
 | Produtos Expirados | 2 |
 | Páginas de Oferta | 73 |
 | Categorias | 23 |
-| Posts no Blog | 27 |
+| Posts no Blog | 28 |
 
 ## 🕒 Últimas Execuções
 | Timestamp | Status | Produtos | URLs |
 | :--- | :--- | :--- | :--- |
+| 2026-06-02 08:03:27 | ✅ Success | 57 | 304 |
 | 2026-06-02 08:02:56 | ✅ Success | 57 | 303 |
 | 2026-06-02 07:57:15 | ✅ Success | 57 | 301 |
 | 2026-06-02 07:56:48 | ✅ Success | 57 | 300 |
@@ -25,4 +26,4 @@ Atualizado em: 2026-06-02 08:02:56
 ## 📅 Resumo Diário (Últimos 7 dias)
 | Data | Runs | Sucessos | Crescimento Prod. | Crescimento URLs |
 | :--- | :--- | :--- | :--- | :--- |
-| 2026-06-02 | 3 | 3 | +0 | +3 |
+| 2026-06-02 | 4 | 4 | +0 | +4 |
