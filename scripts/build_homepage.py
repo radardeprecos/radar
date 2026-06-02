@@ -1,5 +1,6 @@
 import os
 import json
+import re
 import unicodedata
 from pathlib import Path
 from logger import logger
@@ -15,26 +16,40 @@ def money(value):
     except:
         return "N/A"
 
-def build_homepage(input_path, template_path, output_path):
-    logger.info(f"Construindo página inicial estática...")
+def extract_news_from_index(news_index_path):
+    if not os.path.exists(news_index_path):
+        return []
+    with open(news_index_path, "r", encoding="utf-8") as f:
+        content = f.read()
     
+    match = re.search(r'const NEWS = \[(.*?)\];', content, re.DOTALL)
+    if not match:
+        return []
+    
+    news_json_str = "[" + match.group(1) + "]"
+    news_json_str = re.sub(r',\s*\]', ']', news_json_str)
+    
+    try:
+        news_data = json.loads(news_json_str)
+        return news_data
+    except Exception as e:
+        logger.error(f"Erro ao parsear NEWS do index: {e}")
+        return []
+
+def build_homepage(input_path, news_index_path, template_path, output_path):
+    logger.info(f"Construindo página inicial aprimorada...")
     if not os.path.exists(template_path):
         logger.error(f"Template {template_path} não encontrado!")
         return
-
     with open(template_path, "r", encoding="utf-8") as f:
         template = f.read()
-
     products = []
     if os.path.exists(input_path):
         with open(input_path, "r", encoding="utf-8") as f:
             products = json.load(f)
-    
     active_products = [p for p in products if p.get("status") == "active"]
-    # Top 24 produtos com maior desconto
     active_products.sort(key=lambda x: x.get("custom_discount_pct", 0), reverse=True)
     display_products = active_products[:24]
-
     products_html = ""
     for p in display_products:
         p_name = p.get("name") or p.get("title") or "Produto"
@@ -46,7 +61,6 @@ def build_homepage(input_path, template_path, output_path):
         p_price = money(p.get("price"))
         p_old = money(p.get("originalPrice") or p.get("original_price"))
         p_disc = p.get("custom_discount_pct", 0)
-
         products_html += f"""
         <div class="product-card">
             <div class="badge-discount">{p_disc}% OFF</div>
@@ -59,13 +73,50 @@ def build_homepage(input_path, template_path, output_path):
             <a href="{p_url}" class="btn">VER ALERTA</a>
         </div>
         """
-
+    news_list = extract_news_from_index(news_index_path)
+    news_html = ""
+    if news_list:
+        for item in news_list[:3]:
+            n_title = item.get("title", "Análise Radar")
+            n_excerpt = item.get("excerpt", "Confira os detalhes desta oferta monitorada.")
+            n_url = f"noticias/{item.get('url')}"
+            n_date = item.get("date", "")
+            news_html += f"""
+            <div style="background: white; padding: 25px; border-radius: 16px; border: 1px solid #eee; transition: transform 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                <div style="color: #667eea; font-size: 12px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase;">📊 Alerta de Oferta • {n_date}</div>
+                <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px; line-height: 1.4; color: #333;">{n_title}</h3>
+                <p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px;">{n_excerpt[:120]}...</p>
+                <a href="{n_url}" style="color: #667eea; text-decoration: none; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                    Ler Análise Completa <span>→</span>
+                </a>
+            </div>
+            """
+    else:
+        news_html = "<p style='grid-column: 1/-1; text-align: center; color: #666;'>Nenhuma notícia recente disponível.</p>"
     content = template.replace("{{products_html}}", products_html)
-    
+    if "{{news_html}}" in content:
+        content = content.replace("{{news_html}}", news_html)
+    else:
+        news_section = f"""
+    <section class="blog-highlights" style="background: #f8f9fa; padding: 80px 0; border-top: 1px solid #eee;">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                <div>
+                    <h2 style="font-size: 32px; font-weight: 900; margin-bottom: 10px;">📰 Radar de Notícias</h2>
+                    <p style="color: #666;">Análises profundas geradas por nossa IA sobre as melhores oportunidades.</p>
+                </div>
+                <a href="/radar/noticias" class="btn" style="width: auto; padding: 12px 30px; background: white; color: #667eea; border: 2px solid #667eea;">Ver Tudo</a>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                {news_html}
+            </div>
+        </div>
+    </section>
+        """
+        content = content.replace('<footer class="footer">', f"{news_section}\n    <footer class=\"footer\">")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
-    
-    logger.info(f"Homepage gerada com {len(display_products)} produtos.")
+    logger.info(f"Homepage aprimorada gerada com {len(display_products)} produtos e {len(news_list[:3])} notícias.")
 
 if __name__ == "__main__":
-    build_homepage("data/database/all_products.json", "templates/homepage.html", "index.html")
+    build_homepage("data/database/all_products.json", "noticias/index.html", "templates/homepage.html", "index.html")
