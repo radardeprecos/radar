@@ -43,7 +43,7 @@ PAGES_TO_CREATE = {
     },
     'radar-de-mercado': {
         'title': 'Radar de Mercado — Inteligência de Preços | Radar de Preços',
-        'description': 'Análise em tempo real do mercado. Veja tendências de preço, produtos em alta e oportunidades de compra no Mercado Livre.',
+        'description': 'Alerta de Oferta em tempo real do mercado. Veja tendências de preço, produtos em alta e oportunidades de compra no Mercado Livre.',
         'h1': '📡 Radar de Mercado',
         'subtitle': 'Inteligência de mercado em tempo real. Tendências, análises e oportunidades.',
         'emoji': '📡',

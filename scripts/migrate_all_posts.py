@@ -32,7 +32,7 @@ def migrate():
         
         target_product = random.choice(products)
         
-        new_title = f"Análise Completa: Vale a Pena Comprar o {target_product.get('name')} em 2026?"
+        new_title = f"Alerta de Oferta Completa: Vale a Pena Comprar o {target_product.get('name')} em 2026?"
         article_body = generate_long_content(target_product)
         now = datetime.now()
 
@@ -43,7 +43,7 @@ def migrate():
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>{new_title} | Radar de Preços</title>
-            <meta name="description" content="Análise aprofundada do {target_product.get('name')}. Descubra se vale a pena comprar com {target_product.get('custom_discount_pct')}% de desconto.">
+            <meta name="description" content="Alerta de Oferta aprofundada do {target_product.get('name')}. Descubra se vale a pena comprar com {target_product.get('custom_discount_pct')}% de desconto.">
             <link rel="stylesheet" href="../../assets/css/style.css">
         </head>
         <body>

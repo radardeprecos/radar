@@ -4,12 +4,12 @@
 <head><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Notícias de Tecnologia e Promoções — Lançamentos e Cupons | Compara Preço</title>
+<title>Notícias de Tecnologia e Promoções — Lançamentos e Cupons | Radar de Preços</title>
 <meta content="Fique por dentro dos lançamentos de produtos, promoções especiais, cupons de desconto e eventos de ofertas como Black Friday e promoções." name="description"/>
-<link href="https://comparapreco.github.io/noticias/" rel="canonical"/>
+<link href="https://radardeprecos.github.io/radar/noticias/" rel="canonical"/>
 <meta content="website" property="og:type"/>
-<meta content="https://comparapreco.github.io/noticias/" property="og:url"/>
-<meta content="Notícias de Tecnologia e Promoções | Compara Preço" property="og:title"/>
+<meta content="https://radardeprecos.github.io/radar/noticias/" property="og:url"/>
+<meta content="Notícias de Tecnologia e Promoções | Radar de Preços" property="og:title"/>
 <meta content="Lançamentos, promoções, cupons e eventos de ofertas atualizados." property="og:description"/>
 <link href="../assets/css/style.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
@@ -17,14 +17,14 @@
   {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "Compara Preço — Centro de Notícias",
+    "name": "Radar de Preços — Blog de Ofertas",
     "description": "Lançamentos, promoções, cupons e eventos de ofertas.",
-    "url": "https://comparapreco.github.io/noticias/"
+    "url": "https://radardeprecos.github.io/radar/noticias/"
   }
   </script>
 <style>
     .page-hero {
-      background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+      background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
       color: white;
       padding: 50px 0 40px;
       margin-bottom: 40px;
@@ -212,7 +212,7 @@
 <body>
 <header class="header">
 <div class="container header-inner">
-<a class="logo" href="../">📊 <strong>Compara Preço</strong></a>
+<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
 <div class="search-bar">
 <input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
 </div>
@@ -222,7 +222,7 @@
 <section class="page-hero">
 <div class="container">
 <div class="breadcrumb"><a href="../">Início</a> › Notícias</div>
-<h1>📰 Centro de Notícias</h1>
+<h1>📰 Blog de Ofertas</h1>
 <p>Lançamentos, promoções, cupons e eventos de ofertas. Tudo o que você precisa saber para economizar.</p>
 </div>
 </section>
@@ -314,12 +314,12 @@
 </main>
 <footer class="footer">
 <div class="container">
-<p>© 2026 Compara Preço. Atualizado via API oficial do Mercado Livre.</p>
+<p>© 2026 Radar de Preços. Atualizado via API oficial do Mercado Livre.</p>
 <div class="footer-links">
 <a href="../sobre/">Sobre</a>
 <a href="../contato/">Contato</a>
 <a href="../privacidade/">Privacidade</a>
-<a href="../indice-compara/">Índice Compara Preço</a>
+<a href="../indice-compara/">Índice Radar de Preços</a>
 <a href="../tendencias/">Tendências</a>
 <a href="../noticias/">Notícias</a>
 </div>
@@ -349,6 +349,19 @@
 
     // Notícias estáticas (em produção viriam de um JSON gerado automaticamente)
     const NEWS = [
+        {
+        "id": 1780387366,
+        "tag": "analise",
+        "tagLabel": "📊 Alerta de Oferta",
+        "tagClass": "tag-analise",
+        "icon": "🔍",
+        "title": "Alerta de Oferta: Smart Tv LG Uhd Ai Ua75 65 Polegadas Hdr10 Pro Processador 7 Ai Ger8 Webos 25 vale a pena com 35% OFF?",
+        "excerpt": "Alerta de Oferta automática do Radar de Preços sobre Smart Tv LG Uhd Ai Ua75 65 Polegadas Hdr10 Pro Processador 7 Ai Ger8 Webos 25 com 35% de desconto monitorado.",
+        "date": "02 Jun 2026",
+        "readTime": "5 min",
+        "featured": true,
+        "url": "posts/analise-smart-tv-lg-uhd-ai-ua75-65-polegadas-hdr10-pro-processa-MLB4179239349-20260602080246-1.html"
+},
         {
         "id": 1780387036,
         "tag": "analise",
@@ -788,7 +801,7 @@
       const featured = filtered[0];
       if (featured) {
         document.getElementById('featuredNews').innerHTML = `
-          <div class="featured-img-placeholder" style="background:linear-gradient(135deg,#0f766e,#14b8a6);">${featured.icon}</div>
+          <div class="featured-img-placeholder" style="background:linear-gradient(135deg,#1a237e,#0d47a1);">${featured.icon}</div>
           <div class="featured-body">
             <span class="news-tag ${featured.tagClass}">${featured.tagLabel}</span>
             <a href="${featured.url}" style="text-decoration:none; color:inherit;"><div class="news-title">${featured.title}</div></a>

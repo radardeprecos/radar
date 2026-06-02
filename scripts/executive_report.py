@@ -28,7 +28,7 @@ def generate_report():
         growth = f"+{diff} URLs"
         
     report = f"""
-    # 📊 Relatório Executivo Radar Ninja
+    # 📊 Relatório Executivo Radar de Preços
     **Data:** {datetime.now().strftime("%Y-%m-%d")}
     
     ## 📈 Crescimento e Escala

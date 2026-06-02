@@ -56,7 +56,7 @@ def generate_rss(items: List[Dict[str, str]]) -> None:
         '  <channel>',
         '    <title>Radar de Preços - Notícias e Ofertas</title>',
         f'    <link>{BASE_URL}</link>',
-        '    <description>Análises automáticas de ofertas monitoradas pelo Radar Ninja.</description>',
+        '    <description>Alerta de Ofertas automáticas de ofertas monitoradas pelo Radar de Preços.</description>',
         f'    <lastBuildDate>{now}</lastBuildDate>',
         '    <language>pt-BR</language>',
     ]

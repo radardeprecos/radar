@@ -12,7 +12,7 @@ def load_config():
         return json.load(f)
 
 def run_portal_generation():
-    print(f"\n🚀 Iniciando geração centralizada do Portal Radar Ninja")
+    print(f"\n🚀 Iniciando geração centralizada do Portal Radar de Preços")
     
     scripts_to_run = [
         "generate_blog_posts.py",

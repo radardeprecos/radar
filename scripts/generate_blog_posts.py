@@ -123,7 +123,7 @@ def generate_long_content(product: Dict[str, Any]) -> str:
         <ul>{specs_html}</ul>
         <h2>Pontos de atenção antes de comprar</h2>
         <p>Antes de concluir a compra, confira o prazo de entrega, a reputação do vendedor, as condições de garantia e se o preço final ainda corresponde ao valor exibido no momento da análise.</p>
-        <h2>Veredito do Radar Ninja</h2>
+        <h2>Veredito do Radar de Preços</h2>
         <p>Esta é uma oferta que merece acompanhamento porque apresenta desconto expressivo em relação ao preço de referência cadastrado. Se o produto atende à sua necessidade, vale comparar rapidamente com alternativas da mesma categoria antes que o valor mude.</p>
     """
 
@@ -134,7 +134,7 @@ def render_post(product: Dict[str, Any], now: datetime, sequence: int) -> tuple[
     product_id = str(product.get("id", "produto"))
     timestamp = now.strftime("%Y%m%d%H%M%S")
     slug = f"analise-{slugify(product_name, 55)}-{product_id}-{timestamp}-{sequence}"
-    title = f"Análise: {product_name} vale a pena com {product.get('custom_discount_pct', 0)}% OFF?"
+    title = f"Alerta de Oferta: {product_name} vale a pena com {product.get('custom_discount_pct', 0)}% OFF?"
     canonical = f"{BASE_URL}noticias/posts/{slug}.html"
     article_body = generate_long_content(product)
     image = html.escape(product.get("image") or product.get("thumbnail") or "")
@@ -145,7 +145,7 @@ def render_post(product: Dict[str, Any], now: datetime, sequence: int) -> tuple[
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{html.escape(title)} | Radar de Preços</title>
-    <meta name="description" content="Análise automática do Radar Ninja sobre {safe_name}, preço, desconto e pontos de atenção antes de comprar.">
+    <meta name="description" content="Alerta de Oferta automática do Radar de Preços sobre {safe_name}, preço, desconto e pontos de atenção antes de comprar.">
     <link rel="canonical" href="{canonical}">
     <link rel="alternate" type="application/rss+xml" title="Radar de Preços - Feed" href="{BASE_URL}feed.xml">
     <link rel="stylesheet" href="../../assets/css/style.css">
@@ -191,11 +191,11 @@ def update_news_index(title: str, slug: str, product: Dict[str, Any], now: datet
     entry = {
         "id": int(now.timestamp()),
         "tag": "analise",
-        "tagLabel": "📊 Análise",
+        "tagLabel": "📊 Alerta de Oferta",
         "tagClass": "tag-analise",
         "icon": "🔍",
         "title": title,
-        "excerpt": f"Análise automática do Radar Ninja sobre {product.get('name', 'produto')[:80]} com {product.get('custom_discount_pct', 0)}% de desconto monitorado.",
+        "excerpt": f"Alerta de Oferta automática do Radar de Preços sobre {product.get('name', 'produto')[:80]} com {product.get('custom_discount_pct', 0)}% de desconto monitorado.",
         "date": now.strftime("%d %b %Y"),
         "readTime": "5 min",
         "featured": True,

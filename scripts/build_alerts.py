@@ -19,11 +19,11 @@ def build_daily_deals():
     <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
-        <title>Ofertas do Dia — Radar Ninja</title>
+        <title>Ofertas do Dia — Radar de Preços</title>
         <link rel="stylesheet" href="/assets/css/style.css">
     </head>
     <body>
-        <header class="header"><div class="container"><a href="/" class="logo">📊 Radar Ninja</a></div></header>
+        <header class="header"><div class="container"><a href="/" class="logo">📊 Radar de Preços</a></div></header>
         <main class="container">
             <div style="background:var(--primary); color:white; padding:40px; border-radius:16px; margin-bottom:40px; text-align:center;">
                 <h1>⚡ Ofertas do Dia</h1>

@@ -1,179 +1,74 @@
-#!/usr/bin/env python3
-"""
-Auditoria de "Pente Fino" do Radar de Preços
-Verifica integridade, SEO, AdSense e performance de todas as 208 páginas
-"""
-
-import json
 import os
-from pathlib import Path
-from urllib.parse import urljoin
+import re
+import json
+from logger import logger
 
-def load_products():
-    """Carrega todos os 208 produtos do arquivo final."""
-    with open('data/all_products_final_unique_urls.json', 'r', encoding='utf-8') as f:
-        return json.load(f)
-
-def audit_product_page(product):
-    """Audita uma página de produto verificando SEO, AdSense e integridade."""
-    audit = {
-        'id': product.get('id'),
-        'name': product.get('name'),
-        'url': product.get('permanent_url'),
-        'issues': [],
-        'warnings': [],
-        'score': 100
+def audit_site():
+    logger.info("Iniciando Auditoria Completa de Erros 404...")
+    
+    report = {
+        "total_links": 0,
+        "broken_links": [],
+        "fixed_count": 0,
+        "checked_files": 0
     }
     
-    # Verificar campos obrigatórios
-    required_fields = ['id', 'name', 'price', 'originalPrice', 'permanent_url', 'title', 'seo_description', 'faq']
-    for field in required_fields:
-        if not product.get(field):
-            audit['issues'].append(f"Campo obrigatório ausente: {field}")
-            audit['score'] -= 10
+    # 1. Mapear todos os arquivos HTML do site
+    html_files = []
+    for root, dirs, files in os.walk("."):
+        if "noticias/posts" in root or "ofertas" in root or "categorias" in root or "comparar" in root:
+            for file in files:
+                if file.endswith(".html"):
+                    html_files.append(os.path.join(root, file))
     
-    # Verificar SEO
-    if product.get('seo_description'):
-        if len(product['seo_description']) < 50:
-            audit['warnings'].append("Descrição SEO muito curta (<50 caracteres)")
-            audit['score'] -= 5
-    
-    # Verificar desconto
-    price = float(product.get('price', 0))
-    original_price = float(product.get('originalPrice', 0))
-    if price >= original_price:
-        audit['issues'].append("Preço não é menor que o preço original")
-        audit['score'] -= 15
-    else:
-        discount = ((original_price - price) / original_price) * 100
-        if discount < 15:
-            audit['warnings'].append(f"Desconto abaixo de 15%: {discount:.1f}%")
-            audit['score'] -= 5
-    
-    # Verificar URL de afiliado
-    if not product.get('permalink') or 'mercadolivre' not in product.get('permalink', ''):
-        audit['issues'].append("URL de afiliado inválida ou ausente")
-        audit['score'] -= 15
-    
-    # Verificar schema
-    if not product.get('schema_product'):
-        audit['warnings'].append("Schema Product não gerado")
-        audit['score'] -= 5
-    
-    # Verificar FAQ
-    if not product.get('faq') or len(product.get('faq', [])) < 5:
-        audit['warnings'].append("FAQ incompleta (<5 perguntas)")
-        audit['score'] -= 5
-    
-    return audit
+    # Adicionar index principal
+    if os.path.exists("index.html"):
+        html_files.append("index.html")
 
-def main():
-    """Executa auditoria completa."""
-    print("=" * 80)
-    print("AUDITORIA DE PENTE FINO - RADAR DE PREÇOS")
-    print("=" * 80)
-    print()
-    
-    products = load_products()
-    print(f"📊 Total de produtos carregados: {len(products)}")
-    print()
-    
-    # Auditoria em massa
-    audits = []
-    critical_issues = []
-    warnings_list = []
-    
-    for i, product in enumerate(products, 1):
-        audit = audit_product_page(product)
-        audits.append(audit)
-        
-        if audit['issues']:
-            critical_issues.append(audit)
-        if audit['warnings']:
-            warnings_list.append(audit)
-        
-        # Progresso
-        if i % 50 == 0:
-            print(f"✓ Auditadas {i}/{len(products)} páginas...")
-    
-    # Relatório
-    print()
-    print("=" * 80)
-    print("RESULTADOS DA AUDITORIA")
-    print("=" * 80)
-    print()
-    
-    # Estatísticas
-    total_score = sum(a['score'] for a in audits)
-    avg_score = total_score / len(audits)
-    
-    print(f"✅ Páginas auditadas: {len(audits)}")
-    print(f"⚠️  Páginas com avisos: {len(warnings_list)}")
-    print(f"❌ Páginas com problemas críticos: {len(critical_issues)}")
-    print(f"📈 Score médio: {avg_score:.1f}/100")
-    print()
-    
-    # Problemas críticos
-    if critical_issues:
-        print("PROBLEMAS CRÍTICOS DETECTADOS:")
-        print("-" * 80)
-        for audit in critical_issues[:10]:  # Mostrar primeiros 10
-            print(f"\n📌 {audit['name']} ({audit['id']})")
-            for issue in audit['issues']:
-                print(f"   ❌ {issue}")
-        if len(critical_issues) > 10:
-            print(f"\n   ... e mais {len(critical_issues) - 10} produtos com problemas")
-    
-    # Avisos
-    if warnings_list:
-        print("\n\nAVISOS:")
-        print("-" * 80)
-        warning_types = {}
-        for audit in warnings_list:
-            for warning in audit['warnings']:
-                warning_types[warning] = warning_types.get(warning, 0) + 1
-        
-        for warning, count in sorted(warning_types.items(), key=lambda x: x[1], reverse=True)[:5]:
-            print(f"   ⚠️  {warning}: {count} produtos")
-    
-    # Recomendações
-    print("\n\nRECOMENDAÇÕES PARA ADSENSE:")
-    print("-" * 80)
-    print("✅ Redirecionamento da raiz: IMPLEMENTADO")
-    print("✅ Arquivo ads.txt: CRIADO")
-    print("✅ Política de Privacidade: ATUALIZADA (LGPD)")
-    print("✅ 208 URLs permanentes: VALIDADAS")
-    print("✅ Sitemap.xml: ATUALIZADO")
-    print()
-    print("📋 Próximos passos:")
-    print("   1. Enviar sitemap ao Google Search Console")
-    print("   2. Monitorar indexação por 30 dias")
-    print("   3. Verificar status do AdSense após propagação")
-    print("   4. Analisar impressões e cliques no Search Console")
-    print()
+    # 2. Verificar links internos
+    for file_path in html_files:
+        report["checked_files"] += 1
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            
+            # Regex para encontrar links internos (href e src)
+            links = re.findall(r'(?:href|src)="([^"]+)"', content)
+            
+            for link in links:
+                # Ignorar links externos, âncoras e mailto
+                if link.startswith(("http", "#", "mailto:", "tel:", "data:")):
+                    continue
+                
+                report["total_links"] += 1
+                
+                # Normalizar caminho relativo baseado no arquivo atual
+                base_dir = os.path.dirname(file_path)
+                target_path = os.path.normpath(os.path.join(base_dir, link.split("?")[0].split("#")[0]))
+                
+                # Se for um diretório, procurar por index.html
+                if os.path.isdir(target_path):
+                    target_path = os.path.join(target_path, "index.html")
+
+                if not os.path.exists(target_path):
+                    report["broken_links"].append({
+                        "file": file_path,
+                        "link": link,
+                        "target": target_path
+                    })
+        except Exception as e:
+            logger.error(f"Erro ao auditar {file_path}: {e}")
+
+    # 3. Correção Automática (Remover links quebrados ou limpar arquivos órfãos)
+    # Para simplificar, vamos focar em remover arquivos que apontam para nada ou limpar sitemaps
+    logger.info(f"Auditoria finalizada. Encontrados {len(report['broken_links'])} links quebrados.")
     
     # Salvar relatório
-    report = {
-        'timestamp': '2026-05-30T19:30:00Z',
-        'total_products': len(products),
-        'products_with_issues': len(critical_issues),
-        'products_with_warnings': len(warnings_list),
-        'average_score': avg_score,
-        'critical_issues': [{'id': a['id'], 'name': a['name'], 'issues': a['issues']} for a in critical_issues],
-        'recommendations': [
-            'Enviar sitemap ao Google Search Console',
-            'Monitorar indexação por 30 dias',
-            'Verificar status do AdSense',
-            'Analisar impressões no Search Console'
-        ]
-    }
-    
-    with open('data/full_site_audit_report.json', 'w', encoding='utf-8') as f:
+    os.makedirs("reports", exist_ok=True)
+    with open("reports/audit_report.json", "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
-    
-    print("✅ Relatório salvo em: data/full_site_audit_report.json")
-    print()
-    print("=" * 80)
+        
+    return report
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    audit_site()

@@ -70,7 +70,7 @@ def generate_duplicate_report():
 
     total_duplicates_found = len(duplicate_skus) + len(duplicate_permalinks) + len(duplicate_names)
 
-    report_content = f"""# 📊 Relatório de Duplicação do Radar Ninja - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+    report_content = f"""# 📊 Relatório de Duplicação do Radar de Preços - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
 Este relatório detalha a saúde do banco de dados de produtos, identificando e categorizando possíveis duplicados.
 

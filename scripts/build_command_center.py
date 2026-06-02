@@ -7,7 +7,7 @@ from logger import logger
 ROOT = Path(__file__).resolve().parents[1]
 
 def build_command_center():
-    logger.info("Consolidando Centro de Comando Radar Ninja...")
+    logger.info("Consolidando Centro de Comando Radar de Preços...")
     
     try:
         with open(ROOT / "data" / "index_stats.json", 'r') as f: index = json.load(f)
@@ -22,7 +22,7 @@ def build_command_center():
     <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
-        <title>Command Center — Radar Ninja</title>
+        <title>Command Center — Radar de Preços</title>
         <link rel="stylesheet" href="/assets/css/style.css">
         <style>
             .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }
@@ -37,7 +37,7 @@ def build_command_center():
     <body style="background: #f8fafc; color: #1e293b;">
         <main class="container">
             <header style="margin: 40px 0;">
-                <h1 style="font-size: 32px;">🕹️ Radar Ninja Command Center</h1>
+                <h1 style="font-size: 32px;">🕹️ Radar de Preços Command Center</h1>
                 <p>Visão Geral de Performance, Monetização e Saúde Técnica.</p>
             </header>
 

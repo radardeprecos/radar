@@ -17,7 +17,7 @@ def generate_intelligence():
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Análise de Oferta: {{ p.name }} | Radar de Preços</title>
+        <title>Alerta de Oferta de Oferta: {{ p.name }} | Radar de Preços</title>
         <link rel="stylesheet" href="../../assets/css/style.css">
         <style>
             .intel-box { background: var(--card); padding: 30px; border-radius: 16px; border: 1px solid var(--border); margin-top: 30px; }

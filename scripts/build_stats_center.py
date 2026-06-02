@@ -30,14 +30,14 @@ def build_stats_pages():
     <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
-        <title>{{ title }} — Radar Ninja</title>
+        <title>{{ title }} — Radar de Preços</title>
         <link rel="stylesheet" href="/assets/css/style.css">
     </head>
     <body>
-        <header class="header"><div class="container"><a href="/" class="logo">📊 Radar Ninja</a></div></header>
+        <header class="header"><div class="container"><a href="/" class="logo">📊 Radar de Preços</a></div></header>
         <main class="container">
             <h1>{{ title }}</h1>
-            <p>Análise em tempo real de {{ total_tracked }} produtos monitorados.</p>
+            <p>Alerta de Oferta em tempo real de {{ total_tracked }} produtos monitorados.</p>
             
             <div class="grid">
                 {% for p in products %}

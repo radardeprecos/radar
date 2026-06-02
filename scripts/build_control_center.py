@@ -7,7 +7,7 @@ from logger import logger
 ROOT = Path(__file__).resolve().parents[1]
 
 def build_control_center():
-    logger.info("Construindo Centro de Controle Radar Ninja...")
+    logger.info("Construindo Centro de Controle Radar de Preços...")
     
     # Carregar todos os dados de monitoramento
     try:
@@ -23,7 +23,7 @@ def build_control_center():
     <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
-        <title>Control Center — Radar Ninja</title>
+        <title>Control Center — Radar de Preços</title>
         <link rel="stylesheet" href="/assets/css/style.css">
         <style>
             .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
@@ -37,7 +37,7 @@ def build_control_center():
     <body style="background:#f1f5f9;">
         <main class="container">
             <header style="margin-bottom:40px;">
-                <h1>🛡️ Radar Ninja Control Center</h1>
+                <h1>🛡️ Radar de Preços Control Center</h1>
                 <p>Monitoramento em tempo real da saúde e performance do portal.</p>
             </header>
 

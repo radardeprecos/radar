@@ -12,7 +12,7 @@ def build_eeat():
         },
         "equipe": {
             "title": "Equipe Editorial",
-            "content": "Conheça os ninjas por trás das análises do Radar Ninja. Especialistas em tecnologia, casa e consumo."
+            "content": "Conheça os ninjas por trás das análises do Radar de Preços. Especialistas em tecnologia, casa e consumo."
         },
         "politica-atualizacao": {
             "title": "Política de Atualização",
@@ -25,11 +25,11 @@ def build_eeat():
     <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
-        <title>{{ title }} — Radar Ninja</title>
+        <title>{{ title }} — Radar de Preços</title>
         <link rel="stylesheet" href="/assets/css/style.css">
     </head>
     <body>
-        <header class="header"><div class="container"><a href="/" class="logo">📊 Radar Ninja</a></div></header>
+        <header class="header"><div class="container"><a href="/" class="logo">📊 Radar de Preços</a></div></header>
         <main class="container" style="max-width:800px; padding:50px 20px;">
             <h1>{{ title }}</h1>
             <div class="content">{{ content }}</div>

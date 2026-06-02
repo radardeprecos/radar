@@ -46,7 +46,7 @@ def generate_comparisons(products):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ p1.name }} vs {{ p2.name }} — Qual o melhor? | Radar Ninja</title>
+        <title>{{ p1.name }} vs {{ p2.name }} — Qual o melhor? | Radar de Preços</title>
         <link rel="stylesheet" href="../../assets/css/style.css">
         <style>
             .comp-header { text-align: center; margin: 40px 0; }
@@ -61,7 +61,7 @@ def generate_comparisons(products):
         </style>
     </head>
     <body>
-        <header class="header"><div class="container"><a href="../../" class="logo">📊 Radar Ninja</a></div></header>
+        <header class="header"><div class="container"><a href="../../" class="logo">📊 Radar de Preços</a></div></header>
         <main class="container">
             <div class="comp-header">
                 <h1>{{ p1.name }} <span style="color:var(--primary)">vs</span> {{ p2.name }}</h1>
@@ -105,7 +105,7 @@ def generate_comparisons(products):
                         <td style="color:var(--success); font-weight:700;">{{ p2.custom_discount_pct }}% OFF</td>
                     </tr>
                     <tr>
-                        <td>Veredito Radar Ninja</td>
+                        <td>Veredito Radar de Preços</td>
                         <td colspan="2" style="text-align:center; font-weight:800; background:#fff9e6;">
                             O {{ p1.name if p1.custom_discount_pct > p2.custom_discount_pct else p2.name }} é a melhor escolha hoje pelo desconto agressivo!
                         </td>
@@ -145,7 +145,7 @@ def generate_rankings(products):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Melhores {{ category_name }} de 2026 — Ranking Radar Ninja</title>
+        <title>Melhores {{ category_name }} de 2026 — Ranking Radar de Preços</title>
         <link rel="stylesheet" href="../../assets/css/style.css">
         <style>
             .rank-item { display: flex; align-items: center; gap: 30px; background: var(--card); padding: 30px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 25px; position: relative; }
@@ -156,10 +156,10 @@ def generate_rankings(products):
         </style>
     </head>
     <body>
-        <header class="header"><div class="container"><a href="../../" class="logo">📊 Radar Ninja</a></div></header>
+        <header class="header"><div class="container"><a href="../../" class="logo">📊 Radar de Preços</a></div></header>
         <main class="container">
             <h1 style="margin: 50px 0 20px;">🏆 Melhores {{ category_name }} de 2026</h1>
-            <p style="margin-bottom: 40px; color: #666;">Ranking atualizado automaticamente com base em descontos reais e custo-benefício monitorado pelo Radar Ninja.</p>
+            <p style="margin-bottom: 40px; color: #666;">Ranking atualizado automaticamente com base em descontos reais e custo-benefício monitorado pelo Radar de Preços.</p>
             
             {% for p in products %}
             <div class="rank-item">

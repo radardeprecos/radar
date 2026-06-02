@@ -47,7 +47,7 @@ def generate_dashboard_html(stats):
     <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
-        <title>SEO Dashboard — Radar Ninja</title>
+        <title>SEO Dashboard — Radar de Preços</title>
         <link rel="stylesheet" href="/assets/css/style.css">
         <style>
             .stat-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0; }}
@@ -60,7 +60,7 @@ def generate_dashboard_html(stats):
     </head>
     <body>
         <main class="container">
-            <h1>📊 Radar Ninja Intelligence Dashboard</h1>
+            <h1>📊 Radar de Preços Intelligence Dashboard</h1>
             <p>Última atualização: {stats['timestamp']}</p>
             
             <div class="stat-grid">

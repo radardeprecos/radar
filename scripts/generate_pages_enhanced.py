@@ -240,10 +240,10 @@ def generate_product_page(product: dict, category: str) -> tuple:
                 </table>
             </section>
             
-            <!-- Análise e Conversão -->
+            <!-- Alerta de Oferta e Conversão -->
             <section style="margin-bottom: 40px;">
                 <h2 style="font-size: 22px; border-bottom: 2px solid #0f766e; padding-bottom: 10px; margin-bottom: 20px;">
-                    Análise do Especialista Ninja
+                    Alerta de Oferta do Especialista Ninja
                 </h2>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:30px;">
                     <div style="background:#f0fff4; padding:20px; border-radius:12px; border-left:5px solid #22c55e;">

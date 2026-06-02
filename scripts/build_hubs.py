@@ -40,11 +40,11 @@ def build_hubs():
     <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
-        <title>{{ title }} — Radar Ninja</title>
+        <title>{{ title }} — Radar de Preços</title>
         <link rel="stylesheet" href="/assets/css/style.css">
     </head>
     <body>
-        <header class="header"><div class="container"><a href="/" class="logo">📊 Radar Ninja</a></div></header>
+        <header class="header"><div class="container"><a href="/" class="logo">📊 Radar de Preços</a></div></header>
         <main class="container">
             <nav class="breadcrumb"><a href="/">Home</a> / {{ title }}</nav>
             <h1>{{ title }}</h1>
