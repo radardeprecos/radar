@@ -26,6 +26,8 @@ if [ $PIPELINE_STATUS -eq 0 ]; then
     CHANGED=$(git diff --cached --stat | tail -1)
     if [ -n "$CHANGED" ]; then
         git commit -m "🤖 Atualização automática — $(date '+%Y-%m-%d %H:%M')" >> logs/execution.log 2>&1
+        # Sincronizar com remoto antes do push
+        git pull --rebase origin main >> logs/execution.log 2>&1
         git push origin main >> logs/execution.log 2>&1
         if [ $? -eq 0 ]; then
             echo "[$(date)] 🚀 Site publicado no GitHub Pages com sucesso." >> logs/execution.log
