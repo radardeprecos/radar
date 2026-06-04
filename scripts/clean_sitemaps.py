@@ -1,12 +1,12 @@
 import os
 import re
 
-base_dir = '/home/ubuntu/comparapreco.github.io'
+base_dir = '/home/ubuntu/radar_repo'
 sitemaps = [f for f in os.listdir(base_dir) if f.startswith('sitemap') and f.endswith('.xml')]
 
 def check_url_exists(url):
-    # Remover o domínio (https://comparapreco.github.io/)
-    path = url.replace('https://comparapreco.github.io/', '')
+    # Remover o domínio (https://radardeprecos.github.io/radar/)
+    path = url.replace('https://radardeprecos.github.io/radar/', '')
     if not path or path == '/': return True
     
     full_path = os.path.join(base_dir, path.strip('/'))

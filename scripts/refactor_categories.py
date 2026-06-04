@@ -2,7 +2,7 @@ import os
 import re
 from bs4 import BeautifulSoup
 
-base_dir = '/home/ubuntu/comparapreco.github.io'
+base_dir = '/home/ubuntu/radar_repo'
 ofertas_dir = os.path.join(base_dir, 'ofertas')
 
 # Template visual premium para categorias

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofertas de Beleza — Radar Ninja</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+    <style>
+        :root {
+            --primary: #00c853;
+            --primary-dark: #00a443;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .header { background: #0f172a; padding: 15px 0; }
+        .hero-mini { background: #1e293b; color: white; padding: 40px 0; text-align: center; border-bottom: 4px solid var(--primary); }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; margin: 40px 0; }
+        .product-card { background: var(--card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+        .card-img { height: 200px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-title { font-weight: 700; font-size: 1rem; margin-bottom: 10px; line-height: 1.4; }
+        .card-price { font-size: 1.25rem; font-weight: 800; color: var(--primary); margin-top: auto; }
+        .btn-ninja { background: var(--primary); color: white; padding: 10px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: 700; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="/" style="font-size: 1.5rem; font-weight: 900; color: white; text-decoration: none;">🥷 RADAR NINJA</a>
+            <nav style="display: flex; gap: 20px;">
+                <a href="/ofertas-hoje/" style="color: white; text-decoration: none; font-weight: 600;">Ofertas</a>
+                <a href="/noticias/" style="color: white; text-decoration: none; font-weight: 600;">Notícias</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-mini">
+        <div class="container">
+            <h1>Ofertas de Beleza</h1>
+            <p>Os melhores preços encontrados pela nossa IA em Beleza</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="products-grid">
+            
+            <div class="product-card">
+                <div class="card-img"><img src="https://http2.mlstatic.com/D_Q_NP_2X_871498-MLB89720767443_082025-AB.webp" alt="Aparador De Pelos Multigroom 8 Em 1 Mg3917/15 Philips Pre..."></div>
+                <div class="card-body">
+                    <div class="card-title">Aparador De Pelos Multigroom 8 Em 1 Mg3917/15 Philips Pre...</div>
+                    <div class="card-price">R$</div>
+                    <a href="aparador-de-pelos-multigroom-8-em-1-mg391715-philips-preto-127220v-MLB5556558810.html" class="btn-ninja">Ver Oferta</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="card-img"><img src="https://http2.mlstatic.com/D_Q_NP_2X_942122-MLA99923169249_112025-AB.webp" alt="Creatina Monohidratada Pura 500g Dark Lab Unidade Sem Sabor"></div>
+                <div class="card-body">
+                    <div class="card-title">Creatina Monohidratada Pura 500g Dark Lab Unidade Sem Sabor</div>
+                    <div class="card-price">R$</div>
+                    <a href="creatina-monohidratada-pura-500g-dark-lab-unidade-sem-sabor-MLB4812143184.html" class="btn-ninja">Ver Oferta</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="card-img"><img src="https://http2.mlstatic.com/D_Q_NP_2X_997574-MLA109633443994_042026-AB.webp" alt="Kit Body Splash Masculino Barbarius + Enigma + Midtown 200ml"></div>
+                <div class="card-body">
+                    <div class="card-title">Kit Body Splash Masculino Barbarius + Enigma + Midtown 200ml</div>
+                    <div class="card-price">R$</div>
+                    <a href="kit-body-splash-masculino-barbarius--enigma--midtown-200ml-MLB4645102377.html" class="btn-ninja">Ver Oferta</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="card-img"><img src="https://http2.mlstatic.com/D_Q_NP_2X_662200-MLA44567890136_022025-AB.webp" alt="Kit Shampoo e Condicionador Pantene Hidratação 400ml"></div>
+                <div class="card-body">
+                    <div class="card-title">Kit Shampoo e Condicionador Pantene Hidratação 400ml</div>
+                    <div class="card-price">R$</div>
+                    <a href="kit-shampoo-e-condicionador-pantene-hidratacao-400ml-MLB3456789025.html" class="btn-ninja">Ver Oferta</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="card-img"><img src="https://http2.mlstatic.com/D_Q_NP_2X_943083-MLB99905915023_112025-AB.webp" alt="Perfume Arabe Yara Lattafa Eau De Parfum 100ml Original C Nf"></div>
+                <div class="card-body">
+                    <div class="card-title">Perfume Arabe Yara Lattafa Eau De Parfum 100ml Original C Nf</div>
+                    <div class="card-price">R$</div>
+                    <a href="perfume-arabe-yara-lattafa-eau-de-parfum-100ml-original-c-nf-MLB4350686819.html" class="btn-ninja">Ver Oferta</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="card-img"><img src="https://http2.mlstatic.com/D_Q_NP_2X_773311-MLA44567890135_012025-AB.webp" alt="Perfume Carolina Herrera 212 VIP Men 100ml"></div>
+                <div class="card-body">
+                    <div class="card-title">Perfume Carolina Herrera 212 VIP Men 100ml</div>
+                    <div class="card-price">R$</div>
+                    <a href="perfume-carolina-herrera-212-vip-men-100ml-MLB3456789024.html" class="btn-ninja">Ver Oferta</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="card-img"><img src="https://http2.mlstatic.com/D_Q_NP_2X_753960-MLB78002610612_082024-AB.webp" alt="Perfume Sedutor Árabe Sabah 100ml Original Feminino"></div>
+                <div class="card-body">
+                    <div class="card-title">Perfume Sedutor Árabe Sabah 100ml Original Feminino</div>
+                    <div class="card-price">R$</div>
+                    <a href="perfume-sedutor-arabe-sabah-100ml-original-feminino-MLB3994439565.html" class="btn-ninja">Ver Oferta</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="card-img"><img src="https://http2.mlstatic.com/D_Q_NP_2X_871708-MLA100016593317_122025-AB.webp" alt="Secador De Cabelos Philco psc3500 4 Em 1 dobrável motor b..."></div>
+                <div class="card-body">
+                    <div class="card-title">Secador De Cabelos Philco psc3500 4 Em 1 dobrável motor b...</div>
+                    <div class="card-price">R$</div>
+                    <a href="secador-de-cabelos-philco-psc3500-4-em-1-dobravel-motor-bldc-prateado-bege-127v-MLB6486861240.html" class="btn-ninja">Ver Oferta</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="card-img"><img src="https://http2.mlstatic.com/D_Q_NP_2X_760779-MLA99484493666_112025-AB.webp" alt="Whey Protein Concentrado 100% 900g Refil Dark Lab Sabor M..."></div>
+                <div class="card-body">
+                    <div class="card-title">Whey Protein Concentrado 100% 900g Refil Dark Lab Sabor M...</div>
+                    <div class="card-price">R$</div>
+                    <a href="whey-protein-concentrado-100-900g-refil-dark-lab-sabor-morango-MLB3755400429.html" class="btn-ninja">Ver Oferta</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="background: #0f172a; color: white; padding: 40px 0; margin-top: 60px; text-align: center;">
+        <div class="container">
+            <p>&copy; 2026 Radar Ninja</p>
+        </div>
+    </footer>
+</body>
+</html>
