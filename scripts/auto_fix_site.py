@@ -15,7 +15,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent.parent
 PAGES_TO_CREATE = {
     'quedas-hoje': {
-        'title': 'Quedas de Preço Hoje — Produtos com Desconto | Radar de Preços',
+        'title': 'Quedas de Preço Hoje — Produtos com Desconto | Compara Preço',
         'description': 'Produtos que tiveram queda de preço hoje no Mercado Livre. Veja os maiores descontos em tempo real.',
         'h1': '📉 Quedas de Preço Hoje',
         'subtitle': 'Produtos que ficaram mais baratos nas últimas 24 horas no Mercado Livre.',
@@ -24,7 +24,7 @@ PAGES_TO_CREATE = {
         'color_end': '#dc2626'
     },
     'ofertas-explodindo': {
-        'title': 'Ofertas Explodindo — Descontos Incríveis | Radar de Preços',
+        'title': 'Ofertas Explodindo — Descontos Incríveis | Compara Preço',
         'description': 'As ofertas mais explosivas do Mercado Livre. Produtos com desconto de até 70% com estoque limitado.',
         'h1': '💥 Ofertas Explodindo',
         'subtitle': 'As promoções mais agressivas do Mercado Livre com estoque limitado.',
@@ -33,7 +33,7 @@ PAGES_TO_CREATE = {
         'color_end': '#d97706'
     },
     'central-comparativos': {
-        'title': 'Central de Comparativos — Compare Produtos | Radar de Preços',
+        'title': 'Central de Comparativos — Compare Produtos | Compara Preço',
         'description': 'Compare produtos lado a lado. Veja especificações, preços e avaliações de produtos similares no Mercado Livre.',
         'h1': '⚖️ Central de Comparativos',
         'subtitle': 'Compare produtos lado a lado e escolha o melhor custo-benefício.',
@@ -42,8 +42,8 @@ PAGES_TO_CREATE = {
         'color_end': '#7c3aed'
     },
     'radar-de-mercado': {
-        'title': 'Radar de Mercado — Inteligência de Preços | Radar de Preços',
-        'description': 'Alerta de Oferta em tempo real do mercado. Veja tendências de preço, produtos em alta e oportunidades de compra no Mercado Livre.',
+        'title': 'Radar de Mercado — Inteligência de Preços | Compara Preço',
+        'description': 'Análise em tempo real do mercado. Veja tendências de preço, produtos em alta e oportunidades de compra no Mercado Livre.',
         'h1': '📡 Radar de Mercado',
         'subtitle': 'Inteligência de mercado em tempo real. Tendências, análises e oportunidades.',
         'emoji': '📡',
@@ -61,7 +61,7 @@ TEMPLATE_HTML = '''<!DOCTYPE html>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>{title}</title>
 <meta content="{description}" name="description"/>
-<link href="https://radardeprecos.github.io/radar/{slug}/" rel="canonical"/>
+<link href="https://comparapreco.github.io/{slug}/" rel="canonical"/>
 <link href="../assets/css/style.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
 <style>
@@ -115,7 +115,7 @@ TEMPLATE_HTML = '''<!DOCTYPE html>
 <body>
 <header class="header">
 <div class="container header-inner">
-<a class="logo" href="../">📊 <strong>Radar de Preços</strong></a>
+<a class="logo" href="../">📊 <strong>Compara Preço</strong></a>
 <div class="search-bar">
 <input id="searchInput" placeholder="Buscar ofertas..." type="text"/>
 </div>
@@ -152,7 +152,7 @@ TEMPLATE_HTML = '''<!DOCTYPE html>
 <div class="container">
 <div class="footer-grid">
   <div class="footer-col">
-    <h3>Radar de Preços</h3>
+    <h3>Compara Preço</h3>
     <p>Monitoramos as melhores ofertas do Mercado Livre para você economizar sempre.</p>
   </div>
   <div class="footer-col">
@@ -171,7 +171,7 @@ TEMPLATE_HTML = '''<!DOCTYPE html>
   </div>
 </div>
 <div class="footer-bottom">
-  <p>© 2026 Radar de Preços. Este site contém links de afiliado do Mercado Livre. Ao clicar e comprar, você nos ajuda a manter o site gratuito.</p>
+  <p>© 2026 Compara Preço. Este site contém links de afiliado do Mercado Livre. Ao clicar e comprar, você nos ajuda a manter o site gratuito.</p>
 </div>
 </div>
 </footer>
@@ -229,8 +229,8 @@ def remove_other_stores(html_content):
         # Genérico
         (r'Mercado Livre, Amazon, Shopee e Americanas', 'Mercado Livre'),
         (r'Mercado Livre, Amazon, Shopee', 'Mercado Livre'),
-        (r'Use o Radar de Preços para comparar preços em tempo real no Mercado Livre, Amazon, Shopee e Americanas', 'Use o Radar de Preços para comparar preços em tempo real no Mercado Livre'),
-        (r'Use o Radar de Preços para comparar preços em tempo real em.*?lojas', 'Use o Radar de Preços para acompanhar as melhores ofertas do Mercado Livre'),
+        (r'Use o Compara Preço para comparar preços em tempo real no Mercado Livre, Amazon, Shopee e Americanas', 'Use o Compara Preço para comparar preços em tempo real no Mercado Livre'),
+        (r'Use o Compara Preço para comparar preços em tempo real em.*?lojas', 'Use o Compara Preço para acompanhar as melhores ofertas do Mercado Livre'),
     ]
     
     result = html_content

@@ -3,59 +3,113 @@ import sys
 import json
 import subprocess
 import time
+from datetime import datetime
 from logger import logger
+from operational_utils import run_backup, send_alert
 
-# Configurações de Resiliência
-DEFAULT_TIMEOUT = 300 # 5 minutos por script
-MAX_RETRIES = 1
+DEFAULT_TIMEOUT = 300
+MAX_RETRIES = 2
 
 def run_script_protected(script, timeout=DEFAULT_TIMEOUT):
-    """Executa um script com proteção de tempo e isolamento."""
     try:
         logger.info(f"🚀 Iniciando {script}...")
         result = subprocess.run(
             [sys.executable, f"scripts/{script}"],
-            capture_output=True, 
-            text=True,
-            timeout=timeout
+            capture_output=True, text=True, timeout=timeout
         )
-        
         if result.returncode == 0:
             return True, ""
         else:
             return False, result.stderr or result.stdout
-            
-    except subprocess.TimeoutExpired:
-        return False, f"TIMEOUT: O script {script} excedeu o limite de {timeout}s."
     except Exception as e:
-        return False, f"CRITICAL ERROR: {str(e)}"
+        return False, str(e)
 
 def run_pipeline():
-    """Pipeline imparável com isolamento de falhas."""
+    # Pipeline completo com travas de segurança
     scripts = [
-        "fetch_products.py", "score_products.py", "affiliate_links.py",
-        "validate_products.py", "deduplicate.py", "deep_clean_duplicates.py", 
-        "audit_orphan_pages.py", "clean_orphans.py", "sync_database.py",
-        "generate_blog_posts.py", "generate_pages.py", "build_categories.py", 
-        "generate_comparisons.py", "build_homepage.py", "generate_sitemaps.py", 
-        "generate_feeds.py", "health_monitor.py", "metrics_collector.py", 
-        "revenue_tracker.py", "dashboard.py"
+        "fetch_products_realtime.py",
+        "score_products.py",
+        "affiliate_links.py",
+        "validate_products.py", 
+        "deduplicate.py", 
+        "sync_database.py",
+        "editorial_automation.py", 
+        "generate_blog_posts.py",
+        "generate_pages.py",
+        "build_categories.py",
+        "build_homepage.py", 
+        "generate_hubs.py",
+        "build_sitemap.py",
+        "generate_sitemap_dynamic.py",
+        "seo_health_check.py",
+        "health_monitor.py"
     ]
     
+    essential = ["score_products.py", "sync_database.py", "generate_pages.py", "build_homepage.py"]
+    
+    # Snapshot inicial para validação
+    db_path = "data/database/all_products.json"
+    home_path = "index.html"
+    initial_db_time = os.path.getmtime(db_path) if os.path.exists(db_path) else 0
+    initial_home_time = os.path.getmtime(home_path) if os.path.exists(home_path) else 0
+    
     for script in scripts:
-        success, last_error = run_script_protected(script)
+        success = False
+        for attempt in range(MAX_RETRIES + 1):
+            success, error = run_script_protected(script)
+            if success: break
+            logger.warning(f"⚠️ Tentativa {attempt+1} falhou para {script}")
+        
         if not success:
-            logger.warning(f"⚠️ {script} falhou. Erro: {last_error[:100]}...")
-            # Tentativa de retry simples
-            success, last_error = run_script_protected(script)
-            if not success:
-                logger.error(f"❌ {script} falhou definitivamente. Pulando...")
-                
+            send_alert(f"Falha no script {script}: {error[:200]}", "Pipeline Error")
+            if script in essential:
+                logger.error(f"❌ ABORTANDO: {script} falhou.")
+                return False
+    
+    # ASSERTIONS DE PUBLICAÇÃO
+    final_db_time = os.path.getmtime(db_path) if os.path.exists(db_path) else 0
+    final_home_time = os.path.getmtime(home_path) if os.path.exists(home_path) else 0
+    
+    # 1. Validar que o banco foi atualizado
+    if final_db_time == 0:
+        logger.error("❌ ASSERTION FAIL: Banco de dados não encontrado.")
+        return False
+        
+    # 2. Validar que a home foi regerada
+    if final_home_time <= initial_home_time:
+        logger.error("❌ ASSERTION FAIL: Home não foi regerada neste ciclo.")
+        return False
+        
+    # 3. Validar que existem páginas de oferta
+    if not os.path.exists("ofertas") or len(os.listdir("ofertas")) == 0:
+        logger.error("❌ ASSERTION FAIL: Pasta de ofertas vazia ou ausente.")
+        return False
+
+    logger.info("✅ ASSERTIONS PASS: Banco e Site atualizados com sucesso.")
+    
+    # Publicar no GitHub Pages
+    logger.info("📤 Publicando atualizações no GitHub...")
+    try:
+        subprocess.run(["git", "add", "."], check=True)
+        subprocess.run(["git", "commit", "-m", f"🤖 Auto-update: {datetime.now().strftime('%Y-%m-%d %H:%M')}"], check=True)
+        subprocess.run(["git", "push", "origin", "main"], check=True)
+        logger.info("🚀 Publicação concluída com sucesso!")
+    except Exception as e:
+        logger.error(f"❌ Erro na publicação: {e}")
+
+    run_backup()
+    
+    # Gerar relatório de execução
+    try:
+        subprocess.run([sys.executable, "scripts/execution_reporter.py"])
+    except:
+        pass
+        
     return True
 
 if __name__ == "__main__":
-    logger.info("=== INICIANDO PIPELINE FASE 2 ===")
-    start_time = time.time()
-    run_pipeline()
-    duration = time.time() - start_time
-    logger.info(f"✅ Pipeline finalizado em {duration:.1f}s!")
+    logger.info("=== RADAR NINJA ENTERPRISE EDITION (PUBLISH-GUARD) ===")
+    if run_pipeline():
+        logger.info("✅ Ciclo completo concluído!")
+    else:
+        sys.exit(1)
