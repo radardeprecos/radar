@@ -17,7 +17,7 @@ def add_schema_to_index():
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Radar de Preços",
-        "url": "https://radardeprecos.github.io/radar",
+        "url": "https://radardeprecos.github.io",
         "logo": "https://radardeprecos.github.io/assets/logo.png",
         "description": "As melhores ofertas do Mercado Livre com atualização automática",
         "sameAs": [
@@ -55,7 +55,7 @@ def add_og_tags_to_index():
     <meta property="og:title" content="Radar de Preços — As Melhores Ofertas do Mercado Livre">
     <meta property="og:description" content="Economize com as melhores ofertas curadas do Mercado Livre. Descubra produtos com desconto de até 70%.">
     <meta property="og:image" content="https://radardeprecos.github.io/assets/og-image.png">
-    <meta property="og:url" content="https://radardeprecos.github.io/radar">
+    <meta property="og:url" content="https://radardeprecos.github.io">
     <meta property="og:site_name" content="Radar de Preços">
     
     <!-- Twitter Card -->

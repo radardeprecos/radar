@@ -1,5 +1,5 @@
 // ========== CONFIGURAÇÃO ==========
-const DATA_URL = '/radar/data/database/all_products.json';
+const DATA_URL = '/data/database/all_products.json';
 
 let allProducts = [];
 

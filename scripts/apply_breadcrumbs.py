@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from logger import logger
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE_URL = "https://radardeprecos.github.io/radar"
+BASE_URL = "https://radardeprecos.github.io"
 
 def generate_breadcrumb_schema(items):
     schema = {

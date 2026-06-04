@@ -2118,8 +2118,8 @@
     },
     {
       "file": "index.html",
-      "link": "/radar/assets/css/style.css",
-      "target": "/radar/assets/css/style.css"
+      "link": "/assets/css/style.css",
+      "target": "/assets/css/style.css"
     },
     {
       "file": "index.html",
@@ -2203,8 +2203,8 @@
     },
     {
       "file": "index.html",
-      "link": "/radar/assets/js/app.js",
-      "target": "/radar/assets/js/app.js"
+      "link": "/assets/js/app.js",
+      "target": "/assets/js/app.js"
     }
   ],
   "fixed_count": 0,

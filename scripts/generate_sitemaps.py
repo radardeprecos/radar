@@ -9,11 +9,11 @@ import re
 from datetime import datetime
 from pathlib import Path
 
-BASE_URL = "https://radardeprecos.github.io/radar"
+BASE_URL = "https://radardeprecos.github.io"
 ROOT = Path(__file__).resolve().parents[1]
 
 # Configuração Portal Único
-BASE_URL = "https://radardeprecos.github.io/radar"
+BASE_URL = "https://radardeprecos.github.io"
 OUTPUT_ROOT = ROOT
 
 NOW_DATE = datetime.now().strftime("%Y-%m-%d")

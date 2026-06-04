@@ -10,7 +10,7 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import quote
 
-BASE_URL = "https://radardeprecos.github.io/radar"
+BASE_URL = "https://radardeprecos.github.io"
 ROOT = Path(__file__).resolve().parents[1]
 NOW = datetime.now().strftime("%Y-%m-%d")
 
