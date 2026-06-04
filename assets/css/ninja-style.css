@@ -1,0 +1,239 @@
+/* ===== NINJA STYLE - Design inspirado na referência comparapreco.github.io ===== */
+
+/* Reset e variáveis */
+:root {
+    --ninja-green: #1db954;
+    --ninja-green-dark: #17a045;
+    --ninja-orange: #ff8c00;
+    --ninja-orange-hover: #e67e00;
+    --ninja-red: #e74c3c;
+    --ninja-savings-bg: #e8f8ee;
+    --ninja-savings-text: #1db954;
+    --card-bg: #ffffff;
+    --card-border: #e8e8e8;
+    --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --text-dark: #222222;
+    --text-gray: #666666;
+    --page-bg: #f0f0f0;
+}
+
+/* Fundo da página */
+body {
+    background-color: var(--page-bg) !important;
+}
+
+/* Grid de produtos - 2 colunas no mobile, 4 no desktop */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 16px 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        padding: 20px 16px;
+    }
+}
+
+@media (min-width: 900px) {
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 24px 20px;
+    }
+}
+
+/* Card de produto */
+.product-card {
+    background: var(--card-bg) !important;
+    border-radius: 14px !important;
+    padding: 0 !important;
+    box-shadow: var(--card-shadow) !important;
+    border: 1.5px solid var(--card-border) !important;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    margin-bottom: 0 !important;
+}
+
+.product-card:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+}
+
+/* Badges no topo do card */
+.card-badges {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 8px 4px 8px;
+    gap: 4px;
+}
+
+.badge-best-price {
+    background: var(--ninja-green);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 0.2px;
+}
+
+.badge-hot {
+    background: var(--ninja-red);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+/* Imagem do produto */
+.product-img-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background: #fafafa;
+}
+
+.product-card .product-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    border-radius: 8px;
+    display: block;
+}
+
+/* Conteúdo do card */
+.product-card .product-title {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: var(--text-dark) !important;
+    line-height: 1.4 !important;
+    margin: 8px 10px 6px 10px !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Preços */
+.product-card .price-container {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.product-card .price-old {
+    font-size: 12px !important;
+    color: var(--text-gray) !important;
+    text-decoration: line-through !important;
+    font-weight: 400 !important;
+}
+
+.product-card .price-current {
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    color: var(--ninja-green) !important;
+    line-height: 1.1 !important;
+}
+
+/* Badge de economia */
+.savings-badge {
+    background: var(--ninja-savings-bg);
+    color: var(--ninja-savings-text);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin: 6px 10px;
+    display: inline-block;
+    width: fit-content;
+}
+
+/* Botão Ver Oferta Ninja */
+.btn-ninja {
+    display: block;
+    background: var(--ninja-orange);
+    color: white !important;
+    text-align: center;
+    padding: 12px 10px;
+    border-radius: 10px;
+    text-decoration: none !important;
+    font-weight: 800;
+    font-size: 13px;
+    margin: 8px 10px 10px 10px;
+    transition: background 0.2s ease;
+    letter-spacing: 0.2px;
+}
+
+.btn-ninja:hover {
+    background: var(--ninja-orange-hover);
+    color: white !important;
+    text-decoration: none !important;
+}
+
+/* Seção de ofertas - remover padding extra do container pai */
+#ofertas {
+    padding-top: 0 !important;
+}
+
+/* Título da seção */
+#ofertas > h2,
+#ofertas .section-title {
+    padding: 20px 12px 0 12px;
+}
+
+/* Botão "Ver Todas as Ofertas" */
+.btn-ver-todas {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 14px 40px;
+    border: 2px solid var(--ninja-green);
+    color: var(--ninja-green);
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.btn-ver-todas:hover {
+    background: var(--ninja-green);
+    color: white;
+}
+
+/* Responsividade dos badges no mobile */
+@media (max-width: 380px) {
+    .badge-best-price,
+    .badge-hot {
+        font-size: 9px;
+        padding: 3px 6px;
+    }
+    
+    .product-card .price-current {
+        font-size: 18px !important;
+    }
+    
+    .btn-ninja {
+        font-size: 12px;
+        padding: 10px 8px;
+    }
+}
