@@ -27,7 +27,7 @@ def run_script_protected(script, timeout=DEFAULT_TIMEOUT):
 def run_pipeline():
     # Pipeline completo com travas de segurança
     scripts = [
-        "fetch_products_realtime.py",
+        "fetch_products.py",
         "score_products.py",
         "affiliate_links.py",
         "validate_products.py", 
