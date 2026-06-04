@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 base_dir = '/home/ubuntu/radar_repo'
 ml_id = 'vendas0nline'
-amz_id = 'radar041-20'
+amz_id = "radar041-20"
 
 def audit_and_fix(file_path):
     try:
