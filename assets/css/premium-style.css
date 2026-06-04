@@ -1,57 +1,63 @@
 :root {
-    --primary-color: #004aad; /* Azul Royal */
-    --secondary-color: #00c2cb; /* Ciano */
-    --accent-color: #ff3b30; /* Vermelho para descontos */
-    --bg-light: #f4f7f6;
-    --text-dark: #1a1a1a;
+    --primary: #004aad; /* Azul Royal */
+    --secondary: #00c2cb; /* Ciano */
+    --accent: #ff4757; /* Vermelho para Descontos */
+    --bg: #f4f7f6;
+    --text: #2f3542;
     --white: #ffffff;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --border-radius: 12px;
 }
 
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: var(--bg-light);
-    color: var(--text-dark);
+body { 
+    font-family: 'Inter', sans-serif; 
+    background: var(--bg); 
+    color: var(--text); 
     margin: 0;
 }
 
+/* Card de Produto Estilo Premium */
 .product-card {
     background: var(--white);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    padding: 15px;
-    transition: transform 0.2s ease;
-    border: 1px solid #e1e1e1;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    border: 1px solid #e1e8ed;
+    margin-bottom: 20px;
 }
 
-.product-card:hover {
-    transform: translateY(-5px);
-}
+.product-card:hover { transform: translateY(-5px); }
 
-.btn-premium {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: var(--white);
-    border: none;
-    padding: 10px 20px;
+/* Badge de Desconto */
+.badge-discount {
+    background: var(--accent);
+    color: white;
+    padding: 5px 12px;
     border-radius: 50px;
     font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 74, 173, 0.3);
+    font-size: 0.9em;
 }
 
-.badge-premium {
-    background-color: var(--secondary-color);
-    color: var(--white);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
+/* Botão de Alerta */
+.btn-alert {
+    background: var(--primary);
+    color: white;
+    display: block;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
 }
+
+.btn-alert:hover { background: var(--secondary); }
 
 header {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 1rem 0;
+    background: var(--primary);
+    padding: 20px;
+    color: white;
+    text-align: center;
 }
+
+header h1 { margin:0; font-size: 24px; }
+header p { margin:5px 0 0; opacity: 0.9; }
