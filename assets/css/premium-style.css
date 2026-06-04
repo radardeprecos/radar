@@ -1,0 +1,57 @@
+:root {
+    --primary-color: #004aad; /* Azul Royal */
+    --secondary-color: #00c2cb; /* Ciano */
+    --accent-color: #ff3b30; /* Vermelho para descontos */
+    --bg-light: #f4f7f6;
+    --text-dark: #1a1a1a;
+    --white: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.product-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 15px;
+    transition: transform 0.2s ease;
+    border: 1px solid #e1e1e1;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.btn-premium {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 74, 173, 0.3);
+}
+
+.badge-premium {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 1rem 0;
+}

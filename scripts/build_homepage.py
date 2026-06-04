@@ -153,7 +153,7 @@ def build_homepage(input_path, news_index_path, template_path, output_path, hist
                     <h2 style="font-size: 32px; font-weight: 900; margin-bottom: 10px;">📰 Radar de Notícias</h2>
                     <p style="color: #666;">Análises profundas geradas por nossa IA sobre as melhores oportunidades.</p>
                 </div>
-                <a href="/radar/noticias" class="btn" style="width: auto; padding: 12px 30px; background: white; color: #667eea; border: 2px solid #667eea;">Ver Tudo</a>
+                <a href="/noticias" class="btn" style="width: auto; padding: 12px 30px; background: white; color: #667eea; border: 2px solid #667eea;">Ver Tudo</a>
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
                 {news_html}

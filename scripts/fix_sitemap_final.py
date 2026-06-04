@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-BASE_URL = "https://radardeprecos.github.io/radar/"
+BASE_URL = "https://radardeprecos.github.io/"
 
 def generate_valid_sitemap():
     print("Iniciando correção do sitemap baseada em arquivos físicos...")

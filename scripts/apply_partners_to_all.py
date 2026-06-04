@@ -17,7 +17,7 @@ partners_html = """
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; text-align: center;">
             <a href="https://comparapreco.github.io" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Compara Preço</a>
             <a href="https://comprerapido.github.io" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Compre Rápido</a>
-            <a href="https://radardeprecos.github.io/radar/" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Radar de Preços</a>
+            <a href="https://radardeprecos.github.io/" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Radar de Preços</a>
             <a href="https://superninjas.github.io" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Super Ninjas</a>
             <a href="https://granahoje.github.io" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Grana Hoje</a>
             <a href="https://casino-radar.github.io" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Casino Radar</a>

@@ -29,9 +29,9 @@ TEMPLATE = '''<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Melhores Ofertas {name} — Desconto Real | Radar de Preços</title>
   <meta name="description" content="{desc}">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/melhores-ofertas/{slug}/">
+  <link rel="canonical" href="https://radardeprecos.github.io/melhores-ofertas/{slug}/">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://radardeprecos.github.io/radar/melhores-ofertas/{slug}/">
+  <meta property="og:url" content="https://radardeprecos.github.io/melhores-ofertas/{slug}/">
   <meta property="og:title" content="Melhores Ofertas {name} | Radar de Preços">
   <meta property="og:description" content="{desc}">
   <link rel="stylesheet" href="../../assets/css/style.css">
@@ -43,12 +43,12 @@ TEMPLATE = '''<!DOCTYPE html>
     "@type": "WebPage",
     "name": "Melhores Ofertas {name}",
     "description": "{desc}",
-    "url": "https://radardeprecos.github.io/radar/melhores-ofertas/{slug}/",
+    "url": "https://radardeprecos.github.io/melhores-ofertas/{slug}/",
     "breadcrumb": {{
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {{"@type": "ListItem", "position": 1, "name": "Início", "item": "https://radardeprecos.github.io/radar/"}},
-        {{"@type": "ListItem", "position": 2, "name": "Melhores Ofertas", "item": "https://radardeprecos.github.io/radar/melhores-ofertas/"}},
+        {{"@type": "ListItem", "position": 1, "name": "Início", "item": "https://radardeprecos.github.io/"}},
+        {{"@type": "ListItem", "position": 2, "name": "Melhores Ofertas", "item": "https://radardeprecos.github.io/melhores-ofertas/"}},
         {{"@type": "ListItem", "position": 3, "name": "{name}"}}
       ]
     }}
@@ -299,7 +299,7 @@ def build_hub():
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Melhores Ofertas por Marca — Samsung, LG, Lenovo e mais | Radar de Preços</title>
   <meta name="description" content="Encontre as melhores ofertas por marca: Samsung, LG, Lenovo, Apple, Xiaomi, Sony e muito mais. Descontos reais verificados pelo Radar de Preços.">
-  <link rel="canonical" href="https://radardeprecos.github.io/radar/melhores-ofertas/">
+  <link rel="canonical" href="https://radardeprecos.github.io/melhores-ofertas/">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <meta name="google-adsense-account" content="ca-pub-4896859041377751">

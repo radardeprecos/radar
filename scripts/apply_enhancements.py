@@ -18,7 +18,7 @@ def add_schema_to_index():
         "@type": "Organization",
         "name": "Radar de Preços",
         "url": "https://radardeprecos.github.io/radar",
-        "logo": "https://radardeprecos.github.io/radar/assets/logo.png",
+        "logo": "https://radardeprecos.github.io/assets/logo.png",
         "description": "As melhores ofertas do Mercado Livre com atualização automática",
         "sameAs": [
             "https://www.instagram.com/radardeprecos",
@@ -54,7 +54,7 @@ def add_og_tags_to_index():
     <meta property="og:type" content="website">
     <meta property="og:title" content="Radar de Preços — As Melhores Ofertas do Mercado Livre">
     <meta property="og:description" content="Economize com as melhores ofertas curadas do Mercado Livre. Descubra produtos com desconto de até 70%.">
-    <meta property="og:image" content="https://radardeprecos.github.io/radar/assets/og-image.png">
+    <meta property="og:image" content="https://radardeprecos.github.io/assets/og-image.png">
     <meta property="og:url" content="https://radardeprecos.github.io/radar">
     <meta property="og:site_name" content="Radar de Preços">
     
@@ -62,7 +62,7 @@ def add_og_tags_to_index():
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Radar de Preços — Melhores Ofertas">
     <meta name="twitter:description" content="Economize com as melhores ofertas do Mercado Livre">
-    <meta name="twitter:image" content="https://radardeprecos.github.io/radar/assets/og-image.png">"""
+    <meta name="twitter:image" content="https://radardeprecos.github.io/assets/og-image.png">"""
     
     with open(index_path, 'r', encoding='utf-8') as f:
         content = f.read()
@@ -91,7 +91,7 @@ def add_canonical_tags_to_pages():
             content = f.read()
         
         if 'rel="canonical"' not in content:
-            canonical_url = f"https://radardeprecos.github.io/radar/noticias/posts/{html_file.name}"
+            canonical_url = f"https://radardeprecos.github.io/noticias/posts/{html_file.name}"
             canonical_tag = f'    <link rel="canonical" href="{canonical_url}">'
             content = content.replace('</head>', f'{canonical_tag}\n</head>')
             

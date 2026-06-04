@@ -28,7 +28,7 @@ def fix_links():
                     
                     # 2. Corrigir links para index
                     new_content = re.sub(r'href="/(index\.html)?"', f'href="{prefix if prefix else "./"}"', new_content)
-                    new_content = re.sub(r'href="/radar/(index\.html)?"', f'href="{prefix if prefix else "./"}"', new_content)
+                    new_content = re.sub(r'href="/(index\.html)?"', f'href="{prefix if prefix else "./"}"', new_content)
                     
                     # 3. Corrigir links para categorias e ofertas (sempre usar relativo ao root)
                     # Se o link começa com /ofertas ou /categorias, substituir pelo prefixo relativo

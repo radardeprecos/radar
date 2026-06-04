@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "reports"
 REPORTS.mkdir(exist_ok=True)
 NS = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
-UA = "RadarDePrecos-SitemapAudit/1.0 (+https://radardeprecos.github.io/radar/)"
+UA = "RadarDePrecos-SitemapAudit/1.0 (+https://radardeprecos.github.io/)"
 TIMEOUT = 20
 
 
@@ -40,7 +40,7 @@ def parse_xml(path: Path) -> ET.Element:
 
 
 def local_path_for_sitemap(loc: str) -> Path | None:
-    base = "https://radardeprecos.github.io/radar/"
+    base = "https://radardeprecos.github.io/"
     if not loc.startswith(base):
         return None
     rel = loc.removeprefix(base)

@@ -13,7 +13,7 @@ SITE_CATEGORIES = os.environ.get("SITE_CATEGORIES", "").split(",")
 PRODUCTS_FILE = ROOT / "data" / "database" / "all_products.json"
 
 OUTPUT_BASE = ROOT
-BASE_URL = "https://radardeprecos.github.io/radar/"
+BASE_URL = "https://radardeprecos.github.io/"
 
 def money(value):
     try:

@@ -9,7 +9,7 @@ from xml.sax.saxutils import escape
 from logger import logger
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE_URL = "https://radardeprecos.github.io/radar/"
+BASE_URL = "https://radardeprecos.github.io/"
 POSTS_DIR = ROOT / "noticias" / "posts"
 RSS_FILE = ROOT / "feed.xml"
 ATOM_FILE = ROOT / "atom.xml"

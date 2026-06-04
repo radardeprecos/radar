@@ -49,7 +49,7 @@ def generate_ranking_post(category, products):
             <div style="margin-top:40px; padding:30px; background:#f0fdf4; border:2px dashed #16a34a; border-radius:12px; text-align:center;">
                 <h3>🚀 Quer receber essas ofertas primeiro?</h3>
                 <p>Entre no nosso Grupo VIP e não perca nenhum erro de preço!</p>
-                <a href="/radar/vip/" style="display:inline-block; margin-top:15px; background:#16a34a; color:white; padding:15px 30px; border-radius:8px; text-decoration:none; font-weight:bold;">QUERO ENTRAR NO GRUPO VIP</a>
+                <a href="/vip/" style="display:inline-block; margin-top:15px; background:#16a34a; color:white; padding:15px 30px; border-radius:8px; text-decoration:none; font-weight:bold;">QUERO ENTRAR NO GRUPO VIP</a>
             </div>
         </main>
     </body>

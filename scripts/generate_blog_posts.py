@@ -15,7 +15,7 @@ except Exception:
 
 from logger import logger
 
-BASE_URL = "https://radardeprecos.github.io/radar/"
+BASE_URL = "https://radardeprecos.github.io/"
 ROOT = Path(__file__).resolve().parents[1]
 
 # Configuração Portal Único
