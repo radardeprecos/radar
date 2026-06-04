@@ -16,7 +16,13 @@
 </header>
 <div class="container" style="padding: 40px 20px;">
 <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 10px;">{{category.name}}</h1>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px;">
+        {{category.products}}
+    </div>
 <p style="color: #666; margin-bottom: 40px;">Confira as melhores ofertas monitoradas em {{category.name}}.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px;">
+        {{category.products}}
+    </div>
 
 </div>
 <footer class="footer">
