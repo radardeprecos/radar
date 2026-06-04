@@ -1,15 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog - Compara Preço | Guias, Análises e Dicas de Compra</title>
-  <meta name="description" content="Leia artigos profissionais sobre ofertas, comparação de preços, análises de produtos e dicas para economizar no Mercado Livre.">
-  <link href="https://comparapreco.github.io/noticias/" rel="canonical">
-  <link href="../assets/css/style.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <meta name="google-adsense-account" content="ca-pub-4896859041377751">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blog - Compara Preço | Guias, Análises e Dicas de Compra</title>
+<meta content="Leia artigos profissionais sobre ofertas, comparação de preços, análises de produtos e dicas para economizar no Mercado Livre." name="description"/>
+<link href="https://comparapreco.github.io/noticias/" rel="canonical"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<meta content="ca-pub-4896859041377751" name="google-adsense-account"/>
+<style>
     .blog-hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 20px; text-align: center; }
     .blog-hero h1 { font-size: 48px; margin: 0 0 10px 0; font-weight: 800; }
     .blog-hero p { font-size: 18px; margin: 0; opacity: 0.95; }
@@ -29,67 +30,62 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a class="logo" href="../">📊 <strong>Compara Preço</strong></a>
-      <div class="search-bar">
-        <input id="searchInput" placeholder="Buscar artigos..." type="text">
-      </div>
-      <button id="themeToggle">🌙</button>
-    </div>
-  </header>
-
-  <nav class="cat-nav">
-    <div class="container cat-tabs">
-      <a class="cat-tab" href="../">Início</a>
-      <a class="cat-tab active" href="../noticias/">📰 Blog</a>
-      <a class="cat-tab" href="../categorias/celulares/">Celulares</a>
-      <a class="cat-tab" href="../categorias/informatica/">Informática</a>
-      <a class="cat-tab" href="../categorias/eletrodomesticos/">Eletrodomésticos</a>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="blog-hero">
-    <div class="blog-container">
-      <h1>📚 Blog Compara Preço</h1>
-      <p>Análises profissionais, guias completos e dicas para você economizar nas melhores ofertas</p>
-    </div>
-  </section>
-
-  <!-- Blog Posts Grid -->
-  <div class="blog-container">
-    <div class="blog-grid" id="blogGrid">
-      <!-- Preenchido via JavaScript -->
-    </div>
-  </div>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <h3>Compara Preço</h3>
-          <p>O seu assistente inteligente para compras online.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Navegação</h4>
-          <a href="../">Início</a>
-          <a href="../noticias/">Blog</a>
-          <a href="/sobre/">Sobre</a>
-        </div>
-        <div class="footer-col">
-          <h4>Institucional</h4>
-          <a href="/privacidade/">Privacidade</a>
-          <a href="/termos/">Termos</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 Compara Preço. Todos os direitos reservados.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<header class="header">
+<div class="container header-inner">
+<a class="logo" href="../">📊 <strong>Compara Preço</strong></a>
+<div class="search-bar">
+<input id="searchInput" placeholder="Buscar artigos..." type="text"/>
+</div>
+<button id="themeToggle">🌙</button>
+</div>
+</header>
+<nav class="cat-nav">
+<div class="container cat-tabs">
+<a class="cat-tab" href="../">Início</a>
+📰 Blog
+Celulares
+Informática
+Eletrodomésticos
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="blog-hero">
+<div class="blog-container">
+<h1>📚 Blog Compara Preço</h1>
+<p>Análises profissionais, guias completos e dicas para você economizar nas melhores ofertas</p>
+</div>
+</section>
+<!-- Blog Posts Grid -->
+<div class="blog-container">
+<div class="blog-grid" id="blogGrid">
+<!-- Preenchido via JavaScript -->
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-col">
+<h3>Compara Preço</h3>
+<p>O seu assistente inteligente para compras online.</p>
+</div>
+<div class="footer-col">
+<h4>Navegação</h4>
+<a href="../">Início</a>
+Blog
+<a href="/sobre/">Sobre</a>
+</div>
+<div class="footer-col">
+<h4>Institucional</h4>
+<a href="/privacidade/">Privacidade</a>
+<a href="/termos/">Termos</a>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2026 Compara Preço. Todos os direitos reservados.</p>
+</div>
+</div>
+</footer>
+<script>
     // Array de notícias carregado dinamicamente
     const NEWS = {{NEWS_JSON}};
 

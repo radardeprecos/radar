@@ -1,388 +1,353 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radar de Preços | Alertas de Ofertas e Menores Preços 24h</title>
-    <meta name="description" content="Encontre as melhores ofertas do dia com monitoramento em tempo real. Alertas de queda de preço e promoções exclusivas.">
-    <link rel="stylesheet" href="/radar/assets/css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Radar de Preços | Alertas de Ofertas e Menores Preços 24h</title>
+<meta content="Encontre as melhores ofertas do dia com monitoramento em tempo real. Alertas de queda de preço e promoções exclusivas." name="description"/>
+<link href="/radar/assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <a href="/radar/" class="logo">📊 Radar de <span>Preços</span></a>
-            <nav class="nav-links">
-                <a href="/radar/ofertas">🔥 Ofertas do Dia</a>
-                <a href="/radar/categorias">📂 Categorias</a>
-                <a href="/radar/noticias">📰 Blog de Ofertas</a>
-                <a href="/radar/comparar">⚖️ Comparar</a>
-            </nav>
-        </div>
-    </header>
+<header class="header">
+<div class="container">
+📊 Radar de Preços
+<nav class="nav-links">
+🔥 Ofertas do Dia
+📂 Categorias
+📰 Blog de Ofertas
+⚖️ Comparar
+</nav>
+</div>
+</header>
+<section class="hero">
+<div class="container">
+<h1>O Menor Preço, no Radar. 🎯</h1>
+<p>Monitoramos milhares de produtos para você encontrar a oferta real, sem pegadinhas.</p>
+<div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
+<a class="btn btn-accent" href="#ofertas" style="width: auto; padding: 15px 40px;">Ver Ofertas de Hoje</a>
+Dicas de Economia
+</div>
+</div>
+</section>
+<div class="container" id="ofertas">
+<div style="margin: 40px 0; display: flex; justify-content: space-between; align-items: center;">
+<h2 style="font-size: 28px; font-weight: 800;">🔥 Ofertas em Destaque</h2>
+<span style="color: var(--primary); font-weight: 700;">Atualizado agora</span>
+</div>
+<div class="product-grid">
+<!-- Os produtos serão injetados aqui pelo script build_homepage.py -->
+<div class="product-card">
+<div class="badge-discount">36% OFF</div>
 
-    <section class="hero">
-        <div class="container">
-            <h1>O Menor Preço, no Radar. 🎯</h1>
-            <p>Monitoramos milhares de produtos para você encontrar a oferta real, sem pegadinhas.</p>
-            <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
-                <a href="#ofertas" class="btn btn-accent" style="width: auto; padding: 15px 40px;">Ver Ofertas de Hoje</a>
-                <a href="/radar/noticias" class="btn" style="width: auto; padding: 15px 40px; background: rgba(255,255,255,0.1); border: 1px solid white;">Dicas de Economia</a>
-            </div>
-        </div>
-    </section>
 
-    <div class="container" id="ofertas">
-        <div style="margin: 40px 0; display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="font-size: 28px; font-weight: 800;">🔥 Ofertas em Destaque</h2>
-            <span style="color: var(--primary); font-weight: 700;">Atualizado agora</span>
-        </div>
-        
-        <div class="product-grid">
-            <!-- Os produtos serão injetados aqui pelo script build_homepage.py -->
-            
-        <div class="product-card">
-            <div class="badge-discount">36% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_997574-MLA109633443994_042026-AB.webp" alt="Kit Body Splash Masculino Barbarius + Enigma + Midtown 200ml" class="product-image">
-            <h3 class="product-title">Kit Body Splash Masculino Barbarius + Enigma + Midtown 200ml</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 89,02</span>
-                <span class="price-old">R$ 140,00</span>
-            </div>
-            <a href="ofertas/beleza/kit-body-splash-masculino-barbarius--enigma--midtown-200ml-MLB4645102377.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">36% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_871708-MLA100016593317_122025-AB.webp" alt="Secador De Cabelos Philco psc3500 4 Em 1 dobrável motor bldc Prateado Bege 127v" class="product-image">
-            <h3 class="product-title">Secador De Cabelos Philco psc3500 4 Em 1 dobrável motor bldc Prateado Bege 127v</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 382,50</span>
-                <span class="price-old">R$ 599,00</span>
-            </div>
-            <a href="ofertas/beleza/secador-de-cabelos-philco-psc3500-4-em-1-dobravel-motor-bldc-prateado-bege-127v-MLB6486861240.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">35% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_966485-MLA106907952364_022026-AB.webp" alt="Smart Tv LG Uhd Ai Ua75 65 Polegadas Hdr10 Pro Processador 7 Ai Ger8 Webos 25" class="product-image">
-            <h3 class="product-title">Smart Tv LG Uhd Ai Ua75 65 Polegadas Hdr10 Pro Processador 7 Ai Ger8 Webos 25</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 3.239,00</span>
-                <span class="price-old">R$ 4.999,00</span>
-            </div>
-            <a href="ofertas/tv-e-video/smart-tv-lg-uhd-ai-ua75-65-polegadas-hdr10-pro-processador-7-ai-ger8-webos-25-MLB4179239349.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">35% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_778917-MLA91526601104_092025-AB.webp" alt="Samsung Galaxy A07 256GB 8GB Verde" class="product-image">
-            <h3 class="product-title">Samsung Galaxy A07 256GB 8GB Verde</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 736,95</span>
-                <span class="price-old">R$ 1.142,00</span>
-            </div>
-            <a href="ofertas/celulares/samsung-galaxy-a07-256gb-8gb-verde-MLB54963045.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">34% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_884422-MLA44567890124_022024-AB.webp" alt="Fritadeira Air Fryer Mondial 4L Inox AF-31" class="product-image">
-            <h3 class="product-title">Fritadeira Air Fryer Mondial 4L Inox AF-31</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 329,00</span>
-                <span class="price-old">R$ 499,00</span>
-            </div>
-            <a href="ofertas/eletrodomesticos/fritadeira-air-fryer-mondial-4l-inox-af-31-MLB3456789013.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">34% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_817281-MLA107167838581_022026-AB.webp" alt="Monitor Gamer LG Ultragear 24 24gs60f-b Ips Full Hd 180hz 1ms (gtg) Nvidia® G-sync® Amd Freesync Hdr10 Srgb 99% Hdmi Displayport Preto 127/220v" class="product-image">
-            <h3 class="product-title">Monitor Gamer LG Ultragear 24 24gs60f-b Ips Full Hd 180hz 1ms (gtg) Nvidia® G-sync® Amd Freesync Hdr10 Srgb 99% Hdmi Displayport Preto 127/220v</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 747,12</span>
-                <span class="price-old">R$ 1.140,00</span>
-            </div>
-            <a href="ofertas/informatica/monitor-gamer-lg-ultragear-24-24gs60f-b-ips-full-hd-180hz-1ms-gtg-nvidia-g-sync-amd-freesync-hdr10-srgb-99-hdmi-displayport-preto-127220v-MLB3925829485.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">34% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_652780-MLA97095974098_112025-AB.webp" alt="Smartphone Motorola Moto G35 5g - 128gb 12gb (4gb Ram+8gb Ram Boost) E Camera 50mp Com Ai Nfc Tela 6.7 Com Superbrilho - Grafite - Vegan Leather" class="product-image">
-            <h3 class="product-title">Smartphone Motorola Moto G35 5g - 128gb 12gb (4gb Ram+8gb Ram Boost) E Camera 50mp Com Ai Nfc Tela 6.7 Com Superbrilho - Grafite - Vegan Leather</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 869,00</span>
-                <span class="price-old">R$ 1.324,00</span>
-            </div>
-            <a href="ofertas/celulares/smartphone-motorola-moto-g35-5g---128gb-12gb-4gb-ram8gb-ram-boost-e-camera-50mp-com-ai-nfc-tela-67-com-superbrilho---grafite---vegan-leather-MLB4079715491.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">34% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_864411-MLA99591392870_122025-AB.webp" alt="Caixa De Som Boombox Aiwa Aws-bbs-01b 200w Ip66 30hs De Bateria Preto 127/220v" class="product-image">
-            <h3 class="product-title">Caixa De Som Boombox Aiwa Aws-bbs-01b 200w Ip66 30hs De Bateria Preto 127/220v</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 1.269,00</span>
-                <span class="price-old">R$ 1.945,00</span>
-            </div>
-            <a href="ofertas/eletrodomesticos/caixa-de-som-boombox-aiwa-aws-bbs-01b-200w-ip66-30hs-de-bateria-preto-127220v-MLB4056119063.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">33% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_440088-MLA44567890138_042025-AB.webp" alt="Toalha de Banho Banhão Fio Penteado Buddemeyer" class="product-image">
-            <h3 class="product-title">Toalha de Banho Banhão Fio Penteado Buddemeyer</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 59,90</span>
-                <span class="price-old">R$ 89,90</span>
-            </div>
-            <a href="ofertas/casa/toalha-de-banho-banhao-fio-penteado-buddemeyer-MLB3456789027.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">33% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_551199-MLA44567890127_052024-AB.webp" alt="Mouse Sem Fio Logitech M170 Preto" class="product-image">
-            <h3 class="product-title">Mouse Sem Fio Logitech M170 Preto</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 59,90</span>
-                <span class="price-old">R$ 89,90</span>
-            </div>
-            <a href="ofertas/informatica/mouse-sem-fio-logitech-m170-preto-MLB3456789016.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">33% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_440088-MLA44567890128_062024-AB.webp" alt="Teclado Mecânico Gamer Redragon Kumara Switch Blue" class="product-image">
-            <h3 class="product-title">Teclado Mecânico Gamer Redragon Kumara Switch Blue</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 199,00</span>
-                <span class="price-old">R$ 299,00</span>
-            </div>
-            <a href="ofertas/informatica/teclado-mecanico-gamer-redragon-kumara-switch-blue-MLB3456789017.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">33% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_979288-MLA109171693698_042026-AB.webp" alt="Kit Com 48 Pacotes De Figurinhas Panini Para O Álbum Copa Do Mundo Fifa 2026" class="product-image">
-            <h3 class="product-title">Kit Com 48 Pacotes De Figurinhas Panini Para O Álbum Copa Do Mundo Fifa 2026</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 304,00</span>
-                <span class="price-old">R$ 459,00</span>
-            </div>
-            <a href="ofertas/games/kit-com-48-pacotes-de-figurinhas-panini-para-o-album-copa-do-mundo-fifa-2026-MLB4674562069.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">32% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_968152-MLB110800709621_042026-AB.webp" alt="Kit 420 Figurinhas Do Álbum Copa Do Mundo 2026- 60 Envelopes" class="product-image">
-            <h3 class="product-title">Kit 420 Figurinhas Do Álbum Copa Do Mundo 2026- 60 Envelopes</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 407,00</span>
-                <span class="price-old">R$ 600,00</span>
-            </div>
-            <a href="ofertas/games/kit-420-figurinhas-do-album-copa-do-mundo-2026--60-envelopes-MLB4627337165.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">31% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_551199-MLA44567890137_032025-AB.webp" alt="Jogo de Cama Casal Queen 4 Peças Algodão 200 Fios" class="product-image">
-            <h3 class="product-title">Jogo de Cama Casal Queen 4 Peças Algodão 200 Fios</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 129,00</span>
-                <span class="price-old">R$ 189,00</span>
-            </div>
-            <a href="ofertas/casa/jogo-de-cama-casal-queen-4-pecas-algodao-200-fios-MLB3456789026.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">30% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_876614-MLB110800889269_042026-AB.webp" alt="Kit 70 Figurinhas Do Álbum Copa Do Mundo 2026 Pronta Entrega" class="product-image">
-            <h3 class="product-title">Kit 70 Figurinhas Do Álbum Copa Do Mundo 2026 Pronta Entrega</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 70,00</span>
-                <span class="price-old">R$ 100,00</span>
-            </div>
-            <a href="ofertas/games/kit-70-figurinhas-do-album-copa-do-mundo-2026-pronta-entrega-MLB4627310495.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">30% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_773311-MLA44567890125_032024-AB.webp" alt="Liquidificador Oster Turbo Power 2.2L Vermelho" class="product-image">
-            <h3 class="product-title">Liquidificador Oster Turbo Power 2.2L Vermelho</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 159,00</span>
-                <span class="price-old">R$ 229,00</span>
-            </div>
-            <a href="ofertas/eletrodomesticos/liquidificador-oster-turbo-power-22l-vermelho-MLB3456789014.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">28% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_662200-MLA44567890136_022025-AB.webp" alt="Kit Shampoo e Condicionador Pantene Hidratação 400ml" class="product-image">
-            <h3 class="product-title">Kit Shampoo e Condicionador Pantene Hidratação 400ml</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 35,90</span>
-                <span class="price-old">R$ 49,90</span>
-            </div>
-            <a href="ofertas/beleza/kit-shampoo-e-condicionador-pantene-hidratacao-400ml-MLB3456789025.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">28% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_006644-MLA44567890132_102024-AB.webp" alt="Jogo God of War Ragnarok PS5 Mídia Física" class="product-image">
-            <h3 class="product-title">Jogo God of War Ragnarok PS5 Mídia Física</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 249,00</span>
-                <span class="price-old">R$ 349,00</span>
-            </div>
-            <a href="ofertas/games/jogo-god-of-war-ragnarok-ps5-midia-fisica-MLB3456789021.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">28% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_117755-MLA44567890131_092024-AB.webp" alt="Fone de Ouvido Bluetooth JBL Wave Buds Preto" class="product-image">
-            <h3 class="product-title">Fone de Ouvido Bluetooth JBL Wave Buds Preto</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 249,00</span>
-                <span class="price-old">R$ 349,00</span>
-            </div>
-            <a href="ofertas/celulares/fone-de-ouvido-bluetooth-jbl-wave-buds-preto-MLB3456789020.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">28% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_716412-MLA99524473372_122025-AB.webp" alt="Samsung Galaxy A06 5G 128GB Preto" class="product-image">
-            <h3 class="product-title">Samsung Galaxy A06 5G 128GB Preto</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 709,90</span>
-                <span class="price-old">R$ 989,00</span>
-            </div>
-            <a href="ofertas/celulares/samsung-galaxy-a06-5g-128gb-preto-MLB48946861.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">27% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_884422-MLA44567890134_122024-AB.webp" alt="Headset Gamer HyperX Cloud Stinger Core PC/PS4/Xbox" class="product-image">
-            <h3 class="product-title">Headset Gamer HyperX Cloud Stinger Core PC/PS4/Xbox</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 189,00</span>
-                <span class="price-old">R$ 259,00</span>
-            </div>
-            <a href="ofertas/games/headset-gamer-hyperx-cloud-stinger-core-pcps4xbox-MLB3456789023.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">25% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_850738-MLA94955143798_102025-AB.webp" alt="Chuveiro Eletrônico Lorenzetti Acqua Duo Ultra 7800w Branco 220v 7.8 Kw" class="product-image">
-            <h3 class="product-title">Chuveiro Eletrônico Lorenzetti Acqua Duo Ultra 7800w Branco 220v 7.8 Kw</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 383,15</span>
-                <span class="price-old">R$ 511,49</span>
-            </div>
-            <a href="ofertas/eletrodomesticos/chuveiro-eletronico-lorenzetti-acqua-duo-ultra-7800w-branco-220v-78-kw-MLB5978099410.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">24% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_339977-MLA44567890139_052025-AB.webp" alt="Smart TV LG 55 4K UHD ThinQ AI HDR Bluetooth" class="product-image">
-            <h3 class="product-title">Smart TV LG 55 4K UHD ThinQ AI HDR Bluetooth</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 2.499,00</span>
-                <span class="price-old">R$ 3.299,00</span>
-            </div>
-            <a href="ofertas/tv-e-video/smart-tv-lg-55-4k-uhd-thinq-ai-hdr-bluetooth-MLB3456789028.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        <div class="product-card">
-            <div class="badge-discount">23% OFF</div>
-            <img src="https://http2.mlstatic.com/D_Q_NP_2X_943083-MLB99905915023_112025-AB.webp" alt="Perfume Arabe Yara Lattafa Eau De Parfum 100ml Original C Nf" class="product-image">
-            <h3 class="product-title">Perfume Arabe Yara Lattafa Eau De Parfum 100ml Original C Nf</h3>
-            <div class="price-container">
-                <span class="price-current">R$ 184,48</span>
-                <span class="price-old">R$ 239,90</span>
-            </div>
-            <a href="ofertas/beleza/perfume-arabe-yara-lattafa-eau-de-parfum-100ml-original-c-nf-MLB4350686819.html" class="btn">VER ALERTA</a>
-        </div>
-        
-        </div>
-        
-        <div style="text-align: center; margin: 60px 0;">
-            <a href="/radar/categorias" class="btn" style="display: inline-block; width: auto; padding: 15px 60px;">Ver Todas as Categorias</a>
-        </div>
-    </div>
+<div class="price-container">
+<span class="price-current">R$ 89,02</span>
+<span class="price-old">R$ 140,00</span>
+</div>
+<a class="btn" href="ofertas/beleza/kit-body-splash-masculino-barbarius--enigma--midtown-200ml-MLB4645102377.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">36% OFF</div>
 
-    
-    <section class="blog-highlights" style="background: #f8f9fa; padding: 80px 0; border-top: 1px solid #eee;">
-        <div class="container">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
-                <div>
-                    <h2 style="font-size: 32px; font-weight: 900; margin-bottom: 10px;">📰 Radar de Notícias</h2>
-                    <p style="color: #666;">Análises profundas geradas por nossa IA sobre as melhores oportunidades.</p>
-                </div>
-                <a href="/radar/noticias" class="btn" style="width: auto; padding: 12px 30px; background: white; color: #667eea; border: 2px solid #667eea;">Ver Tudo</a>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                
-            <div style="background: white; padding: 25px; border-radius: 16px; border: 1px solid #eee; transition: transform 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                <div style="color: #667eea; font-size: 12px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase;">📊 Alerta de Oferta • 04 Jun 2026</div>
-                <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px; line-height: 1.4; color: #333;">Alerta de Oferta: Micro-ondas Brastemp 32 Litros Espelhado BMS45 vale a pena com 20% OFF?</h3>
-                <p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px;">Alerta de Oferta automática do Radar de Preços sobre Micro-ondas Brastemp 32 Litros Espelhado BMS45 com 20% de desconto ...</p>
-                <a href="noticias/posts/analise-micro-ondas-brastemp-32-litros-espelhado-bms45-MLB3456789012-20260604195001-1.html" style="color: #667eea; text-decoration: none; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px;">
+
+<div class="price-container">
+<span class="price-current">R$ 382,50</span>
+<span class="price-old">R$ 599,00</span>
+</div>
+<a class="btn" href="ofertas/beleza/secador-de-cabelos-philco-psc3500-4-em-1-dobravel-motor-bldc-prateado-bege-127v-MLB6486861240.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">35% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 3.239,00</span>
+<span class="price-old">R$ 4.999,00</span>
+</div>
+<a class="btn" href="ofertas/tv-e-video/smart-tv-lg-uhd-ai-ua75-65-polegadas-hdr10-pro-processador-7-ai-ger8-webos-25-MLB4179239349.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">35% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 736,95</span>
+<span class="price-old">R$ 1.142,00</span>
+</div>
+<a class="btn" href="ofertas/celulares/samsung-galaxy-a07-256gb-8gb-verde-MLB54963045.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">34% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 329,00</span>
+<span class="price-old">R$ 499,00</span>
+</div>
+<a class="btn" href="ofertas/eletrodomesticos/fritadeira-air-fryer-mondial-4l-inox-af-31-MLB3456789013.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">34% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 747,12</span>
+<span class="price-old">R$ 1.140,00</span>
+</div>
+<a class="btn" href="ofertas/informatica/monitor-gamer-lg-ultragear-24-24gs60f-b-ips-full-hd-180hz-1ms-gtg-nvidia-g-sync-amd-freesync-hdr10-srgb-99-hdmi-displayport-preto-127220v-MLB3925829485.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">34% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 869,00</span>
+<span class="price-old">R$ 1.324,00</span>
+</div>
+<a class="btn" href="ofertas/celulares/smartphone-motorola-moto-g35-5g---128gb-12gb-4gb-ram8gb-ram-boost-e-camera-50mp-com-ai-nfc-tela-67-com-superbrilho---grafite---vegan-leather-MLB4079715491.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">34% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 1.269,00</span>
+<span class="price-old">R$ 1.945,00</span>
+</div>
+<a class="btn" href="ofertas/eletrodomesticos/caixa-de-som-boombox-aiwa-aws-bbs-01b-200w-ip66-30hs-de-bateria-preto-127220v-MLB4056119063.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">33% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 59,90</span>
+<span class="price-old">R$ 89,90</span>
+</div>
+<a class="btn" href="ofertas/casa/toalha-de-banho-banhao-fio-penteado-buddemeyer-MLB3456789027.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">33% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 59,90</span>
+<span class="price-old">R$ 89,90</span>
+</div>
+<a class="btn" href="ofertas/informatica/mouse-sem-fio-logitech-m170-preto-MLB3456789016.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">33% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 199,00</span>
+<span class="price-old">R$ 299,00</span>
+</div>
+<a class="btn" href="ofertas/informatica/teclado-mecanico-gamer-redragon-kumara-switch-blue-MLB3456789017.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">33% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 304,00</span>
+<span class="price-old">R$ 459,00</span>
+</div>
+<a class="btn" href="ofertas/games/kit-com-48-pacotes-de-figurinhas-panini-para-o-album-copa-do-mundo-fifa-2026-MLB4674562069.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">32% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 407,00</span>
+<span class="price-old">R$ 600,00</span>
+</div>
+<a class="btn" href="ofertas/games/kit-420-figurinhas-do-album-copa-do-mundo-2026--60-envelopes-MLB4627337165.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">31% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 129,00</span>
+<span class="price-old">R$ 189,00</span>
+</div>
+<a class="btn" href="ofertas/casa/jogo-de-cama-casal-queen-4-pecas-algodao-200-fios-MLB3456789026.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">30% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 70,00</span>
+<span class="price-old">R$ 100,00</span>
+</div>
+<a class="btn" href="ofertas/games/kit-70-figurinhas-do-album-copa-do-mundo-2026-pronta-entrega-MLB4627310495.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">30% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 159,00</span>
+<span class="price-old">R$ 229,00</span>
+</div>
+<a class="btn" href="ofertas/eletrodomesticos/liquidificador-oster-turbo-power-22l-vermelho-MLB3456789014.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">28% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 35,90</span>
+<span class="price-old">R$ 49,90</span>
+</div>
+<a class="btn" href="ofertas/beleza/kit-shampoo-e-condicionador-pantene-hidratacao-400ml-MLB3456789025.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">28% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 249,00</span>
+<span class="price-old">R$ 349,00</span>
+</div>
+<a class="btn" href="ofertas/games/jogo-god-of-war-ragnarok-ps5-midia-fisica-MLB3456789021.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">28% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 249,00</span>
+<span class="price-old">R$ 349,00</span>
+</div>
+<a class="btn" href="ofertas/celulares/fone-de-ouvido-bluetooth-jbl-wave-buds-preto-MLB3456789020.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">28% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 709,90</span>
+<span class="price-old">R$ 989,00</span>
+</div>
+<a class="btn" href="ofertas/celulares/samsung-galaxy-a06-5g-128gb-preto-MLB48946861.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">27% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 189,00</span>
+<span class="price-old">R$ 259,00</span>
+</div>
+<a class="btn" href="ofertas/games/headset-gamer-hyperx-cloud-stinger-core-pcps4xbox-MLB3456789023.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">25% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 383,15</span>
+<span class="price-old">R$ 511,49</span>
+</div>
+<a class="btn" href="ofertas/eletrodomesticos/chuveiro-eletronico-lorenzetti-acqua-duo-ultra-7800w-branco-220v-78-kw-MLB5978099410.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">24% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 2.499,00</span>
+<span class="price-old">R$ 3.299,00</span>
+</div>
+<a class="btn" href="ofertas/tv-e-video/smart-tv-lg-55-4k-uhd-thinq-ai-hdr-bluetooth-MLB3456789028.html">VER ALERTA</a>
+</div>
+<div class="product-card">
+<div class="badge-discount">23% OFF</div>
+
+
+<div class="price-container">
+<span class="price-current">R$ 184,48</span>
+<span class="price-old">R$ 239,90</span>
+</div>
+<a class="btn" href="ofertas/beleza/perfume-arabe-yara-lattafa-eau-de-parfum-100ml-original-c-nf-MLB4350686819.html">VER ALERTA</a>
+</div>
+</div>
+<div style="text-align: center; margin: 60px 0;">
+Ver Todas as Categorias
+</div>
+</div>
+<section class="blog-highlights" style="background: #f8f9fa; padding: 80px 0; border-top: 1px solid #eee;">
+<div class="container">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+<div>
+<h2 style="font-size: 32px; font-weight: 900; margin-bottom: 10px;">📰 Radar de Notícias</h2>
+<p style="color: #666;">Análises profundas geradas por nossa IA sobre as melhores oportunidades.</p>
+</div>
+Ver Tudo
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+<div style="background: white; padding: 25px; border-radius: 16px; border: 1px solid #eee; transition: transform 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+<div style="color: #667eea; font-size: 12px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase;">📊 Alerta de Oferta • 04 Jun 2026</div>
+<h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px; line-height: 1.4; color: #333;">Alerta de Oferta: Micro-ondas Brastemp 32 Litros Espelhado BMS45 vale a pena com 20% OFF?</h3>
+<p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px;">Alerta de Oferta automática do Radar de Preços sobre Micro-ondas Brastemp 32 Litros Espelhado BMS45 com 20% de desconto ...</p>
+<a href="noticias/posts/analise-micro-ondas-brastemp-32-litros-espelhado-bms45-MLB3456789012-20260604195001-1.html" style="color: #667eea; text-decoration: none; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px;">
                     Ler Análise Completa <span>→</span>
-                </a>
-            </div>
-            
-            <div style="background: white; padding: 25px; border-radius: 16px; border: 1px solid #eee; transition: transform 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                <div style="color: #667eea; font-size: 12px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase;">📊 Alerta de Oferta • 04 Jun 2026</div>
-                <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px; line-height: 1.4; color: #333;">Alerta de Oferta: Smart Tv 43 Britânia Hdr10 Dolby Áudio Roku Tv B43kra vale a pena com 22% OFF?</h3>
-                <p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px;">Alerta de Oferta automática do Radar de Preços sobre Smart Tv 43 Britânia Hdr10 Dolby Áudio Roku Tv B43kra com 22% de de...</p>
-                <a href="noticias/posts/analise-smart-tv-43-britania-hdr10-dolby-audio-roku-tv-b43kra-MLB6423251554-20260604113823-1.html" style="color: #667eea; text-decoration: none; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px;">
+</a>
+</div>
+<div style="background: white; padding: 25px; border-radius: 16px; border: 1px solid #eee; transition: transform 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+<div style="color: #667eea; font-size: 12px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase;">📊 Alerta de Oferta • 04 Jun 2026</div>
+<h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px; line-height: 1.4; color: #333;">Alerta de Oferta: Smart Tv 43 Britânia Hdr10 Dolby Áudio Roku Tv B43kra vale a pena com 22% OFF?</h3>
+<p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px;">Alerta de Oferta automática do Radar de Preços sobre Smart Tv 43 Britânia Hdr10 Dolby Áudio Roku Tv B43kra com 22% de de...</p>
+<a href="noticias/posts/analise-smart-tv-43-britania-hdr10-dolby-audio-roku-tv-b43kra-MLB6423251554-20260604113823-1.html" style="color: #667eea; text-decoration: none; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px;">
                     Ler Análise Completa <span>→</span>
-                </a>
-            </div>
-            
-            <div style="background: white; padding: 25px; border-radius: 16px; border: 1px solid #eee; transition: transform 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                <div style="color: #667eea; font-size: 12px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase;">📊 Alerta de Oferta • 04 Jun 2026</div>
-                <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px; line-height: 1.4; color: #333;">Alerta de Oferta: Perfume Carolina Herrera 212 VIP Men 100ml vale a pena com 23% OFF?</h3>
-                <p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px;">Alerta de Oferta automática do Radar de Preços sobre Perfume Carolina Herrera 212 VIP Men 100ml com 23% de desconto moni...</p>
-                <a href="noticias/posts/analise-perfume-carolina-herrera-212-vip-men-100ml-MLB3456789024-20260604113821-1.html" style="color: #667eea; text-decoration: none; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px;">
+</a>
+</div>
+<div style="background: white; padding: 25px; border-radius: 16px; border: 1px solid #eee; transition: transform 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+<div style="color: #667eea; font-size: 12px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase;">📊 Alerta de Oferta • 04 Jun 2026</div>
+<h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px; line-height: 1.4; color: #333;">Alerta de Oferta: Perfume Carolina Herrera 212 VIP Men 100ml vale a pena com 23% OFF?</h3>
+<p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px;">Alerta de Oferta automática do Radar de Preços sobre Perfume Carolina Herrera 212 VIP Men 100ml com 23% de desconto moni...</p>
+<a href="noticias/posts/analise-perfume-carolina-herrera-212-vip-men-100ml-MLB3456789024-20260604113821-1.html" style="color: #667eea; text-decoration: none; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px;">
                     Ler Análise Completa <span>→</span>
-                </a>
+</a>
+</div>
+</div>
+</div>
+</section>
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<h4>📊 Radar de Preços</h4>
+<p style="font-size: 14px; color: #ccc;">Sua ferramenta definitiva para encontrar o menor preço e economizar de verdade todos os dias.</p>
+</div>
+<div>
+<h4>Links Úteis</h4>
+<ul>
+<li>Sobre Nós</li>
+<li>Privacidade</li>
+<li>Contato</li>
+</ul>
+</div>
+<div>
+<h4>Categorias Populares</h4>
+<ul>
+<li>Tecnologia</li>
+<li>Casa e Cozinha</li>
+<li>Beleza e Saúde</li>
+</ul>
+</div>
+</div>
+<div style="text-align: center; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #888;">
+                © 2026 Radar de Preços. Todos os direitos reservados.
             </div>
-            
-            </div>
-        </div>
-    </section>
-        
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h4>📊 Radar de Preços</h4>
-                    <p style="font-size: 14px; color: #ccc;">Sua ferramenta definitiva para encontrar o menor preço e economizar de verdade todos os dias.</p>
-                </div>
-                <div>
-                    <h4>Links Úteis</h4>
-                    <ul>
-                        <li><a href="/radar/sobre">Sobre Nós</a></li>
-                        <li><a href="/radar/privacidade">Privacidade</a></li>
-                        <li><a href="/radar/contato">Contato</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Categorias Populares</h4>
-                    <ul>
-                        <li><a href="/radar/categorias/tecnologia">Tecnologia</a></li>
-                        <li><a href="/radar/categorias/casa">Casa e Cozinha</a></li>
-                        <li><a href="/radar/categorias/beleza">Beleza e Saúde</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div style="text-align: center; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #888;">
-                &copy; 2026 Radar de Preços. Todos os direitos reservados.
-            </div>
-        </div>
-    </footer>
+</div>
+</footer>
 </body>
 </html>

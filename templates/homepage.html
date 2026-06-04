@@ -1,81 +1,74 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radar de Preços | Alertas de Ofertas e Menores Preços 24h</title>
-    <meta name="description" content="Encontre as melhores ofertas do dia com monitoramento em tempo real. Alertas de queda de preço e promoções exclusivas.">
-    <link rel="stylesheet" href="/radar/assets/css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Radar de Preços | Alertas de Ofertas e Menores Preços 24h</title>
+<meta content="Encontre as melhores ofertas do dia com monitoramento em tempo real. Alertas de queda de preço e promoções exclusivas." name="description"/>
+<link href="/radar/assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <a href="/radar/" class="logo">📊 Radar de <span>Preços</span></a>
-            <nav class="nav-links">
-                <a href="/radar/ofertas">🔥 Ofertas do Dia</a>
-                <a href="/radar/categorias">📂 Categorias</a>
-                <a href="/radar/noticias">📰 Blog de Ofertas</a>
-                <a href="/radar/comparar">⚖️ Comparar</a>
-            </nav>
-        </div>
-    </header>
+<header class="header">
+<div class="container">
+📊 Radar de Preços
+<nav class="nav-links">
+🔥 Ofertas do Dia
+📂 Categorias
+📰 Blog de Ofertas
+⚖️ Comparar
+</nav>
+</div>
+</header>
+<section class="hero">
+<div class="container">
+<h1>O Menor Preço, no Radar. 🎯</h1>
+<p>Monitoramos milhares de produtos para você encontrar a oferta real, sem pegadinhas.</p>
+<div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
+<a class="btn btn-accent" href="#ofertas" style="width: auto; padding: 15px 40px;">Ver Ofertas de Hoje</a>
+Dicas de Economia
+</div>
+</div>
+</section>
+<div class="container" id="ofertas">
+<div style="margin: 40px 0; display: flex; justify-content: space-between; align-items: center;">
+<h2 style="font-size: 28px; font-weight: 800;">🔥 Ofertas em Destaque</h2>
+<span style="color: var(--primary); font-weight: 700;">Atualizado agora</span>
+</div>
 
-    <section class="hero">
-        <div class="container">
-            <h1>O Menor Preço, no Radar. 🎯</h1>
-            <p>Monitoramos milhares de produtos para você encontrar a oferta real, sem pegadinhas.</p>
-            <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
-                <a href="#ofertas" class="btn btn-accent" style="width: auto; padding: 15px 40px;">Ver Ofertas de Hoje</a>
-                <a href="/radar/noticias" class="btn" style="width: auto; padding: 15px 40px; background: rgba(255,255,255,0.1); border: 1px solid white;">Dicas de Economia</a>
+<div style="text-align: center; margin: 60px 0;">
+Ver Todas as Categorias
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<h4>📊 Radar de Preços</h4>
+<p style="font-size: 14px; color: #ccc;">Sua ferramenta definitiva para encontrar o menor preço e economizar de verdade todos os dias.</p>
+</div>
+<div>
+<h4>Links Úteis</h4>
+<ul>
+<li>Sobre Nós</li>
+<li>Privacidade</li>
+<li>Contato</li>
+</ul>
+</div>
+<div>
+<h4>Categorias Populares</h4>
+<ul>
+<li>Tecnologia</li>
+<li>Casa e Cozinha</li>
+<li>Beleza e Saúde</li>
+</ul>
+</div>
+</div>
+<div style="text-align: center; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #888;">
+                © 2026 Radar de Preços. Todos os direitos reservados.
             </div>
-        </div>
-    </section>
-
-    <div class="container" id="ofertas">
-        <div style="margin: 40px 0; display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="font-size: 28px; font-weight: 800;">🔥 Ofertas em Destaque</h2>
-            <span style="color: var(--primary); font-weight: 700;">Atualizado agora</span>
-        </div>
-        
-        <div class="product-grid">
-            <!-- Os produtos serão injetados aqui pelo script build_homepage.py -->
-            {{products_html}}
-        </div>
-        
-        <div style="text-align: center; margin: 60px 0;">
-            <a href="/radar/categorias" class="btn" style="display: inline-block; width: auto; padding: 15px 60px;">Ver Todas as Categorias</a>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h4>📊 Radar de Preços</h4>
-                    <p style="font-size: 14px; color: #ccc;">Sua ferramenta definitiva para encontrar o menor preço e economizar de verdade todos os dias.</p>
-                </div>
-                <div>
-                    <h4>Links Úteis</h4>
-                    <ul>
-                        <li><a href="/radar/sobre">Sobre Nós</a></li>
-                        <li><a href="/radar/privacidade">Privacidade</a></li>
-                        <li><a href="/radar/contato">Contato</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Categorias Populares</h4>
-                    <ul>
-                        <li><a href="/radar/categorias/tecnologia">Tecnologia</a></li>
-                        <li><a href="/radar/categorias/casa">Casa e Cozinha</a></li>
-                        <li><a href="/radar/categorias/beleza">Beleza e Saúde</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div style="text-align: center; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #888;">
-                &copy; 2026 Radar de Preços. Todos os direitos reservados.
-            </div>
-        </div>
-    </footer>
+</div>
+</footer>
 </body>
 </html>

@@ -1,63 +1,58 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{product.name}} | Radar de Preços</title>
-    <meta name="description" content="Alerta de Oferta: {{product.name}} com {{product.discount}}% de desconto. Veja se vale a pena comprar agora!">
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>{{product.name}} | Radar de Preços</title>
+<meta content="Alerta de Oferta: {{product.name}} com {{product.discount}}% de desconto. Veja se vale a pena comprar agora!" name="description"/>
+<link href="../../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <a href="../../" class="logo">📊 Radar de <span>Preços</span></a>
-            <nav class="nav-links">
-                <a href="../../ofertas">🔥 Ofertas</a>
-                <a href="../../categorias">📂 Categorias</a>
-                <a href="../../noticias">📰 Blog</a>
-                <a href="../../comparar">⚖️ Comparar</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="container" style="padding: 40px 20px;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: start;">
-            <div style="background: white; padding: 30px; border-radius: 20px; box-shadow: var(--shadow); text-align: center;">
-                <img src="{{product.image}}" alt="{{product.name}}" style="max-width: 100%; height: 350px; object-fit: contain;">
-            </div>
-            
-            <div>
-                <div style="display: inline-block; background: var(--accent); color: var(--primary); padding: 5px 15px; border-radius: 20px; font-weight: 800; margin-bottom: 15px;">
+<header class="header">
+<div class="container">
+<a class="logo" href="../../">📊 Radar de <span>Preços</span></a>
+<nav class="nav-links">
+🔥 Ofertas
+📂 Categorias
+📰 Blog
+⚖️ Comparar
+</nav>
+</div>
+</header>
+<main class="container" style="padding: 40px 20px;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: start;">
+<div style="background: white; padding: 30px; border-radius: 20px; box-shadow: var(--shadow); text-align: center;">
+<img alt="{{product.name}}" src="{{product.image}}" style="max-width: 100%; height: 350px; object-fit: contain;"/>
+</div>
+<div>
+<div style="display: inline-block; background: var(--accent); color: var(--primary); padding: 5px 15px; border-radius: 20px; font-weight: 800; margin-bottom: 15px;">
                     ⚠️ ALERTA DE PREÇO BAIXO
                 </div>
-                <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 20px;">{{product.name}}</h1>
-                
-                <div style="background: #e8f5e9; padding: 20px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid var(--success);">
-                    <div style="font-size: 14px; color: #666; text-decoration: line-through;">De: {{product.original_price}}</div>
-                    <div style="font-size: 40px; font-weight: 900; color: var(--primary);">Por: {{product.price}}</div>
-                    <div style="font-size: 18px; font-weight: 700; color: var(--success);">Economia de {{product.discount}}%</div>
-                </div>
-
-                <a href="{{product.affiliate_url}}" class="btn btn-accent" style="font-size: 20px; padding: 20px;">IR PARA A LOJA (MERCADO LIVRE)</a>
-                <p style="font-size: 12px; color: #999; text-align: center; margin-top: 10px;">* Preço verificado há poucos minutos. Sujeito a alteração.</p>
-            </div>
-        </div>
-
-        <section style="margin-top: 60px;">
-            <h2 style="margin-bottom: 30px; font-size: 24px;">📊 Histórico e Análise da Oferta</h2>
-            <div style="background: white; padding: 30px; border-radius: 16px; border: 1px solid var(--border);">
+<h1 style="font-size: 32px; font-weight: 800; margin-bottom: 20px;">{{product.name}}</h1>
+<div style="background: #e8f5e9; padding: 20px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid var(--success);">
+<div style="font-size: 14px; color: #666; text-decoration: line-through;">De: {{product.original_price}}</div>
+<div style="font-size: 40px; font-weight: 900; color: var(--primary);">Por: {{product.price}}</div>
+<div style="font-size: 18px; font-weight: 700; color: var(--success);">Economia de {{product.discount}}%</div>
+</div>
+IR PARA A LOJA (MERCADO LIVRE)
+<p style="font-size: 12px; color: #999; text-align: center; margin-top: 10px;">* Preço verificado há poucos minutos. Sujeito a alteração.</p>
+</div>
+</div>
+<section style="margin-top: 60px;">
+<h2 style="margin-bottom: 30px; font-size: 24px;">📊 Histórico e Análise da Oferta</h2>
+<div style="background: white; padding: 30px; border-radius: 16px; border: 1px solid var(--border);">
                 {{product.description}}
             </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div style="text-align: center; font-size: 14px; color: #888;">
-                &copy; 2026 Radar de Preços. Parte da rede de monitoramento de ofertas.
+</section>
+</main>
+<footer class="footer">
+<div class="container">
+<div style="text-align: center; font-size: 14px; color: #888;">
+                © 2026 Radar de Preços. Parte da rede de monitoramento de ofertas.
             </div>
-        </div>
-    </footer>
+</div>
+</footer>
 </body>
 </html>

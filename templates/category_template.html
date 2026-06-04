@@ -1,41 +1,37 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{seo.title}}</title>
-    <meta name="description" content="{{meta.description}}">
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>{{seo.title}}</title>
+<meta content="{{meta.description}}" name="description"/>
+<link href="../../assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <a href="../../" class="logo">📊 Radar de <span>Preços</span></a>
-            <nav class="nav-links">
-                <a href="../../ofertas">🔥 Ofertas</a>
-                <a href="../../categorias">📂 Categorias</a>
-                <a href="../../noticias">📰 Blog</a>
-                <a href="../../comparar">⚖️ Comparar</a>
-            </nav>
-        </div>
-    </header>
+<header class="header">
+<div class="container">
+<a class="logo" href="../../">📊 Radar de <span>Preços</span></a>
+<nav class="nav-links">
+🔥 Ofertas
+📂 Categorias
+📰 Blog
+⚖️ Comparar
+</nav>
+</div>
+</header>
+<div class="container" style="padding: 40px 20px;">
+<h1 style="font-size: 32px; font-weight: 800; margin-bottom: 10px;">{{category.name}}</h1>
+<p style="color: #666; margin-bottom: 40px;">Confira as melhores ofertas monitoradas em {{category.name}}.</p>
 
-    <div class="container" style="padding: 40px 20px;">
-        <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 10px;">{{category.name}}</h1>
-        <p style="color: #666; margin-bottom: 40px;">Confira as melhores ofertas monitoradas em {{category.name}}.</p>
-        
-        <div class="product-grid">
-            {{category.products}}
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="container">
-            <div style="text-align: center; font-size: 14px; color: #888;">
-                &copy; 2026 Radar de Preços.
+</div>
+<footer class="footer">
+<div class="container">
+<div style="text-align: center; font-size: 14px; color: #888;">
+                © 2026 Radar de Preços.
             </div>
-        </div>
-    </footer>
+</div>
+</footer>
 </body>
 </html>
