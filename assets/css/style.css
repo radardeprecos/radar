@@ -1,1 +1,160 @@
 @import url('premium-style.css');
+
+/* BLINDAGEM RADAR DE PREÇOS - V2.0 */
+:root { 
+    --p: #6366f1; /* Roxo Principal */
+    --s: #06b6d4; /* Ciano Secundário */
+    --d: #0f172a; /* Escuro */
+    --w: #ffffff; /* Branco */
+    --g: #f8fafc; /* Cinza Fundo */
+    --success: #10b981; 
+    --danger: #ef4444;
+    --warning: #f59e0b;
+}
+
+/* Barra de Busca */
+.search-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#product-search {
+    width: 100%;
+    padding: 15px 20px 15px 45px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    background: var(--w);
+    font-size: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+#product-search:focus {
+    outline: none;
+    border-color: var(--p);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    color: #94a3b8;
+}
+
+/* Grid e Cards */
+.product-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 20px; 
+    padding: 20px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+.product-card { 
+    background: var(--w); 
+    border-radius: 16px; 
+    padding: 20px; 
+    border: 1px solid #e2e8f0; 
+    transition: 0.3s; 
+    position: relative; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+.product-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
+    border-color: var(--p); 
+}
+
+/* Badges */
+.badge-discount {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    background: var(--danger) !important;
+    color: white !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    font-weight: 800 !important;
+    font-size: 12px !important;
+    z-index: 10 !important;
+}
+
+.badge-ninja {
+    position: absolute !important;
+    top: 10px !important;
+    left: 10px !important;
+    background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%) !important;
+    color: white !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    font-weight: 900 !important;
+    font-size: 10px !important;
+    z-index: 20 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+/* Imagens */
+.product-image-wrapper {
+    aspect-ratio: 1/1;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.product-card img { 
+    max-width: 100%; 
+    height: auto; 
+    max-height: 200px; 
+    object-fit: contain; 
+}
+
+/* Preços e Botões */
+.product-info { padding: 15px 0; }
+.product-title { 
+    font-size: 14px; 
+    font-weight: 700; 
+    color: var(--d); 
+    margin-bottom: 10px; 
+    height: 40px; 
+    overflow: hidden; 
+    display: -webkit-box; 
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical; 
+}
+
+.price-old { color: #94a3b8; text-decoration: line-through; font-size: 12px; }
+.price-current { font-size: 22px; color: var(--d); font-weight: 800; display: block; }
+
+.btn-buy { 
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important; 
+    color: white !important; 
+    font-weight: bold !important; 
+    padding: 12px !important; 
+    border-radius: 10px !important; 
+    text-align: center !important; 
+    text-decoration: none !important; 
+    margin-top: 15px !important; 
+    display: block !important; 
+    transition: 0.3s !important; 
+}
+
+.btn-buy:hover { filter: brightness(1.1) !important; transform: scale(1.02) !important; }
+
+/* Esconder produtos na busca */
+.hidden { display: none !important; }
