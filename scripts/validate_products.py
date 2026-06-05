@@ -2,27 +2,43 @@ import json
 import os
 from logger import logger
 
-def validate_product(p):
+import requests
+import time
+
+def validate_product(p, check_link_health=False):
     """Valida se o produto tem dados mínimos e sãos para exibição."""
     try:
-        # Campos obrigatórios
+        # 1. Campos obrigatórios
         if not p.get('id') or not p.get('name') or not p.get('price'):
             return False
             
-        # Validação de Preço (Evitar erros de 0 ou negativos)
+        # 2. Validação de Preço
         price = float(p['price'])
         if price <= 0:
             return False
             
-        # Validação de URL (Mínimo de sanidade)
+        # 3. Validação de URL
         url = p.get('custom_affiliate_url') or p.get('permalink')
         if not url or not url.startswith('http'):
             return False
             
-        # Validação de Desconto (Evitar erros de cálculo bizarros)
+        # 4. Validação de Desconto
         discount = p.get('custom_discount_pct', 0)
         if discount < 0 or discount > 99:
-            p['custom_discount_pct'] = 0 # Resetar se for absurdo
+            p['custom_discount_pct'] = 0
+            
+        # 5. Validação de Saúde do Link (Opcional para não lentificar o pipeline principal)
+        if check_link_health:
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+            try:
+                # Tenta uma verificação rápida
+                resp = requests.get(url, headers=headers, timeout=10, allow_redirects=True)
+                if resp.status_code >= 400 and resp.status_code != 403: # 403 ignoramos pois o ML bloqueia bots
+                    return False
+                if "mercadolivre.com.br/gz/home" in resp.url: # Redirecionado para erro
+                    return False
+            except:
+                return False
             
         return True
     except:

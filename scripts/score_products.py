@@ -1,6 +1,7 @@
 import os
 import json
 from logger import logger
+from validate_products import validate_product
 
 def process(input_p, output_p):
     if not os.path.exists(input_p):
@@ -14,7 +15,7 @@ def process(input_p, output_p):
                 seen_ids = set()
                 for p in raw_data:
                     p_id = p.get("id")
-                    if p_id and p_id not in seen_ids and p.get("name") and p.get("price", 0) > 0:
+                    if p_id and p_id not in seen_ids and validate_product(p):
                         products.append(p)
                         seen_ids.add(p_id)
             except Exception as e:
