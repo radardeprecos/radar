@@ -3,7 +3,8 @@ import json
 from typing import List, Dict, Any
 from logger import logger
 
-BASE_URL = "https://radardeprecos.github.io/radar/"
+# Caminho absoluto para garantir que o CSS e links funcionem em qualquer nível de pasta
+BASE_URL = "/radar/"
 
 def build_category_page(category_slug: str, products: List[Dict[str, Any]], template_path: str, output_dir: str) -> None:
     logger.info(f"Gerando página PREMIUM para a categoria: {category_slug}")
@@ -42,7 +43,7 @@ def build_category_page(category_slug: str, products: List[Dict[str, Any]], temp
         <div class="product-card">
             <span class="badge-discount">↓ {discount}% OFF</span>
             <div class="img-wrapper">
-                <img src="{img_url}" alt="{p_name}" loading="lazy">
+                <img src="{img_url}" alt="{p_name}" loading="lazy" onerror="this.src='https://placehold.co/400x400?text=Imagem+Indisponivel'">
             </div>
             <div class="card-body">
                 <h3 class="product-name">{p_name}</h3>
@@ -60,14 +61,18 @@ def build_category_page(category_slug: str, products: List[Dict[str, Any]], temp
     # SEO e Metadados
     seo_title = f"{category_name} em Oferta | Radar de Preços - O Menor Preço Garantido"
     meta_description = f"Economize agora em {category_name}. Selecionamos as melhores ofertas do dia com descontos reais e links de afiliados seguros."
-    canonical_url = f"{BASE_URL}categorias/{category_slug}/index.html"
+    canonical_url = f"https://radardeprecos.github.io/radar/categorias/{category_slug}/index.html"
 
-    # Substituições no template
+    # Substituições no template com CACHE BUSTING no CSS
     page_content = template.replace("{{seo.title}}", seo_title)
     page_content = page_content.replace("{{meta.description}}", meta_description)
     page_content = page_content.replace("{{canonical.url}}", canonical_url)
     page_content = page_content.replace("{{category.name}}", category_name)
     page_content = page_content.replace("{{category.products}}", category_products_html)
+    
+    # Garantir caminhos absolutos para assets
+    page_content = page_content.replace('href="/radar/assets/css/style.css"', 'href="/radar/assets/css/style.css?v=20260605"')
+    page_content = page_content.replace('href="/radar/index.html"', 'href="/radar/index.html"')
     
     # Salvar página
     page_path = os.path.join(output_dir, category_slug, "index.html")
