@@ -1,1 +1,16 @@
-[{"id": "NOVO_PRODUTO_TESTE_API_2026", "name": "📱 Smartphone Galaxy S24 Ultra - NOVO", "title": "📱 Smartphone Galaxy S24 Ultra - NOVO", "price": 4500.0, "original_price": 6000.0, "permalink": "https://www.mercadolivre.com.br/galaxy-s24?matt_tool=vendas0nline", "image": "https://http2.mlstatic.com/D_Q_NP_2X_828436-MLA100007265481_122025-AB.webp", "thumbnail": "https://http2.mlstatic.com/D_Q_NP_2X_828436-MLA100007265481_122025-AB.webp", "custom_category_slug": "tecnologia", "custom_discount_pct": 25, "status": "active", "data_atualizacao": "2026-06-05T16:30:00"}]
+[
+  {
+    "id": "NOVO_PRODUTO_TESTE_API_2026",
+    "name": "📱 Smartphone Galaxy S24 Ultra - NOVO",
+    "title": "📱 Smartphone Galaxy S24 Ultra - NOVO",
+    "price": 4500.0,
+    "original_price": 6000.0,
+    "permalink": "https://www.mercadolivre.com.br/galaxy-s24?matt_tool=vendas0nline",
+    "image": "https://http2.mlstatic.com/D_Q_NP_2X_828436-MLA100007265481_122025-AB.webp",
+    "thumbnail": "https://http2.mlstatic.com/D_Q_NP_2X_828436-MLA100007265481_122025-AB.webp",
+    "custom_category_slug": "tecnologia",
+    "custom_discount_pct": 25,
+    "status": "active",
+    "data_atualizacao": "2026-06-05T16:30:00"
+  }
+]
