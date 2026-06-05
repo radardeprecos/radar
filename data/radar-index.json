@@ -3,63 +3,63 @@
   "indexes": [
     {
       "category": "Celulares",
-      "score": 93,
-      "change": 2.49,
-      "status": "up"
+      "score": 83,
+      "change": -2.25,
+      "status": "down"
     },
     {
       "category": "TVs",
-      "score": 89,
-      "change": 0.51,
-      "status": "up"
-    },
-    {
-      "category": "Notebooks",
-      "score": 85,
-      "change": -0.9,
-      "status": "down"
-    },
-    {
-      "category": "Games",
-      "score": 94,
-      "change": 0.89,
-      "status": "up"
-    },
-    {
-      "category": "Eletrodomésticos",
-      "score": 90,
-      "change": -1.26,
-      "status": "down"
-    },
-    {
-      "category": "Informática",
-      "score": 99,
-      "change": -0.64,
-      "status": "down"
-    },
-    {
-      "category": "Livros",
-      "score": 93,
-      "change": -0.62,
-      "status": "down"
-    },
-    {
-      "category": "Moda",
-      "score": 70,
-      "change": -2.27,
-      "status": "down"
-    },
-    {
-      "category": "Esportes",
-      "score": 70,
+      "score": 72,
       "change": -0.83,
       "status": "down"
     },
     {
-      "category": "Beleza",
-      "score": 84,
-      "change": -2.3,
+      "category": "Notebooks",
+      "score": 77,
+      "change": -1.31,
       "status": "down"
+    },
+    {
+      "category": "Games",
+      "score": 76,
+      "change": -0.67,
+      "status": "down"
+    },
+    {
+      "category": "Eletrodomésticos",
+      "score": 85,
+      "change": 2.19,
+      "status": "up"
+    },
+    {
+      "category": "Informática",
+      "score": 94,
+      "change": 1.28,
+      "status": "up"
+    },
+    {
+      "category": "Livros",
+      "score": 84,
+      "change": -0.76,
+      "status": "down"
+    },
+    {
+      "category": "Moda",
+      "score": 94,
+      "change": -1.18,
+      "status": "down"
+    },
+    {
+      "category": "Esportes",
+      "score": 88,
+      "change": 0.01,
+      "status": "up"
+    },
+    {
+      "category": "Beleza",
+      "score": 82,
+      "change": 0.19,
+      "status": "up"
     }
   ]
 }
