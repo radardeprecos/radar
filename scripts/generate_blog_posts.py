@@ -53,12 +53,21 @@ def get_already_published_ids() -> set:
 
 def select_products(products: List[Dict[str, Any]], count: int) -> List[Dict[str, Any]]:
     published_ids = get_already_published_ids()
+    
+    # Prioridade 1: Produtos nunca publicados
     available = [p for p in products if str(p.get("id")) not in published_ids]
     
+    # Prioridade 2: Se não houver novos, pega os com maiores descontos mesmo que já publicados
     if not available:
-        logger.warning("Todos os produtos do banco já possuem artigos publicados.")
+        logger.info("Todos os produtos já publicados. Selecionando os melhores descontos para atualização.")
+        available = products # Pega todos para reavaliar
+        
+    if not available:
+        logger.warning("Nenhum produto disponível no banco de dados.")
         return []
         
+    # Ordenar por desconto para garantir qualidade AdSense
+    available.sort(key=lambda p: float(p.get("custom_discount_pct") or 0), reverse=True)
     return available[:count]
 
 def generate_long_content(product: Dict[str, Any]) -> str:
