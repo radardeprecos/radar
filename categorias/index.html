@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todas as Categorias | Radar de Preços - O Menor Preço Garantido</title>
+    <meta name="description" content="Explore todas as categorias do Radar de Preços. Celulares, Eletrodomésticos, Games, Informática, Beleza, TV e muito mais com os melhores descontos.">
+    <link rel="canonical" href="https://radardeprecos.github.io/radar/categorias/index.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --accent: #F59E0B;
+            --success: #10B981;
+            --bg: #F8FAFC;
+            --text: #1E293B;
+            --card-bg: #FFFFFF;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+        header { background: var(--primary); padding: 1.5rem; color: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .header-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: white; }
+        .brand h1 { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.025em; }
+        .header-badge { background: var(--accent); color: #78350F; padding: 0.35rem 1rem; border-radius: 9999px; font-weight: 800; font-size: 0.875rem; }
+        .hero-cat { background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%); color: white; padding: 4rem 1rem; text-align: center; margin-bottom: 3rem; }
+        .hero-cat h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; letter-spacing: -0.04em; }
+        .hero-cat p { font-size: 1.125rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .breadcrumb { margin-bottom: 2.5rem; font-size: 0.875rem; color: #64748B; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .section-title { font-size: 1.75rem; font-weight: 900; color: var(--primary); margin-bottom: 2rem; }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            border: 1px solid #E2E8F0;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .category-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            border-color: var(--primary);
+        }
+        .category-icon {
+            font-size: 3rem;
+            line-height: 1;
+        }
+        .category-name {
+            font-size: 1.125rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .category-desc {
+            font-size: 0.8rem;
+            color: #64748B;
+            line-height: 1.5;
+        }
+        .category-badge {
+            background: #EFF6FF;
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        footer { background: #0F172A; color: white; padding: 4rem 1rem; margin-top: 4rem; }
+        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+        .footer-grid h4 { color: var(--accent); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+        .footer-grid p { font-size: 0.875rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+        .footer-grid ul { list-style: none; }
+        .footer-grid ul li { margin-bottom: 0.5rem; }
+        .footer-grid ul li a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+        .footer-grid ul li a:hover { color: white; }
+        .footer-copy { max-width: 1200px; margin: 2rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="header-inner">
+        <a class="brand" href="/radar/index.html">
+            <span style="font-size:1.75rem;">📡</span>
+            <h1>Radar de Preços</h1>
+        </a>
+        <span class="header-badge">🔥 Ao Vivo</span>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-cat">
+    <h2>📂 Todas as Categorias</h2>
+    <p>Escolha uma categoria e encontre as melhores ofertas com descontos reais e preços verificados.</p>
+</section>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<div class="container">
+
+    <nav class="breadcrumb">
+        <a href="/radar/index.html">Início</a> &rsaquo; Categorias
+    </nav>
+
+    <h2 class="section-title">Navegue por Categoria</h2>
+
+    <div class="categories-grid">
+
+        <a href="/radar/categorias/celulares/" class="category-card">
+            <span class="category-icon">📱</span>
+            <span class="category-name">Celulares</span>
+            <span class="category-desc">Smartphones com os melhores descontos do mercado</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/eletrodomesticos/" class="category-card">
+            <span class="category-icon">🏠</span>
+            <span class="category-name">Eletrodomésticos</span>
+            <span class="category-desc">Geladeiras, fogões, lavadoras e muito mais</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/tv-e-video/" class="category-card">
+            <span class="category-icon">📺</span>
+            <span class="category-name">TV e Vídeo</span>
+            <span class="category-desc">Smart TVs, projetores e acessórios com desconto</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/informatica/" class="category-card">
+            <span class="category-icon">💻</span>
+            <span class="category-name">Informática</span>
+            <span class="category-desc">Notebooks, periféricos e componentes</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/games/" class="category-card">
+            <span class="category-icon">🎮</span>
+            <span class="category-name">Games</span>
+            <span class="category-desc">Consoles, jogos e acessórios gamer</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/beleza/" class="category-card">
+            <span class="category-icon">💄</span>
+            <span class="category-name">Beleza e Saúde</span>
+            <span class="category-desc">Cosméticos, perfumes e cuidados pessoais</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/casa/" class="category-card">
+            <span class="category-icon">🛋️</span>
+            <span class="category-name">Casa e Decoração</span>
+            <span class="category-desc">Móveis, utensílios e itens para o lar</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/ferramentas/" class="category-card">
+            <span class="category-icon">🔧</span>
+            <span class="category-name">Ferramentas</span>
+            <span class="category-desc">Ferramentas elétricas e manuais em promoção</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/samsung/" class="category-card">
+            <span class="category-icon">⭐</span>
+            <span class="category-name">Samsung</span>
+            <span class="category-desc">Produtos Samsung com os melhores preços</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/motorola/" class="category-card">
+            <span class="category-icon">📡</span>
+            <span class="category-name">Motorola</span>
+            <span class="category-desc">Celulares e acessórios Motorola em oferta</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/lg/" class="category-card">
+            <span class="category-icon">🖥️</span>
+            <span class="category-name">LG</span>
+            <span class="category-desc">TVs, eletrodomésticos e monitores LG</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/philco/" class="category-card">
+            <span class="category-icon">📻</span>
+            <span class="category-name">Philco</span>
+            <span class="category-desc">TVs e eletrodomésticos Philco com desconto</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+        <a href="/radar/categorias/asus/" class="category-card">
+            <span class="category-icon">🖱️</span>
+            <span class="category-name">Asus</span>
+            <span class="category-desc">Notebooks, placas e periféricos Asus</span>
+            <span class="category-badge">Ver Ofertas →</span>
+        </a>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h4>📡 Radar de Preços</h4>
+            <p>Sua ferramenta definitiva para encontrar o menor preço e economizar de verdade todos os dias.</p>
+        </div>
+        <div>
+            <h4>Links Úteis</h4>
+            <ul>
+                <li><a href="/radar/sobre.html">Sobre Nós</a></li>
+                <li><a href="/radar/privacidade.html">Privacidade</a></li>
+                <li><a href="/radar/contato.html">Contato</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Categorias</h4>
+            <ul>
+                <li><a href="/radar/categorias/celulares/">Celulares</a></li>
+                <li><a href="/radar/categorias/eletrodomesticos/">Eletrodomésticos</a></li>
+                <li><a href="/radar/categorias/beleza/">Beleza e Saúde</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-copy">
+        © 2026 Radar de Preços. Todos os direitos reservados. | Participante do Programa de Afiliados Mercado Livre.
+    </div>
+</footer>
+
+</body>
+</html>
