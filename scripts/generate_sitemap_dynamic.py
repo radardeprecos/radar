@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-base_url = "https://comparapreco.github.io"
+base_url = "https://radardeprecos.github.io/radar"
 
 def generate_sitemap():
     urls = []
@@ -62,7 +62,7 @@ def generate_sitemap():
 
     sitemap_content = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{"\n".join(urls)}
+{ "\n".join(urls) }
 </urlset>"""
 
     with open(os.path.join(base_dir, 'sitemap.xml'), 'w', encoding='utf-8') as f:
