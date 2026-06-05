@@ -17,26 +17,6 @@ def money(value):
     except:
         return "N/A"
 
-def extract_news_from_index(news_index_path):
-    if not os.path.exists(news_index_path):
-        return []
-    with open(news_index_path, "r", encoding="utf-8") as f:
-        content = f.read()
-    
-    match = re.search(r'const NEWS = \[(.*?)\];', content, re.DOTALL)
-    if not match:
-        return []
-    
-    news_json_str = "[" + match.group(1) + "]"
-    news_json_str = re.sub(r',\s*\]', ']', news_json_str)
-    
-    try:
-        news_data = json.loads(news_json_str)
-        return news_data
-    except Exception as e:
-        logger.error(f"Erro ao parsear NEWS do index: {e}")
-        return []
-
 def load_rotation_history(history_path):
     if os.path.exists(history_path):
         try:
@@ -52,7 +32,7 @@ def save_rotation_history(history_path, history):
         json.dump(history, f, ensure_ascii=False, indent=2)
 
 def build_homepage(input_path, news_index_path, template_path, output_path, history_path):
-    logger.info(f"Construindo página inicial com lógica de rotação...")
+    logger.info(f"Construindo página inicial com lógica de rotação e DESIGN NINJA...")
     if not os.path.exists(template_path):
         logger.error(f"Template {template_path} não encontrado!")
         return
@@ -85,7 +65,6 @@ def build_homepage(input_path, news_index_path, template_path, output_path, hist
             available_products.append(p)
     
     if len(available_products) < 12:
-        logger.warning(f"Poucos produtos inéditos ({len(available_products)}). Relaxando regra de rotação.")
         available_products = active_products
     
     available_products.sort(key=lambda x: x.get("custom_discount_pct", 0), reverse=True)
@@ -107,65 +86,42 @@ def build_homepage(input_path, news_index_path, template_path, output_path, hist
         p_old = money(p.get("originalPrice") or p.get("original_price"))
         p_disc = p.get("custom_discount_pct", 0)
         
+        try:
+            savings_val = float(p.get("originalPrice") or p.get("original_price") or 0) - float(p.get("price", 0))
+            savings_text = money(savings_val)
+        except:
+            savings_text = "R$ 0,00"
+
+        is_hot = p_disc > 50
+
         products_html += f"""
         <div class="product-card">
-            <div class="badge-discount">{p_disc}% OFF</div>
-            <img src="{p_img}" alt="{p_name}" class="product-image">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                {f'<span class="badge-hot">🔥 HOT</span>' if is_hot else ''}
+            </div>
+            <div class="product-img-wrapper">
+                <img src="{p_img}" alt="{p_name}" class="product-image" loading="lazy">
+            </div>
             <h3 class="product-title">{p_name}</h3>
             <div class="price-container">
+                <span class="price-old">De {p_old}</span>
                 <span class="price-current">{p_price}</span>
-                <span class="price-old">{p_old}</span>
             </div>
-            <a href="{p_url}" class="btn">VER ALERTA</a>
+            <div class="savings-badge">💰 Economize {savings_text}</div>
+            <a href="{p_url}" class="btn-ninja">Ver Oferta Ninja 🚀</a>
         </div>
         """
 
-    news_list = extract_news_from_index(news_index_path)
-    news_html = ""
-    if news_list:
-        for item in news_list[:3]:
-            n_title = item.get("title", "Análise Radar")
-            n_excerpt = item.get("excerpt", "Confira os detalhes desta oferta monitorada.")
-            n_url = f"noticias/{item.get('url')}"
-            n_date = item.get("date", "")
-            news_html += f"""
-            <div style="background: white; padding: 25px; border-radius: 16px; border: 1px solid #eee; transition: transform 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                <div style="color: #667eea; font-size: 12px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase;">📊 Alerta de Oferta • {n_date}</div>
-                <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px; line-height: 1.4; color: #333;">{n_title}</h3>
-                <p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px;">{n_excerpt[:120]}...</p>
-                <a href="{n_url}" style="color: #667eea; text-decoration: none; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                    Ler Análise Completa <span>→</span>
-                </a>
-            </div>
-            """
-    else:
-        news_html = "<p style='grid-column: 1/-1; text-align: center; color: #666;'>Nenhuma notícia recente disponível.</p>"
+    if 'ninja-style.css' not in template:
+        template = template.replace('</head>', '    <link rel="stylesheet" href="/assets/css/ninja-style.css">\n</head>')
 
     content = template.replace("{{products_html}}", products_html)
-    if "{{news_html}}" in content:
-        content = content.replace("{{news_html}}", news_html)
-    else:
-        news_section = f"""
-    <section class="blog-highlights" style="background: #f8f9fa; padding: 80px 0; border-top: 1px solid #eee;">
-        <div class="container">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
-                <div>
-                    <h2 style="font-size: 32px; font-weight: 900; margin-bottom: 10px;">📰 Radar de Notícias</h2>
-                    <p style="color: #666;">Análises profundas geradas por nossa IA sobre as melhores oportunidades.</p>
-                </div>
-                <a href="/noticias" class="btn" style="width: auto; padding: 12px 30px; background: white; color: #667eea; border: 2px solid #667eea;">Ver Tudo</a>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                {news_html}
-            </div>
-        </div>
-    </section>
-        """
-        content = content.replace('<footer class="footer">', f"{news_section}\n    <footer class=\"footer\">")
+    content = content.replace('style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px;"', 'class="products-grid" id="products-grid"')
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
-    logger.info(f"Homepage gerada com {len(display_products)} produtos (rotação ativa) e {len(news_list[:3])} notícias.")
+    logger.info(f"Homepage gerada com {len(display_products)} produtos e DESIGN NINJA.")
 
 if __name__ == "__main__":
     build_homepage(
