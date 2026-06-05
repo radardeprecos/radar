@@ -29,13 +29,13 @@ Com as fases 12 e 13 concluídas, o portal Compara Preço está tecnicamente oti
     *   **Conversão:** Eventos de `affiliate_click` para cliques nos links do Mercado Livre.
 
 ### 2. Google Search Console (GSC)
-*   **Ação Essencial:** Acesse o [Google Search Console](https://search.google.com/search-console/) e adicione a propriedade do seu site (`https://comparapreco.github.io/`).
+*   **Ação Essencial:** Acesse o [Google Search Console](https://search.google.com/search-console/) e adicione a propriedade do seu site (`https://radardeprecos.github.io/radar/`).
 *   **Envio de Sitemaps:** Envie todos os 5 sitemaps declarados no `robots.txt`:
-    *   `https://comparapreco.github.io/sitemap.xml`
-    *   `https://comparapreco.github.io/sitemap-categorias.xml`
-    *   `https://comparapreco.github.io/sitemap-produtos.xml`
-    *   `https://comparapreco.github.io/sitemap-guias.xml`
-    *   `https://comparapreco.github.io/sitemap-noticias.xml`
+    *   `https://radardeprecos.github.io/radar/sitemap.xml`
+    *   `https://radardeprecos.github.io/radar/sitemap-categorias.xml`
+    *   `https://radardeprecos.github.io/radar/sitemap-produtos.xml`
+    *   `https://radardeprecos.github.io/radar/sitemap-guias.xml`
+    *   `https://radardeprecos.github.io/radar/sitemap-noticias.xml`
 *   **Solicitação de Indexação:** Utilize a ferramenta de inspeção de URL para solicitar a indexação da Homepage e das principais páginas de categoria. Isso acelerará o processo de reconhecimento das correções pelo Google.
 *   **Monitoramento:** Acompanhe a seção **Cobertura** para ver o status de indexação das suas páginas e corrija quaisquer erros reportados.
 
@@ -46,7 +46,7 @@ Com as fases 12 e 13 concluídas, o portal Compara Preço está tecnicamente oti
 *   **Documento:** Consulte o arquivo `ESTRATEGIA_CRESCIMENTO_BACKLINKS.md` no repositório para iniciar as ações de aquisição de backlinks e parcerias. Lembre-se das **Regras de Ouro (Anti-Spam)** para garantir uma abordagem sustentável.
 
 ### 5. Monitoramento do Painel Executivo
-*   **Acesso:** Acesse `https://comparapreco.github.io/admin/executivo/` para uma visão rápida do status técnico e de SEO do seu portal. Este painel será atualizado automaticamente a cada deploy.
+*   **Acesso:** Acesse `https://radardeprecos.github.io/radar/admin/executivo/` para uma visão rápida do status técnico e de SEO do seu portal. Este painel será atualizado automaticamente a cada deploy.
 
 ---
 

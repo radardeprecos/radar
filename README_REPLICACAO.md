@@ -8,8 +8,8 @@ Este pacote contém o "motor" completo do Radar Ninja, pronto para ser instalado
 2.  **Upload:** Suba todos os arquivos deste pacote para o novo repositório.
 3.  **Configuração Global:**
     *   Abra os arquivos na pasta `scripts/` e procure por `BASE_URL`.
-    *   Altere `https://comparapreco.github.io/` para a URL do seu novo site.
-    *   *Dica:* Use o comando `grep -r "comparapreco.github.io" .` para encontrar todas as menções.
+    *   Altere `https://radardeprecos.github.io/radar/` para a URL do seu novo site.
+    *   *Dica:* Use o comando `grep -r "radardeprecos.github.io/radar" .` para encontrar todas as menções.
 4.  **GitHub Actions:**
     *   Vá em **Settings > Secrets and variables > Actions**.
     *   Adicione o seu `OPENAI_API_KEY` em **New repository secret**.

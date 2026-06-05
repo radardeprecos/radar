@@ -2,13 +2,13 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://comparapreco.github.io/sitemap.xml
-Sitemap: https://comparapreco.github.io/sitemap-produtos.xml
-Sitemap: https://comparapreco.github.io/sitemap-categorias.xml
-Sitemap: https://comparapreco.github.io/sitemap-noticias.xml
-Sitemap: https://comparapreco.github.io/sitemap-guias.xml
-Sitemap: https://comparapreco.github.io/sitemap-paginas.xml
-Sitemap: https://comparapreco.github.io/sitemap-comparativos.xml
-Sitemap: https://comparapreco.github.io/sitemap-rankings.xml
+Sitemap: https://radardeprecos.github.io/radar/sitemap.xml
+Sitemap: https://radardeprecos.github.io/radar/sitemap-produtos.xml
+Sitemap: https://radardeprecos.github.io/radar/sitemap-categorias.xml
+Sitemap: https://radardeprecos.github.io/radar/sitemap-noticias.xml
+Sitemap: https://radardeprecos.github.io/radar/sitemap-guias.xml
+Sitemap: https://radardeprecos.github.io/radar/sitemap-paginas.xml
+Sitemap: https://radardeprecos.github.io/radar/sitemap-comparativos.xml
+Sitemap: https://radardeprecos.github.io/radar/sitemap-rankings.xml
 
 Crawl-delay: 1

@@ -61,7 +61,7 @@ TEMPLATE_HTML = '''<!DOCTYPE html>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>{title}</title>
 <meta content="{description}" name="description"/>
-<link href="https://comparapreco.github.io/{slug}/" rel="canonical"/>
+<link href="https://radardeprecos.github.io/radar/{slug}/" rel="canonical"/>
 <link href="../assets/css/style.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
 <style>

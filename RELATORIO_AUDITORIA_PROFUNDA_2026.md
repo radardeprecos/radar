@@ -28,7 +28,7 @@ O site utiliza uma estratégia de **Sitemaps Segmentados**, o que é uma prátic
 - **Sitemap-Noticias.xml:** Focado em conteúdo fresco, essencial para aparecer no Google News.
 - **Sitemap-Produtos.xml:** Contém o grosso das ofertas.
 - **Sitemap-Categorias.xml:** Garante a indexação das páginas de topo de funil.
-- **Robots.txt:** Está configurado corretamente, permitindo o acesso total e indicando os caminhos dos sitemaps. *Observação:* Notei que o robots.txt aponta para `comparapreco.github.io`, o que pode causar confusão se o domínio principal for `radardeprecos.github.io`. Recomenda-se a unificação.
+- **Robots.txt:** Está configurado corretamente, permitindo o acesso total e indicando os caminhos dos sitemaps. *Observação:* Notei que o robots.txt aponta para `radardeprecos.github.io/radar`, o que pode causar confusão se o domínio principal for `radardeprecos.github.io`. Recomenda-se a unificação.
 
 ### 2.3 SEO On-Page e Performance
 As páginas carregam extremamente rápido devido à natureza estática do site (HTML puro). Isso resulta em notas altas no **Core Web Vitals**, um fator direto de ranking.
@@ -80,7 +80,7 @@ Este é o ponto mais forte do Radar de Preços:
 
 Apesar da excelência técnica, identificamos oportunidades de crescimento:
 
-1.  **Unificação de Domínios no Robots.txt:** Atualmente, o robots.txt e alguns links internos ainda citam `comparapreco.github.io`. Embora sejam sites parceiros, para o SEO de `radardeprecos.github.io`, o ideal é que todas as referências internas sejam consistentes com o domínio atual.
+1.  **Unificação de Domínios no Robots.txt:** Atualmente, o robots.txt e alguns links internos ainda citam `radardeprecos.github.io/radar`. Embora sejam sites parceiros, para o SEO de `radardeprecos.github.io`, o ideal é que todas as referências internas sejam consistentes com o domínio atual.
 2.  **Expansão do Conteúdo Editorial:** A seção de notícias foi restaurada, mas para manter o AEET alto, recomenda-se a publicação de pelo menos 2 novos artigos semanais sobre o mercado de consumo.
 3.  **Fichas Técnicas:** (Assunto a ser detalhado na sequência) A ausência de dados técnicos estruturados (RAM, Processador, Litragem) pode ser um limitador para usuários que estão na fase de decisão técnica da compra.
 

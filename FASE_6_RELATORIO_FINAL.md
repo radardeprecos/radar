@@ -41,7 +41,7 @@ Todas as 5 páginas institucionais foram completamente reescritas com conteúdo 
 
 **Canonical Tags:**
 - ✅ Adicionadas em 100% das páginas
-- ✅ URLs corretas: `https://comparapreco.github.io/[página]/`
+- ✅ URLs corretas: `https://radardeprecos.github.io/radar/[página]/`
 - ✅ Formato: `<link rel="canonical" href="...">`
 
 **Meta Descriptions:**
@@ -53,7 +53,7 @@ Todas as 5 páginas institucionais foram completamente reescritas com conteúdo 
 **Exemplo:**
 ```html
 <meta name="description" content="Conheça a política de privacidade do Compara Preço e como protegemos seus dados pessoais em conformidade com a LGPD.">
-<link rel="canonical" href="https://comparapreco.github.io/privacidade/">
+<link rel="canonical" href="https://radardeprecos.github.io/radar/privacidade/">
 ```
 
 ### 3. Schema Markup Implementado
@@ -273,13 +273,13 @@ Como o site ainda não possui aprovação do Google AdSense, foram removidas:
 
 ### 1. Google PageSpeed Insights
 ```
-URL: https://comparapreco.github.io/
+URL: https://radardeprecos.github.io/radar/
 Objetivo: Score >90 em Desktop e Mobile
 ```
 
 ### 2. Google Mobile-Friendly Test
 ```
-URL: https://comparapreco.github.io/
+URL: https://radardeprecos.github.io/radar/
 Objetivo: Compatível com dispositivos móveis
 ```
 

@@ -1,6 +1,6 @@
 {
   "portal_name": "Radar Ninja",
-  "base_url": "https://comparapreco.github.io/",
+  "base_url": "https://radardeprecos.github.io/radar/",
   "themes": {
     "tech": { "name": "Ninja Tech", "categories": ["informatica", "celulares", "tv-e-video"] },
     "gamer": { "name": "Ninja Gamer", "categories": ["games", "informatica"] },

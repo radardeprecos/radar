@@ -1,7 +1,7 @@
 import os
 
 repos = [
-    '/home/ubuntu/comparapreco.github.io',
+    '/home/ubuntu/radardeprecos.github.io/radar',
     '/home/ubuntu/comprerapido.github.io',
     '/home/ubuntu/radar',
     '/home/ubuntu/superninjas.github.io',
@@ -15,7 +15,7 @@ partners_html = """
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
         <h4 style="text-align: center; margin-bottom: 30px; color: #666; font-size: 1.2rem; font-weight: 700;">Nossa Rede de Parceiros</h4>
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; text-align: center;">
-            <a href="https://comparapreco.github.io" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Compara Preço</a>
+            <a href="https://radardeprecos.github.io/radar" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Compara Preço</a>
             <a href="https://comprerapido.github.io" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Compre Rápido</a>
             <a href="https://radardeprecos.github.io/" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Radar de Preços</a>
             <a href="https://superninjas.github.io" target="_blank" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;">Super Ninjas</a>

@@ -1,5 +1,5 @@
 // ========== CONFIGURAÇÃO ==========
-const BASE_URL = 'https://comparapreco.github.io/';
+const BASE_URL = 'https://radardeprecos.github.io/radar/';
 const DATA_URL = 'data/products/offers.json';
 
 let allProducts = [];
