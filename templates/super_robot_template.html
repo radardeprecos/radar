@@ -721,9 +721,9 @@ function updateStats(products) {
   var totalDiscount = products.reduce(function(s, p) { return s + (p.custom_discount_pct || 0); }, 0);
   var totalSaving = products.reduce(function(s, p) { return s + Math.max(0, (p.original_price || 0) - (p.price || 0)); }, 0);
   var avg = total ? Math.round(totalDiscount / total) : 0;
-  animateCount(totalOffersEl, total, '');
-  animateCount(avgDiscountEl, avg, '%');
-  animateMoney(totalSavingsEl, totalSaving);
+  animateCount(totalOffers, total, '');
+  animateCount(avgDiscount, avg, '%');
+  animateMoney(totalSavings, totalSaving);
 }
 
 // ---------- MODAL ----------
@@ -813,7 +813,7 @@ function showSkeletons(n) {
 // ---------- FETCH DATA ----------
 function loadOffers() {
   showSkeletons(8);
-  fetch('/radar/data/products/offers.json')
+  fetch('data/products/offers.json')
     .then(function(r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
