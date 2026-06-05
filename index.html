@@ -4,28 +4,39 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Radar de Preços Premium | Alertas Inteligentes de Ofertas</title>
+<title>Radar de Preços | Melhores Ofertas do Dia — Menor Preço Garantido</title>
 <meta content="Encontre as melhores ofertas do dia com monitoramento em tempo real. Alertas de queda de preço e promoções exclusivas." name="description"/>
+<meta name="theme-color" content="#1E3A8A"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="/assets/css/style.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="/assets/css/ninja-style.css">
 </head>
 <body>
-<header style="background: var(--primary); padding: 20px; color: white; text-align: center;">
-    <h1 style="margin:0; font-size: 24px;">📡 Radar de Preços</h1>
-    <p style="margin:5px 0 0; opacity: 0.9;">Onde a economia encontra a inteligência.</p>
+<header>
+  <div class="header-inner">
+    <a class="header-brand" href="/">
+      <span class="brand-icon">📡</span>
+      <h1>Radar de Preços</h1>
+    </a>
+    <span class="header-badge">🔥 Ao Vivo</span>
+  </div>
 </header>
 <section class="hero">
-<div class="container">
-<h1>O Menor Preço, no Radar. 🎯</h1>
-<p>Monitoramos milhares de produtos para você encontrar a oferta real, sem pegadinhas.</p>
-<div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
-<a class="btn btn-accent" href="#ofertas" style="width: auto; padding: 15px 40px;">Ver Ofertas de Hoje</a>
-Dicas de Economia
-</div>
-</div>
+  <div class="container">
+    <h1>O Menor Preço, <span class="gold">no Radar.</span> 🎯</h1>
+    <p>Monitoramos milhares de produtos para você encontrar a oferta real, sem pegadinhas.</p>
+    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:28px;">
+      <a class="btn btn-accent" href="#ofertas">🛒 Ver Ofertas de Hoje</a>
+    </div>
+  </div>
 </section>
-<div class="container" id="ofertas">
+<div id="ofertas">
+  <div class="section-header">
+    <h2>Ofertas em Destaque</h2>
+    <span style="font-size:12px; color:#94A3B8;">Atualizado agora</span>
+  </div>
     <div class="products-grid" id="products-grid">
         
         <div class="product-card">
@@ -437,54 +448,51 @@ Dicas de Economia
         </div>
         
     </div>
-<div style="margin: 40px 0; display: flex; justify-content: space-between; align-items: center;">
-<h2 style="font-size: 28px; font-weight: 800;">🔥 Ofertas em Destaque</h2>
-<span style="color: var(--primary); font-weight: 700;">Atualizado agora</span>
-</div>
-
-<div style="text-align: center; margin: 60px 0;">
-Ver Todas as Categorias
-</div>
+  <div style="text-align:center; padding: 10px 0 30px;">
+    <a class="btn-ver-todas" href="/categorias/">Ver Todas as Categorias →</a>
+  </div>
 </div>
 <footer class="footer">
-<div class="container">
-<div class="footer-grid">
-<div>
-<h4>📊 Radar de Preços</h4>
-<p style="font-size: 14px; color: #ccc;">Sua ferramenta definitiva para encontrar o menor preço e economizar de verdade todos os dias.</p>
-</div>
-<div>
-<h4>Links Úteis</h4>
-<ul>
-<li>Sobre Nós</li>
-<li>Privacidade</li>
-<li>Contato</li>
-</ul>
-</div>
-<div>
-<h4>Categorias Populares</h4>
-<ul>
-<li>Tecnologia</li>
-<li>Casa e Cozinha</li>
-<li>Beleza e Saúde</li>
-</ul>
-</div>
-</div>
-<div class="footer-partners" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-    <h4 style="color: white; margin-bottom: 15px; font-size: 16px;">🤝 Sites Parceiros</h4>
-    <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 13px;">
-        <a href="https://comprerapido.github.io/" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Compre Rápido</a>
-        <a href="https://radardeprecos.github.io/" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Radar de Preços</a>
-        <a href="https://comparapreco.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Compara Preço</a>
-        <a href="https://superninjas.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Super Ninjas</a>
-        <a href="https://granahoje.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Grana Hoje</a>
-        <a href="https://casino-radar.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Casino Radar</a>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>📡 Radar de Preços</h4>
+        <p style="font-size:13px; color:rgba(255,255,255,0.60); line-height:1.6;">
+          Sua ferramenta definitiva para encontrar o menor preço e economizar de verdade todos os dias.
+        </p>
+      </div>
+      <div>
+        <h4>Links Úteis</h4>
+        <ul>
+          <li><a href="/sobre/">Sobre Nós</a></li>
+          <li><a href="/privacidade/">Privacidade</a></li>
+          <li><a href="/contato/">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Categorias</h4>
+        <ul>
+          <li><a href="/categorias/celulares/">Celulares</a></li>
+          <li><a href="/categorias/eletrodomesticos/">Eletrodomésticos</a></li>
+          <li><a href="/categorias/beleza/">Beleza e Saúde</a></li>
+        </ul>
+      </div>
     </div>
-</div>
-<div style="text-align: center; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #888;">
-                © 2026 Radar de Preços. Todos os direitos reservados.
-            </div>
-</div>
+    <div class="footer-partners" style="margin-top:36px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.10);">
+      <h4 style="color:#F59E0B; margin-bottom:14px; font-size:13px;">🤝 Sites Parceiros</h4>
+      <div style="display:flex; flex-wrap:wrap; gap:14px; font-size:13px;">
+        <a href="https://comprerapido.github.io/" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.55); text-decoration:none; transition:color 0.2s;">Compre Rápido</a>
+        <a href="https://radardeprecos.github.io/" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.55); text-decoration:none; transition:color 0.2s;">Radar de Preços</a>
+        <a href="https://comparapreco.github.io" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.55); text-decoration:none; transition:color 0.2s;">Compara Preço</a>
+        <a href="https://superninjas.github.io" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.55); text-decoration:none; transition:color 0.2s;">Super Ninjas</a>
+        <a href="https://granahoje.github.io" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.55); text-decoration:none; transition:color 0.2s;">Grana Hoje</a>
+        <a href="https://casino-radar.github.io" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.55); text-decoration:none; transition:color 0.2s;">Casino Radar</a>
+      </div>
+    </div>
+    <div style="text-align:center; padding-top:30px; border-top:1px solid rgba(255,255,255,0.08); font-size:12px; color:rgba(255,255,255,0.40); margin-top:20px;">
+      © 2026 Radar de Preços. Todos os direitos reservados. | Participante do Programa de Afiliados Mercado Livre.
+    </div>
+  </div>
 </footer>
 </body>
 </html>

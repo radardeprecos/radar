@@ -1,63 +1,177 @@
+/* ===== RADAR DE PREÇOS — BASE PREMIUM STYLE ===== */
+/* As variáveis e estilos principais estão em ninja-style.css */
+/* Este arquivo mantém compatibilidade com componentes legados */
+
 :root {
-    --primary: #004aad; /* Azul Royal */
-    --secondary: #00c2cb; /* Ciano */
-    --accent: #ff4757; /* Vermelho para Descontos */
-    --bg: #f4f7f6;
-    --text: #2f3542;
-    --white: #ffffff;
+    --primary:   #1E3A8A;   /* Azul escuro — substitui verde anterior */
+    --secondary: #2563EB;   /* Azul médio */
+    --accent:    #F59E0B;   /* Dourado — substitui vermelho */
+    --bg:        #EEF2FF;
+    --text:      #0F172A;
+    --white:     #FFFFFF;
 }
 
-body { 
-    font-family: 'Inter', sans-serif; 
-    background: var(--bg); 
-    color: var(--text); 
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
     margin: 0;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Card de Produto Estilo Premium */
+/* Compatibilidade com cards legados fora da home */
 .product-card {
     background: var(--white);
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
-    border: 1px solid #e1e8ed;
+    box-shadow: 0 4px 16px rgba(15,32,68,0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: 1.5px solid #E2E8F0;
     margin-bottom: 20px;
 }
 
-.product-card:hover { transform: translateY(-5px); }
-
-/* Badge de Desconto */
-.badge-discount {
-    background: var(--accent);
-    color: white;
-    padding: 5px 12px;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 0.9em;
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 32px rgba(15,32,68,0.14);
 }
 
-/* Botão de Alerta */
+/* Badge de desconto legado */
+.badge-discount {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: #0F2044;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.85em;
+}
+
+/* Botão de alerta legado */
 .btn-alert {
-    background: var(--primary);
+    background: linear-gradient(135deg, #1E3A8A, #2563EB);
     color: white;
     display: block;
     text-align: center;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 12px;
     text-decoration: none;
-    font-weight: 600;
-    transition: 0.3s;
+    font-weight: 700;
+    transition: 0.25s;
 }
 
-.btn-alert:hover { background: var(--secondary); }
+.btn-alert:hover {
+    background: linear-gradient(135deg, #2563EB, #3B82F6);
+    transform: translateY(-2px);
+}
 
+/* Header base (sobrescrito pelo ninja-style.css na home) */
 header {
-    background: var(--primary);
+    background: linear-gradient(135deg, #0F2044, #1E3A8A);
     padding: 20px;
     color: white;
     text-align: center;
 }
 
-header h1 { margin:0; font-size: 24px; }
-header p { margin:5px 0 0; opacity: 0.9; }
+header h1 { margin: 0; font-size: 24px; }
+header p  { margin: 5px 0 0; opacity: 0.9; }
+
+/* Container padrão */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* Hero base */
+.hero {
+    background: linear-gradient(160deg, #0F2044 0%, #1E3A8A 60%, #2563EB 100%);
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
+}
+
+.hero h1 {
+    font-size: clamp(24px, 5vw, 42px);
+    font-weight: 900;
+    margin: 0 0 16px;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 16px;
+    opacity: 0.85;
+    margin: 0 0 30px;
+}
+
+/* Botão primário base */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #1E3A8A, #2563EB);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(30,58,138,0.40);
+}
+
+.btn-accent {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: #0F2044 !important;
+    font-weight: 800;
+    box-shadow: 0 4px 20px rgba(245,158,11,0.30);
+}
+
+.btn-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(245,158,11,0.45);
+    color: #0F2044 !important;
+}
+
+/* Footer base */
+.footer {
+    background: linear-gradient(160deg, #0F2044, #0A1628);
+    color: white;
+    padding: 50px 20px 30px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer h4 {
+    color: #F59E0B;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 12px;
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer ul li {
+    padding: 4px 0;
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+}

@@ -94,14 +94,15 @@ def build_homepage(input_path, news_index_path, template_path, output_path, hist
 
         is_hot = p_disc > 50
 
+        disc_bar_width = min(int(p_disc), 100)
         products_html += f"""
         <div class="product-card">
             <div class="card-badges">
-                <span class="badge-best-price">⭐ Melhor Preço</span>
-                {f'<span class="badge-hot">🔥 HOT</span>' if is_hot else ''}
+                <span class="badge-best-price">⭐ Oferta</span>
+                {f'<span class="badge-hot">🔥 Destaque</span>' if is_hot else ''}
             </div>
             <div class="product-img-wrapper">
-                <img src="{p_img}" alt="{p_name}" class="product-image" loading="lazy">
+                <img src="{p_img}" alt="{p_name}" class="product-image" loading="lazy" width="200" height="200">
             </div>
             <h3 class="product-title">{p_name}</h3>
             <div class="price-container">
@@ -109,7 +110,10 @@ def build_homepage(input_path, news_index_path, template_path, output_path, hist
                 <span class="price-current">{p_price}</span>
             </div>
             <div class="savings-badge">💰 Economize {savings_text}</div>
-            <a href="{p_url}" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+            <div class="discount-bar-wrap">
+                <div class="discount-bar"><div class="discount-bar-fill" style="width:{disc_bar_width}%"></div></div>
+            </div>
+            <a href="{p_url}" class="btn-ninja">🛒 Ver Oferta</a>
         </div>
         """
 
