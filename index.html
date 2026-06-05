@@ -1,445 +1,490 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radar de Preços Premium | Alertas Inteligentes de Ofertas</title>
-    <meta name="description" content="Encontre as melhores ofertas do Mercado Livre com o Radar de Preços. Alertas inteligentes, preços em tempo real e economia garantida.">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html, body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #222;
-        }
-        
-        header {
-            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        header h1 {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-        
-        header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        
-        .hero h2 {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-        
-        .hero p {
-            font-size: 14px;
-            margin-bottom: 20px;
-            opacity: 0.95;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .btn-primary {
-            background: #ff9800;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            background: #f57c00;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-            border: 2px solid white;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-secondary:hover {
-            background: white;
-            color: #667eea;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .section-title {
-            font-size: 22px;
-            font-weight: 800;
-            margin: 30px 0 20px 0;
-            color: #222;
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-        
-        @media (min-width: 600px) {
-            .products-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 16px;
-            }
-        }
-        
-        @media (min-width: 900px) {
-            .products-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-            }
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border: 1px solid #e8e8e8;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-        
-        .product-badges {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            right: 8px;
-            display: flex;
-            gap: 4px;
-            z-index: 10;
-        }
-        
-        .badge {
-            font-size: 11px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            white-space: nowrap;
-        }
-        
-        .badge-best-price {
-            background: #1db954;
-            color: white;
-        }
-        
-        .badge-hot {
-            background: #e74c3c;
-            color: white;
-        }
-        
-        .product-image-wrapper {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            background: #fafafa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px;
-            overflow: hidden;
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        
-        .product-info {
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        
-        .product-title {
-            font-size: 13px;
-            font-weight: 600;
-            line-height: 1.4;
-            margin-bottom: 8px;
-            color: #222;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        .price-container {
-            margin-bottom: 8px;
-        }
-        
-        .price-old {
-            font-size: 12px;
-            color: #999;
-            text-decoration: line-through;
-            display: block;
-            margin-bottom: 2px;
-        }
-        
-        .price-current {
-            font-size: 20px;
-            font-weight: 900;
-            color: #1db954;
-            display: block;
-        }
-        
-        .savings-badge {
-            background: #e8f8ee;
-            color: #1db954;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-        
-        .product-button {
-            background: #ff9800;
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            text-align: center;
-            font-weight: 800;
-            font-size: 13px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-top: auto;
-        }
-        
-        .product-button:hover {
-            background: #f57c00;
-            transform: translateY(-2px);
-        }
-        
-        .btn-ver-todas {
-            display: block;
-            width: fit-content;
-            margin: 30px auto;
-            padding: 14px 40px;
-            border: 2px solid #1db954;
-            color: #1db954;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 15px;
-            text-decoration: none;
-            text-align: center;
-            transition: all 0.2s ease;
-            background: white;
-        }
-        
-        .btn-ver-todas:hover {
-            background: #1db954;
-            color: white;
-        }
-        
-        footer {
-            background: #333;
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            margin-top: 40px;
-        }
-        
-        footer p {
-            font-size: 13px;
-            opacity: 0.8;
-            margin-bottom: 15px;
-        }
-        
-        .footer-links {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            font-size: 13px;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .footer-partners {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .footer-partners h4 {
-            color: white;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-        
-        .partners-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            font-size: 13px;
-            justify-content: center;
-        }
-        
-        .partners-list a {
-            color: #888;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .partners-list a:hover {
-            color: #fff;
-        }
-    </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Radar de Preços Premium | Alertas Inteligentes de Ofertas</title>
+<meta content="Encontre as melhores ofertas do dia com monitoramento em tempo real. Alertas de queda de preço e promoções exclusivas." name="description"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/assets/css/ninja-style.css">
 </head>
 <body>
-    <header>
-        <h1>📡 Radar de Preços</h1>
-        <p>Onde a economia encontra a inteligência.</p>
-    </header>
-    
-    <div class="hero">
-        <h2>O Menor Preço, no Radar. 🎯</h2>
-        <p>Monitoramos milhares de produtos para você encontrar a oferta real, sem pegadinhas.</p>
-        <div class="hero-buttons">
-            <a href="#ofertas" class="btn-primary">Ver Ofertas de Hoje</a>
-            <a href="#" class="btn-secondary">Dicas de Economia</a>
-        </div>
-    </div>
-    
-    <div class="container">
-        <div id="ofertas">
-            <h2 class="section-title">⭐ Melhores Ofertas Agora</h2>
-            <div class="products-grid" id="products-grid">
-                <!-- Produtos serão inseridos aqui via JavaScript -->
+<header style="background: var(--primary); padding: 20px; color: white; text-align: center;">
+    <h1 style="margin:0; font-size: 24px;">📡 Radar de Preços</h1>
+    <p style="margin:5px 0 0; opacity: 0.9;">Onde a economia encontra a inteligência.</p>
+</header>
+<section class="hero">
+<div class="container">
+<h1>O Menor Preço, no Radar. 🎯</h1>
+<p>Monitoramos milhares de produtos para você encontrar a oferta real, sem pegadinhas.</p>
+<div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
+<a class="btn btn-accent" href="#ofertas" style="width: auto; padding: 15px 40px;">Ver Ofertas de Hoje</a>
+Dicas de Economia
+</div>
+</div>
+</section>
+<div class="container" id="ofertas">
+    <div class="products-grid" id="products-grid">
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                <span class="badge-hot">🔥 HOT</span>
             </div>
-            <a href="#" class="btn-ver-todas">Ver Todas as Ofertas →</a>
-        </div>
-    </div>
-    
-    <footer>
-        <p>© 2026 Compara Preço. Atualizado via API oficial do Mercado Livre.</p>
-        <div class="footer-links">
-            <a href="#">Sobre</a>
-            <a href="#">Contato</a>
-            <a href="#">Privacidade</a>
-        </div>
-        <div class="footer-partners">
-            <h4>🤝 Sites Parceiros</h4>
-            <div class="partners-list">
-                <a href="https://comprerapido.github.io/" target="_blank">Compre Rápido</a>
-                <a href="https://radardeprecos.github.io/" target="_blank">Radar de Preços</a>
-                <a href="https://comparapreco.github.io" target="_blank">Compara Preço</a>
-                <a href="https://superninjas.github.io" target="_blank">Super Ninjas</a>
-                <a href="https://granahoje.github.io" target="_blank">Grana Hoje</a>
-                <a href="https://casino-radar.github.io" target="_blank">Casino Radar</a>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_760779-MLA99484493666_112025-AB.webp" alt="Whey Protein Concentrado 100% 900g Refil Dark Lab Sabor Morango" class="product-image" loading="lazy">
             </div>
+            <h3 class="product-title">Whey Protein Concentrado 100% 900g Refil Dark Lab Sabor Morango</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 499,99</span>
+                <span class="price-current">R$ 159,90</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 340,09</div>
+            <a href="ofertas/beleza/whey-protein-concentrado-100-900g-refil-dark-lab-sabor-morango-MLB3755400429.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
         </div>
-    </footer>
-    
-    <script>
-        // Carregar produtos e renderizar
-        fetch('/radar/data/database/all_products.json')
-            .then(r => r.json())
-            .then(products => {
-                const active = products.filter(p => p.status === 'active').slice(0, 24);
-                const grid = document.getElementById('products-grid');
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                <span class="badge-hot">🔥 HOT</span>
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_942122-MLA99923169249_112025-AB.webp" alt="Creatina Monohidratada Pura 500g Dark Lab Unidade Sem Sabor" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Creatina Monohidratada Pura 500g Dark Lab Unidade Sem Sabor</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 129,90</span>
+                <span class="price-current">R$ 44,90</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 85,00</div>
+            <a href="ofertas/beleza/creatina-monohidratada-pura-500g-dark-lab-unidade-sem-sabor-MLB4812143184.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                <span class="badge-hot">🔥 HOT</span>
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_609133-MLA100033485209_122025-AB.webp" alt="Cooktop A Gás Fischer 4 Bocas Fit Line Trempe Esmaltada Aramado Preto 127/220v" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Cooktop A Gás Fischer 4 Bocas Fit Line Trempe Esmaltada Aramado Preto 127/220v</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 814,14</span>
+                <span class="price-current">R$ 332,10</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 482,04</div>
+            <a href="ofertas/eletrodomesticos/cooktop-a-gas-fischer-4-bocas-fit-line-trempe-esmaltada-aramado-preto-127220v-MLB4292031849.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                <span class="badge-hot">🔥 HOT</span>
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_828436-MLA100007265481_122025-AB.webp" alt="Parafusadeira Furadeira C/ 2 Baterias Maleta Kit Completo Led Eixo Flexível Vários Níveis Torque Amarelo 127/220v 60 Hz" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Parafusadeira Furadeira C/ 2 Baterias Maleta Kit Completo Led Eixo Flexível Vários Níveis Torque Amarelo 127/220v 60 Hz</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 299,00</span>
+                <span class="price-current">R$ 125,99</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 173,01</div>
+            <a href="ofertas/ferramentas/parafusadeira-furadeira-c-2-baterias-maleta-kit-completo-led-eixo-flexivel-varios-niveis-torque-amarelo-127220v-60-hz-MLB4345564271.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                <span class="badge-hot">🔥 HOT</span>
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_761825-MLA111240637734_052026-AB.webp" alt="Kit 10 Pote De Vidro Marmita Hermético" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Kit 10 Pote De Vidro Marmita Hermético</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 159,00</span>
+                <span class="price-current">R$ 67,16</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 91,84</div>
+            <a href="ofertas/casa/kit-10-pote-de-vidro-marmita-hermetico-MLB66060206.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                <span class="badge-hot">🔥 HOT</span>
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_895724-MLA91526198522_092025-AB.webp" alt="Celular Samsung Galaxy A07 256gb, 8gb, Câmera 50mp, Tela 6.7 , Proteção Ip54, Processador 6nm - Preto" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Celular Samsung Galaxy A07 256gb, 8gb, Câmera 50mp, Tela 6.7 , Proteção Ip54, Processador 6nm - Preto</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 1.799,00</span>
+                <span class="price-current">R$ 799,20</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 999,80</div>
+            <a href="ofertas/celulares/celular-samsung-galaxy-a07-256gb-8gb-camera-50mp-tela-67--protecao-ip54-processador-6nm---preto-MLB6443434920.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                <span class="badge-hot">🔥 HOT</span>
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_882989-MLA106924265722_022026-AB.webp" alt="Jogo 6 Copos Diamond Egipcio 300ml Vidro Grosso Diamante Luxo Transparente Vitrex" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Jogo 6 Copos Diamond Egipcio 300ml Vidro Grosso Diamante Luxo Transparente Vitrex</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 55,00</span>
+                <span class="price-current">R$ 25,12</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 29,88</div>
+            <a href="ofertas/casa/jogo-6-copos-diamond-egipcio-300ml-vidro-grosso-diamante-luxo-transparente-vitrex-MLB6600589630.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
                 
-                active.forEach(p => {
-                    const price = parseFloat(p.price || 0);
-                    const origPrice = parseFloat(p.originalPrice || 0);
-                    const savings = origPrice - price;
-                    const discount = p.custom_discount_pct || 0;
-                    
-                    const priceStr = `R$ ${price.toFixed(2)}`.replace('.', ',');
-                    const origStr = `R$ ${origPrice.toFixed(2)}`.replace('.', ',');
-                    const savingsStr = `R$ ${savings.toFixed(2)}`.replace('.', ',');
-                    
-                    const slug = p.name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-                    const url = `/radar/ofertas/${p.custom_category_slug || 'outros'}/${slug}-${p.id}.html`;
-                    
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    card.innerHTML = `
-                        <div class="product-badges">
-                            <span class="badge badge-best-price">⭐ Melhor Preço</span>
-                            ${discount > 30 ? '<span class="badge badge-hot">🔥 HOT</span>' : ''}
-                        </div>
-                        <div class="product-image-wrapper">
-                            <img src="${p.image || ''}" alt="${p.name}" class="product-image" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title">${p.name}</h3>
-                            <div class="price-container">
-                                <span class="price-old">De ${origStr}</span>
-                                <span class="price-current">${priceStr}</span>
-                            </div>
-                            <span class="savings-badge">💰 Economize ${savingsStr}</span>
-                            <a href="${url}" class="product-button">Ver Oferta Ninja 🚀</a>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            })
-            .catch(err => console.error('Erro ao carregar produtos:', err));
-    </script>
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_781165-MLA70966453667_082023-AB.webp" alt="Furadeira Parafusadeira Impacto Bateria 21v Bivolt" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Furadeira Parafusadeira Impacto Bateria 21v Bivolt</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 299,90</span>
+                <span class="price-current">R$ 149,90</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 150,00</div>
+            <a href="ofertas/ferramentas/furadeira-parafusadeira-impacto-bateria-21v-bivolt-MLB3386925565.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_753960-MLB78002610612_082024-AB.webp" alt="Perfume Sedutor Árabe Sabah 100ml Original Feminino" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Perfume Sedutor Árabe Sabah 100ml Original Feminino</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 230,00</span>
+                <span class="price-current">R$ 116,10</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 113,90</div>
+            <a href="ofertas/beleza/perfume-sedutor-arabe-sabah-100ml-original-feminino-MLB3994439565.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_693436-MLB109274954182_042026-AB.webp" alt="Kit C/ 36 Envelopes (252 Cromos) - Copa Do Mundo Fifa 2026" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Kit C/ 36 Envelopes (252 Cromos) - Copa Do Mundo Fifa 2026</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 479,00</span>
+                <span class="price-current">R$ 242,00</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 237,00</div>
+            <a href="ofertas/games/kit-c-36-envelopes-252-cromos---copa-do-mundo-fifa-2026-MLB6582857986.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_784513-MLA107202361084_032026-AB.webp" alt="Samsung Galaxy Tab A11+ 5g 6gb, 128gb Cinza" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Samsung Galaxy Tab A11+ 5g 6gb, 128gb Cinza</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 2.855,00</span>
+                <span class="price-current">R$ 1.451,00</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 1.404,00</div>
+            <a href="ofertas/celulares/samsung-galaxy-tab-a11-5g-6gb-128gb-cinza-MLB6233727450.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_914613-MLA54714652758_032023-AB.webp" alt="Jogo Chave Catraca Reversível Soquete 46 Peças Maleta" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Jogo Chave Catraca Reversível Soquete 46 Peças Maleta</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 89,90</span>
+                <span class="price-current">R$ 45,90</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 44,00</div>
+            <a href="ofertas/ferramentas/jogo-chave-catraca-reversivel-soquete-46-pecas-maleta-MLB3247449553.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_767880-MLA99418713376_112025-AB.webp" alt="Cadeira Escritório Ergonômica Giratória Com Apoio Lombar Da Python Fly Preto Malha" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Cadeira Escritório Ergonômica Giratória Com Apoio Lombar Da Python Fly Preto Malha</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 749,99</span>
+                <span class="price-current">R$ 388,63</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 361,36</div>
+            <a href="ofertas/casa/cadeira-escritorio-ergonomica-giratoria-com-apoio-lombar-da-python-fly-preto-malha-MLB5664473412.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_705075-MLA99943632917_112025-AB.webp" alt="Smartphone Samsung Galaxy A36 5g 128gb 6gb Ram Câmera Tripla De Até 50mp Selfie De 12mp Ip67 Super Amoled 6.7'' Nfc Recursos Ai Android E Segurança Snapdragon - Preto" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Smartphone Samsung Galaxy A36 5g 128gb 6gb Ram Câmera Tripla De Até 50mp Selfie De 12mp Ip67 Super Amoled 6.7'' Nfc Recursos Ai Android E Segurança Snapdragon - Preto</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 2.599,00</span>
+                <span class="price-current">R$ 1.349,00</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 1.250,00</div>
+            <a href="ofertas/celulares/smartphone-samsung-galaxy-a36-5g-128gb-6gb-ram-camera-tripla-de-ate-50mp-selfie-de-12mp-ip67-super-amoled-67-nfc-recursos-ai-android-e-seguranca-snapdragon---preto-MLB6756182602.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_871498-MLB89720767443_082025-AB.webp" alt="Aparador De Pelos Multigroom 8 Em 1 Mg3917/15 Philips Preto 127/220v" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Aparador De Pelos Multigroom 8 Em 1 Mg3917/15 Philips Preto 127/220v</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 233,63</span>
+                <span class="price-current">R$ 122,31</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 111,32</div>
+            <a href="ofertas/beleza/aparador-de-pelos-multigroom-8-em-1-mg391715-philips-preto-127220v-MLB5556558810.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_785197-MLA98861184401_112025-AB.webp" alt="Asus ROG Ally Z1 Extreme 512GB" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Asus ROG Ally Z1 Extreme 512GB</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 7.999,00</span>
+                <span class="price-current">R$ 4.223,00</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 3.776,00</div>
+            <a href="ofertas/games/asus-rog-ally-z1-extreme-512gb-MLB62321219.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_693366-MLB89308241348_082025-AB.webp" alt="Lustre Led Sala Moderno 60w, 3 Arcos Pendente Luminária Teto 127/220v Dourado" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Lustre Led Sala Moderno 60w, 3 Arcos Pendente Luminária Teto 127/220v Dourado</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 298,00</span>
+                <span class="price-current">R$ 159,99</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 138,01</div>
+            <a href="ofertas/casa/lustre-led-sala-moderno-60w-3-arcos-pendente-luminaria-teto-127220v-dourado-MLB5522151066.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_785197-MLA98861184401_112025-AB.webp" alt="Asus Consola Portátil 512 Gb White Z2 Rc73ya-nh003w Rog Xbox Ally Asus Ryzen Z2 Wh Branco" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Asus Consola Portátil 512 Gb White Z2 Rc73ya-nh003w Rog Xbox Ally Asus Ryzen Z2 Wh Branco</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 7.849,00</span>
+                <span class="price-current">R$ 4.223,00</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 3.626,00</div>
+            <a href="ofertas/informatica/asus-consola-portatil-512-gb-white-z2-rc73ya-nh003w-rog-xbox-ally-asus-ryzen-z2-wh-branco-MLB6070039800.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_697288-MLA100482486016_122025-AB.webp" alt="Smart Tv 43 Philco P43vik Roku Led Dolby Audio Wi-fi Hdmi Hdr Full Hd 110/220v" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Smart Tv 43 Philco P43vik Roku Led Dolby Audio Wi-fi Hdmi Hdr Full Hd 110/220v</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 2.499,00</span>
+                <span class="price-current">R$ 1.399,00</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 1.100,00</div>
+            <a href="ofertas/tv-e-video/smart-tv-43-philco-p43vik-roku-led-dolby-audio-wi-fi-hdmi-hdr-full-hd-110220v-MLB4367472775.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_753324-MLA108743670040_032026-AB.webp" alt="Smart Tv Philco 50 P50vik 4k Uhd Led Roku Dolby Audio Wi-fi Hdr10 110/220v" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Smart Tv Philco 50 P50vik 4k Uhd Led Roku Dolby Audio Wi-fi Hdr10 110/220v</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 3.499,00</span>
+                <span class="price-current">R$ 1.994,00</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 1.505,00</div>
+            <a href="ofertas/tv-e-video/smart-tv-philco-50-p50vik-4k-uhd-led-roku-dolby-audio-wi-fi-hdr10-110220v-MLB6539025322.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_621055-MLA91966913733_092025-AB.webp" alt="Monitor Gamer Aoc 21.5'' Full Hd Gaming 120hz 1ms 22b30hm23 Cor Preto 127/220v" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Monitor Gamer Aoc 21.5'' Full Hd Gaming 120hz 1ms 22b30hm23 Cor Preto 127/220v</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 849,90</span>
+                <span class="price-current">R$ 486,23</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 363,67</div>
+            <a href="ofertas/informatica/monitor-gamer-aoc-215-full-hd-gaming-120hz-1ms-22b30hm23-cor-preto-127220v-MLB4089347501.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_899090-MLA107424021398_032026-AB.webp" alt="Smart Tv Samsung 32 Ls32h5000fgxzd Hd Led Wifi Hdmi 110/220v" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Smart Tv Samsung 32 Ls32h5000fgxzd Hd Led Wifi Hdmi 110/220v</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 1.599,00</span>
+                <span class="price-current">R$ 917,10</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 681,90</div>
+            <a href="ofertas/tv-e-video/smart-tv-samsung-32-ls32h5000fgxzd-hd-led-wifi-hdmi-110220v-MLB6444937486.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_797485-MLA109558284021_032026-AB.webp" alt="Smart Tv Philco 40 P40vik Led Roku Dolby Audio Wi-fi Hdmi Hdr Full Hd 110/220v" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Smart Tv Philco 40 P40vik Led Roku Dolby Audio Wi-fi Hdmi Hdr Full Hd 110/220v</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 2.099,00</span>
+                <span class="price-current">R$ 1.299,00</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 800,00</div>
+            <a href="ofertas/tv-e-video/smart-tv-philco-40-p40vik-led-roku-dolby-audio-wi-fi-hdmi-hdr-full-hd-110220v-MLB4571467199.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+        <div class="product-card">
+            <div class="card-badges">
+                <span class="badge-best-price">⭐ Melhor Preço</span>
+                
+            </div>
+            <div class="product-img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_782255-MLA69666247656_052023-AB.webp" alt="Serra Tico Tico 400w 110v/220v Profissional Madeira" class="product-image" loading="lazy">
+            </div>
+            <h3 class="product-title">Serra Tico Tico 400w 110v/220v Profissional Madeira</h3>
+            <div class="price-container">
+                <span class="price-old">De R$ 189,00</span>
+                <span class="price-current">R$ 119,00</span>
+            </div>
+            <div class="savings-badge">💰 Economize R$ 70,00</div>
+            <a href="ofertas/ferramentas/serra-tico-tico-400w-110v220v-profissional-madeira-MLB3366914567.html" class="btn-ninja">Ver Oferta Ninja 🚀</a>
+        </div>
+        
+    </div>
+<div style="margin: 40px 0; display: flex; justify-content: space-between; align-items: center;">
+<h2 style="font-size: 28px; font-weight: 800;">🔥 Ofertas em Destaque</h2>
+<span style="color: var(--primary); font-weight: 700;">Atualizado agora</span>
+</div>
+
+<div style="text-align: center; margin: 60px 0;">
+Ver Todas as Categorias
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<h4>📊 Radar de Preços</h4>
+<p style="font-size: 14px; color: #ccc;">Sua ferramenta definitiva para encontrar o menor preço e economizar de verdade todos os dias.</p>
+</div>
+<div>
+<h4>Links Úteis</h4>
+<ul>
+<li>Sobre Nós</li>
+<li>Privacidade</li>
+<li>Contato</li>
+</ul>
+</div>
+<div>
+<h4>Categorias Populares</h4>
+<ul>
+<li>Tecnologia</li>
+<li>Casa e Cozinha</li>
+<li>Beleza e Saúde</li>
+</ul>
+</div>
+</div>
+<div class="footer-partners" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+    <h4 style="color: white; margin-bottom: 15px; font-size: 16px;">🤝 Sites Parceiros</h4>
+    <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 13px;">
+        <a href="https://comprerapido.github.io/" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Compre Rápido</a>
+        <a href="https://radardeprecos.github.io/" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Radar de Preços</a>
+        <a href="https://comparapreco.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Compara Preço</a>
+        <a href="https://superninjas.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Super Ninjas</a>
+        <a href="https://granahoje.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Grana Hoje</a>
+        <a href="https://casino-radar.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Casino Radar</a>
+    </div>
+</div>
+<div style="text-align: center; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #888;">
+                © 2026 Radar de Preços. Todos os direitos reservados.
+            </div>
+</div>
+</footer>
 </body>
 </html>
