@@ -91,4 +91,4 @@ def process(input_p: str, output_p: str):
         json.dump(final_products, f, ensure_ascii=False, indent=2)
 
 if __name__ == "__main__":
-    process("data/validated_products.json", "data/new_offers.json")
+    process("data/raw_products.json", "data/new_offers.json")

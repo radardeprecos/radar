@@ -29,7 +29,7 @@ def validate_product(p):
         return False
 
 def main():
-    input_file = "data/new_offers.json"
+    input_file = "data/raw_products.json"
     if not os.path.exists(input_file):
         logger.error("Arquivo de ofertas não encontrado para validação.")
         return
