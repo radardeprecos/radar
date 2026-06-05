@@ -1893,7 +1893,7 @@ function showSkeletons(n) {
 // ---------- FETCH DATA ----------
 function loadOffers() {
   showSkeletons(8);
-  fetch('data/products/offers.json')
+  fetch('/radar/data/products/offers.json')
     .then(function(r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
