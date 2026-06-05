@@ -3,7 +3,6 @@ import json
 import re
 import unicodedata
 from datetime import datetime, timedelta
-from pathlib import Path
 from logger import logger
 
 def slugify(text: str) -> str:
@@ -32,7 +31,7 @@ def save_rotation_history(history_path, history):
         json.dump(history, f, ensure_ascii=False, indent=2)
 
 def build_homepage(input_path, news_index_path, template_path, output_path, history_path):
-    logger.info(f"Construindo página inicial com lógica de rotação e DESIGN NINJA...")
+    logger.info(f"Construindo página inicial com lógica de rotação e SELOS PREMIUM...")
     if not os.path.exists(template_path):
         logger.error(f"Template {template_path} não encontrado!")
         return
@@ -80,52 +79,48 @@ def build_homepage(input_path, news_index_path, template_path, output_path, hist
         p_id = p.get("id", "")
         p_slug = slugify(p_name)
         p_cat = p.get("custom_category_slug", "outros")
-        p_url = f"ofertas/{p_cat}/{p_slug}-{p_id}.html"
+        
+        # Usar link de afiliado direto na home para evitar cliques extras
+        p_url = p.get('custom_affiliate_url') or p.get('permalink', '')
+        
         p_img = p.get("image") or p.get("thumbnail") or ""
         p_price = money(p.get("price"))
         p_old = money(p.get("originalPrice") or p.get("original_price"))
         p_disc = p.get("custom_discount_pct", 0)
         
-        try:
-            savings_val = float(p.get("originalPrice") or p.get("original_price") or 0) - float(p.get("price", 0))
-            savings_text = money(savings_val)
-        except:
-            savings_text = "R$ 0,00"
+        badge_ninja = ""
+        if p_disc >= 40:
+            badge_ninja = '<span style="position: absolute; top: 10px; left: 10px; background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white; padding: 4px 10px; border-radius: 6px; font-weight: 900; font-size: 10px; z-index: 20; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">🔥 OFERTA NINJA</span>'
 
-        is_hot = p_disc > 50
-
-        disc_bar_width = min(int(p_disc), 100)
         products_html += f"""
-        <div class="product-card">
-            <div class="card-badges">
-                <span class="badge-best-price">⭐ Oferta</span>
-                {f'<span class="badge-hot">🔥 Destaque</span>' if is_hot else ''}
+        <div class="product-card" style="position: relative; background: white; border-radius: 12px; overflow: hidden; border: 1px solid #E2E8F0; display: flex; flex-direction: column; transition: transform 0.3s ease;">
+            {badge_ninja}
+            <span style="position: absolute; top: 10px; right: 10px; background: #EF4444; color: white; padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 12px; z-index: 10;">↓ {p_disc}% OFF</span>
+            <div style="aspect-ratio: 1/1; padding: 20px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #F1F5F9;">
+                <img src="{p_img}" alt="{p_name}" style="max-width: 100%; max-height: 100%; object-fit: contain;" loading="lazy">
             </div>
-            <div class="product-img-wrapper">
-                <img src="{p_img}" alt="{p_name}" class="product-image" loading="lazy" width="200" height="200">
+            <div style="padding: 15px; flex-grow: 1; display: flex; flex-direction: column;">
+                <h3 style="font-size: 14px; font-weight: 700; color: #0F172A; margin-bottom: 10px; height: 40px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{p_name}</h3>
+                <div style="margin-bottom: 10px;">
+                    <span style="font-size: 12px; color: #94A3B8; text-decoration: line-through;">{p_old}</span>
+                    <span style="font-size: 18px; font-weight: 900; color: #1E3A8A; display: block;">{p_price}</span>
+                </div>
+                <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 5px; font-size: 10px; color: #10B981; font-weight: 700;">
+                    <span>✅ Preço Verificado</span>
+                </div>
+                <a href="{p_url}" target="_blank" style="background: #F59E0B; color: #78350F; text-align: center; text-decoration: none; padding: 10px; border-radius: 8px; font-weight: 800; font-size: 14px; margin-top: auto; transition: background 0.2s;">🛒 Ir para a Loja</a>
             </div>
-            <h3 class="product-title">{p_name}</h3>
-            <div class="price-container">
-                <span class="price-old">De {p_old}</span>
-                <span class="price-current">{p_price}</span>
-            </div>
-            <div class="savings-badge">💰 Economize {savings_text}</div>
-            <div class="discount-bar-wrap">
-                <div class="discount-bar"><div class="discount-bar-fill" style="width:{disc_bar_width}%"></div></div>
-            </div>
-            <a href="{p_url}" class="btn-ninja">🛒 Ver Oferta</a>
         </div>
         """
 
-    if 'ninja-style.css' not in template:
-        template = template.replace('</head>', '    <link rel="stylesheet" href="/assets/css/ninja-style.css">\n</head>')
-
+    # Manter compatibilidade com o template original
     content = template.replace("{{products_html}}", products_html)
-    content = content.replace('style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px;"', 'class="products-grid" id="products-grid"')
+    # Se o template usar outro marcador:
+    content = content.replace("{{products_grid}}", products_html)
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
-    logger.info(f"Homepage gerada com {len(display_products)} produtos e DESIGN NINJA.")
+    logger.info(f"Homepage gerada com {len(display_products)} produtos e SELOS PREMIUM.")
 
 if __name__ == "__main__":
     build_homepage(
