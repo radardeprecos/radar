@@ -1,6 +1,6 @@
 @import url('premium-style.css');
 
-/* BLINDAGEM RADAR DE PREÇOS - V2.0 */
+/* BLINDAGEM RADAR DE PREÇOS - V3.0 (NOTA 8.5) */
 :root { 
     --p: #6366f1; /* Roxo Principal */
     --s: #06b6d4; /* Ciano Secundário */
@@ -12,14 +12,14 @@
     --warning: #f59e0b;
 }
 
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, system-ui, sans-serif; background: var(--g); color: var(--d); line-height: 1.6; }
+
 /* Barra de Busca */
 .search-container {
     max-width: 800px;
     margin: 20px auto;
     padding: 0 20px;
-    position: sticky;
-    top: 10px;
-    z-index: 100;
 }
 
 .search-wrapper {
@@ -52,7 +52,7 @@
 }
 
 /* Grid e Cards */
-.product-grid { 
+.products-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
     gap: 20px; 
@@ -139,22 +139,40 @@
 }
 
 .price-old { color: #94a3b8; text-decoration: line-through; font-size: 12px; }
-.price-current { font-size: 22px; color: var(--d); font-weight: 800; display: block; }
-
-.btn-buy { 
-    background: linear-gradient(135deg, #22c55e, #16a34a) !important; 
-    color: white !important; 
-    font-weight: bold !important; 
-    padding: 12px !important; 
-    border-radius: 10px !important; 
-    text-align: center !important; 
-    text-decoration: none !important; 
-    margin-top: 15px !important; 
-    display: block !important; 
-    transition: 0.3s !important; 
+.price-current { 
+    font-size: 22px !important; 
+    font-weight: 800 !important; 
+    color: var(--d) !important; 
+    margin: 10px 0 !important; 
+    display: block !important;
 }
 
-.btn-buy:hover { filter: brightness(1.1) !important; transform: scale(1.02) !important; }
+/* Botão Chamativo (Ver Alerta/Oferta) */
+a[href*="ofertas"], .btn-buy {
+    background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
+    color: white !important;
+    padding: 12px 20px !important;
+    border-radius: 50px !important;
+    display: block !important;
+    font-weight: bold !important;
+    margin-top: 15px !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3) !important;
+    text-transform: uppercase !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    transition: 0.3s !important;
+}
+
+a[href*="ofertas"]:hover, .btn-buy:hover { 
+    filter: brightness(1.1) !important; 
+    transform: scale(1.02) !important; 
+}
+
+/* Esconder preços zerados */
+.price-zero, [data-price="0"], [data-price="R$ 0,00"] {
+    display: none !important;
+}
 
 /* Esconder produtos na busca */
 .hidden { display: none !important; }
