@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletrodomesticos em Oferta | Radar de Preços - O Menor Preço Garantido</title>
+    <meta name="description" content="Economize agora em Eletrodomesticos. Selecionamos as melhores ofertas do dia com descontos reais e links de afiliados seguros.">
+    <link rel="canonical" href="https://radardeprecos.github.io/radar/categorias/eletrodomesticos/index.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --accent: #F59E0B;
+            --success: #10B981;
+            --bg: #F8FAFC;
+            --text: #1E293B;
+            --card-bg: #FFFFFF;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+        
+        header { background: var(--primary); padding: 1.5rem; color: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .header-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: white; }
+        .brand h1 { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.025em; }
+        
+        .hero-cat { background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%); color: white; padding: 4rem 1rem; text-align: center; margin-bottom: 3rem; }
+        .hero-cat h2 { font-size: 3rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: -0.05em; }
+        .hero-cat p { font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        
+        .breadcrumb { margin-bottom: 2rem; font-size: 0.875rem; color: #64748B; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+        
+        .product-card { background: var(--card-bg); border-radius: 1rem; overflow: hidden; border: 1px solid #E2E8F0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border-color: var(--primary); }
+        
+        .badge-discount { position: absolute; top: 1rem; right: 1rem; background: #EF4444; color: white; padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: 800; font-size: 0.875rem; z-index: 10; }
+        
+        .img-wrapper { aspect-ratio: 1/1; padding: 2rem; background: white; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #F1F5F9; }
+        .img-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.5s ease; }
+        .product-card:hover .img-wrapper img { transform: scale(1.05); }
+        
+        .card-body { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .product-name { font-size: 1.125rem; font-weight: 700; color: #0F172A; margin-bottom: 1rem; line-height: 1.4; height: 3.1rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        
+        .price-box { margin-bottom: 1.5rem; }
+        .price-old { font-size: 0.875rem; color: #94A3B8; text-decoration: line-through; margin-bottom: 0.25rem; display: block; }
+        .price-now { font-size: 1.75rem; font-weight: 900; color: var(--primary); display: block; }
+        
+        .btn-buy { background: var(--accent); color: #78350F; text-align: center; text-decoration: none; padding: 1rem; border-radius: 0.75rem; font-weight: 800; font-size: 1.125rem; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .btn-buy:hover { background: #FBBF24; transform: scale(1.02); }
+        
+        footer { background: #0F172A; color: white; padding: 4rem 1rem; text-align: center; margin-top: 4rem; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .footer-links a { color: #94A3B8; text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+        .footer-links a:hover { color: white; }
+        
+        @media (max-width: 640px) {
+            .hero-cat h2 { font-size: 2rem; }
+            .products-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="/radar/index.html" class="brand">
+                <span style="font-size: 1.5rem;">📡</span>
+                <h1>Radar de Preços</h1>
+            </a>
+            <div style="background: rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 700; font-size: 0.875rem;">
+                🔥 Ofertas Ativas
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-cat">
+        <div class="container">
+            <h2>Eletrodomesticos</h2>
+            <p>As melhores ofertas de Eletrodomesticos monitoradas em tempo real para você economizar de verdade.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <nav class="breadcrumb">
+            <a href="/radar/index.html">Home</a> > Eletrodomesticos
+        </nav>
+
+        <div class="products-grid">
+            
+        <div class="product-card">
+            <span class="badge-discount">↓ 59% OFF</span>
+            <div class="img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_609133-MLA100033485209_122025-AB.webp" alt="Cooktop A Gás Fischer 4 Bocas Fit Line Trempe Esmaltada Aramado Preto 127/220v" loading="lazy">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Cooktop A Gás Fischer 4 Bocas Fit Line Trempe Esmaltada Aramado Preto 127/220v</h3>
+                <div class="price-box">
+                    <span class="price-old">R$ 814.14</span>
+                    <span class="price-now">R$ 332.10</span>
+                </div>
+                <a href="https://www.mercadolivre.com.br/cooktop-a-gas-fischer-4-bocas-fit-line-trempe-esmaltada-aramado/p/MLB42641505?pdp_filters=deal%3AMLB779362-1&matt_tool=vendas0nline" class="btn-buy" target="_blank" rel="noopener noreferrer">
+                    🛒 Ir para a Loja
+                </a>
+            </div>
+        </div>
+        
+        <div class="product-card">
+            <span class="badge-discount">↓ 34% OFF</span>
+            <div class="img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_864411-MLA99591392870_122025-AB.webp" alt="Caixa De Som Boombox Aiwa Aws-bbs-01b 200w Ip66 30hs De Bateria Preto 127/220v" loading="lazy">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Caixa De Som Boombox Aiwa Aws-bbs-01b 200w Ip66 30hs De Bateria Preto 127/220v</h3>
+                <div class="price-box">
+                    <span class="price-old">R$ 1945.00</span>
+                    <span class="price-now">R$ 1269.00</span>
+                </div>
+                <a href="https://www.mercadolivre.com.br/caixa-de-som-boombox-aiwa-aws-bbs-01b-200w-ip66-30hs-de-bateria/p/MLB34113516?pdp_filters=deal%3AMLB779362-1&matt_tool=vendas0nline" class="btn-buy" target="_blank" rel="noopener noreferrer">
+                    🛒 Ir para a Loja
+                </a>
+            </div>
+        </div>
+        
+        <div class="product-card">
+            <span class="badge-discount">↓ 25% OFF</span>
+            <div class="img-wrapper">
+                <img src="https://http2.mlstatic.com/D_Q_NP_2X_850738-MLA94955143798_102025-AB.webp" alt="Chuveiro Eletrônico Lorenzetti Acqua Duo Ultra 7800w Branco 220v 7.8 Kw" loading="lazy">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Chuveiro Eletrônico Lorenzetti Acqua Duo Ultra 7800w Branco 220v 7.8 Kw</h3>
+                <div class="price-box">
+                    <span class="price-old">R$ 511.49</span>
+                    <span class="price-now">R$ 383.15</span>
+                </div>
+                <a href="https://www.mercadolivre.com.br/chuveiro-eletrnico-lorenzetti-acqua-duo-ultra-7800w-branco-220v/p/MLB12543508?pdp_filters=deal%3AMLB779362-1&matt_tool=vendas0nline" class="btn-buy" target="_blank" rel="noopener noreferrer">
+                    🛒 Ir para a Loja
+                </a>
+            </div>
+        </div>
+        
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="/radar/sobre.html">Sobre Nós</a>
+                <a href="/radar/contato.html">Contato</a>
+                <a href="/radar/privacidade.html">Privacidade</a>
+                <a href="/radar/termos.html">Termos de Uso</a>
+            </div>
+            <p style="font-size: 0.875rem; color: #64748B;">© 2026 Radar de Preços. Todos os direitos reservados. Links de afiliados podem gerar comissão.</p>
+        </div>
+    </footer>
+</body>
+</html>
