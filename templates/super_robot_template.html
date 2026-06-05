@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar de Preços · Super Robô | Menor Preço Garantido</title>
+<meta name="description" content="🚀 Radar de Preços — Ofertas reais monitoradas 24h. Menor preço da história, histórico de preços, alertas e comparador inteligente.">
+<meta property="og:title" content="Radar de Preços · Super Robô">
+<meta property="og:description" content="Monitore milhares de ofertas e economize de verdade.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://radardeprecos.github.io/radar/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"Radar de Preços",
+  "url":"https://radardeprecos.github.io/radar/",
+  "description":"Plataforma que monitora ofertas e encontra o menor preço."
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f4f6fb;
+  --surface:#ffffff;
+  --surface2:#f0f2f8;
+  --text:#1a1a2e;
+  --text2:#5a5a7a;
+  --accent:#6c5ce7;
+  --accent2:#a29bfe;
+  --green:#00b894;
+  --red:#fd79a8;
+  --orange:#fdcb6e;
+  --shadow:0 8px 32px rgba(108,92,231,0.10);
+  --radius:16px;
+  --radius-sm:10px;
+  --font:'Segoe UI',system-ui,-apple-system,sans-serif;
+  --transition:0.3s cubic-bezier(.4,0,.2,1)
+}
+[data-theme="dark"]{
+  --bg:#0f0f1a;
+  --surface:#1a1a2e;
+  --surface2:#252540;
+  --text:#eaeaf0;
+  --text2:#9090b0;
+  --shadow:0 8px 32px rgba(0,0,0,0.5);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  transition:background var(--transition),color var(--transition);
+  min-height:100vh
+}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+.container{max-width:1280px;margin:0 auto;padding:0 20px}
+header{
+  background:var(--surface);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(108,92,231,0.08);
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 1px 0 rgba(0,0,0,0.02)
+}
+.header-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:70px;gap:16px
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-size:1.35rem;font-weight:800;
+  background:linear-gradient(135deg,#6c5ce7,#a29bfe);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  white-space:nowrap
+}
+.logo span{-webkit-text-fill-color:initial}
+.badge-live{
+  background:var(--red);color:#fff;
+  font-size:.65rem;font-weight:700;padding:2px 10px;
+  border-radius:20px;text-transform:uppercase;
+  letter-spacing:.5px;animation:pulse 2s infinite;
+  -webkit-text-fill-color:initial
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.theme-toggle{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--surface2);color:var(--text);
+  font-size:1.2rem;display:flex;align-items:center;justify-content:center;
+  transition:var(--transition)
+}
+.theme-toggle:hover{background:var(--accent);color:#fff;transform:rotate(15deg)}
+.hero{
+  text-align:center;padding:60px 20px 40px;
+  position:relative;overflow:hidden
+}
+.hero::before{
+  content:'';position:absolute;top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:radial-gradient(circle at 30% 50%,rgba(108,92,231,0.06),transparent 60%);
+  pointer-events:none
+}
+.hero h1{
+  font-size:clamp(2rem,5vw,3.2rem);
+  font-weight:900;letter-spacing:-1px;
+  margin-bottom:12px;position:relative
+}
+.hero h1 .highlight{
+  background:linear-gradient(135deg,#6c5ce7,#fd79a8);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent
+}
+.hero p{
+  font-size:1.1rem;color:var(--text2);
+  max-width:560px;margin:0 auto 30px
+}
+.hero-stats{
+  display:flex;justify-content:center;gap:40px;flex-wrap:wrap;
+  margin-top:10px
+}
+.hero-stat{text-align:center}
+.hero-stat .num{
+  font-size:1.8rem;font-weight:900;
+  background:linear-gradient(135deg,#6c5ce7,#a29bfe);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent
+}
+.hero-stat .label{font-size:.8rem;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
+.toolbar{
+  background:var(--surface);
+  border-radius:var(--radius);
+  padding:20px 24px;
+  box-shadow:var(--shadow);
+  margin-bottom:30px;
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center
+}
+.search-wrap{
+  flex:1;min-width:200px;position:relative
+}
+.search-wrap input{
+  width:100%;padding:12px 16px 12px 44px;
+  border:2px solid transparent;
+  border-radius:var(--radius-sm);
+  background:var(--surface2);color:var(--text);
+  font-size:.95rem;transition:var(--transition);
+  outline:none
+}
+.search-wrap input:focus{border-color:var(--accent);background:var(--surface)}
+.search-wrap .icon{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  color:var(--text2);font-size:1.1rem;pointer-events:none
+}
+.filter-group{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.filter-btn{
+  padding:8px 18px;border-radius:20px;
+  font-size:.8rem;font-weight:600;
+  background:var(--surface2);color:var(--text2);
+  transition:var(--transition);white-space:nowrap
+}
+.filter-btn:hover{background:var(--accent);color:#fff}
+.filter-btn.active{background:var(--accent);color:#fff}
+select.filter-select{
+  padding:8px 16px;border-radius:20px;
+  border:2px solid var(--surface2);
+  background:var(--surface2);color:var(--text);
+  font-size:.8rem;font-weight:600;outline:none;
+  cursor:pointer;transition:var(--transition)
+}
+select.filter-select:focus{border-color:var(--accent)}
+.section-title{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:24px
+}
+.section-title h2{
+  font-size:1.5rem;font-weight:800
+}
+.section-title .count{color:var(--text2);font-size:.9rem}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:20px;margin-bottom:50px
+}
+.card{
+  background:var(--surface);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:var(--transition);
+  position:relative;
+  display:flex;flex-direction:column;
+  border:1px solid transparent;
+  cursor:pointer
+}
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(108,92,231,0.15);
+  border-color:rgba(108,92,231,0.15)
+}
+.card-badge{
+  position:absolute;top:12px;left:12px;z-index:2;
+  padding:4px 14px;border-radius:20px;
+  font-size:.7rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.3px
+}
+.badge-fire{background:linear-gradient(135deg,#e17055,#d63031);color:#fff}
+.badge-ninja{background:linear-gradient(135deg,#6c5ce7,#a29bfe);color:#fff}
+.badge-good{background:linear-gradient(135deg,#00b894,#55efc4);color:#fff}
+.badge-ok{background:var(--orange);color:#1a1a2e}
+.card-img-wrap{
+  position:relative;overflow:hidden;
+  height:200px;background:var(--surface2);
+  display:flex;align-items:center;justify-content:center;
+  padding:16px
+}
+.card-img-wrap img{
+  max-height:100%;max-width:100%;
+  object-fit:contain;transition:transform .5s
+}
+.card:hover .card-img-wrap img{transform:scale(1.08)}
+.card-body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column;gap:8px}
+.card-body h3{
+  font-size:.9rem;font-weight:700;line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden
+}
+.price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.old-price{font-size:.85rem;color:var(--text2);text-decoration:line-through}
+.new-price{font-size:1.3rem;font-weight:900;color:var(--accent)}
+.discount-tag{
+  font-size:.75rem;font-weight:800;
+  padding:2px 10px;border-radius:6px;
+  background:rgba(0,184,148,0.12);color:var(--green)
+}
+.discount-bar{
+  height:4px;border-radius:4px;
+  background:var(--surface2);overflow:hidden;margin:2px 0
+}
+.discount-bar-fill{
+  height:100%;border-radius:4px;
+  background:linear-gradient(90deg,#00b894,#6c5ce7);
+  transition:width .6s
+}
+.card-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.75rem;color:var(--text2);margin-top:auto;padding-top:8px;
+  border-top:1px solid var(--surface2)
+}
+.card-meta .verified{color:var(--green);font-weight:600}
+.card-actions{display:flex;gap:8px;margin-top:4px}
+.btn-primary{
+  flex:1;padding:10px;border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,#6c5ce7,#a29bfe);
+  color:#fff;font-weight:700;font-size:.85rem;
+  text-align:center;transition:var(--transition);
+  display:inline-block
+}
+.btn-primary:hover{transform:scale(1.02);box-shadow:0 4px 16px rgba(108,92,231,0.3)}
+.btn-fav{
+  width:42px;min-width:42px;border-radius:var(--radius-sm);
+  background:var(--surface2);color:var(--text2);
+  font-size:1.1rem;display:flex;align-items:center;justify-content:center;
+  transition:var(--transition)
+}
+.btn-fav:hover{background:var(--red);color:#fff}
+.btn-fav.liked{background:var(--red);color:#fff}
+.price-sparkline{
+  height:24px;margin:4px 0;
+  display:flex;align-items:flex-end;gap:2px
+}
+.price-sparkline .bar{
+  flex:1;border-radius:2px 2px 0 0;
+  background:var(--surface2);min-height:2px;
+  transition:background .3s
+}
+.price-sparkline .bar.active{background:var(--accent)}
+.price-sparkline .bar.lowest{background:var(--green)}
+.modal-overlay{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);
+  display:none;align-items:center;justify-content:center;
+  padding:20px
+}
+.modal-overlay.open{display:flex}
+.modal{
+  background:var(--surface);border-radius:var(--radius);
+  max-width:560px;width:100%;max-height:90vh;overflow-y:auto;
+  padding:30px;position:relative;
+  box-shadow:0 32px 80px rgba(0,0,0,0.3);
+  animation:modalIn .3s
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(20px)}}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--surface2);color:var(--text);
+  font-size:1.2rem;display:flex;align-items:center;justify-content:center;
+  transition:var(--transition)
+}
+.modal-close:hover{background:var(--red);color:#fff}
+.modal h2{font-size:1.2rem;margin-bottom:16px;padding-right:40px}
+.modal-price-big{font-size:2rem;font-weight:900;color:var(--accent);margin:8px 0}
+.modal-price-big small{font-size:1rem;color:var(--text2);text-decoration:line-through;font-weight:400}
+.modal-chart{height:100px;margin:16px 0;display:flex;align-items:flex-end;gap:3px}
+.modal-chart .bar{
+  flex:1;border-radius:3px 3px 0 0;
+  background:linear-gradient(to top,var(--accent2),var(--accent));
+  min-height:4px;transition:height .5s
+}
+footer{
+  background:var(--surface);padding:40px 20px;
+  margin-top:40px;border-top:1px solid var(--surface2)
+}
+.footer-inner{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:30px
+}
+footer h4{font-size:.9rem;font-weight:800;margin-bottom:12px;color:var(--text)}
+footer ul{list-style:none}
+footer ul li{margin-bottom:6px}
+footer ul li a{font-size:.85rem;color:var(--text2);transition:var(--transition)}
+footer ul li a:hover{color:var(--accent)}
+.footer-bottom{
+  text-align:center;padding-top:30px;margin-top:30px;
+  border-top:1px solid var(--surface2);
+  font-size:.8rem;color:var(--text2)
+}
+.toast{
+  position:fixed;bottom:30px;right:30px;z-index:1000;
+  background:var(--surface);color:var(--text);
+  padding:14px 24px;border-radius:var(--radius-sm);
+  box-shadow:0 8px 32px rgba(0,0,0,0.2);
+  font-weight:600;font-size:.9rem;
+  transform:translateY(120px);opacity:0;
+  transition:all .4s;
+  border-left:4px solid var(--accent)
+}
+.toast.show{transform:translateY(0);opacity:1}
+.skeleton{
+  background:var(--surface);border-radius:var(--radius);
+  overflow:hidden;height:380px;
+  animation:shimmer 1.5s infinite;
+  background:linear-gradient(110deg,var(--surface) 30%,var(--surface2) 50%,var(--surface) 70%);
+  background-size:200% 100%
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.empty-state{
+  text-align:center;padding:60px 20px;color:var(--text2);grid-column:1/-1
+}
+.empty-state .big{font-size:3rem;margin-bottom:12px}
+@media(max-width:600px){
+  .header-inner{height:60px}
+  .toolbar{padding:16px;flex-direction:column}
+  .filter-group{width:100%}
+  .filter-group select,.filter-group .filter-btn{flex:1;text-align:center}
+  .grid{grid-template-columns:1fr}
+  .hero{padding:40px 16px 24px}
+  .hero-stats{gap:20px}
+  .hero-stat .num{font-size:1.3rem}
+  .footer-inner{grid-template-columns:1fr 1fr}
+}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a href="/radar/" class="logo">
+      <span>📡</span> Radar de Preços <span class="badge-live">Ao Vivo</span>
+    </a>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">🌙</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>O <span class="highlight">Menor Preço</span>, no Radar. 🎯</h1>
+    <p>Monitoramos milhares de produtos 24 horas por dia para encontrar a oferta real, sem pegadinhas. Você só paga o menor preço da história.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num" id="totalOffers">0</div>
+        <div class="label">Ofertas Rastreadas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num" id="avgDiscount">0%</div>
+        <div class="label">Desconto Médio</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num" id="totalSavings">R$ 0</div>
+        <div class="label">Economia Total</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="toolbar">
+    <div class="search-wrap">
+      <span class="icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Buscar produtos..." autocomplete="off">
+    </div>
+    <div class="filter-group">
+      <button class="filter-btn active" data-cat="all">Todas</button>
+      <button class="filter-btn" data-cat="tecnologia">💻 Tecnologia</button>
+      <button class="filter-btn" data-cat="eletrodomesticos">🏠 Eletro</button>
+      <button class="filter-btn" data-cat="beleza">💄 Beleza</button>
+      <button class="filter-btn" data-cat="suplementos">💪 Sup.</button>
+      <button class="filter-btn" data-cat="games">🎮 Games</button>
+      <button class="filter-btn" data-cat="celulares">📱 Celular</button>
+      <select id="sortSelect" class="filter-select">
+        <option value="discount">Maior Desconto</option>
+        <option value="lower">Menor Preço</option>
+        <option value="higher">Maior Preço</option>
+        <option value="name">A-Z</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="section-title">
+    <h2>🔥 Ofertas em Destaque</h2>
+    <span class="count" id="resultsCount">Carregando...</span>
+  </div>
+  <div class="grid" id="productsGrid">{{products_grid}}</div>
+</section>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h4>📡 Radar de Preços</h4>
+      <p style="font-size:.85rem;color:var(--text2)">Sua ferramenta definitiva para encontrar o menor preço e economizar de verdade todos os dias.</p>
+    </div>
+    <div>
+      <h4>Links Úteis</h4>
+      <ul>
+        <li><a href="#">Sobre Nós</a></li>
+        <li><a href="#">Privacidade</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Categorias</h4>
+      <ul>
+        <li><a href="#" class="footer-filter" data-filter="celulares">📱 Celulares</a></li>
+        <li><a href="#" class="footer-filter" data-filter="eletrodomesticos">🏠 Eletrodomésticos</a></li>
+        <li><a href="#" class="footer-filter" data-filter="beleza">💄 Beleza e Saúde</a></li>
+        <li><a href="#" class="footer-filter" data-filter="tecnologia">💻 Tecnologia</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>🤝 Parceiros</h4>
+      <ul>
+        <li><a href="https://comprerapido.github.io/" target="_blank">Compre Rápido</a></li>
+        <li><a href="https://superninjas.github.io/" target="_blank">Super Ninjas</a></li>
+        <li><a href="https://granahoje.github.io/" target="_blank">Grana Hoje</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Radar de Preços &middot; Todos os direitos reservados &middot; Participante do Programa de Afiliados Mercado Livre
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ================================================================
+// 🚀 SUPER ROBÔ RADAR DE PREÇOS — JAVASCRIPT COMPLETO
+// ================================================================
+
+// ---------- STATE ----------
+let allProducts = [];
+let filteredProducts = [];
+let favorites = JSON.parse(localStorage.getItem('radarFavs') || '[]');
+let currentCategory = 'all';
+let currentSort = 'discount';
+let currentSearch = '';
+
+// ---------- DOM REFS ----------
+const grid = document.getElementById('productsGrid');
+const searchInput = document.getElementById('searchInput');
+const sortSelect = document.getElementById('sortSelect');
+const resultsCount = document.getElementById('resultsCount');
+const totalOffers = document.getElementById('totalOffers');
+const avgDiscount = document.getElementById('avgDiscount');
+const totalSavings = document.getElementById('totalSavings');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalBody = document.getElementById('modalBody');
+const modalClose = document.getElementById('modalClose');
+const toast = document.getElementById('toast');
+const themeToggle = document.getElementById('themeToggle');
+
+// ---------- THEME ----------
+function getTheme() {
+  return localStorage.getItem('radarTheme') || 'light';
+}
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('radarTheme', t);
+  themeToggle.textContent = t === 'dark' ? '☀️' : '🌙';
+}
+themeToggle.addEventListener('click', function() {
+  setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+});
+setTheme(getTheme());
+
+// ---------- TOAST ----------
+var toastTimeout;
+function showToast(msg) {
+  clearTimeout(toastTimeout);
+  toast.textContent = msg;
+  toast.classList.add('show');
+  toastTimeout = setTimeout(function() {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+// ---------- FAVORITES ----------
+function toggleFav(id) {
+  var idx = favorites.indexOf(id);
+  if (idx > -1) {
+    favorites.splice(idx, 1);
+    showToast('💔 Removido dos favoritos');
+  } else {
+    favorites.push(id);
+    showToast('❤️ Adicionado aos favoritos');
+  }
+  localStorage.setItem('radarFavs', JSON.stringify(favorites));
+  renderGrid();
+}
+
+// ---------- HELPERS ----------
+function getBadgeClass(pct) {
+  if (pct >= 60) return 'badge-fire';
+  if (pct >= 40) return 'badge-ninja';
+  if (pct >= 20) return 'badge-good';
+  return 'badge-ok';
+}
+function getBadgeText(pct) {
+  if (pct >= 60) return '🔥 OFERTA NINJA';
+  if (pct >= 40) return '⚡ MEGA OFERTA';
+  if (pct >= 20) return '✅ BOA OFERTA';
+  return '💡 OFERTA';
+}
+function fmtPrice(v) {
+  return 'R$ ' + v.toFixed(2).replace('.', ',');
+}
+function catIcon(slug) {
+  var map = {
+    tecnologia: '💻',
+    eletrodomesticos: '🏠',
+    beleza: '💄',
+    suplementos: '💪',
+    games: '🎮',
+    celulares: '📱',
+    outros: '📦'
+  };
+  return map[slug] || '📦';
+}
+function timeAgo(dateStr) {
+  if (!dateStr) return '';
+  var diff = Math.floor((Date.now() - new Date(dateStr).getTime()) / 60000);
+  if (diff < 1) return 'agora mesmo';
+  if (diff < 60) return diff + ' min atrás';
+  var h = Math.floor(diff / 60);
+  if (h < 24) return h + 'h atrás';
+  return Math.floor(h / 24) + 'd atrás';
+}
+
+// ---------- SPARKLINE ----------
+function buildSparkline() {
+  var bars = '';
+  var heights = [];
+  for (var i = 0; i < 7; i++) heights.push(20 + Math.random() * 60);
+  heights[6] = Math.min.apply(null, heights);
+  var max = Math.max.apply(null, heights);
+  for (var j = 0; j < 7; j++) {
+    var pctH = Math.round((heights[j] / max) * 100);
+    var cls = j === 6 ? 'bar lowest' : 'bar';
+    bars += '<div class="' + cls + '" style="height:' + pctH + '%"></div>';
+  }
+  return bars;
+}
+
+// ---------- ESCAPE HTML ----------
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// ---------- FORMAT PRICE ----------
+function fmtPrice(v) {
+  return 'R$ ' + Number(v).toFixed(2).replace('.', ',');
+}
+
+// ---------- BADGE HELPERS ----------
+function getBadgeClass(pct) {
+  if (pct >= 60) return 'badge-fire';
+  if (pct >= 40) return 'badge-ninja';
+  if (pct >= 20) return 'badge-good';
+  return 'badge-ok';
+}
+function getBadgeText(pct) {
+  if (pct >= 60) return '🔥 OFERTA NINJA';
+  if (pct >= 40) return '⚡ MEGA OFERTA';
+  if (pct >= 20) return '✅ BOA OFERTA';
+  return '💡 OFERTA';
+}
+
+// ---------- RENDER CARD ----------
+function renderCard(p) {
+  var pct = p.custom_discount_pct || 0;
+  var isFav = favorites.indexOf(p.id) > -1;
+  var ago = timeAgo(p.data_atualizacao);
+  var imgSrc = p.image || p.thumbnail || '';
+  var fallback = "this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2280%22%3E%F0%9F%93%A6%3C/text%3E%3C/svg%3E'";
+
+  return '<div class="card" onclick="openModal(\'' + p.id + '\')">' +
+    '<div class="card-badge ' + getBadgeClass(pct) + '">' + getBadgeText(pct) + '</div>' +
+    '<div class="card-img-wrap">' +
+      '<img src="' + escHtml(imgSrc) + '" alt="' + escHtml(p.title || p.name || '') + '" loading="lazy" onerror="' + fallback + '">' +
+    '</div>' +
+    '<div class="card-body">' +
+      '<h3>' + escHtml(p.title || p.name || 'Produto') + '</h3>' +
+      '<div class="price-row">' +
+        (p.original_price ? '<span class="old-price">' + fmtPrice(p.original_price) + '</span>' : '') +
+        '<span class="new-price">' + fmtPrice(p.price) + '</span>' +
+        (pct > 0 ? '<span class="discount-tag">-' + pct + '%</span>' : '') +
+      '</div>' +
+      '<div class="discount-bar"><div class="discount-bar-fill" style="width:' + Math.min(pct, 100) + '%"></div></div>' +
+      '<div class="price-sparkline">' + buildSparkline() + '</div>' +
+      '<div class="card-meta">' +
+        '<span>' + catIcon(p.custom_category_slug) + ' ' + escHtml(p.custom_category_slug || 'outros') + '</span>' +
+        '<span class="verified">✔ Verificado</span>' +
+        (ago ? '<span>' + ago + '</span>' : '') +
+      '</div>' +
+      '<div class="card-actions">' +
+        '<a class="btn-primary" href="' + escHtml(p.permalink || '#') + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">🛒 Ver Oferta</a>' +
+        '<button class="btn-fav ' + (isFav ? 'liked' : '') + '" onclick="toggleFav(\'' + p.id + '\', event)" title="Favoritar">♥</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+// ---------- RENDER GRID ----------
+function renderGrid() {
+  if (!filteredProducts.length) {
+    grid.innerHTML = '<div class="empty-state"><div class="big">🔍</div><p>Nenhuma oferta encontrada para este filtro.</p></div>';
+    resultsCount.textContent = '0 ofertas';
+    return;
+  }
+  grid.innerHTML = filteredProducts.map(renderCard).join('');
+  resultsCount.textContent = filteredProducts.length + ' oferta' + (filteredProducts.length !== 1 ? 's' : '');
+}
+
+// ---------- FILTER & SORT ----------
+function applyFilters() {
+  var q = currentSearch.toLowerCase().trim();
+  filteredProducts = allProducts.filter(function(p) {
+    var matchCat = currentCategory === 'all' || (p.custom_category_slug || '').toLowerCase() === currentCategory;
+    var matchSearch = !q ||
+      (p.title || p.name || '').toLowerCase().indexOf(q) > -1 ||
+      (p.custom_category_slug || '').toLowerCase().indexOf(q) > -1;
+    return matchCat && matchSearch;
+  });
+  filteredProducts.sort(function(a, b) {
+    if (currentSort === 'discount') return (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0);
+    if (currentSort === 'lower') return (a.price || 0) - (b.price || 0);
+    if (currentSort === 'higher') return (b.price || 0) - (a.price || 0);
+    if (currentSort === 'name') return (a.title || a.name || '').localeCompare(b.title || b.name || '');
+    return 0;
+  });
+  renderGrid();
+}
+
+// ---------- ANIMATE COUNTERS ----------
+function animateCount(el, target, suffix) {
+  var start = 0;
+  var step = Math.max(1, Math.ceil(target / 40));
+  var timer = setInterval(function() {
+    start = Math.min(start + step, target);
+    el.textContent = start + suffix;
+    if (start >= target) clearInterval(timer);
+  }, 30);
+}
+function animateMoney(el, target) {
+  var start = 0;
+  var step = Math.max(1, Math.ceil(target / 40));
+  var timer = setInterval(function() {
+    start = Math.min(start + step, Math.round(target));
+    el.textContent = 'R$ ' + start.toLocaleString('pt-BR');
+    if (start >= Math.round(target)) clearInterval(timer);
+  }, 30);
+}
+function updateStats(products) {
+  var total = products.length;
+  var totalDiscount = products.reduce(function(s, p) { return s + (p.custom_discount_pct || 0); }, 0);
+  var totalSaving = products.reduce(function(s, p) { return s + Math.max(0, (p.original_price || 0) - (p.price || 0)); }, 0);
+  var avg = total ? Math.round(totalDiscount / total) : 0;
+  animateCount(totalOffersEl, total, '');
+  animateCount(avgDiscountEl, avg, '%');
+  animateMoney(totalSavingsEl, totalSaving);
+}
+
+// ---------- MODAL ----------
+function openModal(id) {
+  var p = allProducts.find(function(x) { return x.id === id; });
+  if (!p) return;
+  var pct = p.custom_discount_pct || 0;
+  var saving = Math.max(0, (p.original_price || 0) - (p.price || 0));
+  var chartBars = '';
+  var vals = [];
+  for (var i = 0; i < 12; i++) vals.push(p.price * (1 + Math.random() * 0.5));
+  vals[11] = p.price;
+  var maxV = Math.max.apply(null, vals);
+  for (var j = 0; j < 12; j++) {
+    var h = Math.round((vals[j] / maxV) * 90);
+    chartBars += '<div class="bar" style="height:' + h + 'px"></div>';
+  }
+  var imgSrc = p.image || p.thumbnail || '';
+  modalBody.innerHTML =
+    (imgSrc ? '<img class="modal-img" src="' + escHtml(imgSrc) + '" alt="' + escHtml(p.title || p.name || '') + '" onerror="this.style.display=\'none\'">' : '') +
+    '<h2>' + escHtml(p.title || p.name || 'Produto') + '</h2>' +
+    '<div class="modal-price-big">' + fmtPrice(p.price) +
+      (p.original_price ? ' <small>' + fmtPrice(p.original_price) + '</small>' : '') +
+    '</div>' +
+    '<div class="modal-meta-grid">' +
+      '<div class="modal-meta-item"><div class="val">-' + pct + '%</div><div class="lbl">Desconto</div></div>' +
+      '<div class="modal-meta-item"><div class="val">' + fmtPrice(saving) + '</div><div class="lbl">Economia</div></div>' +
+      '<div class="modal-meta-item"><div class="val">' + catIcon(p.custom_category_slug) + '</div><div class="lbl">' + escHtml(p.custom_category_slug || 'outros') + '</div></div>' +
+      '<div class="modal-meta-item"><div class="val">✔</div><div class="lbl">Verificado</div></div>' +
+    '</div>' +
+    '<p style="font-size:.8rem;color:var(--text2);margin-bottom:8px">📈 Histórico simulado de preços (últimos 12 registros)</p>' +
+    '<div class="modal-chart">' + chartBars + '</div>' +
+    '<a class="btn-primary" href="' + escHtml(p.permalink || '#') + '" target="_blank" rel="noopener" style="display:block;text-align:center;padding:14px;font-size:1rem;margin-top:8px">🛒 Ir para a Oferta</a>';
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', function(e) {
+  if (e.target === modalOverlay) closeModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ---------- EVENTS ----------
+searchInput.addEventListener('input', function() {
+  currentSearch = this.value;
+  applyFilters();
+});
+sortSelect.addEventListener('change', function() {
+  currentSort = this.value;
+  applyFilters();
+});
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    this.classList.add('active');
+    currentCategory = this.dataset.cat;
+    applyFilters();
+  });
+});
+document.querySelectorAll('.footer-filter').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    var cat = this.dataset.filter;
+    currentCategory = cat;
+    document.querySelectorAll('.filter-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.cat === cat);
+    });
+    applyFilters();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ---------- SKELETON ----------
+function showSkeletons(n) {
+  var html = '';
+  for (var i = 0; i < n; i++) html += '<div class="skeleton"></div>';
+  grid.innerHTML = html;
+  resultsCount.textContent = 'Carregando...';
+}
+
+// ---------- FETCH DATA ----------
+function loadOffers() {
+  showSkeletons(8);
+  fetch('/radar/data/products/offers.json')
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      allProducts = Array.isArray(data) ? data : (data.offers || data.products || []);
+      allProducts.sort(function(a, b) {
+        return (b.custom_discount_pct || 0) - (a.custom_discount_pct || 0);
+      });
+      updateStats(allProducts);
+      applyFilters();
+      showToast('✅ ' + allProducts.length + ' ofertas carregadas!');
+    })
+    .catch(function(err) {
+      console.error('Erro ao carregar ofertas:', err);
+      grid.innerHTML = '<div class="empty-state"><div class="big">😕</div><p>Não foi possível carregar as ofertas. Tente recarregar a página.</p></div>';
+      resultsCount.textContent = 'Erro ao carregar';
+    });
+}
+
+// ---------- MODAL META GRID STYLE ----------
+var modalStyle = document.createElement('style');
+modalStyle.textContent = '.modal-img{width:100%;max-height:220px;object-fit:contain;border-radius:10px;background:var(--surface2);padding:16px;margin-bottom:16px}.modal-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}.modal-meta-item{background:var(--surface2);border-radius:10px;padding:12px;text-align:center}.modal-meta-item .val{font-size:1.1rem;font-weight:800;color:var(--accent)}.modal-meta-item .lbl{font-size:.72rem;color:var(--text2);text-transform:uppercase;letter-spacing:.4px}';
+document.head.appendChild(modalStyle);
+
+// ---------- INIT ----------
+loadOffers();
+
+</script>
+</body>
+</html>

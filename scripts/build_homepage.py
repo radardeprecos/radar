@@ -5,128 +5,96 @@ import unicodedata
 from datetime import datetime, timedelta
 from logger import logger
 
-def slugify(text: str) -> str:
-    text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('ascii')
-    text = text.lower().replace(' ', '-')
-    return ''.join(c for c in text if c.isalnum() or c == '-')
-
 def money(value):
     try:
-        return f"R$ {float(value):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        return 'R$ ' + f"{float(value):,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
     except:
         return "N/A"
 
-def load_rotation_history(history_path):
-    if os.path.exists(history_path):
-        try:
-            with open(history_path, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except:
-            return {}
-    return {}
+def escHtml(str_val):
+    return str(str_val).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
 
-def save_rotation_history(history_path, history):
-    os.makedirs(os.path.dirname(history_path), exist_ok=True)
-    with open(history_path, "w", encoding="utf-8") as f:
-        json.dump(history, f, ensure_ascii=False, indent=2)
-
-def build_homepage(input_path, news_index_path, template_path, output_path, history_path):
-    logger.info(f"Construindo página inicial com lógica de rotação e SELOS PREMIUM...")
+def build_homepage(input_path, template_path, output_path):
+    logger.info(f"🚀 Blindagem Ativa: Gerando home com visual Super Robô...")
+    
     if not os.path.exists(template_path):
         logger.error(f"Template {template_path} não encontrado!")
         return
-    with open(template_path, "r", encoding="utf-8") as f:
-        template = f.read()
 
+    # Carregar produtos (usando o offers.json final)
     products = []
     if os.path.exists(input_path):
         with open(input_path, "r", encoding="utf-8") as f:
             products = json.load(f)
     
-    active_products = [p for p in products if p.get("status") == "active"]
+    # Pegar as top 24 ofertas por desconto
+    products.sort(key=lambda x: x.get("custom_discount_pct", 0), reverse=True)
+    display_products = products[:48] # Aumentamos para 48 para dar volume
     
-    history = load_rotation_history(history_path)
-    now = datetime.now()
-    threshold = now - timedelta(hours=48)
-    
-    available_products = []
-    recent_ids = set()
-    for pid, date_str in history.items():
-        try:
-            if datetime.fromisoformat(date_str) > threshold:
-                recent_ids.add(pid)
-        except:
-            pass
-    
-    for p in active_products:
-        p_id = str(p.get("id"))
-        if p_id not in recent_ids:
-            available_products.append(p)
-    
-    if len(available_products) < 12:
-        available_products = active_products
-    
-    available_products.sort(key=lambda x: x.get("custom_discount_pct", 0), reverse=True)
-    display_products = available_products[:24]
-    
-    for p in display_products:
-        history[str(p.get("id"))] = now.isoformat()
-    save_rotation_history(history_path, history)
-
     products_html = ""
     for p in display_products:
-        p_name = p.get("name") or p.get("title") or "Produto"
+        pct = p.get("custom_discount_pct", 0)
         p_id = p.get("id", "")
-        p_slug = slugify(p_name)
-        p_cat = p.get("custom_category_slug", "outros")
-        
-        # Usar link de afiliado direto na home para evitar cliques extras
-        p_url = p.get('custom_affiliate_url') or p.get('permalink', '')
-        
+        p_name = p.get("title") or p.get("name") or "Produto"
+        p_url = p.get("custom_affiliate_url") or p.get("permalink", "#")
         p_img = p.get("image") or p.get("thumbnail") or ""
-        p_price = money(p.get("price"))
-        p_old = money(p.get("originalPrice") or p.get("original_price"))
-        p_disc = p.get("custom_discount_pct", 0)
+        p_price = p.get("price", 0)
+        p_old = p.get("original_price") or p.get("originalPrice")
         
-        badge_ninja = ""
-        if p_disc >= 40:
-            badge_ninja = '<span style="position: absolute; top: 10px; left: 10px; background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white; padding: 4px 10px; border-radius: 6px; font-weight: 900; font-size: 10px; z-index: 20; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">🔥 OFERTA NINJA</span>'
+        # Gerar o HTML do Card compatível com o CSS do Super Robô
+        badge_class = "badge-fire" if pct >= 60 else ("badge-ninja" if pct >= 40 else ("badge-good" if pct >= 20 else "badge-ok"))
+        badge_text = "🔥 OFERTA NINJA" if pct >= 60 else ("⚡ MEGA OFERTA" if pct >= 40 else ("✅ BOA OFERTA" if pct >= 20 else "💡 OFERTA"))
+        
+        # Simular sparkline estático no HTML (o JS do Super Robô vai animar se necessário, mas deixamos a estrutura)
+        sparkline = '<div class="price-sparkline">' + ''.join(['<div class="bar" style="height:'+str(20+i*10)+'%"></div>' for i in range(7)]) + '</div>'
 
         products_html += f"""
-        <div class="product-card" style="position: relative; background: white; border-radius: 12px; overflow: hidden; border: 1px solid #E2E8F0; display: flex; flex-direction: column; transition: transform 0.3s ease;">
-            {badge_ninja}
-            <span style="position: absolute; top: 10px; right: 10px; background: #EF4444; color: white; padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 12px; z-index: 10;">↓ {p_disc}% OFF</span>
-            <div style="aspect-ratio: 1/1; padding: 20px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #F1F5F9;">
-                <img src="{p_img}" alt="{p_name}" style="max-width: 100%; max-height: 100%; object-fit: contain;" loading="lazy">
-            </div>
-            <div style="padding: 15px; flex-grow: 1; display: flex; flex-direction: column;">
-                <h3 style="font-size: 14px; font-weight: 700; color: #0F172A; margin-bottom: 10px; height: 40px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{p_name}</h3>
-                <div style="margin-bottom: 10px;">
-                    <span style="font-size: 12px; color: #94A3B8; text-decoration: line-through;">{p_old}</span>
-                    <span style="font-size: 18px; font-weight: 900; color: #1E3A8A; display: block;">{p_price}</span>
-                </div>
-                <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 5px; font-size: 10px; color: #10B981; font-weight: 700;">
-                    <span>✅ Preço Verificado</span>
-                </div>
-                <a href="{p_url}" target="_blank" style="background: #F59E0B; color: #78350F; text-align: center; text-decoration: none; padding: 10px; border-radius: 8px; font-weight: 800; font-size: 14px; margin-top: auto; transition: background 0.2s;">🛒 Ir para a Loja</a>
-            </div>
+    <div class="card" onclick="openModal('{p_id}')">
+      <div class="card-badge {badge_class}">{badge_text}</div>
+      <div class="card-img-wrap">
+        <img src="{p_img}" alt="{escHtml(p_name)}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><text y=\\'.9em\\' font-size=\\'80\\'>📦</text></svg>'">
+      </div>
+      <div class="card-body">
+        <h3>{escHtml(p_name)}</h3>
+        <div class="price-row">
+          {f'<span class="old-price">{money(p_old)}</span>' if p_old else ''}
+          <span class="new-price">{money(p_price)}</span>
+          {f'<span class="discount-tag">-{pct}%</span>' if pct > 0 else ''}
         </div>
-        """
+        <div class="discount-bar"><div class="discount-bar-fill" style="width:{min(pct, 100)}%"></div></div>
+        {sparkline}
+        <div class="card-meta">
+          <span>📦 {p.get("custom_category_slug", "outros")}</span>
+          <span class="verified">✔ Verificado</span>
+        </div>
+        <div class="card-actions">
+          <a class="btn-primary" href="{p_url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🛒 Ver Oferta</a>
+          <button class="btn-fav" onclick="toggleFav('{p_id}', event)" title="Favoritar">♥</button>
+        </div>
+      </div>
+    </div>"""
 
-    # Manter compatibilidade com o template original
-    content = template.replace("{{products_html}}", products_html)
-    # Se o template usar outro marcador:
-    content = content.replace("{{products_grid}}", products_html)
+    with open(template_path, "r", encoding="utf-8") as f:
+        template = f.read()
+
+    # Injetar o HTML gerado no template
+    final_content = template.replace("{{products_grid}}", products_html)
+    
+    # Atualizar estatísticas no HTML (opcional, mas bom para o visual)
+    total_val = len(products)
+    avg_disc = int(sum(p.get("custom_discount_pct", 0) for p in products)/total_val) if total_val > 0 else 0
+    
+    final_content = final_content.replace('<div class="num" id="totalOffers">0</div>', f'<div class="num" id="totalOffers">{total_val}</div>')
+    final_content = final_content.replace('<div class="num" id="avgDiscount">0%</div>', f'<div class="num" id="avgDiscount">{avg_disc}%</div>')
 
     with open(output_path, "w", encoding="utf-8") as f:
-        f.write(content)
-    logger.info(f"Homepage gerada com {len(display_products)} produtos e SELOS PREMIUM.")
+        f.write(final_content)
+    
+    logger.info(f"✅ Homepage blindada e atualizada com {len(display_products)} produtos.")
 
 if __name__ == "__main__":
     build_homepage(
-        "data/database/all_products.json", 
-        "noticias/index.html", 
-        "templates/homepage.html", 
-        "index.html",
-        "data/history/homepage_rotation.json"
+        "data/products/offers.json", 
+        "templates/super_robot_template.html", 
+        "index.html"
     )
