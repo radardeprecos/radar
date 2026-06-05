@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 db_path = '/home/ubuntu/radar_repo/data/database/all_products.json'
 base_dir = '/home/ubuntu/radar_repo'
-ml_id = 'vendas0nline'
+ml_id = 'radar041-20'
 amz_id = 'radar041-20'
 
 def check_image(url):

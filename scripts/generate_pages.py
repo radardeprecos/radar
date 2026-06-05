@@ -6,7 +6,7 @@ from typing import List, Dict, Any
 from logger import logger
 
 BASE_URL = "https://radardeprecos.github.io/radar/"
-ML_ACCOUNT = "vendas0nline"
+ML_ACCOUNT = "radar041-20"
 AMAZON_TAG = "radar041-20"
 
 def slugify(text: str) -> str:

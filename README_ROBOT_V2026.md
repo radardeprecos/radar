@@ -23,7 +23,7 @@ Copie os seguintes arquivos para a raiz do seu novo projeto:
 
 ## ⚙️ Configuração de Afiliados
 Os scripts agora suportam variáveis de ambiente:
-- `ML_AFILIADO_ID`: Seu ID do Mercado Livre (ex: vendas0nline)
+- `ML_AFILIADO_ID`: Seu ID do Mercado Livre (ex: radar041-20)
 - `AMZ_AFILIADO_ID`: Seu ID da Amazon (ex: radar041-20)
 
 ## 📤 Publicação Automática

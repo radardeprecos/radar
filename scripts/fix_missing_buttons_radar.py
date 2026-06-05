@@ -3,7 +3,7 @@ import json
 from bs4 import BeautifulSoup
 
 base_dir = '/home/ubuntu/radar_repo'
-ml_id = 'vendas0nline'
+ml_id = 'radar041-20'
 amz_id = 'radar041-20'
 
 def fix_buttons():
