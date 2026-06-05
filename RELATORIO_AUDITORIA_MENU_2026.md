@@ -94,7 +94,7 @@ Podemos ajustar o script de `/alertas/index.html` para salvar os alertas no `loc
 Substituir o `alert()` genérico do botão de cupons por um redirecionamento real para a página de cupons oficiais do Mercado Livre com a tag de afiliado do site:
 ```javascript
 // Alterar no arquivo /cupons/index.html:
-window.open('https://shope.ee/clique-aqui' or 'https://www.mercadolivre.com.br/cupons?matt_tool=radar041-20');
+window.open('https://shope.ee/clique-aqui' or 'https://www.mercadolivre.com.br/cupons?matt_tool=vendas0nline');
 ```
 
 ### Passo 4: Corrigir Nomes do Menu no Index Principal e Templates

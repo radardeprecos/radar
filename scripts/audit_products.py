@@ -87,5 +87,5 @@ if __name__ == "__main__":
     audit_products(
         "data/database/all_products.json", 
         "data/database/audited_products.json", 
-        "radar041-20"
+        "vendas0nline"
     )

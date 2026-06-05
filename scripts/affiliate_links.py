@@ -10,8 +10,8 @@ except ImportError:
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
 
 # Configurações de Afiliado
-ML_AFILIADO_ID = os.environ.get("ML_AFILIADO_ID", "radar041-20")
-AMZ_AFILIADO_ID = os.environ.get("AMZ_AFILIADO_ID", "radar041-20")
+ML_AFILIADO_ID = os.environ.get("ML_AFILIADO_ID", "vendas0nline")
+AMZ_AFILIADO_ID = os.environ.get("AMZ_AFILIADO_ID", "vendas0nline")
 
 def build_affiliate_url(product: dict) -> str:
     """

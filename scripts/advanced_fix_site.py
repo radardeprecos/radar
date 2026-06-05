@@ -14,13 +14,13 @@ from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 BASE_DIR = Path(__file__).parent.parent
 
 def add_matt_tool_to_url(url):
-    """Adiciona matt_tool=radar041-20 a uma URL do Mercado Livre"""
+    """Adiciona matt_tool=vendas0nline a uma URL do Mercado Livre"""
     if 'matt_tool' in url:
         return url
     
     parsed = urlparse(url)
     params = parse_qs(parsed.query, keep_blank_values=True)
-    params['matt_tool'] = ['radar041-20']
+    params['matt_tool'] = ['vendas0nline']
     
     new_query = urlencode({k: v[0] for k, v in params.items()})
     new_url = urlunparse(parsed._replace(query=new_query))

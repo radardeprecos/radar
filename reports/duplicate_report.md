@@ -29,5 +29,5 @@ Nenhum duplicado por Permalink encontrado.
 #### Nome Slug: `samsung-galaxy-a07-256gb-8gb-preto`
 | ID | Nome do Produto | SKU | Permalink | Status |
 |---|---|---|---|---|
-| MLB54961556 | Samsung Galaxy A07 256GB 8GB Preto | N/A | https://www.mercadolivre.com.br/p/MLB54961556?matt_tool=radar041-20 | expired |
+| MLB54961556 | Samsung Galaxy A07 256GB 8GB Preto | N/A | https://www.mercadolivre.com.br/p/MLB54961556?matt_tool=vendas0nline | expired |
 | MLB54963045 | Samsung Galaxy A07 256GB 8GB Verde | N/A | https://www.mercadolivre.com.br/p/MLB54963045 | active |
