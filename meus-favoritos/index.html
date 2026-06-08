@@ -8,7 +8,7 @@
 <meta content="Gerencie seus produtos favoritos e lista de desejos. Acompanhe o histórico de preços e receba alertas." name="description"/>
 <link href="https://radardeprecos.github.io/radar/meus-favoritos/" rel="canonical"/>
 <link href="../assets/css/style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap&amp;display=swap" rel="stylesheet"/>
 <style>
     .hero { background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); color: white; padding: 60px 0 40px; margin-bottom: 40px; }
     .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
@@ -77,6 +77,26 @@
   });
 </script>
 <meta content="ca-pub-4896859041377751" name="google-adsense-account"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Radar de Preços",
+      "item": "https://radardeprecos.github.io/radar/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Meus Favoritos",
+      "item": "https://radardeprecos.github.io/radar/meus-favoritos/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header style="background: var(--primary); padding: 20px; color: white; text-align: center;">
@@ -222,7 +242,7 @@ Disclaimer
 
       grid.innerHTML = favoritos.map(fav => `
 <div class="favorite-card">
-<img alt="${fav.title}" class="favorite-image" height="120" src="${fav.image}" style="width:100%;height:auto;" width="120"/>
+<img alt="${fav.title}" class="favorite-image" height="120" src="${fav.image}" style="width:100%;height:auto;" width="120" width="400" height="400"/ >
 <div class="favorite-content">
 <div class="favorite-title">${fav.title}</div>
 <div class="favorite-price">

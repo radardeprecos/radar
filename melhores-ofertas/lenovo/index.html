@@ -12,7 +12,7 @@
 <meta content="Melhores Ofertas Lenovo | Radar de Preços" property="og:title"/>
 <meta content="Notebooks, tablets e acessórios Lenovo com os melhores preços do mercado." property="og:description"/>
 <link href="../../assets/css/style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap&amp;display=swap" rel="stylesheet"/>
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -236,7 +236,7 @@ Tendências
       return `
 <div class="product-card">
 <a href="${url}" rel="noopener sponsored" target="_blank">
-<img alt="${p.title}" height="120" loading="lazy" onerror="this.src='../../assets/img/placeholder.png'" src="${p.image||p.thumbnail}" style="width:100%;height:auto;" width="120"/>
+<img alt="${p.title}" height="120" loading="lazy" onerror="this.src='../../assets/img/placeholder.png'" src="${p.image||p.thumbnail}" style="width:100%;height:auto;" width="120" width="400" height="400"/ >
             ${disc&gt;0?</a></div>`<span class="badge-discount">-${disc}%</span>`:''}
             <div class="product-info">
               <h3 class="product-name">${(p.title||p.name||'').substring(0,70)}</h3>

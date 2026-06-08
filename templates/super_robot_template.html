@@ -371,6 +371,32 @@ footer ul li a:hover{color:var(--accent)}
 ::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Radar de Preços",
+      "item": "https://radardeprecos.github.io/radar/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Templates",
+      "item": "https://radardeprecos.github.io/radar/templates/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Super_Robot_Template",
+      "item": "https://radardeprecos.github.io/radar/templates/super_robot_template/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -642,7 +668,7 @@ function renderCard(p) {
   return '<div class="card" onclick="openModal(\'' + p.id + '\')">' +
     '<div class="card-badge ' + getBadgeClass(pct) + '">' + getBadgeText(pct) + '</div>' +
     '<div class="card-img-wrap">' +
-      '<img src="' + escHtml(imgSrc) + '" alt="' + escHtml(p.title || p.name || '') + '" loading="lazy" onerror="' + fallback + '">' +
+      '<img src="' + escHtml(imgSrc) + '" alt="' + escHtml(p.title || p.name || '') + '" loading="lazy" onerror="' + fallback + '" width="400" height="400" >' +
     '</div>' +
     '<div class="card-body">' +
       '<h3>' + escHtml(p.title || p.name || 'Produto') + '</h3>' +
@@ -743,7 +769,7 @@ function openModal(id) {
   }
   var imgSrc = p.image || p.thumbnail || '';
   modalBody.innerHTML =
-    (imgSrc ? '<img class="modal-img" src="' + escHtml(imgSrc) + '" alt="' + escHtml(p.title || p.name || '') + '" onerror="this.style.display=\'none\'">' : '') +
+    (imgSrc ? '<img class="modal-img" src="' + escHtml(imgSrc) + '" alt="' + escHtml(p.title || p.name || '') + '" onerror="this.style.display=\'none\'" width="400" height="400" >' : '') +
     '<h2>' + escHtml(p.title || p.name || 'Produto') + '</h2>' +
     '<div class="modal-price-big">' + fmtPrice(p.price) +
       (p.original_price ? ' <small>' + fmtPrice(p.original_price) + '</small>' : '') +

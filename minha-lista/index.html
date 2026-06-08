@@ -2,6 +2,8 @@
 
 <html lang="pt-BR">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Radar de Preços Premium | Alertas Inteligentes de Ofertas</title>
@@ -11,7 +13,7 @@
 <link href="../manifest.webmanifest" rel="manifest"/>
 <meta content="#00c853" name="theme-color"/>
 <link href="../assets/icons/icon-192.png" rel="apple-touch-icon"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap&amp;display=swap" rel="stylesheet"/>
 <style>
     .account-hero { background: linear-gradient(135deg, #0f9b0f 0%, #00c853 100%); color: #fff; padding: 56px 0 36px; margin-bottom: 28px; }
     .account-hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 10px; }
@@ -48,6 +50,26 @@
     @media (max-width: 760px) { .account-summary { grid-template-columns: 1fr; } .alert-head, .timeline-item { flex-direction: column; } }
   </style>
 <meta content="ca-pub-4896859041377751" name="google-adsense-account"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Radar de Preços",
+      "item": "https://radardeprecos.github.io/radar/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Minha Lista",
+      "item": "https://radardeprecos.github.io/radar/minha-lista/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header style="background: var(--primary); padding: 20px; color: white; text-align: center;">
@@ -173,7 +195,7 @@
     function card(item, removable = false) {
       const d = decision(item);
       return `<article class="tracked-card">
-        <img src="${safe(item.image || item.thumbnail)}" alt="${safe(item.name || item.title)}" loading="lazy">
+        <img src="${safe(item.image || item.thumbnail)}" alt="${safe(item.name || item.title)}"  width="400" height="400"loading="lazy" >
         <div class="tracked-content">
           <div class="tracked-title">${safe(item.name || item.title)}</div>
           <div class="compara-decision ${d.cls}">${d.label}</div>
@@ -190,7 +212,7 @@
     function renderProfile() {
       const user = RadarDePrecos.Auth.getUser();
       const ready = RadarDePrecos.Auth.isFirebaseReady();
-      const avatar = user && user.photoURL ? `<img src="${safe(user.photoURL)}" alt="${safe(user.displayName)}">` : '<span class="profile-avatar">R</span>';
+      const avatar = user && user.photoURL ? `<img src="${safe(user.photoURL)}" alt="${safe(user.displayName)}" width="400" height="400" >` : '<span class="profile-avatar">R</span>';
       document.getElementById('profileLine').innerHTML = `${avatar}<div><strong>${safe(user?.displayName || 'Visitante Radar de Preços')}</strong><br><small>${ready ? 'Conta Google sincronizada com Firebase.' : 'Modo local ativo. Configure o Firebase para sincronizar entre dispositivos.'}</small></div>`;
     }
 

@@ -13,6 +13,32 @@
         .count-value { font-size: 28px; font-weight: 800; color: #14b8a6; }
         .bf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
     </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Radar de Preços",
+      "item": "https://radardeprecos.github.io/radar/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Eventos",
+      "item": "https://radardeprecos.github.io/radar/eventos/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Black Friday",
+      "item": "https://radardeprecos.github.io/radar/eventos/black-friday/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header style="background: var(--primary); padding: 20px; color: white; text-align: center;">
@@ -49,7 +75,7 @@
             const top = data.slice(0, 6);
             document.getElementById('bfOffers').innerHTML = top.map(p => `
                 <div class="product-card">
-                    <img src="${p.image}" style="width:100%; height:180px; object-fit:contain;">
+                    <img src="${p.image}" style="width:100%; height:180px; object-fit:contain;" width="400" height="400" >
                     <h3>${p.name}</h3>
                     <div class="price">R$ ${p.price}</div>
                     <a href="${p.permalink}" class="buy-btn">VER PREÇO BF</a>

@@ -2,12 +2,40 @@
 
 <html lang="pt-BR">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Radar de Preços Premium | Alertas Inteligentes de Ofertas</title>
 <meta content="Alerta de Oferta: {{product.name}} com {{product.discount}}% de desconto. Veja se vale a pena comprar agora!" name="description"/>
 <link href="../../assets/css/style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap&amp;display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Radar de Preços",
+      "item": "https://radardeprecos.github.io/radar/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Templates",
+      "item": "https://radardeprecos.github.io/radar/templates/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Product_Page",
+      "item": "https://radardeprecos.github.io/radar/templates/product_page/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header style="background: var(--primary); padding: 20px; color: white; text-align: center;">
@@ -17,7 +45,7 @@
 <main class="container" style="padding: 40px 20px;">
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: start;">
 <div style="background: white; padding: 30px; border-radius: 20px; box-shadow: var(--shadow); text-align: center;">
-<img alt="{{product.name}}" src="{{product.image}}" style="max-width: 100%; height: 350px; object-fit: contain;"/>
+<img alt="{{product.name}}" src="{{product.image}}" style="max-width: 100%; height: 350px; object-fit: contain;" width="400" height="400"/ >
 </div>
 <div>
 <div style="display: inline-block; background: var(--accent); color: var(--primary); padding: 5px 15px; border-radius: 20px; font-weight: 800; margin-bottom: 15px;">

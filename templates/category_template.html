@@ -8,7 +8,7 @@
     <link rel="canonical" href="{{canonical.url}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;90&display=swap0&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1E3A8A;
@@ -67,11 +67,37 @@
             .products-grid { grid-template-columns: 1fr; }
         }
     </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Radar de Preços",
+      "item": "https://radardeprecos.github.io/radar/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Templates",
+      "item": "https://radardeprecos.github.io/radar/templates/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Category_Template",
+      "item": "https://radardeprecos.github.io/radar/templates/category_template/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
     <header>
         <div class="header-inner">
-            <a href="/radar/index.html" class="brand">
+            <a href="/radar/" class="brand">
                 <span style="font-size: 1.5rem;">📡</span>
                 <h1>Radar de Preços</h1>
             </a>
@@ -90,7 +116,7 @@
 
     <main class="container">
         <nav class="breadcrumb">
-            <a href="/radar/index.html">Home</a> > {{category.name}}
+            <a href="/radar/">Home</a> > {{category.name}}
         </nav>
 
         <div class="products-grid">

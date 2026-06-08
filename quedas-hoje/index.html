@@ -8,7 +8,7 @@
 <meta content="Veja os produtos com maiores quedas de preço hoje. Ofertas que explodiram com descontos de até 80%. Atualizado em tempo real." name="description"/>
 <link href="https://radardeprecos.github.io/radar/quedas-hoje/" rel="canonical"/>
 <link href="../assets/css/style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap&amp;display=swap" rel="stylesheet"/>
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -82,6 +82,26 @@
   });
 </script>
 <meta content="ca-pub-4896859041377751" name="google-adsense-account"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Radar de Preços",
+      "item": "https://radardeprecos.github.io/radar/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Quedas Hoje",
+      "item": "https://radardeprecos.github.io/radar/quedas-hoje/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header style="background: var(--primary); padding: 20px; color: white; text-align: center;">
@@ -222,7 +242,7 @@ Disclaimer
         .sort((a, b) => b.discount - a.discount)
         .map(drop => `
 <div class="drop-card">
-<img alt="${drop.title}" class="drop-image" height="120" src="${drop.image}" style="width:100%;height:auto;" width="120"/>
+<img alt="${drop.title}" class="drop-image" height="120" src="${drop.image}" style="width:100%;height:auto;" width="120" width="400" height="400"/ >
 <div class="drop-content">
 <div class="drop-title">${drop.title}</div>
 <div class="drop-price">

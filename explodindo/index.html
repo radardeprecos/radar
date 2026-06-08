@@ -12,7 +12,7 @@
 <meta content="Ofertas que Explodiram — Mais Cliques e Maior Crescimento" property="og:title"/>
 <meta content="Produtos com mais cliques, mais visualizações e maior crescimento nas últimas horas." property="og:description"/>
 <link href="../assets/css/style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap&amp;display=swap" rel="stylesheet"/>
 <style>
     .page-hero {
       background: linear-gradient(135deg, #dc2626 0%, #f97316 100%);
@@ -262,6 +262,26 @@
   });
 </script>
 <meta content="ca-pub-4896859041377751" name="google-adsense-account"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Radar de Preços",
+      "item": "https://radardeprecos.github.io/radar/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Explodindo",
+      "item": "https://radardeprecos.github.io/radar/explodindo/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header style="background: var(--primary); padding: 20px; color: white; text-align: center;">
@@ -390,7 +410,7 @@ Explodindo
           <div class="fire-tag">${fireLabel}</div>
           ${disc > 0 ? `<div class="discount-tag">-${disc}%</div>` : ''}
           <div class="card-img-wrap">
-            <img alt="${p.title}" height="120" loading="lazy" onerror="this.src='../assets/img/placeholder.png'" src="${p.image || p.thumbnail}" style="width:100%;height:auto;" width="120"/>
+            <img alt="${p.title}" height="120" loading="lazy" onerror="this.src='../assets/img/placeholder.png'" src="${p.image || p.thumbnail}" style="width:100%;height:auto;" width="120" width="400" height="400"/ >
           </div>
           <div class="card-body">
             <div class="card-name">${(p.title || p.name || '').substring(0, 65)}${(p.title||p.name||'').length > 65 ? '...' : ''}</div>
@@ -443,7 +463,7 @@ Explodindo
           return `
 <a class="top3-card ${medalClass[i]}" href="${url}" rel="noopener sponsored" style="text-decoration:none;color:inherit;" target="_blank">
 <div class="top3-medal">${medals[i]}</div>
-<img alt="${p.title}" class="top3-img" height="120" loading="lazy" onerror="this.src='../assets/img/placeholder.png'" src="${p.image || p.thumbnail}" style="width:100%;height:auto;" width="120"/>
+<img alt="${p.title}" class="top3-img" height="120" loading="lazy" onerror="this.src='../assets/img/placeholder.png'" src="${p.image || p.thumbnail}" style="width:100%;height:auto;" width="120" width="400" height="400"/ >
 <div class="top3-name">${(p.title || p.name || '').substring(0, 50)}</div>
 <div class="top3-stat">Cliques: <strong>${m.clicks.toLocaleString()}</strong></div>
 <div class="top3-stat">Crescimento: <strong>+${m.growth}%</strong></div>

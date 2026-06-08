@@ -2,6 +2,8 @@
 
 <html lang="pt-BR">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Radar de Preços Premium | Alertas Inteligentes de Ofertas</title>
@@ -11,7 +13,7 @@
 <link href="../manifest.webmanifest" rel="manifest"/>
 <meta content="#00c853" name="theme-color"/>
 <link href="../assets/icons/icon-192.png" rel="apple-touch-icon"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap&amp;display=swap" rel="stylesheet"/>
 <style>
     .recommend-hero { background: linear-gradient(135deg, #111827 0%, #1976d2 55%, #00c853 100%); color:#fff; padding:64px 0 42px; }
     .recommend-hero h1 { font-size:clamp(2rem, 5vw, 3.2rem); margin-bottom:12px; }
@@ -27,6 +29,26 @@
     @media(max-width:860px){.recommend-layout{grid-template-columns:1fr;}}
   </style>
 <meta content="ca-pub-4896859041377751" name="google-adsense-account"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Radar de Preços",
+      "item": "https://radardeprecos.github.io/radar/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Recomendados",
+      "item": "https://radardeprecos.github.io/radar/recomendados/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header style="background: var(--primary); padding: 20px; color: white; text-align: center;">
@@ -65,7 +87,7 @@
     function categoryWeights(){ const history=RadarDePrecos.Auth.getBehaviorHistory(); const weights={}; [...favorites, ...alerts.map(a=>a.product||a), ...history.clicks, ...history.views].forEach(item=>{ const cat=item.category||item.custom_category_slug; if(!cat)return; weights[cat]=(weights[cat]||0)+1; }); return weights; }
     function scoreProduct(product, weights){ const cat=product.custom_category_slug||''; const discount=Number(product.custom_discount_pct||0); const price=Number(product.price||0); const original=Number(product.originalPrice||product.original_price||price); const ratio=original?1-(price/original):0; const favoriteBoost=favorites.some(f=>String(f.productId||f.id)===String(product.id))?35:0; const alertBoost=alerts.some(a=>String(a.productId||a.id)===String(product.id))?25:0; const categoryBoost=(weights[cat]||0)*12; return Math.round(discount*1.4 + ratio*55 + favoriteBoost + alertBoost + categoryBoost); }
     function compute(){ const weights=categoryWeights(); recs=[...products].map(p=>({ ...p, comparaPersonalScore:scoreProduct(p,weights) })).sort((a,b)=>b.comparaPersonalScore-a.comparaPersonalScore).slice(0,36); render(weights); }
-    function render(weights){ const topCats=Object.entries(weights).sort((a,b)=>b[1]-a[1]).slice(0,5); document.getElementById('reasonBar').innerHTML=(topCats.length?topCats:[['ofertas',1]]).map(([cat,count])=>`<span class="reason-pill">${safe(cat)} · ${count} sinal(is)</span>`).join(''); document.getElementById('profileInsights').innerHTML=`<p><strong>${favorites.length}</strong> favorito(s)</p><p><strong>${alerts.length}</strong> alerta(s)</p><p><strong>${topCats[0]?.[0]||'sem categoria dominante'}</strong> é sua categoria mais forte.</p><p>O Radar de Preços IA combina desconto, histórico, categoria e recorrência para priorizar recomendações.</p>`; document.getElementById('recommendationsGrid').innerHTML=recs.map(product=>{ const d=decision(product); const score=Math.min(100, product.comparaPersonalScore); return `<article class="rec-card"><img src="${safe(product.image||product.thumbnail)}" alt="${safe(product.name||product.title)}" loading="lazy"><strong>${safe((product.name||product.title).slice(0,72))}</strong><div class="compara-decision ${d.cls}">${d.label}</div><div class="price-tag">${money(product.price)}</div><div class="score-line"><span style="width:${score}%"></span></div><small>Score pessoal: ${score}/100 · ${safe(product.custom_category_slug)}</small><button class="small-btn" onclick="fav('${product.id}')">Favoritar</button><button class="small-btn" onclick="alertFor('${product.id}')">Criar alerta</button><a class="small-btn primary" target="_blank" rel="nofollow sponsored" onclick="trackRec('${product.id}')" href="${safe(url(product))}">Ver oferta</a></article>`; }).join(''); }
+    function render(weights){ const topCats=Object.entries(weights).sort((a,b)=>b[1]-a[1]).slice(0,5); document.getElementById('reasonBar').innerHTML=(topCats.length?topCats:[['ofertas',1]]).map(([cat,count])=>`<span class="reason-pill">${safe(cat)} · ${count} sinal(is)</span>`).join(''); document.getElementById('profileInsights').innerHTML=`<p><strong>${favorites.length}</strong> favorito(s)</p><p><strong>${alerts.length}</strong> alerta(s)</p><p><strong>${topCats[0]?.[0]||'sem categoria dominante'}</strong> é sua categoria mais forte.</p><p>O Radar de Preços IA combina desconto, histórico, categoria e recorrência para priorizar recomendações.</p>`; document.getElementById('recommendationsGrid').innerHTML=recs.map(product=>{ const d=decision(product); const score=Math.min(100, product.comparaPersonalScore); return `<article class="rec-card"><img src="${safe(product.image||product.thumbnail)}" alt="${safe(product.name||product.title)}"  width="400" height="400"loading="lazy" ><strong>${safe((product.name||product.title).slice(0,72))}</strong><div class="compara-decision ${d.cls}">${d.label}</div><div class="price-tag">${money(product.price)}</div><div class="score-line"><span style="width:${score}%"></span></div><small>Score pessoal: ${score}/100 · ${safe(product.custom_category_slug)}</small><button class="small-btn" onclick="fav('${product.id}')">Favoritar</button><button class="small-btn" onclick="alertFor('${product.id}')">Criar alerta</button><a class="small-btn primary" target="_blank" rel="nofollow sponsored" onclick="trackRec('${product.id}')" href="${safe(url(product))}">Ver oferta</a></article>`; }).join(''); }
     function trackRec(id){ const p=products.find(x=>String(x.id)===String(id)); if(p) RadarDePrecos.Auth.trackProductClick(snapshot(p)); }
     async function fav(id){ const p=products.find(x=>String(x.id)===String(id)); if(!p)return; await RadarDePrecos.Auth.upsertItem('favorites', snapshot(p)); alert('Produto salvo em Minha Lista.'); await load(); }
     async function alertFor(id){ const p=products.find(x=>String(x.id)===String(id)); if(!p)return; const target=prompt('Preço desejado:', Math.floor(Number(p.price||0)*.92)); if(!target)return; await RadarDePrecos.Auth.upsertItem('alerts',{id:p.id, productId:p.id, product:snapshot(p), currentPrice:p.price, targetPrice:Number(target), active:true, createdAt:new Date().toISOString()}); alert('Alerta criado.'); await load(); }
