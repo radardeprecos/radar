@@ -1,5 +1,5 @@
 /**
- * Sistema de Favoritos - Compara Preço
+ * Sistema de Favoritos - Radar de Preços
  * Gerencia favoritos e lista de desejos usando LocalStorage
  */
 

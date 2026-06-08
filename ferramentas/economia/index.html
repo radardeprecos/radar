@@ -49,7 +49,7 @@
 <main class="container">
 <div class="sim-container">
 <h1>💰 Quanto você pode economizar?</h1>
-<p>Simule sua economia anual média utilizando o monitoramento do Compara Preço em vez de comprar pelo preço de tabela.</p>
+<p>Simule sua economia anual média utilizando o monitoramento do Radar de Preços em vez de comprar pelo preço de tabela.</p>
 <div style="margin-top: 30px;">
 <div class="input-row">
 <label>Gasto médio mensal em eletrônicos (R$)</label>
@@ -64,7 +64,7 @@
 <div class="result-box" id="result">
 <span class="result-label">Sua economia anual estimada:</span>
 <span class="result-val" id="savingsValue">R$ 0,00</span>
-<p style="font-size: 12px; margin-top: 10px; opacity: 0.8;">Baseado na economia média de 22% registrada pelo Compara Preço em 2026.</p>
+<p style="font-size: 12px; margin-top: 10px; opacity: 0.8;">Baseado na economia média de 22% registrada pelo Radar de Preços em 2026.</p>
 </div>
 </div>
 </main>
@@ -73,7 +73,7 @@
       const spend = document.getElementById('monthlySpend').value || 0;
       const big = document.getElementById('bigPurchases').value || 0;
       
-      // Cálculo: 22% de economia média do Compara Preço
+      // Cálculo: 22% de economia média do Radar de Preços
       const annualSavings = (spend * 12 * 0.22) + (big * 1500 * 0.22);
       
       document.getElementById('savingsValue').innerText = 'R$ ' + annualSavings.toLocaleString('pt-BR', {minimumFractionDigits: 2});

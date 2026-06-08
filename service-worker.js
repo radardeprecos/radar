@@ -1,4 +1,4 @@
-// Service Worker para Compara Preço
+// Service Worker para Radar de Preços
 const CACHE_NAME = 'compara-precos-v1';
 const STATIC_ASSETS = [
   '/',
@@ -123,7 +123,7 @@ self.addEventListener('push', (event) => {
     };
 
     event.waitUntil(
-      self.registration.showNotification(data.title || 'Compara Preço', options)
+      self.registration.showNotification(data.title || 'Radar de Preços', options)
     );
   }
 });

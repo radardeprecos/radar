@@ -46,7 +46,7 @@
 </section>
 </main>
 <footer class="footer">
-<p>© 2026 Compara Preço. Todos os direitos reservados.</p>
+<p>© 2026 Radar de Preços. Todos os direitos reservados.</p>
 </footer>
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/compara-auth.js"></script>
@@ -81,7 +81,7 @@
                         .map(input => input.value);
                     const frequency = document.querySelector('input[name="frequency"]:checked').value;
                     
-                    Compara PreçoAuth.saveSettings({
+                    RadarDePrecos.Auth.saveSettings({
                         newsletter: true,
                         newsletterSegments: selected,
                         newsletterFrequency: frequency

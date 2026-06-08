@@ -196,7 +196,7 @@
   }
 
   // Expor funções globalmente
-  window.Compara PreçoPWA = {
+  window.RadarDePrecos.PWA = {
     requestNotificationPermission: requestNotificationPermission,
     enablePushNotifications: enablePushNotifications,
     showUpdateNotification: showUpdateNotification

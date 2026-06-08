@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
-    <meta http-equiv="refresh" content="3;url=https://radardeprecos.github.io/">
-<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Radar de Preços Premium | Alertas Inteligentes de Ofertas</title>
+<title>Página Não Encontrada | Radar de Preços</title>
 <meta content="A página que você procura não foi encontrada. Use nossa busca ou confira nossas melhores ofertas e guias de compra." name="description"/>
 <link href="https://radardeprecos.github.io/radar/404.html" rel="canonical"/>
 <link href="/radar/assets/css/style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
 <style>
     .error-container {
       max-width: 800px;
@@ -81,7 +78,7 @@
       font-weight: 700;
       font-size: 1rem;
     }
-  </style>
+</style>
 <!-- Google tag (gtag.js) -->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-P0X4Z9Y7B2"></script>
 <script>
@@ -93,64 +90,66 @@
 </head>
 <body>
 <header style="background: var(--primary); padding: 20px; color: white; text-align: center;">
-    <h1 style="margin:0; font-size: 24px;">📡 Radar de Preços</h1>
+    <h1 style="margin:0; font-size: 24px;"><a href="/radar/" style="color:white;text-decoration:none;">📡 Radar de Preços</a></h1>
     <p style="margin:5px 0 0; opacity: 0.9;">Onde a economia encontra a inteligência.</p>
 </header>
 <main class="container">
 <div class="error-container">
 <div class="error-code">404</div>
-<h1 class="error-title">Ops! 📡 Radar de Preços - Página não encontrada</h1>
+<h1 class="error-title">Ops! 📡 Página não encontrada</h1>
 <p class="error-text">Parece que o link que você seguiu não existe ou a página foi movida. Tente buscar o que precisa abaixo ou confira nossas sugestões.</p>
 <div class="search-box-404">
 <input id="searchInput404" placeholder="O que você está procurando?" type="text"/>
 </div>
 <h2>Páginas Recomendadas</h2>
 <div class="recommendations">
-
-
-
+  <a class="rec-card" href="/radar/">
+    <div class="rec-icon">🏠</div>
+    <div class="rec-title">Página Inicial</div>
+  </a>
+  <a class="rec-card" href="/radar/sobre.html">
+    <div class="rec-icon">ℹ️</div>
+    <div class="rec-title">Sobre Nós</div>
+  </a>
+  <a class="rec-card" href="/radar/contato.html">
+    <div class="rec-icon">✉️</div>
+    <div class="rec-title">Contato</div>
+  </a>
+  <a class="rec-card" href="/radar/privacidade.html">
+    <div class="rec-icon">🔒</div>
+    <div class="rec-title">Privacidade</div>
+  </a>
 </div>
 </div>
 </main>
 <footer class="footer">
 <div class="container">
-<p>© 2026 Compara Preço. Transparência e Tecnologia.</p>
+<p>© 2026 Radar de Preços. Transparência e Tecnologia.</p>
 <div class="footer-links">
 <a href="/radar/sobre.html">Sobre</a>
 <a href="/radar/contato.html">Contato</a>
 <a href="/radar/privacidade.html">Privacidade</a>
-<a href="/radar/disclaimer/">Disclaimer</a>
 </div>
 </div>
 <div class="footer-partners" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
     <h4 style="color: white; margin-bottom: 15px; font-size: 16px;">🤝 Sites Parceiros</h4>
     <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 13px;">
         <a href="https://comprerapido.github.io/" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Compre Rápido</a>
-        <a href="https://radardeprecos.github.io/" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Radar de Preços</a>
-        <a href="https://radardeprecos.github.io/radar" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Compara Preço</a>
-        <a href="https://superninjas.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Super Ninjas</a>
-        <a href="https://granahoje.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Grana Hoje</a>
-        <a href="https://casino-radar.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Casino Radar</a>
+        <a href="https://superninjas.github.io/" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Super Ninjas</a>
+        <a href="https://granahoje.github.io/" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Grana Hoje</a>
     </div>
 </div>
 </footer>
 <script>
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
-    });
 
     document.getElementById('searchInput404').addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         const q = e.target.value.trim();
-        if (q) window.location.href = `/?q=${encodeURIComponent(q)}`;
+        if (q) window.location.href = `/radar/?q=${encodeURIComponent(q)}`;
       }
     });
-  </script>
-<!-- Seção de Parceiros - Otimização AdSense --><section class="partners-section" style="background: #f9f9f9; padding: 40px 0; border-top: 1px solid #eee; margin-top: 50px; font-family: sans-serif; clear: both;"><div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;"><h4 style="text-align: center; margin-bottom: 30px; color: #666; font-size: 1.2rem; font-weight: 700;">Nossa Rede de Parceiros</h4><div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; text-align: center;"><a href="https://radardeprecos.github.io/radar" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;" target="_blank">Compara Preço</a><a href="https://comprerapido.github.io" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;" target="_blank">Compre Rápido</a><a href="https://radardeprecos.github.io/" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;" target="_blank">Radar de Preços</a><a href="https://superninjas.github.io" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;" target="_blank">Super Radars</a><a href="https://granahoje.github.io" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;" target="_blank">Grana Hoje</a><a href="https://casino-radar.github.io" style="text-decoration: none; color: #333; font-weight: 600; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 150px;" target="_blank">Casino Radar</a></div><div style="text-align: center; margin-top: 30px; font-size: 0.8rem; color: #999; border-top: 1px solid #eee; padding-top: 20px;"><p>Sites parceiros verificados para transparência e conformidade com as diretrizes do Google AdSense.</p></div></div></section></body>
+</script>
+</body>
 </html>

@@ -1,4 +1,4 @@
-/* Compara Preço — Auth, perfil e persistência do usuário
+/* Radar de Preços — Auth, perfil e persistência do usuário
  * Funciona em dois modos:
  * - Firebase ativo: sincroniza dados por usuário no Firestore e Login Google.
  * - Fallback local: mantém a experiência funcionando via localStorage em GitHub Pages.
@@ -51,7 +51,7 @@
     const id = 'local_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
     const user = {
       uid: id,
-      displayName: 'Visitante Compara Preço',
+      displayName: 'Visitante Radar de Preços',
       email: '',
       photoURL: '',
       isAnonymous: true,
@@ -65,7 +65,7 @@
     if (!user) return null;
     return {
       uid: user.uid,
-      displayName: user.displayName || 'Usuário Compara Preço',
+      displayName: user.displayName || 'Usuário Radar de Preços',
       email: user.email || '',
       photoURL: user.photoURL || '',
       isAnonymous: Boolean(user.isAnonymous),
@@ -325,7 +325,7 @@
     return div.innerHTML;
   }
 
-  window.Compara PreçoAuth = {
+  window.RadarDePrecos.Auth = {
     init,
     signInGoogle,
     signOut,

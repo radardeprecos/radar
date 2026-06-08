@@ -1,4 +1,4 @@
-// Fase 10 — PWA, instalação e notificações locais do Compara Preço
+// Fase 10 — PWA, instalação e notificações locais do Radar de Preços
 (function () {
   'use strict';
 
@@ -15,7 +15,7 @@
     button.style.bottom = '16px';
     button.style.zIndex = '80';
     button.style.display = 'none';
-    button.textContent = 'Instalar Compara Preço';
+    button.textContent = 'Instalar Radar de Preços';
     button.addEventListener('click', async () => {
       if (!deferredPrompt) return;
       deferredPrompt.prompt();
@@ -59,11 +59,11 @@
   }
 
   function exposeApi() {
-    window.Compara PreçoPWA = {
+    window.RadarDePrecos.PWA = {
       requestNotifications,
       notify,
       async testPriceAlert() {
-        await notify('Compara Preço', {
+        await notify('Radar de Preços', {
           body: 'Exemplo de alerta: um produto monitorado atingiu o preço desejado.',
           data: { url: ROOT_PATH + 'minha-lista/' }
         });

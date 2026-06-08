@@ -1,9 +1,9 @@
 {
-  "name": "Compara Preço — Inteligência de Preços em Tempo Real",
-  "short_name": "Compara Preço",
+  "name": "Radar de Preços — Menor Preço em Tempo Real",
+  "short_name": "Radar de Preços",
   "description": "Encontre as melhores ofertas do Mercado Livre, compare preços e economize com alertas inteligentes.",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/radar/",
+  "scope": "/radar/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
@@ -22,7 +22,10 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["shopping", "productivity"],
+  "categories": [
+    "shopping",
+    "productivity"
+  ],
   "screenshots": [
     {
       "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect fill='%230f766e' width='540' height='720'/><text x='270' y='360' font-size='80' fill='white' text-anchor='middle' dominant-baseline='central' font-family='system-ui'>📊 Compara Preço</text></svg>",

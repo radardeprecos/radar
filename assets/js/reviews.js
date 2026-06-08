@@ -1,5 +1,5 @@
 /**
- * Sistema de Comentários e Avaliações - Compara Preço
+ * Sistema de Comentários e Avaliações - Radar de Preços
  * Gerencia avaliações de produtos com estrelas e comentários usando LocalStorage
  */
 

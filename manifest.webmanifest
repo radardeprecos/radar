@@ -1,14 +1,18 @@
 {
-  "name": "Compara Preço",
-  "short_name": "Compara Preço",
-  "description": "Comparador inteligente com favoritos, alertas, recomendações e dashboard pessoal.",
-  "start_url": "/?source=pwa",
-  "scope": "/",
+  "name": "Radar de Preços",
+  "short_name": "Radar de Preços",
+  "description": "Comparador inteligente de preços com favoritos, alertas, recomendações e dashboard pessoal.",
+  "start_url": "/radar/?source=pwa",
+  "scope": "/radar/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#00c853",
-  "categories": ["shopping", "productivity", "utilities"],
+  "categories": [
+    "shopping",
+    "productivity",
+    "utilities"
+  ],
   "lang": "pt-BR",
   "icons": [
     {
@@ -30,14 +34,24 @@
       "short_name": "Lista",
       "description": "Abrir favoritos e alertas",
       "url": "/minha-lista/",
-      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "Recomendados",
       "short_name": "IA",
       "description": "Abrir recomendações personalizadas",
       "url": "/recomendados/",
-      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }

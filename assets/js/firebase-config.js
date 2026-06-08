@@ -1,5 +1,5 @@
 /*
- * Configuração Firebase do Compara Preço.
+ * Configuração Firebase do Radar de Preços.
  *
  * Para ativar Login Google, Firestore e sincronização real entre dispositivos:
  * 1. Crie um projeto no Firebase Console.
