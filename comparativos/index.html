@@ -1,135 +1,197 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparativos de Produtos — Qual o Melhor? | Radar de Preços</title>
+    <meta name="description" content="Compare produtos lado a lado. Análise detalhada de prós, contras e custo-benefício. Encontre o melhor produto para você.">
+    <link rel="canonical" href="https://radardeprecos.github.io/radar/comparativos/">
+    <meta name="google-adsense-account" content="ca-pub-4896859041377751">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Radar de Preços Premium | Alertas Inteligentes de Ofertas</title>
-<meta content="Compare produtos lado a lado. Análise detalhada de especificações, preços e avaliações. Encontre o melhor custo-benefício." name="description"/>
-<link href="https://radardeprecos.github.io/radar/comparativos/" rel="canonical"/>
-<link href="../assets/css/style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap&amp;display=swap" rel="stylesheet"/>
-<!-- Google tag (gtag.js) -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-P0X4Z9Y7B2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-P0X4Z9Y7B2');
-</script>
-<meta content="ca-pub-4896859041377751" name="google-adsense-account"/>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Radar de Preços",
-      "item": "https://radardeprecos.github.io/radar/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Comparativos",
-      "item": "https://radardeprecos.github.io/radar/comparativos/"
-    }
-  ]
-}
-</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',sans-serif; background:#f5f7fa; color:#1e293b; }
+        .site-header { background:linear-gradient(135deg,#1a73e8,#0d47a1); padding:16px 20px; color:white; }
+        .site-header .inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+        .site-header .logo { color:white; font-size:20px; font-weight:800; text-decoration:none; }
+        .site-header nav a { color:rgba(255,255,255,0.85); font-size:14px; margin-left:20px; text-decoration:none; }
+        .container { max-width:1100px; margin:0 auto; padding:30px 20px; }
+        .page-title { text-align:center; margin-bottom:40px; }
+        .page-title h1 { font-size:32px; font-weight:800; color:#0f172a; margin-bottom:12px; }
+        .page-title p { color:#64748b; font-size:16px; }
+        .comp-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+        .comp-card { background:white; padding:20px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); text-decoration:none; color:#1e293b; transition:all 0.2s; display:block; }
+        .comp-card:hover { transform:translateY(-3px); box-shadow:0 6px 16px rgba(0,0,0,0.12); text-decoration:none; }
+        .vs-label { display:inline-block; background:#1a73e8; color:white; padding:3px 12px; border-radius:20px; font-size:12px; font-weight:800; margin-bottom:12px; }
+        .comp-names { display:flex; flex-direction:column; gap:4px; margin-bottom:14px; }
+        .comp-names span { font-size:14px; font-weight:600; color:#0f172a; }
+        .comp-names strong { font-size:12px; color:#94a3b8; }
+        .comp-cta { font-size:13px; color:#1a73e8; font-weight:600; }
+        footer { background:#0f172a; color:#94a3b8; padding:30px 20px; text-align:center; margin-top:40px; }
+        footer p { font-size:13px; margin-bottom:6px; }
+        footer a { color:#64748b; }
+    </style>
 </head>
 <body>
-<header style="background: var(--primary); padding: 20px; color: white; text-align: center;">
-    <h1 style="margin:0; font-size: 24px;">📡 Radar de Preços</h1>
-    <p style="margin:5px 0 0; opacity: 0.9;">Onde a economia encontra a inteligência.</p>
+<header class="site-header">
+    <div class="inner">
+        <a href="https://radardeprecos.github.io/radar/" class="logo">📡 Radar de Preços</a>
+        <nav>
+            <a href="https://radardeprecos.github.io/radar/categorias/">Categorias</a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/">Comparativos</a>
+            <a href="https://radardeprecos.github.io/radar/noticias/">Blog</a>
+            <a href="https://radardeprecos.github.io/radar/sobre/">Sobre</a>
+        </nav>
+    </div>
 </header>
-<section class="main-hero">
-<div class="container">
-<h1>⚖️ Central de Comparativos</h1>
-<p>Compare produtos lado a lado e encontre o melhor custo-benefício.</p>
-</div>
-</section>
 <main class="container">
-<section class="section">
-<div class="section-header">
-<h2>Filtrar por Categoria</h2>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 40px;">
-<button class="btn" onclick="filterComparisons('todos')" style="background: var(--primary);">Todos</button>
-<button class="btn" onclick="filterComparisons('celulares')">📱 Celulares</button>
-<button class="btn" onclick="filterComparisons('notebooks')">💻 Notebooks</button>
-<button class="btn" onclick="filterComparisons('tvs')">📺 TVs</button>
-<button class="btn" onclick="filterComparisons('tablets')">📱 Tablets</button>
-<button class="btn" onclick="filterComparisons('fones')">🎧 Fones</button>
-</div>
-</section>
-<section class="section">
-<div class="section-header">
-<h2>📊 Comparativos Disponíveis</h2>
-</div>
-
-</section>
+    <div class="page-title">
+        <h1>🥊 Comparativos de Produtos</h1>
+        <p>Compare produtos lado a lado e descubra qual oferece o melhor custo-benefício para você.</p>
+    </div>
+    <div class="comp-grid">
+        
+            <a href="https://radardeprecos.github.io/radar/comparativos/celular-samsung-galaxy-a17-5g-com-ia-128gb-4gb-ram-cam-de-50-vs-smartphone-motorola-moto-g35-5g-128gb-12gb-4gb-ram8gb-ram-bo.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Celular Samsung Galaxy A17 5G Com Ia 128</span>
+                    <strong>vs</strong>
+                    <span>Smartphone Motorola Moto G35 5G 128Gb 12</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/smartphone-samsung-galaxy-a36-5g-128gb-6gb-ram-camera-tripla-vs-smartphone-samsung-galaxy-a36-5g-128gb-6gb-ram-camera-tripla.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Smartphone Samsung Galaxy A36 5G 128Gb 6</span>
+                    <strong>vs</strong>
+                    <span>Smartphone Samsung Galaxy A36 5G 128Gb 6</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/samsung-galaxy-a07-256gb-8gb-preto-vs-samsung-galaxy-a06-5g-128gb-preto.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Samsung Galaxy A07 256Gb 8Gb Preto</span>
+                    <strong>vs</strong>
+                    <span>Samsung Galaxy A06 5G 128Gb Preto</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/celular-samsung-galaxy-a17-com-ia-256gb-8gb-ram-cam-de-50mp--vs-celular-samsung-galaxy-a17-5g-com-ia-128gb-4gb-ram-cam-de-50.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Celular Samsung Galaxy A17 Com Ia 256Gb </span>
+                    <strong>vs</strong>
+                    <span>Celular Samsung Galaxy A17 5G Com Ia 128</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/smartphone-samsung-galaxy-s23-fe-256gb-creme-vs-smartphone-samsung-galaxy-a36-5g-128gb-6gb-ram-camera-tripla.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Smartphone Samsung Galaxy S23 Fe 256Gb C</span>
+                    <strong>vs</strong>
+                    <span>Smartphone Samsung Galaxy A36 5G 128Gb 6</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/console-playstation-5-slim-edicao-digital-825-gb-branco-vs-asus-rog-ally-z1-extreme-512gb.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Console Playstation 5 Slim Edicao Digita</span>
+                    <strong>vs</strong>
+                    <span>Asus Rog Ally Z1 Extreme 512Gb</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/controle-dualsense-ps5-branco-original-vs-headset-gamer-hyperx-cloud-stinger-core-pcps4xbox.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Controle Dualsense Ps5 Branco Original</span>
+                    <strong>vs</strong>
+                    <span>Headset Gamer Hyperx Cloud Stinger Core </span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/monitor-gamer-lg-ultragear-24-180hz-vs-monitor-gamer-lg-ultragear-24-24gs60f-b-ips-full-hd-180hz-1m.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Monitor Gamer Lg Ultragear 24 180Hz</span>
+                    <strong>vs</strong>
+                    <span>Monitor Gamer Lg Ultragear 24 24Gs60F B </span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/teclado-mecanico-gamer-redragon-kumara-switch-blue-vs-mouse-sem-fio-logitech-m170-preto.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Teclado Mecanico Gamer Redragon Kumara S</span>
+                    <strong>vs</strong>
+                    <span>Mouse Sem Fio Logitech M170 Preto</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/smart-tv-samsung-32-ls32h5000fgxzd-hd-led-wifi-hdmi-110220v-vs-smart-tv-philco-40-p40vik-led-roku-dolby-audio-wi-fi-hdmi-hd.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Smart Tv Samsung 32 Ls32H5000Fgxzd Hd Le</span>
+                    <strong>vs</strong>
+                    <span>Smart Tv Philco 40 P40Vik Led Roku Dolby</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/smart-tv-lg-uhd-ai-ua75-65-polegadas-hdr10-pro-processador-7-vs-smart-tv-philco-58-p58vik-4k-uhd-led-roku-dolby-audio-wi-fi-.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Smart Tv Lg Uhd Ai Ua75 65 Polegadas Hdr</span>
+                    <strong>vs</strong>
+                    <span>Smart Tv Philco 58 P58Vik 4K Uhd Led Rok</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/whey-protein-concentrado-100-900g-dark-lab-vs-creatina-monohidratada-pura-1kg-dark-lab-unidade-sem-sabor.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Whey Protein Concentrado 100 900G Dark L</span>
+                    <strong>vs</strong>
+                    <span>Creatina Monohidratada Pura 1Kg Dark Lab</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/creatina-monohidratada-250g-growth-supplements-sem-sabor-em--vs-creatina-monohidratada-pura-500g-dark-lab-unidade-sem-sabor.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Creatina Monohidratada 250G Growth Suppl</span>
+                    <strong>vs</strong>
+                    <span>Creatina Monohidratada Pura 500G Dark La</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/fritadeira-air-fryer-mondial-4l-inox-af-31-vs-cooktop-a-gas-fischer-4-bocas-fit-line-trempe-esmaltada-aram.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Fritadeira Air Fryer Mondial 4L Inox Af </span>
+                    <strong>vs</strong>
+                    <span>Cooktop A Gas Fischer 4 Bocas Fit Line T</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+            <a href="https://radardeprecos.github.io/radar/comparativos/chuveiro-eletronico-lorenzetti-acqua-duo-ultra-7800w-branco--vs-caixa-de-som-boombox-aiwa-aws-bbs-01b-200w-ip66-30hs-de-bate.html" class="comp-card">
+                <div class="vs-label">VS</div>
+                <div class="comp-names">
+                    <span>Chuveiro Eletronico Lorenzetti Acqua Duo</span>
+                    <strong>vs</strong>
+                    <span>Caixa De Som Boombox Aiwa Aws Bbs 01B 20</span>
+                </div>
+                <div class="comp-cta">Ver Comparativo →</div>
+            </a>
+    </div>
 </main>
-<footer class="footer">
-<div class="container">
-<p>© 2026 Radar de Preços. Comparativos Inteligentes.</p>
-<div class="footer-links">
-Blog
-Sobre
-Contato
-Privacidade
-Termos
-Quem Somos
-</div>
-</div>
-<div class="footer-partners" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-    <h4 style="color: white; margin-bottom: 15px; font-size: 16px;">🤝 Sites Parceiros</h4>
-    <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 13px;">
-        <a href="https://comprerapido.github.io/" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Compre Rápido</a>
-        <a href="https://radardeprecos.github.io/" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Radar de Preços</a>
-        
-        <a href="https://superninjas.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Super Ninjas</a>
-        <a href="https://granahoje.github.io" target="_blank" style="color: #888; text-decoration: none; transition: color 0.3s;">Grana Hoje</a>
-        
-    </div>
-</div>
+<footer>
+    <p>© 2026 Radar de Preços — As melhores ofertas do Mercado Livre.</p>
+    <p><a href="https://radardeprecos.github.io/radar/privacidade/">Privacidade</a> · <a href="https://radardeprecos.github.io/radar/termos/">Termos</a> · <a href="https://radardeprecos.github.io/radar/sobre/">Sobre</a></p>
 </footer>
-<script src="../assets/js/app.js"></script>
-<script>
-// Dados de comparativos disponíveis
-const comparatives = [
-  {category: 'celulares', name: 'Samsung Galaxy A36 vs Moto G35', url: 'galaxy-a36-vs-moto-g35/', icon: '📱'},
-  {category: 'celulares', name: 'iPhone 15 vs Samsung S24', url: 'iphone-15-vs-s24/', icon: '📱'},
-  {category: 'notebooks', name: 'MacBook Pro vs Dell XPS', url: 'macbook-pro-vs-dell-xps/', icon: '💻'},
-  {category: 'tvs', name: 'LG OLED vs Samsung QLED', url: 'lg-oled-vs-samsung-qled/', icon: '📺'},
-  {category: 'tablets', name: 'iPad Pro vs Samsung Tab S9', url: 'ipad-pro-vs-tab-s9/', icon: '📱'},
-  {category: 'fones', name: 'Sony WH-1000XM5 vs AirPods Pro', url: 'sony-vs-airpods/', icon: '🎧'},
-];
-
-function renderComparatives(category = 'todos') {
-  const grid = document.getElementById('comparativesGrid');
-  const filtered = category === 'todos' ? comparatives : comparatives.filter(c => c.category === category);
-  
-  grid.innerHTML = filtered.map(comp => `
-    <div class="product-card">
-      <div style="font-size: 40px; text-align: center; margin-bottom: 10px;">${comp.icon}</div>
-      <h3>${comp.name}</h3>
-      <p style="color: var(--text-secondary); margin-bottom: 15px;">Análise detalhada e comparação de preços</p>
-      <a href="${comp.url}" class="btn" style="width: 100%;">Ver Comparativo</a>
-    </div>
-  `).join('');
-}
-
-function filterComparisons(category) {
-  renderComparatives(category);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  renderComparatives();
-});
-</script>
 </body>
 </html>

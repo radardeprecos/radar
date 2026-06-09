@@ -1,14 +1,9 @@
-# Robots.txt - Configuração automática do Radar Ninja
 User-agent: *
 Allow: /
 
 Sitemap: https://radardeprecos.github.io/radar/sitemap.xml
-Sitemap: https://radardeprecos.github.io/radar/sitemap-produtos.xml
-Sitemap: https://radardeprecos.github.io/radar/sitemap-categorias.xml
-Sitemap: https://radardeprecos.github.io/radar/sitemap-noticias.xml
-Sitemap: https://radardeprecos.github.io/radar/sitemap-guias.xml
-Sitemap: https://radardeprecos.github.io/radar/sitemap-paginas.xml
-Sitemap: https://radardeprecos.github.io/radar/sitemap-comparativos.xml
-Sitemap: https://radardeprecos.github.io/radar/sitemap-rankings.xml
 
-Crawl-delay: 1
+# Bloquear páginas desnecessárias
+Disallow: /assets/
+Disallow: /scripts/
+Disallow: /data/
