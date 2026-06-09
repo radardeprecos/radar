@@ -23,8 +23,8 @@ Copie os seguintes arquivos para a raiz do seu novo projeto:
 
 ## ⚙️ Configuração de Afiliados
 Os scripts agora suportam variáveis de ambiente:
-- `ML_AFILIADO_ID`: Seu ID do Mercado Livre (ex: vendas0nline)
-- `AMZ_AFILIADO_ID`: Seu ID da Amazon (ex: vendas0nline)
+- `ML_AFILIADO_ID`: Seu ID do Mercado Livre (ex: 60566305)
+- `AMZ_AFILIADO_ID`: Seu ID da Amazon (ex: 60566305)
 
 ## 📤 Publicação Automática
 O robô agora faz o `git push` automaticamente ao final do ciclo. Certifique-se de que o servidor tenha permissão de escrita no GitHub.

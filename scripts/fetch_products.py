@@ -7,7 +7,7 @@ from logger import logger
 # Configurações via Environment Variables (GitHub Secrets)
 ML_CLIENT_ID = os.environ.get("ML_CLIENT_ID")
 ML_CLIENT_SECRET = os.environ.get("ML_CLIENT_SECRET")
-ML_AFILIADO_ID = os.environ.get("ML_AFILIADO_ID", "vendas0nline")
+ML_AFILIADO_ID = os.environ.get("ML_AFILIADO_ID", "60566305")
 
 def get_access_token():
     if not ML_CLIENT_ID or not ML_CLIENT_SECRET:

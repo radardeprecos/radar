@@ -3,8 +3,8 @@ import re
 from bs4 import BeautifulSoup
 
 base_dir = '/home/ubuntu/radar_repo'
-ml_id = 'vendas0nline'
-amz_id = "vendas0nline"
+ml_id = '60566305'
+amz_id = "60566305"
 
 def audit_and_fix(file_path):
     try:
