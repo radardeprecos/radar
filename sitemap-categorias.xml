@@ -1,80 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://radardeprecos.github.io/categorias/asus/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/asus/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/beleza/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/beleza/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/casa/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/casa/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/celulares/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/celulares/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/eletrodomesticos/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/eletrodomesticos/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/ferramentas/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/ferramentas/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/games/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/games/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/informatica/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/informatica/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/lg/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/lg/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/motorola/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/motorola/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/philco/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/philco/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/samsung/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/samsung/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://radardeprecos.github.io/categorias/tv-e-video/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://radardeprecos.github.io/radar/categorias/tecnologia/</loc>
+    <lastmod>2026-06-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://radardeprecos.github.io/radar/categorias/tv-e-video/</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
