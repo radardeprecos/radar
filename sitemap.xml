@@ -28,4 +28,12 @@
     <loc>https://radardeprecos.github.io/radar/sitemap-rankings.xml</loc>
     <lastmod>2026-06-09</lastmod>
   </sitemap>
+  <sitemap>
+    <loc>https://radardeprecos.github.io/radar/sitemap-dinamico.xml</loc>
+    <lastmod>2026-06-09</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://radardeprecos.github.io/radar/sitemap-legado.xml</loc>
+    <lastmod>2026-06-09</lastmod>
+  </sitemap>
 </sitemapindex>

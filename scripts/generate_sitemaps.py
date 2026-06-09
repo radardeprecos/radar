@@ -276,6 +276,8 @@ def main():
         "sitemap-guias.xml",
         "sitemap-comparativos.xml",
         "sitemap-rankings.xml",
+        "sitemap-dinamico.xml",
+        "sitemap-legado.xml",
     ]
     generate_sitemap_index(all_sitemaps)
 

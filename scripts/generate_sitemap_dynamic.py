@@ -65,10 +65,11 @@ def generate_sitemap():
 { "\n".join(urls) }
 </urlset>"""
 
-    with open(os.path.join(base_dir, 'sitemap.xml'), 'w', encoding='utf-8') as f:
+    # Alterado para gerar sitemap-dinamico.xml para não conflitar com o Master Index
+    with open(os.path.join(base_dir, 'sitemap-dinamico.xml'), 'w', encoding='utf-8') as f:
         f.write(sitemap_content)
     
-    print(f"Sitemap dinâmico gerado com {len(urls)} URLs.")
+    print(f"Sitemap dinâmico gerado como sitemap-dinamico.xml com {len(urls)} URLs.")
 
 if __name__ == "__main__":
     generate_sitemap()
