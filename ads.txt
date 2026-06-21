@@ -3,4 +3,4 @@
 # Gerado em: 30/05/2026
 
 # Google AdSense
-google.com, ca-pub-4896859041377751, DIRECT, f08c47fec0942fa0
+google.com, pub-4896859041377751, DIRECT, f08c47fec0942fa0
