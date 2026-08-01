@@ -3,63 +3,63 @@
   "indexes": [
     {
       "category": "Celulares",
-      "score": 89,
-      "change": 0.85,
-      "status": "up"
-    },
-    {
-      "category": "TVs",
-      "score": 89,
-      "change": 1.75,
-      "status": "up"
-    },
-    {
-      "category": "Notebooks",
-      "score": 90,
-      "change": 0.16,
-      "status": "up"
-    },
-    {
-      "category": "Games",
-      "score": 96,
-      "change": -1.03,
-      "status": "down"
-    },
-    {
-      "category": "Eletrodomésticos",
-      "score": 83,
-      "change": -1.17,
-      "status": "down"
-    },
-    {
-      "category": "Informática",
-      "score": 97,
-      "change": -2.21,
-      "status": "down"
-    },
-    {
-      "category": "Livros",
-      "score": 74,
-      "change": -1.04,
-      "status": "down"
-    },
-    {
-      "category": "Moda",
-      "score": 78,
+      "score": 79,
       "change": 1.08,
       "status": "up"
     },
     {
-      "category": "Esportes",
-      "score": 87,
-      "change": -1.28,
+      "category": "TVs",
+      "score": 86,
+      "change": 0.04,
+      "status": "up"
+    },
+    {
+      "category": "Notebooks",
+      "score": 94,
+      "change": 1.01,
+      "status": "up"
+    },
+    {
+      "category": "Games",
+      "score": 72,
+      "change": -1.07,
       "status": "down"
     },
     {
-      "category": "Beleza",
-      "score": 70,
-      "change": 0.25,
+      "category": "Eletrodomésticos",
+      "score": 72,
+      "change": -2.31,
+      "status": "down"
+    },
+    {
+      "category": "Informática",
+      "score": 80,
+      "change": 1.41,
       "status": "up"
+    },
+    {
+      "category": "Livros",
+      "score": 91,
+      "change": 1.91,
+      "status": "up"
+    },
+    {
+      "category": "Moda",
+      "score": 94,
+      "change": 1.2,
+      "status": "up"
+    },
+    {
+      "category": "Esportes",
+      "score": 96,
+      "change": 1.28,
+      "status": "up"
+    },
+    {
+      "category": "Beleza",
+      "score": 82,
+      "change": -1.56,
+      "status": "down"
     }
   ]
 }
