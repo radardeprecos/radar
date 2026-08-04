@@ -3,62 +3,62 @@
   "indexes": [
     {
       "category": "Celulares",
-      "score": 71,
-      "change": 2.28,
-      "status": "up"
-    },
-    {
-      "category": "TVs",
-      "score": 93,
-      "change": -0.86,
-      "status": "down"
-    },
-    {
-      "category": "Notebooks",
-      "score": 85,
-      "change": 1.33,
-      "status": "up"
-    },
-    {
-      "category": "Games",
-      "score": 97,
-      "change": 1.14,
-      "status": "up"
-    },
-    {
-      "category": "Eletrodomésticos",
-      "score": 92,
-      "change": -1.16,
-      "status": "down"
-    },
-    {
-      "category": "Informática",
-      "score": 97,
-      "change": -1.17,
-      "status": "down"
-    },
-    {
-      "category": "Livros",
-      "score": 96,
-      "change": -0.6,
-      "status": "down"
-    },
-    {
-      "category": "Moda",
-      "score": 79,
+      "score": 89,
       "change": 2.2,
       "status": "up"
     },
     {
-      "category": "Esportes",
-      "score": 91,
-      "change": 1.12,
+      "category": "TVs",
+      "score": 84,
+      "change": 1.58,
       "status": "up"
+    },
+    {
+      "category": "Notebooks",
+      "score": 85,
+      "change": -0.4,
+      "status": "down"
+    },
+    {
+      "category": "Games",
+      "score": 94,
+      "change": -0.02,
+      "status": "down"
+    },
+    {
+      "category": "Eletrodomésticos",
+      "score": 92,
+      "change": 0.4,
+      "status": "up"
+    },
+    {
+      "category": "Informática",
+      "score": 96,
+      "change": -1.56,
+      "status": "down"
+    },
+    {
+      "category": "Livros",
+      "score": 74,
+      "change": -1.78,
+      "status": "down"
+    },
+    {
+      "category": "Moda",
+      "score": 92,
+      "change": 1.47,
+      "status": "up"
+    },
+    {
+      "category": "Esportes",
+      "score": 86,
+      "change": -2.3,
+      "status": "down"
     },
     {
       "category": "Beleza",
       "score": 97,
-      "change": 1.93,
+      "change": 1.75,
       "status": "up"
     }
   ]
