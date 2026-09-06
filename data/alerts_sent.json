@@ -1,50 +1,5 @@
 [
   {
-    "timestamp": "2026-09-05T22:51:57.024675",
-    "subject": "Pipeline Error",
-    "message": "Falha no script repair_public_artifacts_all.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/repair_public_artifacts_all.py': [Errno 2] No such file or directory\n"
-  },
-  {
-    "timestamp": "2026-09-05T22:51:57.094379",
-    "subject": "Pipeline Error",
-    "message": "Falha no script generate_hubs.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/generate_hubs.py': [Errno 2] No such file or directory\n"
-  },
-  {
-    "timestamp": "2026-09-05T22:51:57.163794",
-    "subject": "Pipeline Error",
-    "message": "Falha no script generate_sitemap_dynamic.py:   File \"/home/runner/work/radar/radar/scripts/generate_sitemap_dynamic.py\", line 66\n    </urlset>\"\"\"\n                ^\nSyntaxError: f-string expression part cannot include a backslash\n"
-  },
-  {
-    "timestamp": "2026-09-05T22:51:57.202045",
-    "subject": "Pipeline Error",
-    "message": "Falha no script seo_health_check.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/seo_health_check.py': [Errno 2] No such file or directory\n"
-  },
-  {
-    "timestamp": "2026-09-05T22:51:57.270198",
-    "subject": "Pipeline Error",
-    "message": "Falha no script advanced_health_report.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/advanced_health_report.py': [Errno 2] No such file or directory\n"
-  },
-  {
-    "timestamp": "2026-09-06T00:51:06.008840",
-    "subject": "Pipeline Error",
-    "message": "Falha no script fetch_products_realtime.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/fetch_products_realtime.py': [Errno 2] No such file or directory\n"
-  },
-  {
-    "timestamp": "2026-09-06T00:51:07.440745",
-    "subject": "Pipeline Error",
-    "message": "Falha no script clean_legacy_posts.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/clean_legacy_posts.py': [Errno 2] No such file or directory\n"
-  },
-  {
-    "timestamp": "2026-09-06T00:51:07.882867",
-    "subject": "Pipeline Error",
-    "message": "Falha no script repair_internal_links.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/repair_internal_links.py': [Errno 2] No such file or directory\n"
-  },
-  {
-    "timestamp": "2026-09-06T00:51:07.916544",
-    "subject": "Pipeline Error",
-    "message": "Falha no script repair_unicode_escapes.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/repair_unicode_escapes.py': [Errno 2] No such file or directory\n"
-  },
-  {
     "timestamp": "2026-09-06T00:51:07.950647",
     "subject": "Pipeline Error",
     "message": "Falha no script repair_public_artifacts_all.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/repair_public_artifacts_all.py': [Errno 2] No such file or directory\n"
@@ -246,6 +201,51 @@
   },
   {
     "timestamp": "2026-09-06T16:58:41.949395",
+    "subject": "Pipeline Error",
+    "message": "Falha no script advanced_health_report.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/advanced_health_report.py': [Errno 2] No such file or directory\n"
+  },
+  {
+    "timestamp": "2026-09-06T19:05:14.574582",
+    "subject": "Pipeline Error",
+    "message": "Falha no script fetch_products_realtime.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/fetch_products_realtime.py': [Errno 2] No such file or directory\n"
+  },
+  {
+    "timestamp": "2026-09-06T19:05:16.142075",
+    "subject": "Pipeline Error",
+    "message": "Falha no script clean_legacy_posts.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/clean_legacy_posts.py': [Errno 2] No such file or directory\n"
+  },
+  {
+    "timestamp": "2026-09-06T19:05:16.278706",
+    "subject": "Pipeline Error",
+    "message": "Falha no script repair_internal_links.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/repair_internal_links.py': [Errno 2] No such file or directory\n"
+  },
+  {
+    "timestamp": "2026-09-06T19:05:16.322920",
+    "subject": "Pipeline Error",
+    "message": "Falha no script repair_unicode_escapes.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/repair_unicode_escapes.py': [Errno 2] No such file or directory\n"
+  },
+  {
+    "timestamp": "2026-09-06T19:05:16.367153",
+    "subject": "Pipeline Error",
+    "message": "Falha no script repair_public_artifacts_all.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/repair_public_artifacts_all.py': [Errno 2] No such file or directory\n"
+  },
+  {
+    "timestamp": "2026-09-06T19:05:16.447088",
+    "subject": "Pipeline Error",
+    "message": "Falha no script generate_hubs.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/generate_hubs.py': [Errno 2] No such file or directory\n"
+  },
+  {
+    "timestamp": "2026-09-06T19:05:16.526154",
+    "subject": "Pipeline Error",
+    "message": "Falha no script generate_sitemap_dynamic.py:   File \"/home/runner/work/radar/radar/scripts/generate_sitemap_dynamic.py\", line 66\n    </urlset>\"\"\"\n                ^\nSyntaxError: f-string expression part cannot include a backslash\n"
+  },
+  {
+    "timestamp": "2026-09-06T19:05:16.570135",
+    "subject": "Pipeline Error",
+    "message": "Falha no script seo_health_check.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/seo_health_check.py': [Errno 2] No such file or directory\n"
+  },
+  {
+    "timestamp": "2026-09-06T19:05:16.648089",
     "subject": "Pipeline Error",
     "message": "Falha no script advanced_health_report.py: /opt/hostedtoolcache/Python/3.10.21/x64/bin/python: can't open file '/home/runner/work/radar/radar/scripts/advanced_health_report.py': [Errno 2] No such file or directory\n"
   }
