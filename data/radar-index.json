@@ -3,63 +3,63 @@
   "indexes": [
     {
       "category": "Celulares",
-      "score": 82,
-      "change": 1.12,
+      "score": 87,
+      "change": 0.66,
       "status": "up"
     },
     {
       "category": "TVs",
-      "score": 94,
-      "change": -1.77,
+      "score": 79,
+      "change": -0.67,
       "status": "down"
     },
     {
       "category": "Notebooks",
-      "score": 77,
-      "change": -1.69,
+      "score": 89,
+      "change": -0.14,
       "status": "down"
     },
     {
       "category": "Games",
-      "score": 74,
-      "change": -1.74,
-      "status": "down"
+      "score": 92,
+      "change": 2.13,
+      "status": "up"
     },
     {
       "category": "Eletrodomésticos",
-      "score": 92,
-      "change": -2.25,
+      "score": 72,
+      "change": -1.84,
       "status": "down"
     },
     {
       "category": "Informática",
-      "score": 88,
-      "change": 1.03,
-      "status": "up"
+      "score": 77,
+      "change": -0.52,
+      "status": "down"
     },
     {
       "category": "Livros",
-      "score": 70,
-      "change": -1.57,
-      "status": "down"
+      "score": 97,
+      "change": 0.79,
+      "status": "up"
     },
     {
       "category": "Moda",
-      "score": 74,
-      "change": 2.27,
-      "status": "up"
+      "score": 75,
+      "change": -2.35,
+      "status": "down"
     },
     {
       "category": "Esportes",
-      "score": 82,
-      "change": 2.23,
-      "status": "up"
+      "score": 97,
+      "change": -0.86,
+      "status": "down"
     },
     {
       "category": "Beleza",
-      "score": 72,
-      "change": -1.34,
-      "status": "down"
+      "score": 70,
+      "change": 0.43,
+      "status": "up"
     }
   ]
 }
